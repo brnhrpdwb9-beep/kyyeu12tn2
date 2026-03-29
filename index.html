@@ -2,194 +2,252 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Ôn Tập Lịch Sử - Cô Sen</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #f3f4f6; overflow: hidden; height: 100vh; display: flex; flex-direction: column; font-family: sans-serif; }
-        .quiz-container { flex: 1; overflow-y: auto; padding: 12px; }
-        .option-btn { transition: all 0.2s; text-align: left; width: 100%; padding: 10px; border: 2px solid #e5e7eb; border-radius: 8px; margin-bottom: 8px; display: flex; align-items: center; font-size: 14px; }
-        .option-btn:hover:not(:disabled) { border-color: #3b82f6; background-color: #eff6ff; }
-        .option-btn.correct { border-color: #10b981; background-color: #ecfdf5; font-weight: bold; }
-        .option-btn.wrong { border-color: #f87171; background-color: #fef2f2; }
-        .option-btn:disabled { cursor: default; }
-        .letter-circle { width: 24px; height: 24px; border-radius: 50%; background: #f3f4f6; display: flex; align-items: center; justify-content: center; margin-right: 10px; flex-shrink: 0; font-weight: bold; font-size: 12px; }
-        .correct .letter-circle { background: #10b981; color: white; }
-        .wrong .letter-circle { background: #ef4444; color: white; }
-        .explanation-box { background-color: #fffbeb; border: 1px solid #fef3c7; border-radius: 8px; padding: 10px; margin-top: 10px; font-size: 13px; color: #92400e; display: none; }
-        .nav-dot { width: 28px; height: 28px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold; border: 1px solid #d1d5db; cursor: pointer; transition: 0.2s; }
-        .nav-dot.active { border: 2px solid #3b82f6; transform: scale(1.1); }
-        .nav-dot.answered-correct { background-color: #d1fae5; color: #065f46; border-color: #6ee7b7; }
-        .nav-dot.answered-wrong { background-color: #fee2e2; color: #991b1b; border-color: #fca5a5; }
+        body { 
+            background-color: #f1f5f9; 
+            font-family: system-ui, -apple-system, sans-serif; 
+            height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            overflow: hidden; 
+        }
+        
+        /* Khu vực nội dung có thể cuộn */
+        .content-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            padding-bottom: 80px; /* Tránh bị che bởi footer */
+        }
+
+        .option-btn {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            transition: all 0.2s;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        .option-btn.correct { border-color: #22c55e; background-color: #f0fdf4; color: #166534; font-weight: 600; }
+        .option-btn.wrong { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
+        
+        .letter {
+            width: 26px; height: 26px; border-radius: 50%;
+            background: #f1f5f9; display: flex; align-items: center;
+            justify-content: center; margin-right: 12px; font-weight: bold; flex-shrink: 0;
+        }
+        .correct .letter { background: #22c55e; color: white; }
+        .wrong .letter { background: #ef4444; color: white; }
+
+        /* Thanh điều hướng cố định ở dưới */
+        .sticky-footer {
+            background: white;
+            border-top: 1px solid #e2e8f0;
+            padding: 12px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+        }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 4px;
+            margin-top: 8px;
+        }
+
+        .nav-dot {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+            border-radius: 4px;
+            border: 1px solid #cbd5e1;
+            background: #f8fafc;
+            cursor: pointer;
+        }
+        .nav-dot.active { border: 2px solid #3b82f6; background: #eff6ff; color: #3b82f6; }
+        .nav-dot.done-correct { background: #22c55e; color: white; border-color: #16a34a; }
+        .nav-dot.done-wrong { background: #ef4444; color: white; border-color: #dc2626; }
+        
+        .explanation {
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 13px;
+            border-left: 4px solid;
+            display: none;
+        }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
-    <header class="bg-white border-b p-3 flex justify-between items-center shadow-sm">
+    <!-- Header cố định -->
+    <header class="bg-white border-b p-3 flex justify-between items-center shrink-0 shadow-sm">
         <div>
-            <h1 class="text-blue-700 font-bold text-base leading-tight">LỚP SỬ CÔ SEN</h1>
-            <p class="text-[10px] text-gray-500 uppercase tracking-wider font-semibold">Tài liệu độc quyền lớp VIP 2K8</p>
+            <h1 class="text-blue-700 font-bold text-base italic">SỬ CÔ SEN VIP</h1>
+            <p id="progress-text" class="text-[10px] text-gray-400 font-bold">CÂU 1/19</p>
         </div>
-        <div id="stats" class="bg-blue-50 px-3 py-1 rounded-full text-blue-700 font-bold text-xs border border-blue-100">
-            Tiến độ: 0/19
-        </div>
+        <div id="score-display" class="bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-bold">Đúng: 0</div>
     </header>
 
-    <!-- Quiz Content -->
-    <div class="quiz-container">
+    <!-- Nội dung câu hỏi (Có thể cuộn) -->
+    <div class="content-area" id="scroll-container">
         <div class="max-w-xl mx-auto">
-            <div id="quiz-card" class="bg-white rounded-xl shadow-md p-4 mb-4 border border-gray-100">
-                <div id="question-text" class="text-base font-bold mb-4 leading-snug">Câu hỏi sẽ hiện ở đây...</div>
-                
-                <div id="options-container">
-                    <!-- Options injected here -->
-                </div>
-
-                <div id="explanation" class="explanation-box">
-                    <strong>💡 Giải thích:</strong> <span id="explanation-text"></span>
-                </div>
-            </div>
-
-            <!-- Quick Jump Grid -->
-            <div class="flex flex-wrap justify-center gap-1.5 mb-4 p-2 bg-white rounded-lg shadow-sm border border-gray-100">
-                <script>
-                    for(let i=1; i<=19; i++) {
-                        document.write(`<div id="dot-${i}" onclick="jumpTo(${i-1})" class="nav-dot bg-gray-50 text-gray-400"> ${i} </div>`);
-                    }
-                </script>
-            </div>
+            <div id="question" class="text-lg font-bold text-slate-800 mb-4 leading-tight">...</div>
+            <div id="options"></div>
+            <div id="explanation-box" class="explanation"></div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-white border-t p-3 flex justify-between items-center">
-        <button id="prev-btn" onclick="prev()" class="px-4 py-2 text-gray-500 font-bold text-sm hover:bg-gray-100 rounded-lg flex items-center disabled:opacity-30">
-            ← Trước
-        </button>
-        
-        <div id="score-display" class="hidden text-sm font-bold text-green-600">
-            Đúng: <span id="correct-count">0</span>/19
+    <!-- Thanh điều hướng cố định (Luôn hiện trên màn hình) -->
+    <footer class="sticky-footer shadow-[0_-4px_10px_rgba(0,0,0,0.05)]">
+        <div class="max-w-xl mx-auto">
+            <div class="flex gap-3 mb-2">
+                <button onclick="change(currentIndex-1)" id="btn-prev" class="flex-1 py-3 bg-slate-100 text-slate-600 font-bold rounded-xl active:scale-95 disabled:opacity-30">← Trước</button>
+                <button onclick="change(currentIndex+1)" id="btn-next" class="flex-[2] py-3 bg-blue-600 text-white font-bold rounded-xl shadow-md active:scale-95 transition-all">Tiếp theo →</button>
+            </div>
+            
+            <!-- Lưới câu hỏi thu nhỏ -->
+            <div id="nav-grid" class="nav-grid"></div>
         </div>
-
-        <button id="next-btn" onclick="next()" class="px-6 py-2 bg-blue-600 text-white font-bold text-sm rounded-lg shadow-md hover:bg-blue-700">
-            Tiếp →
-        </button>
     </footer>
+
+    <!-- Âm thanh -->
+    <audio id="snd-correct" src="https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3"></audio>
+    <audio id="snd-wrong" src="https://assets.mixkit.co/active_storage/sfx/2019/2019-preview.mp3"></audio>
 
     <script>
         const quizData = [
-            { q: "Chủ tịch Hồ Chí Minh xuất thân trong một gia đình", a: "A", o: ["nhà nho yêu nước.", "tiểu tư sản trí thức.", "bần cố nông.", "tư sản dân tộc."], e: "Người sinh ra trong gia đình nhà nho yêu nước tại làng Sen, Nam Đàn, Nghệ An." },
-            { q: "Năm 1908, Nguyễn Tất Thành có hoạt động nào sau đây?", a: "B", o: ["Ra Lời kêu gọi toàn quốc kháng chiến.", "Tham gia phong trào chống thuế ở Huế.", "Tham gia Hội Liên hiệp thuộc địa ở Pa-ri.", "Bắt đầu hành trình tìm đường cứu nước."], e: "Năm 1908, Người tham gia biểu tình chống thuế tại Thừa Thiên Huế." },
-            { q: "Nhân tố thúc đẩy Nguyễn Ái Quốc sang phương Tây tìm đường cứu nước (1911) là:", a: "B", o: ["Thất bại bước đầu của phong trào Đông Du.", "Những đòi hỏi bức thiết của toàn dân tộc.", "Sự phát triển của hệ thống xã hội chủ nghĩa.", "Ách thống trị tàn bạo của chế độ phát xít."], e: "Yêu cầu thực tiễn của sự nghiệp cứu nước đòi hỏi phải tìm ra một con đường mới." },
-            { q: "Trước khi Nguyễn Tất Thành ra đi tìm đường cứu nước (1911), tình hình VN có đặc điểm gì?", a: "C", o: ["Mâu thuẫn công nhân - địa chủ là cơ bản.", "Thực dân Pháp câu kết tay sai xâm lược.", "Phong trào chống Pháp diễn ra sôi nổi nhưng thất bại.", "Khuynh hướng phong kiến và tư sản cùng xuất hiện."], e: "Các phong trào Cần vương và xu hướng cải cách đều lâm vào bế tắc." },
-            { q: "Yếu tố cơ bản tác động đến quyết định ra đi tìm đường cứu nước của Nguyễn Tất Thành là:", a: "B", o: ["Phong trào theo khuynh hướng tư sản chấm dứt.", "Đất nước mất độc lập, sự nghiệp cứu nước bế tắc.", "Phong trào chống Pháp ngừng hoạt động.", "Nhân dân phản đối sĩ phu phong kiến."], e: "Sự bế tắc về đường lối của các bậc tiền bối thúc đẩy Người ra đi." },
-            { q: "Từ 1890 đến 1911, Nguyễn Tất Thành có hoạt động tiêu biểu nào?", a: "A", o: ["Dạy học ở Trường Dục Thanh (Phan Thiết).", "Hoạt động yêu nước ở Pháp, Liên Xô.", "Trình bày tham luận ở Hội nghị Véc-xai.", "Mở lớp đào tạo cán bộ ở Trung Quốc."], e: "Người dừng chân dạy học tại trường Dục Thanh (1910) trước khi vào Nam." },
-            { q: "Trong những năm 1911-1919, Nguyễn Tất Thành có hoạt động tiêu biểu nào?", a: "A", o: ["Tìm hiểu thực tiễn các nước trên thế giới.", "Sáng lập Đảng Cộng sản Việt Nam.", "Tham gia sáng lập Đảng Cộng sản Pháp.", "Thành lập Thanh niên Cộng sản đoàn."], e: "Người đi qua nhiều châu lục để khảo sát xã hội thực dân và đế quốc." },
-            { q: "Trong những năm 1920-1930, hoạt động của Người KHÔNG có sự kiện nào?", a: "C", o: ["Xác định con đường theo cách mạng vô sản.", "Lựa chọn con đường theo cách mạng vô sản.", "Trở về nước trực tiếp lãnh đạo phong trào.", "Chuẩn bị các điều kiện thành lập Đảng."], e: "Mãi đến đầu năm 1941, Nguyễn Ái Quốc mới trực tiếp trở về nước lãnh đạo." },
-            { q: "Trong kháng chiến chống Pháp (1945-1954), Người có vai trò nổi bật nào?", a: "A", o: ["Hoạch định đường lối xây dựng và bảo vệ chế độ.", "Đề ra kế hoạch Tổng tiến công ở Việt Bắc.", "Chủ trì Đại hội đại biểu lần III của Đảng.", "Trực tiếp chỉ đạo xây dựng CNXH miền Bắc."], e: "Hồ Chí Minh là người hoạch định đường lối kháng chiến và kiến quốc đúng đắn." },
-            { q: "Nguyễn Ái Quốc tìm thấy con đường cứu nước khi đang ở quốc gia nào?", a: "C", o: ["Anh.", "Liên Xô.", "Pháp.", "Trung Quốc."], e: "Tháng 7/1920 tại Paris (Pháp), Người đọc được bản Luận cương của Lênin." },
-            { q: "Nội dung SAI về yếu tố gia đình ảnh hưởng đến Hồ Chí Minh là:", a: "A", o: ["Cụ Sắc rút ra bài học thất bại dân chủ tư sản.", "Truyền thống quê hương được gia đình nuôi dưỡng.", "Thân mẫu xuất thân nhà nho, sống chan hòa.", "Thân phụ là người thầy mẫu mực dạy chữ, dạy người."], e: "Thân phụ là cụ phó bảng Nguyễn Sinh Sắc, một nhà nho yêu nước tiến bộ." },
-            { q: "Hành trình tìm đường cứu nước của Người kết thúc khi:", a: "C", o: ["Tham gia Hội Liên hiệp thuộc địa (1921).", "Sáng lập Đảng Cộng sản Pháp (12/1920).", "Trở thành người Cộng sản đầu tiên (12/1920).", "Đọc Sơ thảo Luận cương của Lênin (7/1920)."], e: "Trở thành người cộng sản đánh dấu Người đã tìm thấy và lựa chọn con đường." },
-            { q: "Hoạt động nào KHÔNG phải của Người tại Trung Quốc?", a: "D", o: ["Mở lớp đào tạo cán bộ ở Quảng Châu.", "Thành lập Hội VN Cách mạng Thanh niên.", "Xuất bản tác phẩm Đường Kách mệnh.", "Tham dự Hội nghị Quốc tế Nông dân."], e: "Hội nghị Quốc tế Nông dân (1923) Người tham dự khi đang ở Liên Xô." },
-            { q: "Sự phân hóa Hội VN Cách mạng Thanh niên năm 1929 dẫn đến:", a: "A", o: ["Đông Dương CS đảng, An Nam CS đảng.", "An Nam CS đảng, VN Quốc dân đảng.", "Đông Dương CS đảng, ĐDCS liên đoàn.", "ĐDCS liên đoàn, An Nam CS đảng."], e: "Phân hóa thành hai tổ chức cộng sản đầu tiên (6/1929 và 8/1929)." },
-            { q: "Hội nghị thành lập Đảng (1930) diễn ra tại quốc gia nào?", a: "D", o: ["Liên Xô.", "Thái Lan.", "Pháp.", "Trung Quốc."], e: "Hợp nhất các tổ chức CS tại Hương Cảng (Trung Quốc) đầu năm 1930." },
-            { q: "Chiến lược, sách lược cách mạng được hoạch định hoàn chỉnh trong:", a: "A", o: ["Cương lĩnh chính trị đầu tiên (1930).", "Tác phẩm Đường Kách mệnh (1927).", "Luận cương chính trị (10/1930).", "Bản án chế độ thực dân Pháp (1925)."], e: "Cương lĩnh 1930 là văn kiện hoàn chỉnh về đường lối giải phóng dân tộc." },
-            { q: "Hành trình tìm đường cứu nước của Người ghi nhận kết thúc bằng sự kiện:", a: "C", o: ["Gia nhập Hội người VN yêu nước (1917).", "Tham dự Đại hội thành lập Quốc tế III.", "Lựa chọn con đường cách mạng vô sản (1920).", "Gửi bản Yêu sách nhân dân An Nam (1919)."], e: "Kết thúc hành trình 9 năm khi tìm thấy và lựa chọn con đường vô sản." },
-            { q: "Hoạt động tại Liên Xô (1923-1924), Người đã tham dự hội nghị:", a: "A", o: ["Hội nghị Quốc tế Nông dân.", "Thành lập Đảng Cộng sản Pháp.", "Thành lập Đảng Thanh niên.", "Thành lập Đảng Cộng sản."], e: "Người tham gia Quốc tế Nông dân và Đại hội V Quốc tế Cộng sản tại Liên Xô." },
-            { q: "Yếu tố QUYẾT ĐỊNH việc Người ra đi tìm đường cứu nước:", a: "A", o: ["Khủng hoảng, bế tắc về đường lối cứu nước.", "Truyền thống gia đình và quê hương.", "Mong muốn khám phá văn minh thế giới.", "Chế độ phong kiến không phù hợp."], e: "Sự bế tắc của các xu hướng cũ đòi hỏi một người lãnh đạo có con đường mới." }
+            { q: "Chủ tịch Hồ Chí Minh xuất thân trong một gia đình", a: "A", o: ["nhà nho yêu nước.", "tiểu tư sản trí thức.", "bần cố nông.", "tư sản dân tộc."], e: "Chính xác! Cụ Nguyễn Sinh Sắc thân phụ Người là một phó bảng nhà nho yêu nước.", w: "Chưa đúng. Tuy gia đình Người nghèo nhưng thuộc tầng lớp trí thức nho giáo yêu nước, không phải gia đình lao động thuần túy hay tư sản." },
+            { q: "Năm 1908, Nguyễn Tất Thành có hoạt động nào sau đây?", a: "B", o: ["Ra Lời kêu gọi toàn quốc kháng chiến.", "Tham gia phong trào chống thuế ở Huế.", "Tham gia Hội Liên hiệp thuộc địa ở Pa-ri.", "Bắt đầu hành trình tìm đường cứu nước."], e: "Đúng. Đây là sự kiện đầu tiên thể hiện tinh thần nhập thế, đấu tranh vì dân của Người.", w: "Hoạt động này diễn ra muộn hơn. Năm 1908 Người còn đi học và tham gia biểu tình chống thuế tại Huế." },
+            { q: "Nhân tố thúc đẩy Nguyễn Ái Quốc sang phương Tây tìm đường cứu nước (1911) là:", a: "B", o: ["Thất bại bước đầu của phong trào Đông Du.", "Những đòi hỏi bức thiết của toàn dân tộc.", "Sự phát triển của hệ thống xã hội chủ nghĩa.", "Ách thống trị tàn bạo của chế độ phát xít."], e: "Đúng! Cứu nước là yêu cầu khách quan của lịch sử lúc bấy giờ.", w: "Thời điểm 1911 chưa có phát xít hay hệ thống XHCN. Sự bế tắc của các phong trào cũ mới là nguyên nhân chính." },
+            { q: "Trước năm 1911, tình hình Việt Nam có đặc điểm nổi bật nào?", a: "C", o: ["Mẫu thuẫn công nhân - địa chủ là cơ bản.", "Thực dân Pháp câu kết tay sai xâm lược.", "Phong trào chống Pháp diễn ra sôi nổi nhưng đều thất bại.", "Khuynh hướng phong kiến và tư sản cùng xuất hiện."], e: "Rất tốt. Chính vì thất bại nên Người mới phải ra đi tìm đường cứu nước mới.", w: "Lúc này mâu thuẫn dân tộc là chủ yếu. Các phong trào nổ ra sôi nổi nhưng chưa có đường lối đúng nên đều thất bại." },
+            { q: "Yếu tố cơ bản tác động đến quyết định ra đi tìm đường cứu nước (1911) là:", a: "B", o: ["Phong trào theo khuynh hướng tư sản đã chấm dứt.", "Đất nước mất độc lập, sự nghiệp cứu nước bế tắc.", "Phong trào chống Pháp đã ngừng hoạt động.", "Nhân dân phản đối sĩ phu phong kiến."], e: "Đúng. Khủng hoảng về đường lối cứu nước là yếu tố trực tiếp nhất.", w: "Lưu ý: Phong trào chưa ngừng hẳn, nhưng sự bế tắc của các con đường hiện có mới là lý do thúc đẩy Người ra đi." },
+            { q: "Từ năm 1890 đến năm 1911, Nguyễn Tất Thành có hoạt động tiêu biểu nào?", a: "A", o: ["Dạy học ở Trường Dục Thanh (Phan Thiết).", "Hoạt động yêu nước ở Pháp, Liên Xô.", "Trình bày tham luận ở Hội nghị Véc-xai.", "Mở lớp đào tạo cán bộ ở Trung Quốc."], e: "Chính xác. Người dạy học tại trường Dục Thanh (1910) trước khi vào Sài Gòn.", w: "Các hoạt động ở nước ngoài (Pháp, Liên Xô, Trung Quốc) đều diễn ra sau khi Người rời bến Nhà Rồng (1911)." },
+            { q: "Trong những năm 1911-1919, Nguyễn Tất Thành có hoạt động tiêu biểu nào?", a: "A", o: ["Tìm hiểu thực tiễn các nước trên thế giới.", "Sáng lập Đảng Cộng sản Việt Nam.", "Tham gia sáng lập Đảng Cộng sản Pháp.", "Thành lập Thanh niên Cộng sản đoàn."], e: "Đúng. Đây là giai đoạn khảo sát, tích lũy thực tế quý báu tại nhiều nước.", w: "Việc sáng lập các tổ chức cộng sản chỉ bắt đầu từ năm 1920 khi Người đã tiếp cận chủ nghĩa Mác - Lênin." },
+            { q: "Giai đoạn 1920-1930, hoạt động của Nguyễn Ái Quốc KHÔNG có sự kiện nào?", a: "C", o: ["Xác định con đường theo cách mạng vô sản.", "Lựa chọn con đường theo cách mạng vô sản.", "Trở về nước trực tiếp lãnh đạo giải phóng dân tộc.", "Chuẩn bị các điều kiện thành lập Đảng."], e: "Đúng. Người chỉ chính thức trở về nước trực tiếp lãnh đạo từ đầu năm 1941.", w: "Từ 1920-1930 là thời gian Người hoạt động ở nước ngoài để chuẩn bị mọi mặt cho việc thành lập Đảng." },
+            { q: "Trong kháng chiến chống Pháp (1945-1954), Hồ Chí Minh có vai trò:", a: "A", o: ["Hoạch định đường lối xây dựng và bảo vệ chế độ.", "Đề ra kế hoạch Tổng tiến công ở Việt Bắc.", "Chủ trì Đại hội đại biểu lần III của Đảng.", "Trực tiếp chỉ đạo xây dựng CNXH miền Bắc."], e: "Đúng. Hồ Chí Minh là linh hồn, người vạch ra đường lối chiến lược.", w: "Kế hoạch quân sự do Bộ Tổng tư lệnh thực hiện. Đại hội III và xây dựng CNXH miền Bắc thuộc giai đoạn sau 1954." },
+            { q: "Nguyễn Ái Quốc tìm thấy con đường cứu nước khi đang ở quốc gia nào?", a: "C", o: ["Anh.", "Liên Xô.", "Pháp.", "Trung Quốc."], e: "Chính xác. Paris (Pháp) là nơi Người đọc bản Sơ thảo Luận cương của Lênin tháng 7/1920.", w: "Dù đi nhiều nước, nhưng Pháp mới là nơi Người tìm thấy ánh sáng con đường giải phóng vô sản." },
+            { q: "Nội dung SAI về yếu tố gia đình ảnh hưởng đến Hồ Chí Minh:", a: "A", o: ["Cụ Sắc rút ra bài học thất bại dân chủ tư sản.", "Truyền thống quê hương được gia đình nuôi dưỡng.", "Thân mẫu xuất thân nhà nho, sống chan hòa.", "Thân phụ là người thầy mẫu mực."], e: "Đúng. Cụ Nguyễn Sinh Sắc là nhà nho yêu nước, nhưng không liên quan đến bài học dân chủ tư sản.", w: "Các phương án còn lại đều phản ánh đúng về gia đình Người." },
+            { q: "Hành trình tìm đường cứu nước của Người kết thúc khi:", a: "C", o: ["Gia nhập Hội người VN yêu nước (1917).", "Sáng lập Đảng Cộng sản Pháp (12/1920).", "Trở thành người Cộng sản Việt Nam đầu tiên (12/1920).", "Đọc Sơ thảo Luận cương của Lênin (7/1920)."], e: "Chính xác. Việc bỏ phiếu gia nhập Quốc tế III là dấu mốc hoàn thành việc tìm đường.", w: "Đọc Luận cương là tìm thấy, nhưng phải đến Đại hội Tua (12/1920) Người mới chính thức chọn con đường cộng sản." },
+            { q: "Hoạt động nào KHÔNG phải của Người tại Trung Quốc?", a: "D", o: ["Mở lớp đào tạo cán bộ ở Quảng Châu.", "Thành lập Hội VN Cách mạng Thanh niên.", "Xuất bản tác phẩm Đường Kách mệnh.", "Tham dự Hội nghị Quốc tế Nông dân."], e: "Đúng. Hội nghị Quốc tế Nông dân diễn ra ở Liên Xô (1923).", w: "Các hoạt động ở Quảng Châu (mở lớp, lập Hội Thanh niên, viết sách) là trọng tâm hoạt động của Người tại Trung Quốc." },
+            { q: "Sự phân hóa của Hội VNCM Thanh niên năm 1929 dẫn đến tổ chức nào?", a: "A", o: ["Đông Dương CS đảng, An Nam CS đảng.", "An Nam CS đảng, VN Quốc dân đảng.", "Đông Dương CS đảng, ĐDCS liên đoàn.", "ĐDCS liên đoàn, An Nam CS đảng."], e: "Chính xác. Sự phân hóa này dẫn tới sự ra đời của 2 tổ chức cộng sản liên tiếp.", w: "VN Quốc dân đảng và ĐDCS Liên đoàn không ra đời trực tiếp từ sự phân hóa của Hội Thanh niên." },
+            { q: "Người chủ trì Hội nghị thành lập Đảng (1930) khi đang ở:", a: "D", o: ["Liên Xô.", "Thái Lan.", "Pháp.", "Trung Quốc."], e: "Đúng. Hội nghị diễn ra tại Cửu Long (Hương Cảng, Trung Quốc).", w: "Lúc đó Người từ Thái Lan sang Trung Quốc để triệu tập hội nghị hợp nhất." },
+            { q: "Chiến lược và sách lược cách mạng VN được hoạch định hoàn chỉnh trong:", a: "A", o: ["Cương lĩnh chính trị đầu tiên (1930).", "Tác phẩm Đường Kách mệnh (1927).", "Luận cương chính trị (10/1930).", "Bản án chế độ thực dân Pháp (1925)."], e: "Chính xác. Cương lĩnh do Người soạn thảo mang tính đúng đắn và sáng tạo.", w: "Luận cương tháng 10 có phần máy móc, không đề cao vấn đề dân tộc như Cương lĩnh của Người." },
+            { q: "Sự kiện kết thúc hành trình tìm đường cứu nước là:", a: "C", o: ["Gia nhập Hội người VN yêu nước (1917).", "Tham dự Đại hội Quốc tế III (1919).", "Lựa chọn con đường cách mạng vô sản (1920).", "Gửi bản Yêu sách nhân dân An Nam (1919)."], e: "Hoàn toàn đúng.", w: "Gửi yêu sách hay gia nhập Hội người yêu nước là các bước trung gian trong hành trình tìm tòi." },
+            { q: "Tại Liên Xô (1923-1924), Nguyễn Ái Quốc tham dự:", a: "A", o: ["Hội nghị Quốc tế Nông dân.", "Thành lập Đảng Cộng sản Pháp.", "Thành lập Đảng Thanh niên.", "Thành lập Đảng Cộng sản."], e: "Đúng. Người tham dự Đại hội V Quốc tế Cộng sản và Quốc tế Nông dân.", w: "Đảng Pháp thành lập năm 1920 tại Pháp." },
+            { q: "Yếu tố QUYẾT ĐỊNH việc Nguyễn Tất Thành ra đi tìm đường cứu nước:", a: "A", o: ["Đất nước bị khủng hoảng, bế tắc về đường lối.", "Truyền thống của gia đình và quê hương.", "Mong muốn tìm hiểu văn minh thế giới.", "Chế độ phong kiến không còn phù hợp."], e: "Chính xác. Nhu cầu lịch sử đòi hỏi một con đường mới.", w: "Gia đình là nền tảng, nhưng sự bế tắc của các tiền bối mới là động lực quyết định Người phải ra đi." }
         ];
 
         let currentIndex = 0;
-        let answers = {};
-        let corrects = 0;
+        let userAnswers = {};
+        let correctCount = 0;
+
+        function initNav() {
+            const grid = document.getElementById('nav-grid');
+            grid.innerHTML = '';
+            quizData.forEach((_, i) => {
+                const dot = document.createElement('div');
+                dot.className = 'nav-dot';
+                dot.id = `nav-${i}`;
+                dot.innerText = i + 1;
+                dot.onclick = () => change(i);
+                grid.appendChild(dot);
+            });
+        }
 
         function render() {
             const data = quizData[currentIndex];
-            document.getElementById('question-text').innerText = `Câu ${currentIndex + 1}. ${data.q}`;
-            const container = document.getElementById('options-container');
-            container.innerHTML = '';
+            const answered = userAnswers[currentIndex] !== undefined;
             
-            data.o.forEach((opt, idx) => {
-                const letter = String.fromCharCode(65 + idx);
+            document.getElementById('question').innerText = `Câu ${currentIndex + 1}: ${data.q}`;
+            document.getElementById('progress-text').innerText = `CÂU ${currentIndex + 1}/19`;
+            
+            const optionsDiv = document.getElementById('options');
+            optionsDiv.innerHTML = '';
+            
+            data.o.forEach((text, i) => {
+                const char = String.fromCharCode(65 + i);
                 const btn = document.createElement('button');
                 btn.className = 'option-btn';
-                btn.innerHTML = `<span class="letter-circle">${letter}</span> <span>${opt}</span>`;
+                btn.innerHTML = `<div class="letter">${char}</div> <span>${text}</span>`;
                 
-                const answered = answers[currentIndex];
                 if (answered) {
                     btn.disabled = true;
-                    if (letter === data.a) btn.classList.add('correct');
-                    else if (letter === answered) btn.classList.add('wrong');
-                    else btn.style.opacity = '0.4';
+                    if (char === data.a) btn.classList.add('correct');
+                    if (char === userAnswers[currentIndex] && char !== data.a) btn.classList.add('wrong');
+                    if (char !== data.a && char !== userAnswers[currentIndex]) btn.style.opacity = '0.3';
                 } else {
-                    btn.onclick = () => select(letter);
+                    btn.onclick = () => select(char);
                 }
-                container.appendChild(btn);
+                optionsDiv.appendChild(btn);
             });
 
-            // Dot navigation
-            for(let i=0; i<19; i++) {
-                const dot = document.getElementById(`dot-${i+1}`);
-                dot.className = 'nav-dot';
-                if (i === currentIndex) dot.classList.add('active');
-                if (answers[i]) {
-                    if (answers[i] === quizData[i].a) dot.classList.add('answered-correct');
-                    else dot.classList.add('answered-wrong');
-                } else {
-                    dot.classList.add('bg-gray-50', 'text-gray-400');
-                }
-            }
-
-            // Explanation
-            const exp = document.getElementById('explanation');
-            if (answers[currentIndex]) {
-                exp.style.display = 'block';
-                document.getElementById('explanation-text').innerText = data.e;
+            const expBox = document.getElementById('explanation-box');
+            if (answered) {
+                const isCorrect = userAnswers[currentIndex] === data.a;
+                expBox.style.display = 'block';
+                expBox.className = `explanation ${isCorrect ? 'bg-green-50 border-green-500 text-green-800' : 'bg-orange-50 border-orange-500 text-orange-800'}`;
+                expBox.innerHTML = `<strong>${isCorrect ? '✅ Đúng rồi:' : '❌ Giải thích:'}</strong> ${isCorrect ? data.e : data.w}`;
             } else {
-                exp.style.display = 'none';
+                expBox.style.display = 'none';
             }
 
-            // Stats
-            document.getElementById('stats').innerText = `Tiến độ: ${Object.keys(answers).length}/19`;
-            document.getElementById('prev-btn').disabled = currentIndex === 0;
+            // Update Nav Dot
+            quizData.forEach((_, i) => {
+                const dot = document.getElementById(`nav-${i}`);
+                dot.classList.remove('active', 'done-correct', 'done-wrong');
+                if (i === currentIndex) dot.classList.add('active');
+                if (userAnswers[i]) {
+                    if (userAnswers[i] === quizData[i].a) dot.classList.add('done-correct');
+                    else dot.classList.add('done-wrong');
+                }
+            });
+
+            document.getElementById('btn-prev').disabled = currentIndex === 0;
+            document.getElementById('score-display').innerText = `Đúng: ${correctCount}`;
             
-            // Finish logic
-            if (Object.keys(answers).length === 19) {
-                document.getElementById('score-display').classList.remove('hidden');
-                document.getElementById('correct-count').innerText = corrects;
-            }
+            // Tự động cuộn lên đầu câu hỏi mới
+            document.getElementById('scroll-container').scrollTop = 0;
         }
 
-        function select(letter) {
-            if (answers[currentIndex]) return;
-            answers[currentIndex] = letter;
-            if (letter === quizData[currentIndex].a) corrects++;
+        function select(char) {
+            if (userAnswers[currentIndex]) return;
+            userAnswers[currentIndex] = char;
+            const isCorrect = char === quizData[currentIndex].a;
+            if (isCorrect) {
+                correctCount++;
+                document.getElementById('snd-correct').play().catch(()=>{});
+            } else {
+                document.getElementById('snd-wrong').play().catch(()=>{});
+            }
             render();
         }
 
-        function next() {
-            if (currentIndex < 18) {
-                currentIndex++;
-                render();
-            } else if (Object.keys(answers).length === 19) {
-                alert(`Chúc mừng! Bạn đã hoàn thành bài tập với số điểm ${corrects}/19.`);
+        function change(idx) {
+            if (idx < 0) return;
+            if (idx >= 19) {
+                alert(`Kết quả ôn tập của bạn: ${correctCount}/19 câu đúng!`);
+                return;
             }
-        }
-
-        function prev() {
-            if (currentIndex > 0) {
-                currentIndex--;
-                render();
-            }
-        }
-
-        function jumpTo(idx) {
             currentIndex = idx;
             render();
         }
 
-        // Init
+        initNav();
         render();
     </script>
 </body>
