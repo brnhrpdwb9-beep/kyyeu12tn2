@@ -3,281 +3,297 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hệ Thống Ôn Tập Galaxy 3D</title>
+    <title>Hệ Thống Ôn Tập Trắc Nghiệm</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-glow: #00d2ff;
-            --secondary-glow: #3a7bd5;
-            --accent-color: #ff00c1;
-            --text-color: #ffffff;
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-        }
-
-        body, html {
+        /* CSS Reset & Cơ bản */
+        * {
             margin: 0;
             padding: 0;
-            width: 100%;
-            height: 100%;
-            background: #00050a;
-            color: var(--text-color);
-            font-family: 'Inter', 'Segoe UI', sans-serif;
-            overflow-x: hidden;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
         }
 
-        /* Canvas nền sao */
+        body {
+            background-color: #050510;
+            color: #ffffff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Hiệu ứng nền Canvas Galaxy */
         #galaxy-canvas {
             position: fixed;
             top: 0;
             left: 0;
+            width: 100vw;
+            height: 100vh;
             z-index: -1;
-            width: 100%;
-            height: 100%;
         }
 
-        /* Layout chính */
-        .wrapper {
-            position: relative;
-            z-index: 1;
+        /* Container chính nổi trên nền (Glassmorphism) */
+        .main-container {
+            margin-top: 80px;
+            margin-bottom: 50px;
+            width: 90%;
             max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
+            background: rgba(20, 20, 30, 0.4);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 50px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+            z-index: 1;
         }
 
-        header {
+        /* Tiêu đề */
+        .header {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 50px;
         }
 
-        header h1 {
+        .header h1 {
             font-size: 3rem;
             font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            background: linear-gradient(to right, #fff, var(--primary-glow), var(--accent-color));
+            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 10px rgba(0, 210, 255, 0.5));
+            margin-bottom: 10px;
+            letter-spacing: 2px;
         }
 
-        /* Grid môn học */
-        .subject-grid {
+        .header p {
+            color: #a0a0b0;
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+
+        /* Lưới chọn môn học */
+        .subjects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
-            perspective: 2000px;
         }
 
-        /* Card Phong cách 3D Floating */
+        /* Thẻ môn học (Card) */
         .subject-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
             padding: 30px;
-            text-decoration: none;
-            color: white;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-            transform-style: preserve-3d;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
+        /* Hiệu ứng Glow khi Hover vào thẻ */
         .subject-card::before {
-            content: "";
+            content: '';
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, rgba(0, 210, 255, 0.1), transparent);
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at top right, rgba(79, 172, 254, 0.15), transparent 60%);
             opacity: 0;
-            transition: 0.5s;
+            transition: opacity 0.4s ease;
         }
 
         .subject-card:hover {
-            transform: translateY(-15px) rotateX(10deg) rotateY(-5deg);
-            border-color: var(--primary-glow);
-            box-shadow: 0 20px 50px rgba(0, 210, 255, 0.2), 
-                        inset 0 0 20px rgba(255, 255, 255, 0.05);
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(79, 172, 254, 0.4);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(79, 172, 254, 0.2);
+            background: rgba(255, 255, 255, 0.06);
         }
 
         .subject-card:hover::before {
             opacity: 1;
         }
 
-        .card-icon {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            display: inline-block;
-            filter: drop-shadow(0 0 15px var(--primary-glow));
-        }
-
-        .subject-card h3 {
-            font-size: 1.6rem;
-            margin-bottom: 12px;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-
-        .subject-card p {
-            font-size: 0.95rem;
-            color: #ccc;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .lesson-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .lesson-item {
-            padding: 10px 15px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 10px;
-            margin-bottom: 8px;
-            font-size: 0.85rem;
-            border: 1px solid transparent;
-            transition: 0.3s;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .lesson-item:hover {
-            background: rgba(0, 210, 255, 0.1);
-            border-color: rgba(0, 210, 255, 0.3);
-            transform: translateX(10px);
-        }
-
-        .btn-start {
-            margin-top: 20px;
-            display: inline-block;
-            padding: 12px 25px;
-            background: linear-gradient(45deg, var(--secondary-glow), var(--accent-color));
-            border-radius: 50px;
+        .subject-title {
+            font-size: 1.5rem;
             font-weight: 600;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 15px rgba(255, 0, 193, 0.3);
+            margin-bottom: 20px;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
+        /* Lưới chọn bài học bên trong môn học */
+        .lessons-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: auto;
+        }
+
+        .lesson-btn {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: #d0d0e0;
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-align: left;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;
+        }
+
+        .lesson-btn:hover {
+            background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+            color: #ffffff;
+            border-color: transparent;
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.3);
+        }
+
+        /* Tùy chỉnh màu theo môn học cho đẹp */
+        .math .subject-title { color: #ff9a9e; }
+        .math:hover { border-color: rgba(255, 154, 158, 0.4); box-shadow: 0 15px 30px rgba(0,0,0,0.4), 0 0 20px rgba(255, 154, 158, 0.2); }
+        .math:hover::before { background: radial-gradient(circle at top right, rgba(255, 154, 158, 0.15), transparent 60%); }
+        .math .lesson-btn:hover { background: linear-gradient(90deg, #fecfef 0%, #ff9a9e 100%); color: #000; box-shadow: 0 5px 15px rgba(255, 154, 158, 0.3); }
+
+        .physics .subject-title { color: #a18cd1; }
+        .physics:hover { border-color: rgba(161, 140, 209, 0.4); box-shadow: 0 15px 30px rgba(0,0,0,0.4), 0 0 20px rgba(161, 140, 209, 0.2); }
+        .physics:hover::before { background: radial-gradient(circle at top right, rgba(161, 140, 209, 0.15), transparent 60%); }
+        .physics .lesson-btn:hover { background: linear-gradient(90deg, #fbc2eb 0%, #a18cd1 100%); box-shadow: 0 5px 15px rgba(161, 140, 209, 0.3); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-container { padding: 30px 20px; margin-top: 40px; }
+            .header h1 { font-size: 2.2rem; }
+        }
     </style>
 </head>
 <body>
 
     <canvas id="galaxy-canvas"></canvas>
 
-    <div class="wrapper">
-        <header>
-            <h1>Study Galaxy</h1>
-            <p style="color: #888;">Khám phá tri thức trong không gian vô tận</p>
-        </header>
+    <div class="main-container">
+        <div class="header">
+            <h1>Trung Tâm Ôn Luyện</h1>
+            <p>Chọn môn học và bài kiểm tra để bắt đầu hành trình chinh phục tri thức.</p>
+        </div>
 
-        <div class="subject-grid">
-            <div class="subject-card">
-                <div class="card-icon">🚀</div>
-                <h3>Lập trình Web</h3>
-                <p>Chinh phục CSS, HTML5 và hiệu ứng 3D hiện đại.</p>
-                <div class="lesson-list">
-                    <div class="lesson-item"><span>Bài 1: Giới thiệu CSS</span> ➔</div>
-                    <div class="lesson-item"><span>Bài 2: Flexbox & Grid</span> ➔</div>
-                    <div class="lesson-item"><span>Bài 3: Animation 3D</span> ➔</div>
+        <div class="subjects-grid">
+            <div class="subject-card math">
+                <div class="subject-title">📐 Toán Học</div>
+                <div class="lessons-list">
+                    <a href="#link-bai-1" class="lesson-btn">Bài 1: Hàm số và Đồ thị</a>
+                    <a href="#link-bai-2" class="lesson-btn">Bài 2: Khối đa diện</a>
+                    <a href="#link-bai-3" class="lesson-btn">Bài 3: Tích phân cơ bản</a>
                 </div>
-                <a href="#" class="btn-start">Bắt đầu ôn</a>
+            </div>
+
+            <div class="subject-card physics">
+                <div class="subject-title">⚡ Vật Lý</div>
+                <div class="lessons-list">
+                    <a href="#link-bai-1" class="lesson-btn">Bài 1: Dao động cơ</a>
+                    <a href="#link-bai-2" class="lesson-btn">Bài 2: Sóng âm</a>
+                    <a href="#link-bai-3" class="lesson-btn">Bài 3: Dòng điện xoay chiều</a>
+                </div>
             </div>
 
             <div class="subject-card">
-                <div class="card-icon">🪐</div>
-                <h3>Vật Lý Vũ Trụ</h3>
-                <p>Tìm hiểu về các quy luật vận động của các thiên thể.</p>
-                <div class="lesson-list">
-                    <div class="lesson-item"><span>Bài 1: Động lực học</span> ➔</div>
-                    <div class="lesson-item"><span>Bài 2: Thuyết tương đối</span> ➔</div>
+                <div class="subject-title">🧪 Hóa Học</div>
+                <div class="lessons-list">
+                    <a href="#link-bai-1" class="lesson-btn">Bài 1: Este - Lipit</a>
+                    <a href="#link-bai-2" class="lesson-btn">Bài 2: Cacbohidrat</a>
+                    <a href="#link-bai-3" class="lesson-btn">Bài 3: Amin, Amino Axit</a>
                 </div>
-                <a href="#" class="btn-start">Bắt đầu ôn</a>
             </div>
-
-            <div class="subject-card">
-                <div class="card-icon">☄️</div>
-                <h3>Toán Giải Tích</h3>
-                <p>Nền tảng của mọi công nghệ hiện đại.</p>
-                <div class="lesson-list">
-                    <div class="lesson-item"><span>Bài 1: Đạo hàm</span> ➔</div>
-                    <div class="lesson-item"><span>Bài 2: Tích phân mặt</span> ➔</div>
+            
+            <div class="subject-card math">
+                <div class="subject-title">🌍 Tiếng Anh</div>
+                <div class="lessons-list">
+                    <a href="#link-bai-1" class="lesson-btn">Unit 1: Tense Revision</a>
+                    <a href="#link-bai-2" class="lesson-btn">Unit 2: Passive Voice</a>
+                    <a href="#link-bai-3" class="lesson-btn">Unit 3: Relative Clauses</a>
                 </div>
-                <a href="#" class="btn-start">Bắt đầu ôn</a>
             </div>
         </div>
     </div>
 
     <script>
-        // --- HIỆU ỨNG GALAXY ENGINE ---
         const canvas = document.getElementById('galaxy-canvas');
         const ctx = canvas.getContext('2d');
 
-        let width, height, stars = [];
-        const STAR_COUNT = 400;
+        let width, height;
+        let stars = [];
+        const numStars = 800;
+        let hueOffset = 0;
 
-        function init() {
-            width = window.innerWidth;
-            height = window.innerHeight;
-            canvas.width = width;
-            canvas.height = height;
-            
-            stars = [];
-            for(let i = 0; i < STAR_COUNT; i++) {
-                stars.push({
-                    x: Math.random() * width,
-                    y: Math.random() * height,
-                    size: Math.random() * 2,
-                    speed: Math.random() * 0.5 + 0.1,
-                    color: `rgba(${Math.floor(Math.random()*100 + 155)}, ${Math.floor(Math.random()*100 + 155)}, 255, ${Math.random()})`
-                });
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Star {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = (Math.random() - 0.5) * 2000;
+                this.y = (Math.random() - 0.5) * 2000;
+                this.z = Math.random() * 2000;
+                this.pz = this.z;
+            }
+            update() {
+                this.z -= 2; // Tốc độ bay của sao
+                if (this.z <= 0) {
+                    this.reset();
+                    this.z = 2000;
+                }
+            }
+            draw() {
+                let x = (this.x / this.z) * width + width / 2;
+                let y = (this.y / this.z) * height + height / 2;
+                let radius = (1 - this.z / 2000) * 2.5;
+                
+                let px = (this.x / this.pz) * width + width / 2;
+                let py = (this.y / this.pz) * height + height / 2;
+
+                this.pz = this.z;
+
+                // Tạo màu thay đổi liên tục
+                let hue = (this.z / 2000 * 360 + hueOffset) % 360;
+                ctx.beginPath();
+                ctx.strokeStyle = `hsla(${hue}, 80%, 80%, ${1 - this.z/2000})`;
+                ctx.lineWidth = radius;
+                ctx.moveTo(px, py);
+                ctx.lineTo(x, y);
+                ctx.stroke();
             }
         }
 
+        for (let i = 0; i < numStars; i++) {
+            stars.push(new Star());
+        }
+
         function animate() {
-            ctx.fillStyle = '#00050a';
+            ctx.fillStyle = 'rgba(5, 5, 16, 0.3)'; // Tạo hiệu ứng đuôi mờ cho sao
             ctx.fillRect(0, 0, width, height);
 
-            stars.forEach(star => {
-                ctx.fillStyle = star.color;
-                ctx.beginPath();
-                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-                ctx.fill();
+            hueOffset += 0.5; // Đổi màu dần dần
 
-                // Di chuyển sao tạo cảm giác bay trong không gian
-                star.y += star.speed;
-                if(star.y > height) star.y = 0;
+            stars.forEach(star => {
+                star.update();
+                star.draw();
             });
 
-            // Hiệu ứng chuột (giả lập tinh vân mờ)
             requestAnimationFrame(animate);
         }
 
-        window.addEventListener('resize', init);
-        init();
         animate();
-
-        // --- HIỆU ỨNG TILT 3D CHO CARD ---
-        const cards = document.querySelectorAll('.subject-card');
-        cards.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const xc = rect.width / 2;
-                const yc = rect.height / 2;
-                const dx = x - xc;
-                const dy = y - yc;
-                
-                card.style.transform = `rotateY(${dx / 15}deg) rotateX(${-dy / 15}deg) translateY(-10px)`;
-            });
-
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = `rotateY(0deg) rotateX(0deg) translateY(0)`;
-            });
-        });
     </script>
 </body>
 </html>
