@@ -3,314 +3,279 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nền Tảng Ôn Tập Trắc Nghiệm Cao Cấp</title>
+    <title>Hệ Thống Ôn Tập Galaxy 3D</title>
     <style>
-        /* CSS Variables cho Theme Tối ưu */
         :root {
-            --bg-color: #09090e;
-            --text-primary: #ffffff;
-            --text-secondary: #a1a1aa;
-            --accent-1: #6366f1; /* Indigo */
-            --accent-2: #a855f7; /* Purple */
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --card-border: rgba(255, 255, 255, 0.08);
+            --primary-glow: #00d2ff;
+            --secondary-glow: #3a7bd5;
+            --accent-color: #ff00c1;
+            --text-color: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
         }
 
-        * {
+        body, html {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-primary);
+            width: 100%;
+            height: 100%;
+            background: #00050a;
+            color: var(--text-color);
+            font-family: 'Inter', 'Segoe UI', sans-serif;
             overflow-x: hidden;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
 
-        /* Background 3D Glow Effects */
-        .bg-glow {
+        /* Canvas nền sao */
+        #galaxy-canvas {
             position: fixed;
-            width: 600px;
-            height: 600px;
-            background: linear-gradient(to right, var(--accent-1), var(--accent-2));
-            border-radius: 50%;
-            filter: blur(150px);
-            opacity: 0.15;
-            z-index: -1;
-            top: -200px;
-            left: -200px;
-            animation: float 10s infinite alternate ease-in-out;
-        }
-
-        .bg-glow:nth-child(2) {
-            top: auto;
-            bottom: -200px;
-            right: -200px;
-            left: auto;
-            animation-delay: -5s;
-        }
-
-        @keyframes float {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
-        }
-
-        /* Header */
-        header {
-            padding: 2rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--card-border);
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            background: linear-gradient(to right, #fff, var(--text-secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: 1px;
-        }
-
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            padding: 5rem 2rem 2rem;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #fff 0%, #a1a1aa 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto 3rem;
-            line-height: 1.6;
-        }
-
-        /* Grid Môn học / Bài kiểm tra */
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto 5rem;
-        }
-
-        .section-title {
-            font-size: 1.8rem;
-            margin-bottom: 2rem;
-            font-weight: 600;
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
+            top: 0;
             left: 0;
-            width: 50%;
-            height: 3px;
-            background: linear-gradient(to right, var(--accent-1), transparent);
-            border-radius: 2px;
+            z-index: -1;
+            width: 100%;
+            height: 100%;
         }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            perspective: 1000px; /* Cần thiết cho hiệu ứng 3D */
-        }
-
-        /* Card Design (Glassmorphism + 3D) */
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 20px;
-            padding: 2rem;
-            cursor: pointer;
-            text-decoration: none;
-            color: inherit;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            transition: transform 0.1s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-            transform-style: preserve-3d;
-            backdrop-filter: blur(10px);
+        /* Layout chính */
+        .wrapper {
             position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            background: linear-gradient(to right, #fff, var(--primary-glow), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 10px rgba(0, 210, 255, 0.5));
+        }
+
+        /* Grid môn học */
+        .subject-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            perspective: 2000px;
+        }
+
+        /* Card Phong cách 3D Floating */
+        .subject-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 30px;
+            text-decoration: none;
+            color: white;
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            transform-style: preserve-3d;
             overflow: hidden;
         }
 
-        .card::before {
-            content: '';
+        .subject-card::before {
+            content: "";
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
-                        rgba(255,255,255,0.06), 
-                        transparent 40%);
-            z-index: 1;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(0, 210, 255, 0.1), transparent);
             opacity: 0;
-            transition: opacity 0.3s;
+            transition: 0.5s;
         }
 
-        .card:hover::before {
+        .subject-card:hover {
+            transform: translateY(-15px) rotateX(10deg) rotateY(-5deg);
+            border-color: var(--primary-glow);
+            box-shadow: 0 20px 50px rgba(0, 210, 255, 0.2), 
+                        inset 0 0 20px rgba(255, 255, 255, 0.05);
+        }
+
+        .subject-card:hover::before {
             opacity: 1;
         }
 
-        .card:hover {
-            border-color: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 
-                        0 0 20px rgba(99, 102, 241, 0.2);
-        }
-
-        /* Phần tử bên trong card để tạo hiệu ứng nổi 3D */
-        .card-content {
-            transform: translateZ(40px); /* Đẩy nội dung lên phía trước theo trục Z */
-            z-index: 2;
-        }
-
         .card-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
-            margin-bottom: 0.5rem;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            display: inline-block;
+            filter: drop-shadow(0 0 15px var(--primary-glow));
         }
 
-        .card h3 {
-            font-size: 1.4rem;
-            letter-spacing: 0.5px;
+        .subject-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
         }
 
-        .card p {
-            color: var(--text-secondary);
+        .subject-card p {
             font-size: 0.95rem;
-            line-height: 1.5;
-            flex-grow: 1;
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 20px;
         }
 
-        .card-meta {
+        .lesson-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .lesson-item {
+            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            border: 1px solid transparent;
+            transition: 0.3s;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--card-border);
-            font-size: 0.85rem;
-            color: var(--text-secondary);
         }
 
-        .badge {
-            background: rgba(99, 102, 241, 0.1);
-            color: #818cf8;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-weight: 600;
+        .lesson-item:hover {
+            background: rgba(0, 210, 255, 0.1);
+            border-color: rgba(0, 210, 255, 0.3);
+            transform: translateX(10px);
         }
+
+        .btn-start {
+            margin-top: 20px;
+            display: inline-block;
+            padding: 12px 25px;
+            background: linear-gradient(45deg, var(--secondary-glow), var(--accent-color));
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(255, 0, 193, 0.3);
+        }
+
     </style>
 </head>
 <body>
 
-    <div class="bg-glow"></div>
-    <div class="bg-glow"></div>
+    <canvas id="galaxy-canvas"></canvas>
 
-    <header>
-        <div class="logo">QuizMaster Pro</div>
-    </header>
+    <div class="wrapper">
+        <header>
+            <h1>Study Galaxy</h1>
+            <p style="color: #888;">Khám phá tri thức trong không gian vô tận</p>
+        </header>
 
-    <main>
-        <section class="hero">
-            <h1>Hệ thống Ôn tập Chuyên sâu</h1>
-            <p>Trải nghiệm kiểm tra trắc nghiệm với giao diện tối giản, tập trung tối đa vào hiệu suất học tập của bạn. Lựa chọn môn học để bắt đầu.</p>
-        </section>
+        <div class="subject-grid">
+            <div class="subject-card">
+                <div class="card-icon">🚀</div>
+                <h3>Lập trình Web</h3>
+                <p>Chinh phục CSS, HTML5 và hiệu ứng 3D hiện đại.</p>
+                <div class="lesson-list">
+                    <div class="lesson-item"><span>Bài 1: Giới thiệu CSS</span> ➔</div>
+                    <div class="lesson-item"><span>Bài 2: Flexbox & Grid</span> ➔</div>
+                    <div class="lesson-item"><span>Bài 3: Animation 3D</span> ➔</div>
+                </div>
+                <a href="#" class="btn-start">Bắt đầu ôn</a>
+            </div>
 
-        <div class="container">
-            <h2 class="section-title">Danh sách bài ôn tập</h2>
-            
-            <div class="grid">
-                <a href="#link-bai-1" class="card">
-                    <div class="card-content">
-                        <div class="card-icon">{" "}</div>
-                        <h3>F7 Giới thiệu CSS</h3>
-                        <p>Tổng hợp các câu hỏi trắc nghiệm định nghĩa, phương pháp triển khai và ưu điểm của CSS trong bảo trì web.</p>
-                        <div class="card-meta">
-                            <span>20 Câu hỏi</span>
-                            <span class="badge">Lập trình Web</span>
-                        </div>
-                    </div>
-                </a>
+            <div class="subject-card">
+                <div class="card-icon">🪐</div>
+                <h3>Vật Lý Vũ Trụ</h3>
+                <p>Tìm hiểu về các quy luật vận động của các thiên thể.</p>
+                <div class="lesson-list">
+                    <div class="lesson-item"><span>Bài 1: Động lực học</span> ➔</div>
+                    <div class="lesson-item"><span>Bài 2: Thuyết tương đối</span> ➔</div>
+                </div>
+                <a href="#" class="btn-start">Bắt đầu ôn</a>
+            </div>
 
-                <a href="#link-bai-2" class="card">
-                    <div class="card-content">
-                        <div class="card-icon">∑</div>
-                        <h3>Toán Cao Cấp</h3>
-                        <p>Ôn tập vi tích phân, đại số tuyến tính và các dạng bài tập ứng dụng thực tế.</p>
-                        <div class="card-meta">
-                            <span>45 Câu hỏi</span>
-                            <span class="badge">Đại cương</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="#link-bai-3" class="card">
-                    <div class="card-content">
-                        <div class="card-icon">⚡</div>
-                        <h3>Vật Lý Cơ Bản</h3>
-                        <p>Kiểm tra kiến thức về động lực học, quang học và điện từ học chuẩn bị cho kỳ thi.</p>
-                        <div class="card-meta">
-                            <span>30 Câu hỏi</span>
-                            <span class="badge">Khoa học</span>
-                        </div>
-                    </div>
-                </a>
+            <div class="subject-card">
+                <div class="card-icon">☄️</div>
+                <h3>Toán Giải Tích</h3>
+                <p>Nền tảng của mọi công nghệ hiện đại.</p>
+                <div class="lesson-list">
+                    <div class="lesson-item"><span>Bài 1: Đạo hàm</span> ➔</div>
+                    <div class="lesson-item"><span>Bài 2: Tích phân mặt</span> ➔</div>
+                </div>
+                <a href="#" class="btn-start">Bắt đầu ôn</a>
             </div>
         </div>
-    </main>
+    </div>
 
     <script>
-        const cards = document.querySelectorAll('.card');
+        // --- HIỆU ỨNG GALAXY ENGINE ---
+        const canvas = document.getElementById('galaxy-canvas');
+        const ctx = canvas.getContext('2d');
 
+        let width, height, stars = [];
+        const STAR_COUNT = 400;
+
+        function init() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+            
+            stars = [];
+            for(let i = 0; i < STAR_COUNT; i++) {
+                stars.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    size: Math.random() * 2,
+                    speed: Math.random() * 0.5 + 0.1,
+                    color: `rgba(${Math.floor(Math.random()*100 + 155)}, ${Math.floor(Math.random()*100 + 155)}, 255, ${Math.random()})`
+                });
+            }
+        }
+
+        function animate() {
+            ctx.fillStyle = '#00050a';
+            ctx.fillRect(0, 0, width, height);
+
+            stars.forEach(star => {
+                ctx.fillStyle = star.color;
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Di chuyển sao tạo cảm giác bay trong không gian
+                star.y += star.speed;
+                if(star.y > height) star.y = 0;
+            });
+
+            // Hiệu ứng chuột (giả lập tinh vân mờ)
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', init);
+        init();
+        animate();
+
+        // --- HIỆU ỨNG TILT 3D CHO CARD ---
+        const cards = document.querySelectorAll('.subject-card');
         cards.forEach(card => {
-            card.addEventListener('mousemove', e => {
+            card.addEventListener('mousemove', (e) => {
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
-
-                // Cập nhật vị trí ánh sáng (glow effect)
-                card.style.setProperty('--mouse-x', `${x}px`);
-                card.style.setProperty('--mouse-y', `${y}px`);
-
-                // Tính toán góc nghiêng 3D
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
+                const xc = rect.width / 2;
+                const yc = rect.height / 2;
+                const dx = x - xc;
+                const dy = y - yc;
                 
-                const rotateX = ((y - centerY) / centerY) * -10; // Giới hạn nghiêng 10 độ
-                const rotateY = ((x - centerX) / centerX) * 10;
-
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                card.style.transform = `rotateY(${dx / 15}deg) rotateX(${-dy / 15}deg) translateY(-10px)`;
             });
 
-            // Phục hồi trạng thái ban đầu khi chuột rời đi
             card.addEventListener('mouseleave', () => {
-                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+                card.style.transform = `rotateY(0deg) rotateX(0deg) translateY(0)`;
             });
         });
     </script>
