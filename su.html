@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="theme-color" content="#050918">
   <title>Hành Tinh Lịch Sử</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -1808,931 +1808,989 @@
   </main>
 
   <script src="quiz-data.js"></script>
-  <script>
-    const LETTERS = ["A","B","C","D"];
+<script src="quiz-data.js"></script>
+<script>
+  const LETTERS = ["A","B","C","D"];
 
-    const EVOLUTION_PHASES = [
-      {
-        key:"dust", threshold:0.00, label:"Tinh vân bụi", type:"Đám mây tiền hành tinh",
-        status:"Bụi và khí đang bắt đầu kết tụ",
-        core:"#a88e66", core2:"#7d623f", core3:"#2b1b10", glow:"rgba(210,180,114,.10)",
-        sat:.78, bright:.86, contrast:.98, depth:.08, shadow:.22, hue:-8,
-        ringOpacity:.08, thinRing:.00, outerRing:0, ringBoost:1.00,
-        orbitEmphasis:.10, orbitScale:1.00, orbitSpeed:.90, orbitDash:.10,
-        lava:0, continents:0, continentGlow:0, ice:0, cloud:0, ocean:0, aurora:0, debris:.16,
-        reaction:"Vật chất mới chỉ gom tụ trong đĩa tiền hành tinh, chưa có bề mặt ổn định.",
-        desc:"Đây là giai đoạn bụi và khí bắt đầu tích tụ bằng hấp dẫn.",
-        mini:["#d8c6a0","#cba25f","#f2df9c"]
-      },
-      {
-        key:"planetesimal", threshold:0.10, label:"Vi hành tinh", type:"Khối bồi tụ va chạm",
-        status:"Các mảnh vật chất va chạm và lớn dần",
-        core:"#cba062", core2:"#a56c28", core3:"#41240d", glow:"rgba(225,178,90,.13)",
-        sat:.92, bright:.92, contrast:1.01, depth:.10, shadow:.24, hue:-2,
-        ringOpacity:.12, thinRing:.03, outerRing:0, ringBoost:1.04,
-        orbitEmphasis:.16, orbitScale:1.01, orbitSpeed:.98, orbitDash:.12,
-        lava:.05, continents:0, continentGlow:.04, ice:0, cloud:0, ocean:0, aurora:0, debris:.22,
-        reaction:"Những mảnh đá nhỏ đang hợp nhất, tạo nền cho tiền hành tinh.",
-        desc:"Cấu trúc cầu còn yếu, va chạm vẫn là động lực chính.",
-        mini:["#ffe69a","#ffc95c","#ffeab5"]
-      },
-      {
-        key:"protoplanet", threshold:0.20, label:"Tiền hành tinh", type:"Khối cầu sơ khai",
-        status:"Khối cầu vật chất đang tăng nhanh khối lượng",
-        core:"#e3b86d", core2:"#c8842c", core3:"#4c2808", glow:"rgba(235,182,88,.16)",
-        sat:1.00, bright:.97, contrast:1.03, depth:.12, shadow:.26, hue:2,
-        ringOpacity:.18, thinRing:.08, outerRing:.03, ringBoost:1.10,
-        orbitEmphasis:.26, orbitScale:1.03, orbitSpeed:1.04, orbitDash:.16,
-        lava:.16, continents:.04, continentGlow:.10, ice:0, cloud:.02, ocean:0, aurora:0, debris:.26,
-        reaction:"Khối cầu sơ khai đã hình thành, nhưng bề mặt còn rất bất ổn.",
-        desc:"Khả năng giữ vật chất tăng lên khi khối lượng lớn dần.",
-        mini:["#ffe27e","#ffc857","#fff0b8"]
-      },
-      {
-        key:"magma", threshold:0.32, label:"Đại dương magma", type:"Hành tinh đá nóng chảy",
-        status:"Bề mặt nóng chảy mạnh do va chạm và nhiệt lượng cao",
-        core:"#ffc85a", core2:"#ef9020", core3:"#592207", glow:"rgba(255,172,54,.22)",
-        sat:1.12, bright:1.00, contrast:1.06, depth:.14, shadow:.28, hue:7,
-        ringOpacity:.24, thinRing:.12, outerRing:.08, ringBoost:1.16,
-        orbitEmphasis:.34, orbitScale:1.05, orbitSpeed:1.08, orbitDash:.20,
-        lava:.58, continents:.05, continentGlow:.24, ice:0, cloud:.04, ocean:0, aurora:0, debris:.18,
-        reaction:"Hành tinh bị nung nóng dữ dội, lớp ngoài giống đại dương magma.",
-        desc:"Nhiệt do va chạm, nén và phân rã phóng xạ làm bề mặt rực sáng.",
-        mini:["#ffd46d","#ffb347","#ffef9d"]
-      },
-      {
-        key:"bombardment", threshold:0.44, label:"Bắn phá mạnh", type:"Hành tinh va chạm dày đặc",
-        status:"Mưa thiên thạch tiếp tục tái định hình bề mặt",
-        core:"#ffd15e", core2:"#f09923", core3:"#622a08", glow:"rgba(255,184,62,.24)",
-        sat:1.16, bright:1.02, contrast:1.08, depth:.16, shadow:.29, hue:8,
-        ringOpacity:.34, thinRing:.18, outerRing:.16, ringBoost:1.28,
-        orbitEmphasis:.46, orbitScale:1.08, orbitSpeed:1.14, orbitDash:.24,
-        lava:.42, continents:.08, continentGlow:.32, ice:0, cloud:.06, ocean:0, aurora:0, debris:.34,
-        reaction:"Giai đoạn này có nhiều vành vật chất và mảnh vụn nhất do va chạm liên tục.",
-        desc:"Các cú đâm va lớn làm vật chất bắn ra quỹ đạo, tạo đai debris rõ.",
-        mini:["#ffe07a","#ffc74d","#fff2bf"]
-      },
-      {
-        key:"cooling", threshold:0.56, label:"Vỏ nguội sơ khai", type:"Hành tinh đá đang ổn định",
-        status:"Lớp vỏ rắn đầu tiên bắt đầu ổn định",
-        core:"#ffd76c", core2:"#d19334", core3:"#56320d", glow:"rgba(255,194,82,.20)",
-        sat:1.14, bright:1.03, contrast:1.10, depth:.18, shadow:.31, hue:5,
-        ringOpacity:.30, thinRing:.16, outerRing:.10, ringBoost:1.22,
-        orbitEmphasis:.58, orbitScale:1.11, orbitSpeed:1.18, orbitDash:.28,
-        lava:.22, continents:.24, continentGlow:.42, ice:0, cloud:.10, ocean:0, aurora:0, debris:.15,
-        reaction:"Lớp vỏ đầu tiên hình thành, bề mặt dần chuyển từ magma sang đá.",
-        desc:"Nhiệt mất dần, cấu trúc vỏ rắn xuất hiện theo từng vùng.",
-        mini:["#ffe485","#ffcb5c","#fff1bf"]
-      },
-      {
-        key:"steam", threshold:0.68, label:"Khí quyển hơi nước", type:"Hành tinh khí quyển dày",
-        status:"Khí thoát ra từ núi lửa bao phủ hành tinh",
-        core:"#ffe07a", core2:"#d1a143", core3:"#534118", glow:"rgba(255,216,106,.20)",
-        sat:1.16, bright:1.05, contrast:1.12, depth:.20, shadow:.33, hue:-2,
-        ringOpacity:.26, thinRing:.14, outerRing:.08, ringBoost:1.18,
-        orbitEmphasis:.68, orbitScale:1.14, orbitSpeed:1.24, orbitDash:.30,
-        lava:.16, continents:.32, continentGlow:.56, ice:0, cloud:.32, ocean:.06, aurora:0, debris:.08,
-        reaction:"Khí quyển dày lên bởi khí thoát núi lửa, chuẩn bị cho ngưng tụ nước.",
-        desc:"Hành tinh dịu dần nhưng vẫn giữ sắc vàng nóng của giai đoạn trẻ.",
-        mini:["#ffe783","#ffd260","#fff3c8"]
-      },
-      {
-        key:"proto-ocean", threshold:0.80, label:"Đại dương sơ khai", type:"Hành tinh biển - đá",
-        status:"Hơi nước ngưng tụ thành các bồn nước đầu tiên",
-        core:"#ffe78d", core2:"#d7af46", core3:"#385166", glow:"rgba(255,220,120,.24)",
-        sat:1.18, bright:1.07, contrast:1.14, depth:.22, shadow:.34, hue:-6,
-        ringOpacity:.22, thinRing:.10, outerRing:.04, ringBoost:1.14,
-        orbitEmphasis:.78, orbitScale:1.17, orbitSpeed:1.30, orbitDash:.34,
-        lava:.08, continents:.40, continentGlow:.72, ice:.04, cloud:.40, ocean:.40, aurora:.04, debris:.03,
-        reaction:"Nước lỏng xuất hiện nhưng hành tinh vẫn giữ gam vàng sáng đặc trưng.",
-        desc:"Sự cân bằng giữa đá, nước và khí quyển bắt đầu rõ hơn.",
-        mini:["#ffeb92","#ffd76a","#fff6cf"]
-      },
-      {
-        key:"stable", threshold:0.90, label:"Lục địa ổn định", type:"Hành tinh đá trưởng thành",
-        status:"Đại dương và các mảng lục địa đã phân bố rõ",
-        core:"#ffea95", core2:"#e0b84f", core3:"#334f63", glow:"rgba(255,226,126,.26)",
-        sat:1.22, bright:1.08, contrast:1.17, depth:.24, shadow:.36, hue:-8,
-        ringOpacity:.18, thinRing:.08, outerRing:.02, ringBoost:1.10,
-        orbitEmphasis:.88, orbitScale:1.20, orbitSpeed:1.36, orbitDash:.38,
-        lava:.02, continents:.62, continentGlow:.90, ice:.12, cloud:.46, ocean:.62, aurora:.10, debris:0,
-        reaction:"Hành tinh chuyển sang trạng thái ổn định nhưng vẫn giữ lõi hình ảnh vàng sáng.",
-        desc:"Cấu trúc trưởng thành với biển, mây, lục địa và ánh khí quyển.",
-        mini:["#ffec96","#ffdc72","#fff6d3"]
-      },
-      {
-        key:"balanced", threshold:0.98, label:"Hành tinh cân bằng vàng", type:"Hành tinh hoàn thiện",
-        status:"Hệ khí hậu và bề mặt đạt trạng thái ổn định đẹp nhất",
-        core:"#fff09b", core2:"#f2c44e", core3:"#2d4759", glow:"rgba(255,232,146,.30)",
-        sat:1.26, bright:1.10, contrast:1.20, depth:.26, shadow:.38, hue:-10,
-        ringOpacity:.20, thinRing:.12, outerRing:.06, ringBoost:1.26,
-        orbitEmphasis:1.0, orbitScale:1.24, orbitSpeed:1.44, orbitDash:.44,
-        lava:0, continents:.74, continentGlow:1, ice:.18, cloud:.54, ocean:.70, aurora:.22, debris:0,
-        reaction:"Trạng thái cuối giữ màu vàng chủ đạo như một hành tinh hoàn thiện, giàu năng lượng và ổn định.",
-        desc:"Một phiên bản hành tinh hoàn chỉnh với sắc vàng chi phối, nhiều lớp vành mỏng lan tỏa như dư âm hình thành.",
-        mini:["#fff2a2","#ffe07d","#fff8dc"]
+  const EVOLUTION_PHASES = [
+    {
+      key:"dust", threshold:0.00, label:"Tinh vân bụi", type:"Đám mây tiền hành tinh",
+      status:"Bụi và khí đang bắt đầu kết tụ",
+      core:"#a88e66", core2:"#7d623f", core3:"#2b1b10", glow:"rgba(210,180,114,.10)",
+      sat:.78, bright:.86, contrast:.98, depth:.08, shadow:.22, hue:-8,
+      ringOpacity:.08, thinRing:.00, outerRing:0, ringBoost:1.00,
+      orbitEmphasis:.10, orbitScale:1.00, orbitSpeed:.90, orbitDash:.10,
+      lava:0, continents:0, continentGlow:0, ice:0, cloud:0, ocean:0, aurora:0, debris:.16,
+      reaction:"Vật chất mới chỉ gom tụ trong đĩa tiền hành tinh, chưa có bề mặt ổn định.",
+      desc:"Đây là giai đoạn bụi và khí bắt đầu tích tụ bằng hấp dẫn.",
+      mini:["#d8c6a0","#cba25f","#f2df9c"]
+    },
+    {
+      key:"planetesimal", threshold:0.10, label:"Vi hành tinh", type:"Khối bồi tụ va chạm",
+      status:"Các mảnh vật chất va chạm và lớn dần",
+      core:"#cba062", core2:"#a56c28", core3:"#41240d", glow:"rgba(225,178,90,.13)",
+      sat:.92, bright:.92, contrast:1.01, depth:.10, shadow:.24, hue:-2,
+      ringOpacity:.12, thinRing:.03, outerRing:0, ringBoost:1.04,
+      orbitEmphasis:.16, orbitScale:1.01, orbitSpeed:.98, orbitDash:.12,
+      lava:.05, continents:0, continentGlow:.04, ice:0, cloud:0, ocean:0, aurora:0, debris:.22,
+      reaction:"Những mảnh đá nhỏ đang hợp nhất, tạo nền cho tiền hành tinh.",
+      desc:"Cấu trúc cầu còn yếu, va chạm vẫn là động lực chính.",
+      mini:["#ffe69a","#ffc95c","#ffeab5"]
+    },
+    {
+      key:"protoplanet", threshold:0.20, label:"Tiền hành tinh", type:"Khối cầu sơ khai",
+      status:"Khối cầu vật chất đang tăng nhanh khối lượng",
+      core:"#e3b86d", core2:"#c8842c", core3:"#4c2808", glow:"rgba(235,182,88,.16)",
+      sat:1.00, bright:.97, contrast:1.03, depth:.12, shadow:.26, hue:2,
+      ringOpacity:.18, thinRing:.08, outerRing:.03, ringBoost:1.10,
+      orbitEmphasis:.26, orbitScale:1.03, orbitSpeed:1.04, orbitDash:.16,
+      lava:.16, continents:.04, continentGlow:.10, ice:0, cloud:.02, ocean:0, aurora:0, debris:.26,
+      reaction:"Khối cầu sơ khai đã hình thành, nhưng bề mặt còn rất bất ổn.",
+      desc:"Khả năng giữ vật chất tăng lên khi khối lượng lớn dần.",
+      mini:["#ffe27e","#ffc857","#fff0b8"]
+    },
+    {
+      key:"magma", threshold:0.32, label:"Đại dương magma", type:"Hành tinh đá nóng chảy",
+      status:"Bề mặt nóng chảy mạnh do va chạm và nhiệt lượng cao",
+      core:"#ffc85a", core2:"#ef9020", core3:"#592207", glow:"rgba(255,172,54,.22)",
+      sat:1.12, bright:1.00, contrast:1.06, depth:.14, shadow:.28, hue:7,
+      ringOpacity:.24, thinRing:.12, outerRing:.08, ringBoost:1.16,
+      orbitEmphasis:.34, orbitScale:1.05, orbitSpeed:1.08, orbitDash:.20,
+      lava:.58, continents:.05, continentGlow:.24, ice:0, cloud:.04, ocean:0, aurora:0, debris:.18,
+      reaction:"Hành tinh bị nung nóng dữ dội, lớp ngoài giống đại dương magma.",
+      desc:"Nhiệt do va chạm, nén và phân rã phóng xạ làm bề mặt rực sáng.",
+      mini:["#ffd46d","#ffb347","#ffef9d"]
+    },
+    {
+      key:"bombardment", threshold:0.44, label:"Bắn phá mạnh", type:"Hành tinh va chạm dày đặc",
+      status:"Mưa thiên thạch tiếp tục tái định hình bề mặt",
+      core:"#ffd15e", core2:"#f09923", core3:"#622a08", glow:"rgba(255,184,62,.24)",
+      sat:1.16, bright:1.02, contrast:1.08, depth:.16, shadow:.29, hue:8,
+      ringOpacity:.34, thinRing:.18, outerRing:.16, ringBoost:1.28,
+      orbitEmphasis:.46, orbitScale:1.08, orbitSpeed:1.14, orbitDash:.24,
+      lava:.42, continents:.08, continentGlow:.32, ice:0, cloud:.06, ocean:0, aurora:0, debris:.34,
+      reaction:"Giai đoạn này có nhiều vành vật chất và mảnh vụn nhất do va chạm liên tục.",
+      desc:"Các cú đâm va lớn làm vật chất bắn ra quỹ đạo, tạo đai debris rõ.",
+      mini:["#ffe07a","#ffc74d","#fff2bf"]
+    },
+    {
+      key:"cooling", threshold:0.56, label:"Vỏ nguội sơ khai", type:"Hành tinh đá đang ổn định",
+      status:"Lớp vỏ rắn đầu tiên bắt đầu ổn định",
+      core:"#ffd76c", core2:"#d19334", core3:"#56320d", glow:"rgba(255,194,82,.20)",
+      sat:1.14, bright:1.03, contrast:1.10, depth:.18, shadow:.31, hue:5,
+      ringOpacity:.30, thinRing:.16, outerRing:.10, ringBoost:1.22,
+      orbitEmphasis:.58, orbitScale:1.11, orbitSpeed:1.18, orbitDash:.28,
+      lava:.22, continents:.24, continentGlow:.42, ice:0, cloud:.10, ocean:0, aurora:0, debris:.15,
+      reaction:"Lớp vỏ đầu tiên hình thành, bề mặt dần chuyển từ magma sang đá.",
+      desc:"Nhiệt mất dần, cấu trúc vỏ rắn xuất hiện theo từng vùng.",
+      mini:["#ffe485","#ffcb5c","#fff1bf"]
+    },
+    {
+      key:"steam", threshold:0.68, label:"Khí quyển hơi nước", type:"Hành tinh khí quyển dày",
+      status:"Khí thoát ra từ núi lửa bao phủ hành tinh",
+      core:"#ffe07a", core2:"#d1a143", core3:"#534118", glow:"rgba(255,216,106,.20)",
+      sat:1.16, bright:1.05, contrast:1.12, depth:.20, shadow:.33, hue:-2,
+      ringOpacity:.26, thinRing:.14, outerRing:.08, ringBoost:1.18,
+      orbitEmphasis:.68, orbitScale:1.14, orbitSpeed:1.24, orbitDash:.30,
+      lava:.16, continents:.32, continentGlow:.56, ice:0, cloud:.32, ocean:.06, aurora:0, debris:.08,
+      reaction:"Khí quyển dày lên bởi khí thoát núi lửa, chuẩn bị cho ngưng tụ nước.",
+      desc:"Hành tinh dịu dần nhưng vẫn giữ sắc vàng nóng của giai đoạn trẻ.",
+      mini:["#ffe783","#ffd260","#fff3c8"]
+    },
+    {
+      key:"proto-ocean", threshold:0.80, label:"Đại dương sơ khai", type:"Hành tinh biển - đá",
+      status:"Hơi nước ngưng tụ thành các bồn nước đầu tiên",
+      core:"#ffe78d", core2:"#d7af46", core3:"#385166", glow:"rgba(255,220,120,.24)",
+      sat:1.18, bright:1.07, contrast:1.14, depth:.22, shadow:.34, hue:-6,
+      ringOpacity:.22, thinRing:.10, outerRing:.04, ringBoost:1.14,
+      orbitEmphasis:.78, orbitScale:1.17, orbitSpeed:1.30, orbitDash:.34,
+      lava:.08, continents:.40, continentGlow:.72, ice:.04, cloud:.40, ocean:.40, aurora:.04, debris:.03,
+      reaction:"Nước lỏng xuất hiện nhưng hành tinh vẫn giữ gam vàng sáng đặc trưng.",
+      desc:"Sự cân bằng giữa đá, nước và khí quyển bắt đầu rõ hơn.",
+      mini:["#ffeb92","#ffd76a","#fff6cf"]
+    },
+    {
+      key:"stable", threshold:0.90, label:"Lục địa ổn định", type:"Hành tinh đá trưởng thành",
+      status:"Đại dương và các mảng lục địa đã phân bố rõ",
+      core:"#ffea95", core2:"#e0b84f", core3:"#334f63", glow:"rgba(255,226,126,.26)",
+      sat:1.22, bright:1.08, contrast:1.17, depth:.24, shadow:.36, hue:-8,
+      ringOpacity:.18, thinRing:.08, outerRing:.02, ringBoost:1.10,
+      orbitEmphasis:.88, orbitScale:1.20, orbitSpeed:1.36, orbitDash:.38,
+      lava:.02, continents:.62, continentGlow:.90, ice:.12, cloud:.46, ocean:.62, aurora:.10, debris:0,
+      reaction:"Hành tinh chuyển sang trạng thái ổn định nhưng vẫn giữ lõi hình ảnh vàng sáng.",
+      desc:"Cấu trúc trưởng thành với biển, mây, lục địa và ánh khí quyển.",
+      mini:["#ffec96","#ffdc72","#fff6d3"]
+    },
+    {
+      key:"balanced", threshold:0.98, label:"Hành tinh cân bằng vàng", type:"Hành tinh hoàn thiện",
+      status:"Hệ khí hậu và bề mặt đạt trạng thái ổn định đẹp nhất",
+      core:"#fff09b", core2:"#f2c44e", core3:"#2d4759", glow:"rgba(255,232,146,.30)",
+      sat:1.26, bright:1.10, contrast:1.20, depth:.26, shadow:.38, hue:-10,
+      ringOpacity:.20, thinRing:.12, outerRing:.06, ringBoost:1.26,
+      orbitEmphasis:1.0, orbitScale:1.24, orbitSpeed:1.44, orbitDash:.44,
+      lava:0, continents:.74, continentGlow:1, ice:.18, cloud:.54, ocean:.70, aurora:.22, debris:0,
+      reaction:"Trạng thái cuối giữ màu vàng chủ đạo như một hành tinh hoàn thiện, giàu năng lượng và ổn định.",
+      desc:"Một phiên bản hành tinh hoàn chỉnh với sắc vàng chi phối, nhiều lớp vành mỏng lan tỏa như dư âm hình thành.",
+      mini:["#fff2a2","#ffe07d","#fff8dc"]
+    }
+  ];
+
+  const state = {
+    quizData: [],
+    currentIndex: 0,
+    correctCount: 0,
+    userAnswers: {},
+    audioCtx: null,
+    masterGain: null,
+    smoothScrollEnabled: !window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+    planetDamage: 0,
+    currentPhaseIndex: -1,
+    pointerRAF: 0,
+    targetRotateX: 0,
+    targetRotateY: 0,
+    lastAppliedTilt: "",
+    particlePool: [],
+    fragmentNodes: [],
+    holeFragments: [],
+    damageCacheKey: "",
+    perfMode: "full",
+    damageSeed: 17321,
+    navDots: [],
+    optionButtons: [],
+    finalBannerRendered: false,
+    ui: {
+      lastQuestionText: "",
+      lastProgressText: "",
+      lastExplanationKey: ""
+    }
+  };
+
+  const cssVarCache = new Map();
+  const $ = id => document.getElementById(id);
+  const rootStyle = document.documentElement.style;
+  const els = {};
+
+  function cacheDom() {
+    els.planetStage = $("planetStage");
+    els.planetTilt = $("planetTilt");
+    els.planetCamera = $("planetCamera");
+    els.conquestLevel = $("conquest-level");
+    els.scanProgress = $("scan-progress");
+    els.planetStability = $("planet-stability");
+    els.missionText = $("mission-text");
+    els.progressText = $("progress-text");
+    els.journeyFill = $("journey-fill");
+    els.question = $("question");
+    els.options = $("options");
+    els.explanationBox = $("explanation-box");
+    els.btnPrev = $("btn-prev");
+    els.btnNext = $("btn-next");
+    els.navGrid = $("nav-grid");
+    els.banner = $("conquest-banner");
+    els.planetParticles = $("planetParticles");
+    els.planetFragments = $("planetFragments");
+
+    els.crackGlowGroup = $("crackGlowGroup");
+    els.crackHeatGroup = $("crackHeatGroup");
+    els.crackCoreGroup = $("crackCoreGroup");
+
+    els.planetHoleMaskGroup = $("planetHoleMaskGroup");
+    els.planetHoleVisualGroup = $("planetHoleVisualGroup");
+    els.planetHoleRimOuterGroup = $("planetHoleRimOuterGroup");
+    els.planetHoleRimInnerGroup = $("planetHoleRimInnerGroup");
+
+    els.missionPanel = document.querySelector(".mission-panel");
+  }
+
+  function applyRootVars(map) {
+    for (const key in map) {
+      const value = String(map[key]);
+      if (cssVarCache.get(key) !== value) {
+        cssVarCache.set(key, value);
+        rootStyle.setProperty(key, value);
       }
-    ];
+    }
+  }
 
-    const state = {
-      quizData: [],
-      currentIndex: 0,
-      correctCount: 0,
-      userAnswers: {},
-      audioCtx: null,
-      masterGain: null,
-      smoothScrollEnabled: !window.matchMedia("(prefers-reduced-motion: reduce)").matches,
-      planetDamage: 0,
-      currentPhaseIndex: -1,
-      pointerRAF: 0,
-      targetRotateX: 0,
-      targetRotateY: 0,
-      lastAppliedTilt: "",
-      particlePool: [],
-      fragmentNodes: [],
-      holeFragments: [],
-      damageCacheKey: "",
-      perfMode: "full",
-      damageSeed: 17321,
-      navDots: [],
-      optionButtons: [],
-      finalBannerRendered: false
-    };
+  function shuffleArray(arr) {
+    const clone = [...arr];
+    for (let i = clone.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [clone[i], clone[j]] = [clone[j], clone[i]];
+    }
+    return clone;
+  }
 
-    const $ = id => document.getElementById(id);
-    const rootStyle = document.documentElement.style;
-    const els = {};
+  function normalizeQuizData(rawData) {
+    return shuffleArray(rawData).map((item, qIndex) => {
+      const correctLetter = item.a;
+      const originalOptions = item.o.map((text, idx) => ({
+        originalLetter: LETTERS[idx],
+        text
+      }));
 
-    function cacheDom() {
-      els.planetStage = $("planetStage");
-      els.planetTilt = $("planetTilt");
-      els.planetCamera = $("planetCamera");
-      els.conquestLevel = $("conquest-level");
-      els.scanProgress = $("scan-progress");
-      els.planetStability = $("planet-stability");
-      els.missionText = $("mission-text");
-      els.progressText = $("progress-text");
-      els.journeyFill = $("journey-fill");
-      els.question = $("question");
-      els.options = $("options");
-      els.explanationBox = $("explanation-box");
-      els.btnPrev = $("btn-prev");
-      els.btnNext = $("btn-next");
-      els.navGrid = $("nav-grid");
-      els.banner = $("conquest-banner");
-      els.planetParticles = $("planetParticles");
-      els.planetFragments = $("planetFragments");
+      const shuffledOptions = shuffleArray(originalOptions);
 
-      els.crackGlowGroup = $("crackGlowGroup");
-      els.crackHeatGroup = $("crackHeatGroup");
-      els.crackCoreGroup = $("crackCoreGroup");
+      return {
+        id: qIndex + 1,
+        q: item.q,
+        options: shuffledOptions.map((opt, idx) => ({
+          letter: LETTERS[idx],
+          text: opt.text,
+          isCorrect: opt.originalLetter === correctLetter,
+          originalLetter: opt.originalLetter
+        })),
+        correctLetter: LETTERS[shuffledOptions.findIndex(opt => opt.originalLetter === correctLetter)],
+        explanationMap: item.r || {}
+      };
+    });
+  }
 
-      els.planetHoleMaskGroup = $("planetHoleMaskGroup");
-      els.planetHoleVisualGroup = $("planetHoleVisualGroup");
-      els.planetHoleRimOuterGroup = $("planetHoleRimOuterGroup");
-      els.planetHoleRimInnerGroup = $("planetHoleRimInnerGroup");
+  function initNav() {
+    const frag = document.createDocumentFragment();
+    state.navDots = [];
 
-      els.missionPanel = document.querySelector(".mission-panel");
+    for (let i = 0; i < state.quizData.length; i++) {
+      const dot = document.createElement("div");
+      dot.className = "nav-dot";
+      dot.id = `nav-${i}`;
+      dot.dataset.idx = i;
+      dot.textContent = i + 1;
+      state.navDots.push(dot);
+      frag.appendChild(dot);
     }
 
-    function applyRootVars(map) {
-      for (const key in map) {
-        rootStyle.setProperty(key, map[key]);
-      }
+    els.navGrid.textContent = "";
+    els.navGrid.appendChild(frag);
+  }
+
+  function buildOptions() {
+    const frag = document.createDocumentFragment();
+    state.optionButtons = [];
+
+    for (let i = 0; i < 4; i++) {
+      const btn = document.createElement("button");
+      btn.className = "option-btn";
+      btn.type = "button";
+
+      const letter = document.createElement("div");
+      letter.className = "letter";
+
+      const text = document.createElement("span");
+
+      btn.appendChild(letter);
+      btn.appendChild(text);
+
+      btn._letterNode = letter;
+      btn._textNode = text;
+      btn._currentLetter = "";
+      btn._currentText = "";
+
+      state.optionButtons.push(btn);
+      frag.appendChild(btn);
     }
 
-    function shuffleArray(arr) {
-      const clone = [...arr];
-      for (let i = clone.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [clone[i], clone[j]] = [clone[j], clone[i]];
-      }
-      return clone;
+    els.options.textContent = "";
+    els.options.appendChild(frag);
+  }
+
+  function ensureAudioContext() {
+    const AudioClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioClass) return null;
+
+    if (!state.audioCtx || state.audioCtx.state === "closed") {
+      state.audioCtx = new AudioClass();
+      state.masterGain = state.audioCtx.createGain();
+      state.masterGain.gain.value = 0.15;
+      state.masterGain.connect(state.audioCtx.destination);
     }
+    return state.audioCtx;
+  }
 
-    function normalizeQuizData(rawData) {
-      return shuffleArray(rawData).map((item, qIndex) => {
-        const correctIndex = LETTERS.indexOf(item.a);
-        const options = item.o.map((text, idx) => ({
-          text,
-          isCorrect: idx === correctIndex
-        }));
-        const shuffledOptions = shuffleArray(options);
+  async function warmupAudio() {
+    const ctx = ensureAudioContext();
+    if (!ctx) return;
+    if (ctx.state !== "running") await ctx.resume();
+  }
 
-        return {
-          id: qIndex + 1,
-          q: item.q,
-          e: item.e,
-          w: item.w,
-          options: shuffledOptions.map((opt, idx) => ({
-            letter: LETTERS[idx],
-            text: opt.text,
-            isCorrect: opt.isCorrect
-          })),
-          correctLetter: LETTERS[shuffledOptions.findIndex(opt => opt.isCorrect)]
-        };
+  function createTone({ freq, type = "sine", start = 0, dur = 0.15, gain = 0.05, endFreq = null, filterFreq = 2600 }) {
+    if (!state.audioCtx || !state.masterGain) return;
+    const now = state.audioCtx.currentTime;
+    const osc = state.audioCtx.createOscillator();
+    const env = state.audioCtx.createGain();
+    const filter = state.audioCtx.createBiquadFilter();
+
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, now + start);
+    if (endFreq) osc.frequency.exponentialRampToValueAtTime(endFreq, now + start + dur);
+
+    filter.type = "lowpass";
+    filter.frequency.setValueAtTime(filterFreq, now + start);
+    filter.Q.value = 1.1;
+
+    env.gain.setValueAtTime(0.0001, now + start);
+    env.gain.exponentialRampToValueAtTime(gain, now + start + 0.018);
+    env.gain.exponentialRampToValueAtTime(0.0001, now + start + dur);
+
+    osc.connect(filter);
+    filter.connect(env);
+    env.connect(state.masterGain);
+
+    osc.start(now + start);
+    osc.stop(now + start + dur + 0.02);
+  }
+
+  async function playSoftCorrectSound() {
+    try {
+      await warmupAudio();
+      if (!state.audioCtx) return;
+      createTone({ freq: 392, type: "triangle", start: 0.00, dur: 0.11, gain: 0.032, filterFreq: 2400 });
+      createTone({ freq: 587.33, type: "triangle", start: 0.06, dur: 0.13, gain: 0.036, filterFreq: 2900 });
+      createTone({ freq: 783.99, type: "sine", start: 0.12, dur: 0.20, gain: 0.032, filterFreq: 3600 });
+      createTone({ freq: 1046.5, type: "sine", start: 0.18, dur: 0.28, gain: 0.018, endFreq: 1174.66, filterFreq: 4200 });
+    } catch (e) {}
+  }
+
+  async function playPhaseShiftSound() {
+    try {
+      await warmupAudio();
+      if (!state.audioCtx) return;
+      createTone({ freq: 180, type: "sawtooth", start: 0.00, dur: 0.20, gain: 0.020, endFreq: 360, filterFreq: 1600 });
+      createTone({ freq: 329.63, type: "triangle", start: 0.06, dur: 0.14, gain: 0.020, filterFreq: 2300 });
+      createTone({ freq: 523.25, type: "triangle", start: 0.12, dur: 0.18, gain: 0.024, filterFreq: 2800 });
+      createTone({ freq: 783.99, type: "sine", start: 0.20, dur: 0.26, gain: 0.022, endFreq: 987.77, filterFreq: 3800 });
+    } catch (e) {}
+  }
+
+  function getAnsweredCount() {
+    return Object.keys(state.userAnswers).length;
+  }
+
+  function getConquestPercent() {
+    return state.quizData.length ? state.correctCount / state.quizData.length : 0;
+  }
+
+  function getCompletionPercent() {
+    return state.quizData.length ? getAnsweredCount() / state.quizData.length : 0;
+  }
+
+  function getPhaseIndexByPercent(percent) {
+    let idx = 0;
+    for (let i = 0; i < EVOLUTION_PHASES.length; i++) {
+      if (percent >= EVOLUTION_PHASES[i].threshold) idx = i;
+    }
+    return idx;
+  }
+
+  function getPlanetVisualStage() {
+    return EVOLUTION_PHASES[getPhaseIndexByPercent(getConquestPercent())];
+  }
+
+  function getFinalSummary() {
+    const percent = Math.round(getConquestPercent() * 100);
+    if (percent >= 90) return { title: "🌕 Hành tinh vàng đã hoàn thiện", desc: "Bạn đã đưa hành tinh từ bụi vũ trụ tới trạng thái cân bằng ổn định và rực sáng." };
+    if (percent >= 72) return { title: "🪐 Tiến hóa rất mạnh", desc: "Hành tinh đã vượt phần lớn các chặng hình thành và đang đạt cấu trúc trưởng thành." };
+    if (percent >= 50) return { title: "🌍 Đã qua pha sơ khai", desc: "Hành tinh đã có bề mặt và khí quyển tương đối rõ, nhưng còn cần thêm tri thức để hoàn chỉnh." };
+    return { title: "☄️ Mới qua giai đoạn đầu", desc: "Hành tinh vẫn đang ở giai đoạn bồi tụ và ổn định ban đầu. Cần thêm câu đúng để phát triển tiếp." };
+  }
+
+  function setupPerfMode() {
+    const isMobile = window.innerWidth <= 720;
+    const verySmallScreen = window.innerWidth <= 480;
+    const lowThreads = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
+    const lowMemory = navigator.deviceMemory && navigator.deviceMemory <= 4;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (reducedMotion) {
+      state.perfMode = "low";
+      document.body.classList.add("low-perf", "reduced-motion");
+      applyRootVars({
+        "--fx-blur-nebula": "10px",
+        "--fx-blur-stage": "6px",
+        "--fx-blur-aura": "3px",
+        "--use-backdrop": "0"
       });
+      return;
     }
 
-    function initNav() {
-      const frag = document.createDocumentFragment();
-      state.navDots = [];
+    if (isMobile && (lowThreads || lowMemory || verySmallScreen)) {
+      state.perfMode = "low";
+      document.body.classList.add("low-perf");
+      applyRootVars({
+        "--fx-blur-nebula": "12px",
+        "--fx-blur-stage": "7px",
+        "--fx-blur-aura": "4px",
+        "--use-backdrop": "0"
+      });
+    } else if (isMobile) {
+      state.perfMode = "medium";
+      document.body.classList.add("mid-perf");
+      applyRootVars({
+        "--fx-blur-nebula": "18px",
+        "--fx-blur-stage": "10px",
+        "--fx-blur-aura": "5px",
+        "--use-backdrop": "0"
+      });
+    } else {
+      state.perfMode = "full";
+    }
+  }
 
-      for (let i = 0; i < state.quizData.length; i++) {
-        const dot = document.createElement("div");
-        dot.className = "nav-dot";
-        dot.id = `nav-${i}`;
-        dot.dataset.idx = i;
-        dot.textContent = i + 1;
-        state.navDots.push(dot);
-        frag.appendChild(dot);
-      }
+  function initParticlePool() {
+    const total =
+      state.perfMode === "low" ? 6 :
+      state.perfMode === "medium" ? 10 :
+      16;
 
-      els.navGrid.textContent = "";
-      els.navGrid.appendChild(frag);
+    const frag = document.createDocumentFragment();
+    state.particlePool.length = 0;
+
+    for (let i = 0; i < total; i++) {
+      const node = document.createElement("span");
+      node.className = "fx-particle";
+      node.hidden = true;
+      frag.appendChild(node);
+      state.particlePool.push(node);
     }
 
-    function buildOptions() {
-      const frag = document.createDocumentFragment();
-      state.optionButtons = [];
+    els.planetParticles.appendChild(frag);
+  }
 
-      for (let i = 0; i < 4; i++) {
-        const btn = document.createElement("button");
-        btn.className = "option-btn";
-        btn.type = "button";
-
-        const letter = document.createElement("div");
-        letter.className = "letter";
-
-        const text = document.createElement("span");
-
-        btn.appendChild(letter);
-        btn.appendChild(text);
-
-        btn._letterNode = letter;
-        btn._textNode = text;
-
-        state.optionButtons.push(btn);
-        frag.appendChild(btn);
-      }
-
-      els.options.textContent = "";
-      els.options.appendChild(frag);
+  function useParticleNode() {
+    for (let i = 0; i < state.particlePool.length; i++) {
+      if (state.particlePool[i].hidden) return state.particlePool[i];
     }
+    return null;
+  }
 
-    function ensureAudioContext() {
-      const AudioClass = window.AudioContext || window.webkitAudioContext;
-      if (!AudioClass) return null;
+  function spawnPlanetParticles(type) {
+    const base = type === "good" ? 10 : 7;
+    const count = state.perfMode === "low" ? Math.max(4, base - 4) : state.perfMode === "medium" ? Math.max(5, base - 2) : base;
 
-      if (!state.audioCtx || state.audioCtx.state === "closed") {
-        state.audioCtx = new AudioClass();
-        state.masterGain = state.audioCtx.createGain();
-        state.masterGain.gain.value = 0.15;
-        state.masterGain.connect(state.audioCtx.destination);
-      }
-      return state.audioCtx;
-    }
+    for (let i = 0; i < count; i++) {
+      const p = useParticleNode();
+      if (!p) break;
 
-    async function warmupAudio() {
-      const ctx = ensureAudioContext();
-      if (!ctx) return;
-      if (ctx.state !== "running") await ctx.resume();
-    }
+      p.className = `fx-particle ${type}`;
+      const angle = Math.random() * Math.PI * 2;
+      const distance = type === "good" ? 58 + Math.random() * 54 : 36 + Math.random() * 34;
+      const lift = type === "good" ? 18 + Math.random() * 20 : 0;
+      const dx = Math.cos(angle) * distance;
+      const dy = Math.sin(angle) * distance - lift;
+      const size = `${type === "good" ? 6 + Math.random() * 8 : 5 + Math.random() * 6}px`;
 
-    function createTone({ freq, type = "sine", start = 0, dur = 0.15, gain = 0.05, endFreq = null, filterFreq = 2600 }) {
-      if (!state.audioCtx || !state.masterGain) return;
-      const now = state.audioCtx.currentTime;
-      const osc = state.audioCtx.createOscillator();
-      const env = state.audioCtx.createGain();
-      const filter = state.audioCtx.createBiquadFilter();
+      p.style.setProperty("--dx", `${dx}px`);
+      p.style.setProperty("--dy", `${dy}px`);
+      p.style.setProperty("--rot", `${-30 + Math.random() * 60}deg`);
+      p.style.width = size;
+      p.style.height = size;
+      p.hidden = false;
 
-      osc.type = type;
-      osc.frequency.setValueAtTime(freq, now + start);
-      if (endFreq) osc.frequency.exponentialRampToValueAtTime(endFreq, now + start + dur);
-
-      filter.type = "lowpass";
-      filter.frequency.setValueAtTime(filterFreq, now + start);
-      filter.Q.value = 1.1;
-
-      env.gain.setValueAtTime(0.0001, now + start);
-      env.gain.exponentialRampToValueAtTime(gain, now + start + 0.018);
-      env.gain.exponentialRampToValueAtTime(0.0001, now + start + dur);
-
-      osc.connect(filter);
-      filter.connect(env);
-      env.connect(state.masterGain);
-
-      osc.start(now + start);
-      osc.stop(now + start + dur + 0.02);
-    }
-
-    async function playSoftCorrectSound() {
-      try {
-        await warmupAudio();
-        if (!state.audioCtx) return;
-        createTone({ freq: 392, type: "triangle", start: 0.00, dur: 0.11, gain: 0.032, filterFreq: 2400 });
-        createTone({ freq: 587.33, type: "triangle", start: 0.06, dur: 0.13, gain: 0.036, filterFreq: 2900 });
-        createTone({ freq: 783.99, type: "sine", start: 0.12, dur: 0.20, gain: 0.032, filterFreq: 3600 });
-        createTone({ freq: 1046.5, type: "sine", start: 0.18, dur: 0.28, gain: 0.018, endFreq: 1174.66, filterFreq: 4200 });
-      } catch (e) {}
-    }
-
-    async function playPhaseShiftSound() {
-      try {
-        await warmupAudio();
-        if (!state.audioCtx) return;
-        createTone({ freq: 180, type: "sawtooth", start: 0.00, dur: 0.20, gain: 0.020, endFreq: 360, filterFreq: 1600 });
-        createTone({ freq: 329.63, type: "triangle", start: 0.06, dur: 0.14, gain: 0.020, filterFreq: 2300 });
-        createTone({ freq: 523.25, type: "triangle", start: 0.12, dur: 0.18, gain: 0.024, filterFreq: 2800 });
-        createTone({ freq: 783.99, type: "sine", start: 0.20, dur: 0.26, gain: 0.022, endFreq: 987.77, filterFreq: 3800 });
-      } catch (e) {}
-    }
-
-    function getAnsweredCount() {
-      return Object.keys(state.userAnswers).length;
-    }
-
-    function getConquestPercent() {
-      return state.quizData.length ? state.correctCount / state.quizData.length : 0;
-    }
-
-    function getCompletionPercent() {
-      return state.quizData.length ? getAnsweredCount() / state.quizData.length : 0;
-    }
-
-    function getPhaseIndexByPercent(percent) {
-      let idx = 0;
-      for (let i = 0; i < EVOLUTION_PHASES.length; i++) {
-        if (percent >= EVOLUTION_PHASES[i].threshold) idx = i;
-      }
-      return idx;
-    }
-
-    function getPlanetVisualStage() {
-      return EVOLUTION_PHASES[getPhaseIndexByPercent(getConquestPercent())];
-    }
-
-    function getFinalSummary() {
-      const percent = Math.round(getConquestPercent() * 100);
-      if (percent >= 90) return { title: "🌕 Hành tinh vàng đã hoàn thiện", desc: "Bạn đã đưa hành tinh từ bụi vũ trụ tới trạng thái cân bằng ổn định và rực sáng." };
-      if (percent >= 72) return { title: "🪐 Tiến hóa rất mạnh", desc: "Hành tinh đã vượt phần lớn các chặng hình thành và đang đạt cấu trúc trưởng thành." };
-      if (percent >= 50) return { title: "🌍 Đã qua pha sơ khai", desc: "Hành tinh đã có bề mặt và khí quyển tương đối rõ, nhưng còn cần thêm tri thức để hoàn chỉnh." };
-      return { title: "☄️ Mới qua giai đoạn đầu", desc: "Hành tinh vẫn đang ở giai đoạn bồi tụ và ổn định ban đầu. Cần thêm câu đúng để phát triển tiếp." };
-    }
-
-    function setupPerfMode() {
-      const isMobile = window.innerWidth <= 720;
-      const lowThreads = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
-      const lowMemory = navigator.deviceMemory && navigator.deviceMemory <= 4;
-
-      if (isMobile && (lowThreads || lowMemory)) {
-        state.perfMode = "low";
-        document.body.classList.add("low-perf");
-        rootStyle.setProperty("--fx-blur-nebula", "18px");
-        rootStyle.setProperty("--fx-blur-stage", "9px");
-        rootStyle.setProperty("--fx-blur-aura", "5px");
-        rootStyle.setProperty("--use-backdrop", "0");
-      } else if (isMobile) {
-        state.perfMode = "medium";
-        rootStyle.setProperty("--fx-blur-nebula", "24px");
-        rootStyle.setProperty("--fx-blur-stage", "12px");
-        rootStyle.setProperty("--fx-blur-aura", "7px");
-      } else {
-        state.perfMode = "full";
-      }
-    }
-
-    function initParticlePool() {
-      const total = state.perfMode === "low" ? 10 : state.perfMode === "medium" ? 16 : 24;
-      const frag = document.createDocumentFragment();
-      for (let i = 0; i < total; i++) {
-        const node = document.createElement("span");
-        node.className = "fx-particle";
-        node.style.display = "none";
-        frag.appendChild(node);
-        state.particlePool.push(node);
-      }
-      els.planetParticles.appendChild(frag);
-    }
-
-    function useParticleNode() {
-      for (let i = 0; i < state.particlePool.length; i++) {
-        if (state.particlePool[i].style.display === "none") return state.particlePool[i];
-      }
-      return null;
-    }
-
-    function spawnPlanetParticles(type) {
-      const base = type === "good" ? 10 : 7;
-      const count = state.perfMode === "low" ? Math.max(4, base - 4) : state.perfMode === "medium" ? Math.max(5, base - 2) : base;
-
-      for (let i = 0; i < count; i++) {
-        const p = useParticleNode();
-        if (!p) break;
-
-        p.className = `fx-particle ${type}`;
-        const angle = Math.random() * Math.PI * 2;
-        const distance = type === "good" ? 58 + Math.random() * 54 : 36 + Math.random() * 34;
-        const lift = type === "good" ? 18 + Math.random() * 20 : 0;
-        const dx = Math.cos(angle) * distance;
-        const dy = Math.sin(angle) * distance - lift;
-        const size = `${type === "good" ? 6 + Math.random() * 8 : 5 + Math.random() * 6}px`;
-
-        p.style.setProperty("--dx", `${dx}px`);
-        p.style.setProperty("--dy", `${dy}px`);
-        p.style.setProperty("--rot", `${-30 + Math.random() * 60}deg`);
-        p.style.width = size;
-        p.style.height = size;
-        p.style.display = "block";
-
-        p.onanimationend = () => {
-          p.style.display = "none";
-          p.className = "fx-particle";
-          p.onanimationend = null;
-        };
-      }
-    }
-
-    function setStageFx(stateClass) {
-      els.planetStage.classList.remove("is-boost", "is-damage", "is-heal", "is-phase-shift");
-      if (!stateClass) return;
-      els.planetStage.classList.add(stateClass);
-
-      clearTimeout(setStageFx.timer);
-      setStageFx.timer = setTimeout(() => {
-        els.planetStage.classList.remove("is-boost", "is-damage", "is-heal", "is-phase-shift");
-      }, stateClass === "is-phase-shift" ? 1180 : 980);
-    }
-
-    function triggerPhaseShiftCutscene() {
-      setStageFx("is-phase-shift");
-      rootStyle.setProperty("--camera-zoom", "1.22");
-      rootStyle.setProperty("--camera-rot-x", "-9deg");
-      rootStyle.setProperty("--camera-rot-y", "8deg");
-      rootStyle.setProperty("--ring-burst-scale", "1.16");
-
-      setTimeout(() => {
-        rootStyle.setProperty("--camera-zoom", "1");
-        rootStyle.setProperty("--camera-rot-x", "0deg");
-        rootStyle.setProperty("--camera-rot-y", "0deg");
-        rootStyle.setProperty("--ring-burst-scale", "1");
-      }, 620);
-
-      playPhaseShiftSound();
-    }
-
-    function mulberry32(seed) {
-      let t = seed >>> 0;
-      return function() {
-        t += 0x6D2B79F5;
-        let r = Math.imul(t ^ (t >>> 15), 1 | t);
-        r ^= r + Math.imul(r ^ (r >>> 7), 61 | r);
-        return ((r ^ (r >>> 14)) >>> 0) / 4294967296;
+      p.onanimationend = () => {
+        p.hidden = true;
+        p.className = "fx-particle";
+        p.onanimationend = null;
       };
     }
+  }
 
-    function polarPoint(cx, cy, angleDeg, radius) {
-      const a = angleDeg * Math.PI / 180;
-      return [cx + Math.cos(a) * radius, cy + Math.sin(a) * radius];
+  function setStageFx(stateClass) {
+    els.planetStage.classList.remove("is-boost", "is-damage", "is-heal", "is-phase-shift");
+    if (!stateClass) return;
+    els.planetStage.classList.add(stateClass);
+
+    clearTimeout(setStageFx.timer);
+    setStageFx.timer = setTimeout(() => {
+      els.planetStage.classList.remove("is-boost", "is-damage", "is-heal", "is-phase-shift");
+    }, stateClass === "is-phase-shift" ? 1180 : 980);
+  }
+
+  function triggerPhaseShiftCutscene() {
+    setStageFx("is-phase-shift");
+    rootStyle.setProperty("--camera-zoom", "1.22");
+    rootStyle.setProperty("--camera-rot-x", "-9deg");
+    rootStyle.setProperty("--camera-rot-y", "8deg");
+    rootStyle.setProperty("--ring-burst-scale", "1.16");
+
+    setTimeout(() => {
+      rootStyle.setProperty("--camera-zoom", "1");
+      rootStyle.setProperty("--camera-rot-x", "0deg");
+      rootStyle.setProperty("--camera-rot-y", "0deg");
+      rootStyle.setProperty("--ring-burst-scale", "1");
+    }, 620);
+
+    playPhaseShiftSound();
+  }
+
+  function mulberry32(seed) {
+    let t = seed >>> 0;
+    return function() {
+      t += 0x6D2B79F5;
+      let r = Math.imul(t ^ (t >>> 15), 1 | t);
+      r ^= r + Math.imul(r ^ (r >>> 7), 61 | r);
+      return ((r ^ (r >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  function polarPoint(cx, cy, angleDeg, radius) {
+    const a = angleDeg * Math.PI / 180;
+    return [cx + Math.cos(a) * radius, cy + Math.sin(a) * radius];
+  }
+
+  function linePath(points) {
+    return points.map((p, i) => `${i ? "L" : "M"} ${p[0].toFixed(2)} ${p[1].toFixed(2)}`).join(" ");
+  }
+
+  function createSvgPath(d, cls, strokeWidth, opacity = 1) {
+    const p = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    p.setAttribute("d", d);
+    p.setAttribute("class", cls);
+    p.setAttribute("stroke-width", strokeWidth);
+    p.setAttribute("opacity", opacity);
+    return p;
+  }
+
+  function createMaskCircle(cx, cy, r) {
+    const c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    c.setAttribute("cx", cx);
+    c.setAttribute("cy", cy);
+    c.setAttribute("r", r);
+    c.setAttribute("fill", "black");
+    return c;
+  }
+
+  function createHoleVisualPath(d, fill, opacity) {
+    const p = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    p.setAttribute("d", d);
+    p.setAttribute("fill", fill);
+    p.setAttribute("opacity", opacity);
+    return p;
+  }
+
+  function createRimPath(d, cls, width, opacity) {
+    const p = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    p.setAttribute("d", d);
+    p.setAttribute("class", cls);
+    p.setAttribute("stroke-width", width);
+    p.setAttribute("opacity", opacity);
+    return p;
+  }
+
+  function clamp(min, value, max) {
+    return Math.max(min, Math.min(max, value));
+  }
+
+  function nextDamageSeed(sourceIndex) {
+    state.damageSeed = (Math.imul(state.damageSeed ^ (sourceIndex + 11), 1664525) + 1013904223) >>> 0;
+    return state.damageSeed;
+  }
+
+  function buildFractureGeometry(damage, seedBase = 1) {
+    els.crackGlowGroup.innerHTML = "";
+    els.crackHeatGroup.innerHTML = "";
+    els.crackCoreGroup.innerHTML = "";
+    els.planetHoleMaskGroup.innerHTML = "";
+    els.planetHoleVisualGroup.innerHTML = "";
+    els.planetHoleRimOuterGroup.innerHTML = "";
+    els.planetHoleRimInnerGroup.innerHTML = "";
+
+    state.holeFragments = [];
+
+    if (damage <= 0) return;
+
+    const rnd = mulberry32(seedBase + damage * 131);
+    const centers = [];
+    const centerCount = clamp(1, 1 + Math.floor((damage - 1) / 2) + (damage >= 4 ? 1 : 0), 3);
+
+    const centerPresets = [
+      { x: 46, y: 50, r: 4.8 },
+      { x: 61, y: 42, r: 3.8 },
+      { x: 39, y: 66, r: 3.6 }
+    ];
+
+    for (let i = 0; i < centerCount; i++) {
+      const preset = centerPresets[i];
+      const cx = preset.x + (rnd() - 0.5) * (2 + damage * 0.8);
+      const cy = preset.y + (rnd() - 0.5) * (2 + damage * 0.8);
+      const r = preset.r + damage * 0.45 + rnd() * 0.9;
+      centers.push({ cx, cy, r });
     }
 
-    function linePath(points) {
-      return points.map((p, i) => `${i ? "L" : "M"} ${p[0].toFixed(2)} ${p[1].toFixed(2)}`).join(" ");
-    }
+    const allFragmentSeeds = [];
 
-    function createSvgPath(d, cls, strokeWidth, opacity = 1) {
-      const p = document.createElementNS("http://www.w3.org/2000/svg", "path");
-      p.setAttribute("d", d);
-      p.setAttribute("class", cls);
-      p.setAttribute("stroke-width", strokeWidth);
-      p.setAttribute("opacity", opacity);
-      return p;
-    }
+    centers.forEach((center, centerIndex) => {
+      const arms = clamp(3, 4 + damage + centerIndex, 9);
+      const baseSpread = 360 / arms;
+      const localSeed = mulberry32(seedBase * 11 + centerIndex * 997 + damage * 17);
 
-    function createMaskCircle(cx, cy, r) {
-      const c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-      c.setAttribute("cx", cx);
-      c.setAttribute("cy", cy);
-      c.setAttribute("r", r);
-      c.setAttribute("fill", "black");
-      return c;
-    }
+      if (damage >= 3) {
+        els.planetHoleMaskGroup.appendChild(
+          createMaskCircle(
+            (center.cx / 100).toFixed(4),
+            (center.cy / 100).toFixed(4),
+            (center.r / 100).toFixed(4)
+          )
+        );
 
-    function createHoleVisualPath(d, fill, opacity) {
-      const p = document.createElementNS("http://www.w3.org/2000/svg", "path");
-      p.setAttribute("d", d);
-      p.setAttribute("fill", fill);
-      p.setAttribute("opacity", opacity);
-      return p;
-    }
+        const craterD = [
+          `M ${(center.cx - center.r * .9).toFixed(2)} ${(center.cy - center.r * .2).toFixed(2)}`,
+          `Q ${(center.cx - center.r * .5).toFixed(2)} ${(center.cy - center.r * 1.12).toFixed(2)} ${center.cx.toFixed(2)} ${(center.cy - center.r * .92).toFixed(2)}`,
+          `Q ${(center.cx + center.r * .92).toFixed(2)} ${(center.cy - center.r * .82).toFixed(2)} ${(center.cx + center.r * 1.02).toFixed(2)} ${center.cy.toFixed(2)}`,
+          `Q ${(center.cx + center.r * .78).toFixed(2)} ${(center.cy + center.r * 1.02).toFixed(2)} ${center.cx.toFixed(2)} ${(center.cy + center.r * 1.04).toFixed(2)}`,
+          `Q ${(center.cx - center.r * 1.02).toFixed(2)} ${(center.cy + center.r * .62).toFixed(2)} ${(center.cx - center.r * .9).toFixed(2)} ${(center.cy - center.r * .2).toFixed(2)} Z`
+        ].join(" ");
 
-    function createRimPath(d, cls, width, opacity) {
-      const p = document.createElementNS("http://www.w3.org/2000/svg", "path");
-      p.setAttribute("d", d);
-      p.setAttribute("class", cls);
-      p.setAttribute("stroke-width", width);
-      p.setAttribute("opacity", opacity);
-      return p;
-    }
+        els.planetHoleVisualGroup.appendChild(createHoleVisualPath(craterD, "rgba(18,3,0,.90)", .92));
+        els.planetHoleVisualGroup.appendChild(createHoleVisualPath(craterD, "rgba(255,108,28,.14)", .46));
+        els.planetHoleRimOuterGroup.appendChild(createRimPath(craterD, "hole-rim-outer", (1.15 + damage * .12).toFixed(2), .70));
+        els.planetHoleRimInnerGroup.appendChild(createRimPath(craterD, "hole-rim-inner", (0.65 + damage * .08).toFixed(2), .60));
 
-    function clamp(min, value, max) {
-      return Math.max(min, Math.min(max, value));
-    }
-
-    function nextDamageSeed(sourceIndex) {
-      state.damageSeed = (Math.imul(state.damageSeed ^ (sourceIndex + 11), 1664525) + 1013904223) >>> 0;
-      return state.damageSeed;
-    }
-
-    function buildFractureGeometry(damage, seedBase = 1) {
-      els.crackGlowGroup.innerHTML = "";
-      els.crackHeatGroup.innerHTML = "";
-      els.crackCoreGroup.innerHTML = "";
-      els.planetHoleMaskGroup.innerHTML = "";
-      els.planetHoleVisualGroup.innerHTML = "";
-      els.planetHoleRimOuterGroup.innerHTML = "";
-      els.planetHoleRimInnerGroup.innerHTML = "";
-
-      state.holeFragments = [];
-
-      if (damage <= 0) return;
-
-      const rnd = mulberry32(seedBase + damage * 131);
-      const centers = [];
-      const centerCount = clamp(1, 1 + Math.floor((damage - 1) / 2) + (damage >= 4 ? 1 : 0), 3);
-
-      const centerPresets = [
-        { x: 46, y: 50, r: 4.8 },
-        { x: 61, y: 42, r: 3.8 },
-        { x: 39, y: 66, r: 3.6 }
-      ];
-
-      for (let i = 0; i < centerCount; i++) {
-        const preset = centerPresets[i];
-        const cx = preset.x + (rnd() - 0.5) * (2 + damage * 0.8);
-        const cy = preset.y + (rnd() - 0.5) * (2 + damage * 0.8);
-        const r = preset.r + damage * 0.45 + rnd() * 0.9;
-        centers.push({ cx, cy, r });
+        allFragmentSeeds.push({
+          angle: 20 + centerIndex * 100 + rnd() * 60,
+          distance: 38 + damage * 8 + rnd() * 16,
+          size: 15 + damage * 2 + rnd() * 4
+        });
       }
 
-      const allFragmentSeeds = [];
+      for (let a = 0; a < arms; a++) {
+        const baseAngle = a * baseSpread + localSeed() * (18 + damage * 2);
+        const outward = 9 + damage * 2.6 + localSeed() * (12 + damage * 3.6);
+        const segs = 3 + Math.floor(localSeed() * 3);
+        const pts = [[center.cx, center.cy]];
+        let radiusAcc = center.r * .28;
 
-      centers.forEach((center, centerIndex) => {
-        const arms = clamp(3, 4 + damage + centerIndex, 9);
-        const baseSpread = 360 / arms;
-        const localSeed = mulberry32(seedBase * 11 + centerIndex * 997 + damage * 17);
+        for (let s = 1; s <= segs; s++) {
+          const jitterA = (localSeed() - .5) * (18 + damage * 5);
+          const jitterR = (localSeed() - .5) * (2.2 + damage * .9);
+          radiusAcc += outward / segs + jitterR;
+          const angle = baseAngle + jitterA;
+          pts.push(polarPoint(center.cx, center.cy, angle, radiusAcc));
+        }
 
-        if (damage >= 3) {
+        const d = linePath(pts);
+        const baseW = 0.9 + damage * .14 + localSeed() * .32;
+        els.crackGlowGroup.appendChild(createSvgPath(d, "crack-glow", (baseW + 1.6).toFixed(2), .78));
+        els.crackHeatGroup.appendChild(createSvgPath(d, "crack-heat", (baseW + .62).toFixed(2), .66));
+        els.crackCoreGroup.appendChild(createSvgPath(d, "crack-core", baseW.toFixed(2), .96));
+
+        const branchCount = clamp(1, Math.floor(localSeed() * (1 + damage)), damage >= 2 ? 4 : 2);
+        for (let b = 0; b < branchCount; b++) {
+          const pick = 1 + Math.floor(localSeed() * (pts.length - 1));
+          const origin = pts[pick];
+          const originAngle = Math.atan2(origin[1] - center.cy, origin[0] - center.cx) * 180 / Math.PI;
+          const dir = originAngle + (localSeed() > .5 ? 1 : -1) * (18 + localSeed() * (40 + damage * 5));
+          const len = 4 + localSeed() * (7 + damage * 2.8);
+          const steps = 2 + Math.floor(localSeed() * 2);
+          const bPts = [origin];
+
+          for (let k = 1; k <= steps; k++) {
+            const t = k / steps;
+            const a2 = dir + (localSeed() - .5) * 16;
+            const r2 = len * t;
+            bPts.push([
+              origin[0] + Math.cos(a2 * Math.PI / 180) * r2,
+              origin[1] + Math.sin(a2 * Math.PI / 180) * r2
+            ]);
+          }
+
+          const bd = linePath(bPts);
+          const bw = Math.max(.48, baseW * .55);
+          els.crackGlowGroup.appendChild(createSvgPath(bd, "crack-glow", (bw + .92).toFixed(2), .52));
+          els.crackHeatGroup.appendChild(createSvgPath(bd, "crack-heat", (bw + .38).toFixed(2), .44));
+          els.crackCoreGroup.appendChild(createSvgPath(bd, "crack-core", bw.toFixed(2), .82));
+        }
+
+        if (damage >= 4 && a % 2 === 0) {
+          const last = pts[pts.length - 1];
+          const tearRadius = 1.8 + damage * .34 + localSeed() * .8;
           els.planetHoleMaskGroup.appendChild(
             createMaskCircle(
-              (center.cx / 100).toFixed(4),
-              (center.cy / 100).toFixed(4),
-              (center.r / 100).toFixed(4)
+              (last[0] / 100).toFixed(4),
+              (last[1] / 100).toFixed(4),
+              (tearRadius / 100).toFixed(4)
             )
           );
 
-          const craterD = [
-            `M ${(center.cx - center.r * .9).toFixed(2)} ${(center.cy - center.r * .2).toFixed(2)}`,
-            `Q ${(center.cx - center.r * .5).toFixed(2)} ${(center.cy - center.r * 1.12).toFixed(2)} ${center.cx.toFixed(2)} ${(center.cy - center.r * .92).toFixed(2)}`,
-            `Q ${(center.cx + center.r * .92).toFixed(2)} ${(center.cy - center.r * .82).toFixed(2)} ${(center.cx + center.r * 1.02).toFixed(2)} ${center.cy.toFixed(2)}`,
-            `Q ${(center.cx + center.r * .78).toFixed(2)} ${(center.cy + center.r * 1.02).toFixed(2)} ${center.cx.toFixed(2)} ${(center.cy + center.r * 1.04).toFixed(2)}`,
-            `Q ${(center.cx - center.r * 1.02).toFixed(2)} ${(center.cy + center.r * .62).toFixed(2)} ${(center.cx - center.r * .9).toFixed(2)} ${(center.cy - center.r * .2).toFixed(2)} Z`
+          const tearD = [
+            `M ${(last[0] - tearRadius).toFixed(2)} ${last[1].toFixed(2)}`,
+            `Q ${last[0].toFixed(2)} ${(last[1] - tearRadius * 1.2).toFixed(2)} ${(last[0] + tearRadius * 1.1).toFixed(2)} ${last[1].toFixed(2)}`,
+            `Q ${last[0].toFixed(2)} ${(last[1] + tearRadius).toFixed(2)} ${(last[0] - tearRadius).toFixed(2)} ${last[1].toFixed(2)} Z`
           ].join(" ");
 
-          els.planetHoleVisualGroup.appendChild(createHoleVisualPath(craterD, "rgba(18,3,0,.90)", .92));
-          els.planetHoleVisualGroup.appendChild(createHoleVisualPath(craterD, "rgba(255,108,28,.14)", .46));
-          els.planetHoleRimOuterGroup.appendChild(createRimPath(craterD, "hole-rim-outer", (1.15 + damage * .12).toFixed(2), .70));
-          els.planetHoleRimInnerGroup.appendChild(createRimPath(craterD, "hole-rim-inner", (0.65 + damage * .08).toFixed(2), .60));
+          els.planetHoleVisualGroup.appendChild(createHoleVisualPath(tearD, "rgba(14,2,0,.86)", .74));
+          els.planetHoleRimOuterGroup.appendChild(createRimPath(tearD, "hole-rim-outer", "0.85", .56));
+          els.planetHoleRimInnerGroup.appendChild(createRimPath(tearD, "hole-rim-inner", "0.45", .42));
 
           allFragmentSeeds.push({
-            angle: 20 + centerIndex * 100 + rnd() * 60,
-            distance: 38 + damage * 8 + rnd() * 16,
-            size: 15 + damage * 2 + rnd() * 4
+            angle: baseAngle + (localSeed() - .5) * 40,
+            distance: 28 + damage * 6 + localSeed() * 14,
+            size: 10 + damage * 1.6 + localSeed() * 3
           });
         }
-
-        for (let a = 0; a < arms; a++) {
-          const baseAngle = a * baseSpread + localSeed() * (18 + damage * 2);
-          const outward = 9 + damage * 2.6 + localSeed() * (12 + damage * 3.6);
-          const segs = 3 + Math.floor(localSeed() * 3);
-          const pts = [[center.cx, center.cy]];
-          let radiusAcc = center.r * .28;
-
-          for (let s = 1; s <= segs; s++) {
-            const jitterA = (localSeed() - .5) * (18 + damage * 5);
-            const jitterR = (localSeed() - .5) * (2.2 + damage * .9);
-            radiusAcc += outward / segs + jitterR;
-            const angle = baseAngle + jitterA;
-            pts.push(polarPoint(center.cx, center.cy, angle, radiusAcc));
-          }
-
-          const d = linePath(pts);
-          const baseW = 0.9 + damage * .14 + localSeed() * .32;
-          els.crackGlowGroup.appendChild(createSvgPath(d, "crack-glow", (baseW + 1.6).toFixed(2), .78));
-          els.crackHeatGroup.appendChild(createSvgPath(d, "crack-heat", (baseW + .62).toFixed(2), .66));
-          els.crackCoreGroup.appendChild(createSvgPath(d, "crack-core", baseW.toFixed(2), .96));
-
-          const branchCount = clamp(1, Math.floor(localSeed() * (1 + damage)), damage >= 2 ? 4 : 2);
-          for (let b = 0; b < branchCount; b++) {
-            const pick = 1 + Math.floor(localSeed() * (pts.length - 1));
-            const origin = pts[pick];
-            const originAngle = Math.atan2(origin[1] - center.cy, origin[0] - center.cx) * 180 / Math.PI;
-            const dir = originAngle + (localSeed() > .5 ? 1 : -1) * (18 + localSeed() * (40 + damage * 5));
-            const len = 4 + localSeed() * (7 + damage * 2.8);
-            const steps = 2 + Math.floor(localSeed() * 2);
-            const bPts = [origin];
-
-            for (let k = 1; k <= steps; k++) {
-              const t = k / steps;
-              const a2 = dir + (localSeed() - .5) * 16;
-              const r2 = len * t;
-              bPts.push([
-                origin[0] + Math.cos(a2 * Math.PI / 180) * r2,
-                origin[1] + Math.sin(a2 * Math.PI / 180) * r2
-              ]);
-            }
-
-            const bd = linePath(bPts);
-            const bw = Math.max(.48, baseW * .55);
-            els.crackGlowGroup.appendChild(createSvgPath(bd, "crack-glow", (bw + .92).toFixed(2), .52));
-            els.crackHeatGroup.appendChild(createSvgPath(bd, "crack-heat", (bw + .38).toFixed(2), .44));
-            els.crackCoreGroup.appendChild(createSvgPath(bd, "crack-core", bw.toFixed(2), .82));
-          }
-
-          if (damage >= 4 && a % 2 === 0) {
-            const last = pts[pts.length - 1];
-            const tearRadius = 1.8 + damage * .34 + localSeed() * .8;
-            els.planetHoleMaskGroup.appendChild(
-              createMaskCircle(
-                (last[0] / 100).toFixed(4),
-                (last[1] / 100).toFixed(4),
-                (tearRadius / 100).toFixed(4)
-              )
-            );
-
-            const tearD = [
-              `M ${(last[0] - tearRadius).toFixed(2)} ${last[1].toFixed(2)}`,
-              `Q ${last[0].toFixed(2)} ${(last[1] - tearRadius * 1.2).toFixed(2)} ${(last[0] + tearRadius * 1.1).toFixed(2)} ${last[1].toFixed(2)}`,
-              `Q ${last[0].toFixed(2)} ${(last[1] + tearRadius).toFixed(2)} ${(last[0] - tearRadius).toFixed(2)} ${last[1].toFixed(2)} Z`
-            ].join(" ");
-
-            els.planetHoleVisualGroup.appendChild(createHoleVisualPath(tearD, "rgba(14,2,0,.86)", .74));
-            els.planetHoleRimOuterGroup.appendChild(createRimPath(tearD, "hole-rim-outer", "0.85", .56));
-            els.planetHoleRimInnerGroup.appendChild(createRimPath(tearD, "hole-rim-inner", "0.45", .42));
-
-            allFragmentSeeds.push({
-              angle: baseAngle + (localSeed() - .5) * 40,
-              distance: 28 + damage * 6 + localSeed() * 14,
-              size: 10 + damage * 1.6 + localSeed() * 3
-            });
-          }
-        }
-      });
-
-      state.holeFragments = allFragmentSeeds;
-    }
-
-    function initFragments() {
-      const clips = [
-        "polygon(8% 18%, 68% 0, 100% 40%, 78% 96%, 18% 82%, 0 48%)",
-        "polygon(14% 6%, 84% 14%, 100% 62%, 54% 100%, 0 76%, 4% 28%)",
-        "polygon(10% 18%, 64% 0, 100% 44%, 84% 100%, 26% 88%, 0 52%)",
-        "polygon(6% 20%, 50% 2%, 94% 30%, 100% 70%, 62% 100%, 18% 84%, 0 50%)",
-        "polygon(16% 4%, 82% 18%, 100% 58%, 76% 96%, 26% 100%, 0 52%)",
-        "polygon(8% 8%, 72% 0, 100% 42%, 86% 88%, 34% 100%, 0 58%)",
-        "polygon(18% 0, 90% 18%, 100% 62%, 68% 100%, 12% 84%, 0 34%)",
-        "polygon(10% 10%, 58% 0, 100% 34%, 94% 84%, 42% 100%, 0 60%)",
-        "polygon(4% 24%, 50% 0, 92% 16%, 100% 70%, 58% 100%, 14% 88%, 0 48%)"
-      ];
-
-      const frag = document.createDocumentFragment();
-      state.fragmentNodes.length = 0;
-      const total = state.perfMode === "low" ? 5 : state.perfMode === "medium" ? 7 : 9;
-
-      for (let i = 0; i < total; i++) {
-        const node = document.createElement("span");
-        node.className = "fragment-chip";
-        node.style.setProperty("--clip", clips[i % clips.length]);
-        node.style.setProperty("--size", `${12 + i * 1.6}px`);
-        node.style.setProperty("--o", `${i < 4 ? 1 : .76}`);
-        frag.appendChild(node);
-        state.fragmentNodes.push(node);
       }
-      els.planetFragments.appendChild(frag);
+    });
+
+    state.holeFragments = allFragmentSeeds;
+  }
+
+  function initFragments() {
+    const clips = [
+      "polygon(8% 18%, 68% 0, 100% 40%, 78% 96%, 18% 82%, 0 48%)",
+      "polygon(14% 6%, 84% 14%, 100% 62%, 54% 100%, 0 76%, 4% 28%)",
+      "polygon(10% 18%, 64% 0, 100% 44%, 84% 100%, 26% 88%, 0 52%)",
+      "polygon(6% 20%, 50% 2%, 94% 30%, 100% 70%, 62% 100%, 18% 84%, 0 50%)",
+      "polygon(16% 4%, 82% 18%, 100% 58%, 76% 96%, 26% 100%, 0 52%)",
+      "polygon(8% 8%, 72% 0, 100% 42%, 86% 88%, 34% 100%, 0 58%)",
+      "polygon(18% 0, 90% 18%, 100% 62%, 68% 100%, 12% 84%, 0 34%)",
+      "polygon(10% 10%, 58% 0, 100% 34%, 94% 84%, 42% 100%, 0 60%)",
+      "polygon(4% 24%, 50% 0, 92% 16%, 100% 70%, 58% 100%, 14% 88%, 0 48%)"
+    ];
+
+    const frag = document.createDocumentFragment();
+    state.fragmentNodes.length = 0;
+    const total = state.perfMode === "low" ? 5 : state.perfMode === "medium" ? 7 : 9;
+
+    for (let i = 0; i < total; i++) {
+      const node = document.createElement("span");
+      node.className = "fragment-chip";
+      node.style.setProperty("--clip", clips[i % clips.length]);
+      node.style.setProperty("--size", `${12 + i * 1.6}px`);
+      node.style.setProperty("--o", `${i < 4 ? 1 : .76}`);
+      frag.appendChild(node);
+      state.fragmentNodes.push(node);
     }
+    els.planetFragments.appendChild(frag);
+  }
 
-    function updateFragments(damage) {
-      const burst = Math.max(0, damage - 2);
-      rootStyle.setProperty("--fragment-opacity", burst > 0 ? Math.min(1, .12 + burst * .24).toFixed(3) : "0");
-      rootStyle.setProperty("--fragment-burst", burst.toFixed(3));
-      rootStyle.setProperty("--fragment-heat", (damage / 5).toFixed(3));
+  function updateFragments(damage) {
+    const burst = Math.max(0, damage - 2);
+    rootStyle.setProperty("--fragment-opacity", burst > 0 ? Math.min(1, .12 + burst * .24).toFixed(3) : "0");
+    rootStyle.setProperty("--fragment-burst", burst.toFixed(3));
+    rootStyle.setProperty("--fragment-heat", (damage / 5).toFixed(3));
 
-      const count = state.fragmentNodes.length;
-      for (let i = 0; i < count; i++) {
-        const node = state.fragmentNodes[i];
-        const seed = state.holeFragments[i % Math.max(1, state.holeFragments.length)] || {
-          angle: -30 + i * 40,
-          distance: 24 + i * 6,
-          size: 12 + i * 2
-        };
-
-        const rad = seed.angle * Math.PI / 180;
-        const spread = seed.distance * burst * .56;
-        const x = Math.cos(rad) * spread;
-        const y = Math.sin(rad) * spread - burst * (i % 3 === 0 ? 6 : 0);
-        const rot = (seed.angle * .9) + burst * (i % 2 === 0 ? 26 : -22);
-        const scale = 1 + burst * (.04 + (i % 4) * .02);
-
-        node.style.setProperty("--size", `${seed.size}px`);
-        node.style.setProperty("--x", `${x.toFixed(2)}px`);
-        node.style.setProperty("--y", `${y.toFixed(2)}px`);
-        node.style.setProperty("--r", `${rot.toFixed(2)}deg`);
-        node.style.setProperty("--s", `${scale.toFixed(3)}`);
-      }
-    }
-
-    function updateProceduralDamageVisuals(force = false) {
-      const key = `${state.planetDamage}|${state.damageSeed}`;
-      if (!force && key === state.damageCacheKey) return;
-      state.damageCacheKey = key;
-
-      buildFractureGeometry(state.planetDamage, state.damageSeed);
-      updateFragments(state.planetDamage);
-    }
-
-    function updateMiniOrbitVisibility(conquest, phaseIndex) {
-      const orbitLevels = [
-        conquest >= 0.10 ? 1 : 0,
-        conquest >= 0.24 ? 1 : 0,
-        conquest >= 0.40 ? 1 : 0,
-        conquest >= 0.60 ? 1 : 0,
-        conquest >= 0.82 ? 1 : 0
-      ];
-
-      rootStyle.setProperty("--mini-visible-1", orbitLevels[0]);
-      rootStyle.setProperty("--mini-visible-2", orbitLevels[1]);
-      rootStyle.setProperty("--mini-visible-3", orbitLevels[2]);
-      rootStyle.setProperty("--mini-visible-4", orbitLevels[3]);
-      rootStyle.setProperty("--mini-visible-5", orbitLevels[4]);
-      rootStyle.setProperty("--mini-orbit-shift", `${Math.max(1, phaseIndex) * 1.2}px`);
-    }
-
-    function updatePlanetState(lastResult = null) {
-      const conquest = getConquestPercent();
-      const answered = getAnsweredCount();
-      const visual = getPlanetVisualStage();
-      const phaseIndex = getPhaseIndexByPercent(conquest);
-
-      if (lastResult === "wrong") {
-        if (state.planetDamage < 5) {
-          state.planetDamage = Math.min(5, state.planetDamage + 1);
-          nextDamageSeed(state.currentIndex);
-        }
-      } else if (lastResult === "correct" && state.planetDamage > 0) {
-        state.planetDamage = Math.max(0, state.planetDamage - 1);
-      }
-
-      const energy = 0.16 + conquest * 0.84 + (phaseIndex * 0.012);
-      const scale = 1 + conquest * 0.14;
-      const fractureIntensity = state.planetDamage / 5;
-      const holeOpacity = state.planetDamage >= 3 ? clamp(0, .18 + (state.planetDamage - 2) * .28, 1) : 0;
-
-      const updates = {
-        "--planet-energy": energy.toFixed(3),
-        "--planet-scale": scale.toFixed(3),
-        "--planet-bright": visual.bright.toFixed(3),
-        "--planet-sat": visual.sat.toFixed(3),
-        "--planet-contrast": visual.contrast.toFixed(3),
-        "--planet-depth": visual.depth.toFixed(3),
-        "--planet-shadow-strength": visual.shadow.toFixed(3),
-        "--planet-hue": `${visual.hue.toFixed(1)}deg`,
-        "--planet-core": visual.core,
-        "--planet-core-2": visual.core2,
-        "--planet-core-3": visual.core3,
-        "--planet-ring-opacity": visual.ringOpacity,
-        "--planet-glow-color": visual.glow,
-        "--planet-surface-pattern-opacity": (0.66 + conquest * 0.24).toFixed(3),
-        "--lava-opacity": visual.lava,
-        "--continent-opacity": visual.continents,
-        "--continent-glow-opacity": visual.continentGlow,
-        "--ice-opacity": visual.ice,
-        "--cloud-opacity": visual.cloud,
-        "--ocean-opacity": visual.ocean,
-        "--aurora-opacity": visual.aurora,
-        "--debris-opacity": visual.debris,
-        "--ring-thin-opacity": visual.thinRing,
-        "--ring-outer-opacity": visual.outerRing,
-        "--planet-crack": state.planetDamage,
-        "--fracture-intensity": fractureIntensity.toFixed(3),
-        "--mini-planet-1": visual.mini[0],
-        "--mini-planet-2": visual.mini[1],
-        "--mini-planet-3": visual.mini[2],
-        "--mini-planet-glow": visual.glow,
-        "--ring-count-boost": visual.ringBoost.toFixed(2),
-        "--hole-opacity": holeOpacity.toFixed(3),
-        "--orbit-emphasis": visual.orbitEmphasis.toFixed(3),
-        "--orbit-scale": visual.orbitScale.toFixed(3),
-        "--orbit-speed": visual.orbitSpeed.toFixed(3),
-        "--orbit-dash-opacity": visual.orbitDash.toFixed(3)
+    const count = state.fragmentNodes.length;
+    for (let i = 0; i < count; i++) {
+      const node = state.fragmentNodes[i];
+      const seed = state.holeFragments[i % Math.max(1, state.holeFragments.length)] || {
+        angle: -30 + i * 40,
+        distance: 24 + i * 6,
+        size: 12 + i * 2
       };
 
-      applyRootVars(updates);
-      updateMiniOrbitVisibility(conquest, phaseIndex);
-      updateProceduralDamageVisuals();
+      const rad = seed.angle * Math.PI / 180;
+      const spread = seed.distance * burst * .56;
+      const x = Math.cos(rad) * spread;
+      const y = Math.sin(rad) * spread - burst * (i % 3 === 0 ? 6 : 0);
+      const rot = (seed.angle * .9) + burst * (i % 2 === 0 ? 26 : -22);
+      const scale = 1 + burst * (.04 + (i % 4) * .02);
 
-      els.planetStage.dataset.phase = visual.key;
-      els.conquestLevel.textContent = visual.label;
-      els.planetStability.textContent = `${visual.type} • ${visual.status}`;
-      els.scanProgress.textContent = `Chinh Phục Hành Tinh: ${phaseIndex + 1} / ${EVOLUTION_PHASES.length}`;
-      els.missionText.textContent =
-        answered < state.quizData.length
-          ? `Đã trả lời ${answered}/${state.quizData.length} câu • ${visual.reaction}`
-          : `Chiến dịch kết thúc • ${visual.reaction}`;
+      node.style.setProperty("--size", `${seed.size}px`);
+      node.style.setProperty("--x", `${x.toFixed(2)}px`);
+      node.style.setProperty("--y", `${y.toFixed(2)}px`);
+      node.style.setProperty("--r", `${rot.toFixed(2)}deg`);
+      node.style.setProperty("--s", `${scale.toFixed(3)}`);
+    }
+  }
 
-      if (lastResult === "correct") {
-        spawnPlanetParticles("good");
-        setStageFx(state.planetDamage > 0 ? "is-heal" : "is-boost");
-      }
-      if (lastResult === "wrong") {
-        spawnPlanetParticles("bad");
-        setStageFx("is-damage");
-      }
+  function updateProceduralDamageVisuals(force = false) {
+    const key = `${state.planetDamage}|${state.damageSeed}`;
+    if (!force && key === state.damageCacheKey) return;
+    state.damageCacheKey = key;
 
-      if (phaseIndex !== state.currentPhaseIndex) {
-        if (state.currentPhaseIndex !== -1) triggerPhaseShiftCutscene();
-        state.currentPhaseIndex = phaseIndex;
+    buildFractureGeometry(state.planetDamage, state.damageSeed);
+    updateFragments(state.planetDamage);
+  }
+
+  function updateMiniOrbitVisibility(conquest, phaseIndex) {
+    const orbitLevels = [
+      conquest >= 0.10 ? 1 : 0,
+      conquest >= 0.24 ? 1 : 0,
+      conquest >= 0.40 ? 1 : 0,
+      conquest >= 0.60 ? 1 : 0,
+      conquest >= 0.82 ? 1 : 0
+    ];
+
+    rootStyle.setProperty("--mini-visible-1", orbitLevels[0]);
+    rootStyle.setProperty("--mini-visible-2", orbitLevels[1]);
+    rootStyle.setProperty("--mini-visible-3", orbitLevels[2]);
+    rootStyle.setProperty("--mini-visible-4", orbitLevels[3]);
+    rootStyle.setProperty("--mini-visible-5", orbitLevels[4]);
+    rootStyle.setProperty("--mini-orbit-shift", `${Math.max(1, phaseIndex) * 1.2}px`);
+  }
+
+  function updatePlanetState(lastResult = null) {
+    const conquest = getConquestPercent();
+    const answered = getAnsweredCount();
+    const visual = getPlanetVisualStage();
+    const phaseIndex = getPhaseIndexByPercent(conquest);
+
+    if (lastResult === "wrong") {
+      if (state.planetDamage < 5) {
+        state.planetDamage = Math.min(5, state.planetDamage + 1);
+        nextDamageSeed(state.currentIndex);
       }
+    } else if (lastResult === "correct" && state.planetDamage > 0) {
+      state.planetDamage = Math.max(0, state.planetDamage - 1);
     }
 
-    function createResultPlanetNode() {
-      const shell = document.createElement("div");
-      shell.className = "result-shell";
-      shell.innerHTML = `
-        <div class="planet-aura"></div>
-        <div class="planet-wave"></div>
-        <div class="planet-evolution-orbits">
-          <div class="orbit o1"></div>
-          <div class="orbit o2"></div>
-          <div class="orbit o3"></div>
-        </div>
-        <div class="result-planet-core">
-          <div class="planet-core-exposed"></div>
+    const energy = 0.16 + conquest * 0.84 + (phaseIndex * 0.012);
+    const scale = 1 + conquest * 0.14;
+    const fractureIntensity = state.planetDamage / 5;
+    const holeOpacity = state.planetDamage >= 3 ? clamp(0, .18 + (state.planetDamage - 2) * .28, 1) : 0;
 
-          <div class="planet-body">
-            <div class="planet-atmosphere"></div>
-            <div class="planet-surface"></div>
-            <div class="planet-night"></div>
-            <div class="planet-band"></div>
-            <div class="planet-ocean"></div>
-            <div class="planet-clouds"></div>
-            <div class="planet-aurora"></div>
-            <div class="planet-lava"></div>
-            <div class="planet-continents"></div>
-            <div class="planet-continents-glow"></div>
-            <div class="planet-ice"></div>
-            <div class="planet-debris"></div>
-          </div>
+    applyRootVars({
+      "--planet-energy": energy.toFixed(3),
+      "--planet-scale": scale.toFixed(3),
+      "--planet-bright": visual.bright.toFixed(3),
+      "--planet-sat": visual.sat.toFixed(3),
+      "--planet-contrast": visual.contrast.toFixed(3),
+      "--planet-depth": visual.depth.toFixed(3),
+      "--planet-shadow-strength": visual.shadow.toFixed(3),
+      "--planet-hue": `${visual.hue.toFixed(1)}deg`,
+      "--planet-core": visual.core,
+      "--planet-core-2": visual.core2,
+      "--planet-core-3": visual.core3,
+      "--planet-ring-opacity": visual.ringOpacity,
+      "--planet-glow-color": visual.glow,
+      "--planet-surface-pattern-opacity": (0.66 + conquest * 0.24).toFixed(3),
+      "--lava-opacity": visual.lava,
+      "--continent-opacity": visual.continents,
+      "--continent-glow-opacity": visual.continentGlow,
+      "--ice-opacity": visual.ice,
+      "--cloud-opacity": visual.cloud,
+      "--ocean-opacity": visual.ocean,
+      "--aurora-opacity": visual.aurora,
+      "--debris-opacity": visual.debris,
+      "--ring-thin-opacity": visual.thinRing,
+      "--ring-outer-opacity": visual.outerRing,
+      "--planet-crack": state.planetDamage,
+      "--fracture-intensity": fractureIntensity.toFixed(3),
+      "--mini-planet-1": visual.mini[0],
+      "--mini-planet-2": visual.mini[1],
+      "--mini-planet-3": visual.mini[2],
+      "--mini-planet-glow": visual.glow,
+      "--ring-count-boost": visual.ringBoost.toFixed(2),
+      "--hole-opacity": holeOpacity.toFixed(3),
+      "--orbit-emphasis": visual.orbitEmphasis.toFixed(3),
+      "--orbit-scale": visual.orbitScale.toFixed(3),
+      "--orbit-speed": visual.orbitSpeed.toFixed(3),
+      "--orbit-dash-opacity": visual.orbitDash.toFixed(3)
+    });
 
-          <div class="planet-hole-svg">
-            <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-              ${els.planetHoleVisualGroup.innerHTML}
-            </svg>
-          </div>
-          <div class="planet-hole-rim">
-            <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-              ${els.planetHoleRimOuterGroup.innerHTML}
-              ${els.planetHoleRimInnerGroup.innerHTML}
-            </svg>
-          </div>
+    updateMiniOrbitVisibility(conquest, phaseIndex);
+    updateProceduralDamageVisuals();
 
-          <div class="planet-crack-svg">
-            <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-              ${els.crackGlowGroup.innerHTML}
-              ${els.crackHeatGroup.innerHTML}
-              ${els.crackCoreGroup.innerHTML}
-            </svg>
-          </div>
-        </div>
-      `;
-      return shell;
+    els.planetStage.dataset.phase = visual.key;
+
+    const conquestLabel = visual.label;
+    if (els.conquestLevel.textContent !== conquestLabel) {
+      els.conquestLevel.textContent = conquestLabel;
     }
 
-    function showFinalBanner() {
-      const percent = Math.round(getConquestPercent() * 100);
-      const answered = getAnsweredCount();
-      const summary = getFinalSummary();
-      const visual = getPlanetVisualStage();
-      const phaseIndex = getPhaseIndexByPercent(getConquestPercent());
+    const stabilityText = `${visual.type} • ${visual.status}`;
+    if (els.planetStability.textContent !== stabilityText) {
+      els.planetStability.textContent = stabilityText;
+    }
 
-      els.banner.style.display = "block";
+    const scanText = `Chinh Phục Hành Tinh: ${phaseIndex + 1} / ${EVOLUTION_PHASES.length}`;
+    if (els.scanProgress.textContent !== scanText) {
+      els.scanProgress.textContent = scanText;
+    }
 
-      const html = `
+    const missionText =
+      answered < state.quizData.length
+        ? `Đã trả lời ${answered}/${state.quizData.length} câu • ${visual.reaction}`
+        : `Chiến dịch kết thúc • ${visual.reaction}`;
+
+    if (els.missionText.textContent !== missionText) {
+      els.missionText.textContent = missionText;
+    }
+
+    if (lastResult === "correct") {
+      spawnPlanetParticles("good");
+      setStageFx(state.planetDamage > 0 ? "is-heal" : "is-boost");
+    }
+    if (lastResult === "wrong") {
+      spawnPlanetParticles("bad");
+      setStageFx("is-damage");
+    }
+
+    if (phaseIndex !== state.currentPhaseIndex) {
+      if (state.currentPhaseIndex !== -1) triggerPhaseShiftCutscene();
+      state.currentPhaseIndex = phaseIndex;
+    }
+  }
+
+  function createResultPlanetNode() {
+    const shell = document.createElement("div");
+    shell.className = "result-shell";
+    shell.innerHTML = `
+      <div class="planet-aura"></div>
+      <div class="planet-wave"></div>
+      <div class="planet-evolution-orbits">
+        <div class="orbit o1"></div>
+        <div class="orbit o2"></div>
+        <div class="orbit o3"></div>
+      </div>
+      <div class="result-planet-core">
+        <div class="planet-core-exposed"></div>
+
+        <div class="planet-body">
+          <div class="planet-atmosphere"></div>
+          <div class="planet-surface"></div>
+          <div class="planet-night"></div>
+          <div class="planet-band"></div>
+          <div class="planet-ocean"></div>
+          <div class="planet-clouds"></div>
+          <div class="planet-aurora"></div>
+          <div class="planet-lava"></div>
+          <div class="planet-continents"></div>
+          <div class="planet-continents-glow"></div>
+          <div class="planet-ice"></div>
+          <div class="planet-debris"></div>
+        </div>
+
+        <div class="planet-hole-svg">
+          <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            ${els.planetHoleVisualGroup.innerHTML}
+          </svg>
+        </div>
+        <div class="planet-hole-rim">
+          <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            ${els.planetHoleRimOuterGroup.innerHTML}
+            ${els.planetHoleRimInnerGroup.innerHTML}
+          </svg>
+        </div>
+
+        <div class="planet-crack-svg">
+          <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            ${els.crackGlowGroup.innerHTML}
+            ${els.crackHeatGroup.innerHTML}
+            ${els.crackCoreGroup.innerHTML}
+          </svg>
+        </div>
+      </div>
+    `;
+    return shell;
+  }
+
+  function showFinalBanner() {
+    const percent = Math.round(getConquestPercent() * 100);
+    const answered = getAnsweredCount();
+    const summary = getFinalSummary();
+    const visual = getPlanetVisualStage();
+    const phaseIndex = getPhaseIndexByPercent(getConquestPercent());
+
+    els.banner.style.display = "block";
+
+    if (!state.finalBannerRendered) {
+      els.banner.innerHTML = `
         <div class="result-panel-head">
           <div>
-            <div class="result-title">${summary.title}</div>
-            <div class="result-desc">${summary.desc}</div>
+            <div class="result-title" id="finalTitle"></div>
+            <div class="result-desc" id="finalDesc"></div>
           </div>
-          <div class="result-badge">${visual.label}</div>
+          <div class="result-badge" id="finalBadge"></div>
         </div>
 
         <div class="result-layout">
@@ -2741,258 +2799,346 @@
             <div class="result-metrics">
               <div class="metric-card">
                 <div class="label">Độ chinh phục</div>
-                <div class="value">${percent}%</div>
+                <div class="value" id="finalPercent"></div>
               </div>
               <div class="metric-card">
                 <div class="label">Câu đúng</div>
-                <div class="value">${state.correctCount}/${state.quizData.length}</div>
+                <div class="value" id="finalCorrect"></div>
               </div>
               <div class="metric-card">
                 <div class="label">Mốc tiến hóa</div>
-                <div class="value">${phaseIndex + 1}/${EVOLUTION_PHASES.length}</div>
+                <div class="value" id="finalPhase"></div>
               </div>
             </div>
 
-            <div class="planet-reaction-text">
-              <strong>Trạng thái hành tinh:</strong> ${visual.reaction}<br>
-              <strong>Loại hành tinh:</strong> ${visual.type}<br>
-              <strong>Tiến độ hoàn thành:</strong> ${answered}/${state.quizData.length} câu đã mở.<br>
-              <strong>Mức nứt vỡ còn lại:</strong> ${state.planetDamage}/5.
-            </div>
+            <div class="planet-reaction-text" id="finalReaction"></div>
           </div>
         </div>
       `;
 
-      if (els.banner.innerHTML !== html) {
-        els.banner.innerHTML = html;
-        const wrap = document.getElementById("resultPlanetWrap");
-        if (wrap) wrap.appendChild(createResultPlanetNode());
-      }
+      const wrap = document.getElementById("resultPlanetWrap");
+      if (wrap) wrap.appendChild(createResultPlanetNode());
+      state.finalBannerRendered = true;
     }
 
-    function updateJourneyUI(lastResult = null) {
-      els.journeyFill.style.width = `${getCompletionPercent() * 100}%`;
-      updatePlanetState(lastResult);
+    document.getElementById("finalTitle").textContent = summary.title;
+    document.getElementById("finalDesc").textContent = summary.desc;
+    document.getElementById("finalBadge").textContent = visual.label;
+    document.getElementById("finalPercent").textContent = `${percent}%`;
+    document.getElementById("finalCorrect").textContent = `${state.correctCount}/${state.quizData.length}`;
+    document.getElementById("finalPhase").textContent = `${phaseIndex + 1}/${EVOLUTION_PHASES.length}`;
+    document.getElementById("finalReaction").innerHTML = `
+      <strong>Trạng thái hành tinh:</strong> ${visual.reaction}<br>
+      <strong>Loại hành tinh:</strong> ${visual.type}<br>
+      <strong>Tiến độ hoàn thành:</strong> ${answered}/${state.quizData.length} câu đã mở.<br>
+      <strong>Mức nứt vỡ còn lại:</strong> ${state.planetDamage}/5.
+    `;
+  }
 
-      if (getAnsweredCount() === state.quizData.length) {
-        showFinalBanner();
-      } else {
-        els.banner.style.display = "none";
-      }
+  function updateJourneyUI(lastResult = null) {
+    const width = `${getCompletionPercent() * 100}%`;
+    if (els.journeyFill.style.width !== width) {
+      els.journeyFill.style.width = width;
     }
 
-    function render(scrollTop = false, lastResult = null) {
-      const data = state.quizData[state.currentIndex];
-      const answered = state.userAnswers[state.currentIndex] !== undefined;
+    updatePlanetState(lastResult);
 
-      els.question.textContent = `Câu ${state.currentIndex + 1}: ${data.q}`;
-      els.progressText.textContent = `CÂU ${state.currentIndex + 1} / ${state.quizData.length}`;
+    if (getAnsweredCount() === state.quizData.length) {
+      showFinalBanner();
+    } else {
+      els.banner.style.display = "none";
+    }
+  }
 
-      for (let i = 0; i < state.optionButtons.length; i++) {
-        const btn = state.optionButtons[i];
-        const option = data.options[i];
-        const char = option.letter;
-        const isCorrect = char === data.correctLetter;
-        const isWrong = char === state.userAnswers[state.currentIndex] && !isCorrect;
+  function renderOptions(data, answered) {
+    const selected = state.userAnswers[state.currentIndex];
 
-        btn.className = "option-btn";
-        btn.disabled = answered;
-        btn.style.opacity = "";
+    for (let i = 0; i < state.optionButtons.length; i++) {
+      const btn = state.optionButtons[i];
+      const option = data.options[i];
+      const char = option.letter;
+      const isCorrect = char === data.correctLetter;
+      const isWrong = char === selected && !isCorrect;
 
-        if (!answered) {
-          btn.dataset.char = char;
-        } else {
-          btn.removeAttribute("data-char");
-        }
-
-        if (answered) {
-          if (isCorrect) btn.classList.add("correct");
-          else if (isWrong) btn.classList.add("wrong");
-          else btn.style.opacity = ".35";
-        }
-
+      if (btn._currentLetter !== char) {
         btn._letterNode.textContent = char;
-        btn._textNode.textContent = option.text;
+        btn._currentLetter = char;
       }
+
+      if (btn._currentText !== option.text) {
+        btn._textNode.textContent = option.text;
+        btn._currentText = option.text;
+      }
+
+      let nextClass = "option-btn";
+      let nextOpacity = "";
+      const nextDisabled = answered;
 
       if (answered) {
-        const ok = state.userAnswers[state.currentIndex] === data.correctLetter;
-        els.explanationBox.style.display = "block";
-        els.explanationBox.style.borderLeft = `4px solid var(${ok ? "--success" : "--warning"})`;
-        els.explanationBox.style.background = ok ? "rgba(18,64,42,.16)" : "rgba(66,38,12,.16)";
-        els.explanationBox.style.color = ok ? "#ddffef" : "#fff1df";
-        els.explanationBox.innerHTML = ok
-          ? `<strong>✅ Tín hiệu chính xác:</strong> ${data.e}`
-          : `<strong>⚠️ Dữ liệu cần hiệu chỉnh:</strong> ${data.w}`;
-      } else {
-        els.explanationBox.style.display = "none";
-        els.explanationBox.innerHTML = "";
+        if (isCorrect) nextClass += " correct";
+        else if (isWrong) nextClass += " wrong";
+        else nextOpacity = ".35";
       }
 
-      for (let i = 0; i < state.navDots.length; i++) {
-        const dot = state.navDots[i];
-        dot.className = "nav-dot";
+      if (btn.className !== nextClass) btn.className = nextClass;
+      if (btn.disabled !== nextDisabled) btn.disabled = nextDisabled;
 
-        if (i === state.currentIndex) dot.classList.add("active");
-        if (state.userAnswers[i] !== undefined) {
-          dot.classList.add(
-            state.userAnswers[i] === state.quizData[i].correctLetter
-              ? "done-correct"
-              : "done-wrong"
-          );
-        }
-      }
+      const currentOpacity = btn.style.opacity || "";
+      if (currentOpacity !== nextOpacity) btn.style.opacity = nextOpacity;
 
-      els.btnPrev.disabled = state.currentIndex === 0;
-      els.btnNext.textContent =
-        state.currentIndex === state.quizData.length - 1
-          ? "Hoàn tất chiến dịch →"
-          : "Tiếp theo →";
-
-      updateJourneyUI(lastResult);
-
-      if (scrollTop) {
-        if (window.innerWidth > 720) {
-          els.missionPanel?.scrollIntoView({
-            behavior: state.smoothScrollEnabled ? "smooth" : "auto",
-            block: "start"
-          });
-        } else {
-          window.scrollTo({
-            top: 0,
-            behavior: state.smoothScrollEnabled ? "smooth" : "auto"
-          });
-        }
+      if (!answered) {
+        if (btn.dataset.char !== char) btn.dataset.char = char;
+      } else if (btn.dataset.char) {
+        btn.removeAttribute("data-char");
       }
     }
+  }
 
-    async function select(char) {
-      if (state.userAnswers[state.currentIndex] !== undefined) return;
+  function updateExplanation(data, answered) {
+  if (!answered) {
+    if (els.explanationBox.style.display !== "none") {
+      els.explanationBox.style.display = "none";
+    }
+    if (els.explanationBox.innerHTML !== "") {
+      els.explanationBox.innerHTML = "";
+    }
+    state.ui.lastExplanationKey = "";
+    return;
+  }
+  
+  const selectedLetter = state.userAnswers[state.currentIndex];
+  const selectedOption = data.options.find(opt => opt.letter === selectedLetter);
+  const originalLetter = selectedOption ? selectedOption.originalLetter : selectedLetter;
+  const explanation = data.explanationMap?.[originalLetter] || "Chưa có giải thích cho đáp án này.";
+  const ok = selectedLetter === data.correctLetter;
+  const key = `${state.currentIndex}|${selectedLetter}|${originalLetter}`;
+  
+  if (state.ui.lastExplanationKey === key) return;
+  state.ui.lastExplanationKey = key;
+  
+  els.explanationBox.style.display = "block";
+  els.explanationBox.style.borderLeft = `4px solid var(${ok ? "--success" : "--warning"})`;
+  els.explanationBox.style.background = ok ? "rgba(18,64,42,.16)" : "rgba(66,38,12,.16)";
+  els.explanationBox.style.color = ok ? "#ddffef" : "#fff1df";
+  els.explanationBox.innerHTML = explanation;
+}
 
-      try { await warmupAudio(); } catch (e) {}
+  function updateNavDots() {
+    for (let i = 0; i < state.navDots.length; i++) {
+      const dot = state.navDots[i];
+      let cls = "nav-dot";
 
-      state.userAnswers[state.currentIndex] = char;
-      const isCorrect = char === state.quizData[state.currentIndex].correctLetter;
-
-      if (isCorrect) {
-        state.correctCount++;
-        playSoftCorrectSound();
+      if (i === state.currentIndex) cls += " active";
+      if (state.userAnswers[i] !== undefined) {
+        cls += state.userAnswers[i] === state.quizData[i].correctLetter
+          ? " done-correct"
+          : " done-wrong";
       }
 
-      render(false, isCorrect ? "correct" : "wrong");
+      if (dot.className !== cls) dot.className = cls;
+    }
+  }
+
+  function render(scrollTop = false, lastResult = null) {
+    const data = state.quizData[state.currentIndex];
+    const answered = state.userAnswers[state.currentIndex] !== undefined;
+
+    const questionText = `Câu ${state.currentIndex + 1}: ${data.q}`;
+    if (state.ui.lastQuestionText !== questionText) {
+      state.ui.lastQuestionText = questionText;
+      els.question.textContent = questionText;
     }
 
-    function change(idx) {
-      if (idx < 0) return;
+    const progressText = `CÂU ${state.currentIndex + 1} / ${state.quizData.length}`;
+    if (state.ui.lastProgressText !== progressText) {
+      state.ui.lastProgressText = progressText;
+      els.progressText.textContent = progressText;
+    }
 
-      if (idx >= state.quizData.length) {
-        if (getAnsweredCount() < state.quizData.length) {
-          state.currentIndex = state.quizData.findIndex((_, i) => state.userAnswers[i] === undefined);
-          if (state.currentIndex < 0) state.currentIndex = state.quizData.length - 1;
-          render(true);
-          return;
-        }
-        showFinalBanner();
+    renderOptions(data, answered);
+    updateExplanation(data, answered);
+    updateNavDots();
+
+    els.btnPrev.disabled = state.currentIndex === 0;
+    const nextText =
+      state.currentIndex === state.quizData.length - 1
+        ? "Hoàn tất chiến dịch →"
+        : "Tiếp theo →";
+    if (els.btnNext.textContent !== nextText) {
+      els.btnNext.textContent = nextText;
+    }
+
+    updateJourneyUI(lastResult);
+
+    if (scrollTop) {
+      scrollToTopSmart();
+    }
+  }
+
+  function scrollToTopSmart() {
+    const behavior = state.smoothScrollEnabled ? "smooth" : "auto";
+
+    if (window.innerWidth > 720) {
+      const y = els.missionPanel
+        ? window.scrollY + els.missionPanel.getBoundingClientRect().top - 12
+        : 0;
+      window.scrollTo({ top: Math.max(0, y), behavior });
+    } else {
+      window.scrollTo({ top: 0, behavior });
+    }
+  }
+
+  async function select(char) {
+    if (state.userAnswers[state.currentIndex] !== undefined) return;
+
+    try { await warmupAudio(); } catch (e) {}
+
+    state.userAnswers[state.currentIndex] = char;
+    const isCorrect = char === state.quizData[state.currentIndex].correctLetter;
+
+    if (isCorrect) {
+      state.correctCount++;
+      playSoftCorrectSound();
+    }
+
+    render(false, isCorrect ? "correct" : "wrong");
+  }
+
+  function change(idx) {
+    if (idx < 0) return;
+
+    if (idx >= state.quizData.length) {
+      if (getAnsweredCount() < state.quizData.length) {
+        state.currentIndex = state.quizData.findIndex((_, i) => state.userAnswers[i] === undefined);
+        if (state.currentIndex < 0) state.currentIndex = state.quizData.length - 1;
+        render(true);
+        return;
+      }
+      showFinalBanner();
+      requestAnimationFrame(() => {
         els.banner?.scrollIntoView({ behavior: state.smoothScrollEnabled ? "smooth" : "auto", block: "center" });
-        return;
-      }
-
-      state.currentIndex = idx;
-      render(true);
-    }
-
-    async function unlockAudio() {
-      try { await warmupAudio(); } catch (e) {}
-      document.removeEventListener("touchstart", unlockAudio);
-      document.removeEventListener("click", unlockAudio);
-    }
-
-    function setupOptionEvents() {
-      els.options.addEventListener("click", e => {
-        const btn = e.target.closest(".option-btn[data-char]");
-        if (!btn) return;
-        select(btn.dataset.char);
       });
+      return;
     }
 
-    function applyTilt() {
-      state.pointerRAF = 0;
-      const transform = `translateY(-4px) rotateX(${state.targetRotateX.toFixed(2)}deg) rotateY(${state.targetRotateY.toFixed(2)}deg)`;
-      if (transform !== state.lastAppliedTilt) {
-        els.planetTilt.style.transform = transform;
-        state.lastAppliedTilt = transform;
+    if (state.currentIndex === idx) return;
+    state.currentIndex = idx;
+    render(true);
+  }
+
+  async function unlockAudio() {
+    try { await warmupAudio(); } catch (e) {}
+    document.removeEventListener("touchstart", unlockAudio);
+    document.removeEventListener("click", unlockAudio);
+  }
+
+  function setupOptionEvents() {
+    els.options.addEventListener("click", e => {
+      const btn = e.target.closest(".option-btn[data-char]");
+      if (!btn) return;
+      select(btn.dataset.char);
+    });
+  }
+
+  function applyTilt() {
+    state.pointerRAF = 0;
+    const transform = `translateY(-4px) rotateX(${state.targetRotateX.toFixed(2)}deg) rotateY(${state.targetRotateY.toFixed(2)}deg)`;
+    if (transform !== state.lastAppliedTilt) {
+      els.planetTilt.style.transform = transform;
+      state.lastAppliedTilt = transform;
+    }
+  }
+
+  function setupTilt() {
+    if (!els.planetStage || !els.planetTilt || window.innerWidth <= 720) return;
+
+    let rect = null;
+    let active = false;
+
+    const updateRect = () => {
+      rect = els.planetStage.getBoundingClientRect();
+    };
+
+    const onMove = (e) => {
+      if (!active || !rect) return;
+
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      state.targetRotateY = (x - rect.width / 2) / 55;
+      state.targetRotateX = (rect.height / 2 - y) / 62;
+
+      if (!state.pointerRAF) {
+        state.pointerRAF = requestAnimationFrame(applyTilt);
       }
-    }
+    };
 
-    function setupTilt() {
-      if (!els.planetStage || !els.planetTilt || window.innerWidth <= 720) return;
+    updateRect();
+    window.addEventListener("resize", updateRect, { passive: true });
 
-      let rect = null;
-
-      const updateRect = () => {
-        rect = els.planetStage.getBoundingClientRect();
-      };
-
+    els.planetStage.addEventListener("mouseenter", () => {
+      active = true;
       updateRect();
-      window.addEventListener("resize", updateRect, { passive: true });
-      els.planetStage.addEventListener("mouseenter", updateRect, { passive: true });
+    }, { passive: true });
 
-      els.planetStage.addEventListener("mousemove", e => {
-        if (!rect) return;
-        state.targetRotateY = (e.clientX - rect.left - rect.width / 2) / 45;
-        state.targetRotateX = (rect.height / 2 - (e.clientY - rect.top)) / 52;
-        if (!state.pointerRAF) state.pointerRAF = requestAnimationFrame(applyTilt);
-      }, { passive: true });
+    els.planetStage.addEventListener("mousemove", onMove, { passive: true });
 
-      els.planetStage.addEventListener("mouseleave", () => {
-        state.targetRotateX = 0;
-        state.targetRotateY = 0;
-        if (!state.pointerRAF) {
-          state.pointerRAF = requestAnimationFrame(() => {
-            els.planetTilt.style.transform = "";
-            state.lastAppliedTilt = "";
-            state.pointerRAF = 0;
-          });
-        }
-      });
-    }
+    els.planetStage.addEventListener("mouseleave", () => {
+      active = false;
+      state.targetRotateX = 0;
+      state.targetRotateY = 0;
 
-    function setupButtons() {
-      els.btnPrev.addEventListener("click", () => change(state.currentIndex - 1));
-      els.btnNext.addEventListener("click", () => change(state.currentIndex + 1));
-      els.navGrid.addEventListener("click", e => {
-        const dot = e.target.closest(".nav-dot");
-        if (!dot) return;
-        change(Number(dot.dataset.idx));
-      });
-    }
-
-    function bootstrap() {
-      if (!window.RAW_QUIZ_DATA || !Array.isArray(window.RAW_QUIZ_DATA)) {
-        alert("Không tìm thấy dữ liệu câu hỏi. Hãy kiểm tra file quiz-data.js");
-        return;
+      if (!state.pointerRAF) {
+        state.pointerRAF = requestAnimationFrame(() => {
+          els.planetTilt.style.transform = "";
+          state.lastAppliedTilt = "";
+          state.pointerRAF = 0;
+        });
       }
+    }, { passive: true });
+  }
 
-      state.quizData = normalizeQuizData(window.RAW_QUIZ_DATA);
+  function setupButtons() {
+    els.btnPrev.addEventListener("click", () => change(state.currentIndex - 1));
+    els.btnNext.addEventListener("click", () => change(state.currentIndex + 1));
+    els.navGrid.addEventListener("click", e => {
+      const dot = e.target.closest(".nav-dot");
+      if (!dot) return;
+      change(Number(dot.dataset.idx));
+    });
+  }
 
-      cacheDom();
-      setupPerfMode();
-      initNav();
-      buildOptions();
-      initParticlePool();
-      initFragments();
-      setupOptionEvents();
-      setupButtons();
-      setupTilt();
+  function bootstrap() {
+    const rawSource =
+      (typeof quizData !== "undefined" && Array.isArray(quizData) && quizData) ||
+      (typeof RAW_QUIZ_DATA !== "undefined" && Array.isArray(RAW_QUIZ_DATA) && RAW_QUIZ_DATA) ||
+      null;
 
-      document.addEventListener("touchstart", unlockAudio, { passive: true });
-      document.addEventListener("click", unlockAudio);
-
-      updateProceduralDamageVisuals(true);
-      render(false);
+    if (!rawSource) {
+      alert("Không tìm thấy dữ liệu câu hỏi. Hãy kiểm tra file quiz-data.js");
+      return;
     }
 
-    bootstrap();
-  </script>
+    state.quizData = normalizeQuizData(rawSource);
+
+    cacheDom();
+    setupPerfMode();
+    initNav();
+    buildOptions();
+    initParticlePool();
+    initFragments();
+    setupOptionEvents();
+    setupButtons();
+    setupTilt();
+
+    document.addEventListener("touchstart", unlockAudio, { passive: true });
+    document.addEventListener("click", unlockAudio);
+
+    updateProceduralDamageVisuals(true);
+    render(false);
+  }
+
+  bootstrap();
+</script>
 </body>
 </html>
