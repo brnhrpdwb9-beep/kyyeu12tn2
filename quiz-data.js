@@ -218,5 +218,392 @@ const quizData = [
       C: "Sai. 'Phương Nam' không phải cách xác định đúng hướng đi lịch sử của Nguyễn Tất Thành khi bắt đầu hành trình cứu nước.",
       D: "Sai. 'Phương Bắc' cũng không phản ánh lựa chọn thực tế của Nguyễn Tất Thành năm 1911."
     }
+  },
+  
+  {
+    q: "\"Ở đâu chủ nghĩa thực dân đế quốc cũng tàn bạo, ở đâu những người lao động cũng bị áp bức cùng cực\" là nhận định của Nguyễn Tất Thành sau khi",
+    a: "D",
+    o: [
+      "thành lập Hội Việt Nam Cách mạng Thanh niên.",
+      "tham gia hoạt động trong Đảng Xã hội Pháp.",
+      "lựa chọn con đường theo khuynh hướng vô sản.",
+      "tìm hiểu và qua thực tiễn hoạt động ở nhiều nước."
+    ],
+    r: {
+      A: "Sai. Thành lập Hội Việt Nam Cách mạng Thanh niên là hoạt động năm 1925 ở Quảng Châu, diễn ra sau khi Nguyễn Ái Quốc đã có nhận thức khá đầy đủ về chủ nghĩa thực dân.",
+      B: "Sai. Tham gia Đảng Xã hội Pháp là một bước quan trọng trong quá trình hoạt động ở Pháp, nhưng nhận định này được hình thành chủ yếu từ quá trình quan sát thực tế rộng lớn ở nhiều nước thuộc địa và tư bản.",
+      C: "Sai. Việc lựa chọn con đường cách mạng vô sản là kết quả phát triển cao hơn về nhận thức chính trị, còn câu nói này phản ánh kết luận rút ra từ thực tiễn khảo sát thế giới trước đó.",
+      D: "Đúng. Sau nhiều năm đi qua nhiều nước, trực tiếp chứng kiến cảnh áp bức ở cả thuộc địa lẫn chính quốc, Nguyễn Tất Thành rút ra kết luận rằng chủ nghĩa thực dân ở đâu cũng tàn bạo, người lao động ở đâu cũng bị bóc lột."
+    }
+  },
+  {
+    q: "Những hoạt động yêu nước ban đầu của Nguyễn Tất Thành (1911 - 1919) có ý nghĩa quan trọng nào sau đây?",
+    a: "A",
+    o: [
+      "Đặt cơ sở cho việc lựa chọn con đường cứu nước mới sau này.",
+      "Xác lập mối quan hệ của cách mạng Việt Nam với các nước tư bản.",
+      "Chuẩn bị điều kiện về tổ chức cho sự ra đời của Đảng Cộng sản.",
+      "Đặt cơ sở cho việc xác định cuộc tư sản dân quyền cách mạng."
+    ],
+    r: {
+      A: "Đúng. Giai đoạn 1911–1919 là quá trình Nguyễn Tất Thành bôn ba, khảo sát thực tiễn thế giới, từ đó tích lũy nhận thức và kinh nghiệm để sau này lựa chọn con đường cứu nước đúng đắn.",
+      B: "Sai. Hoạt động của Nguyễn Tất Thành không nhằm xác lập quan hệ giữa cách mạng Việt Nam với các nước tư bản, mà chủ yếu để tìm hiểu bản chất của xã hội tư bản và chủ nghĩa thực dân.",
+      C: "Sai. Chuẩn bị điều kiện tổ chức cho sự ra đời của Đảng là nhiệm vụ nổi bật của giai đoạn 1925–1930, không phải 1911–1919.",
+      D: "Sai. Khái niệm 'tư sản dân quyền cách mạng' gắn với cương lĩnh, luận cương sau này; giai đoạn 1911–1919 mới là bước chuẩn bị nhận thức ban đầu."
+    }
+  },
+  {
+    q: "\"Muốn cứu nước và giải phóng dân tộc, không con đường nào khác ngoài con đường cách mạng vô sản\" là quyết định của Nguyễn Ái Quốc khi đọc",
+    a: "A",
+    o: [
+      "Sơ thảo lần thứ nhất những luận cương về vấn đề dân tộc và vấn đề thuộc địa của Lê-nin.",
+      "báo Đời sống công nhân, báo Nhân đạo và cuốn Bản án chế độ thực dân Pháp.",
+      "báo Thanh niên - cơ quan ngôn luận của Hội Việt Nam Cách mạng Thanh niên.",
+      "tác phẩm Đường Kách mệnh và các bài viết của Lê-nin đăng trên Tạp chí Thư tín quốc tế"
+    ],
+    r: {
+      A: "Đúng. Khi đọc Sơ thảo Luận cương của Lê-nin về vấn đề dân tộc và thuộc địa năm 1920, Nguyễn Ái Quốc đã tìm thấy con đường giải phóng dân tộc: cách mạng vô sản.",
+      B: "Sai. Những tài liệu này có ảnh hưởng đến nhận thức của Nguyễn Ái Quốc, nhưng không phải văn kiện trực tiếp dẫn tới quyết định nổi tiếng về con đường cách mạng vô sản.",
+      C: "Sai. Báo Thanh niên là cơ quan tuyên truyền do Nguyễn Ái Quốc lập ra sau khi Người đã xác định con đường cứu nước, không phải nguyên nhân dẫn tới quyết định đó.",
+      D: "Sai. Tác phẩm Đường Kách mệnh ra đời năm 1927, muộn hơn nhiều so với thời điểm Nguyễn Ái Quốc đưa ra quyết định lựa chọn con đường cách mạng vô sản."
+    }
+  },
+  {
+    q: "Sự kiện nào sau đây đánh dấu Nguyễn Ái Quốc chuyển từ lập trường yêu nước sang lập trường cộng sản?",
+    a: "D",
+    o: [
+      "Ra báo Người cùng khổ, sáng lập Hội Liên hiệp các dân tộc bị áp bức Á Đông (1921).",
+      "Dạy học ở Trường Tiểu học Pháp - Việt Đông Ba, Trường Quốc học Huế (1906).",
+      "Quyết định dừng chân tại Pháp để bắt đầu hoạt động cách mạng (1917).",
+      "Bỏ phiếu tán thành Quốc tế Cộng sản, tham gia sáng lập Đảng Cộng sản Pháp (1920)."
+    ],
+    r: {
+      A: "Sai. Đây là hoạt động sau mốc chuyển biến lập trường. Đến năm 1921, Nguyễn Ái Quốc đã đứng trên lập trường cộng sản.",
+      B: "Sai. Đây là hoạt động thời niên thiếu, chưa phản ánh sự chuyển biến từ lập trường yêu nước sang lập trường cộng sản.",
+      C: "Sai. Dừng chân ở Pháp chỉ là một bước trong hành trình tìm đường cứu nước, chưa phải dấu mốc xác lập lập trường cộng sản.",
+      D: "Đúng. Việc bỏ phiếu tán thành Quốc tế Cộng sản và tham gia sáng lập Đảng Cộng sản Pháp cuối năm 1920 đánh dấu Nguyễn Ái Quốc chuyển hẳn từ người yêu nước thành người cộng sản."
+    }
+  },
+  {
+    q: "Trong quá trình chuẩn bị và lãnh đạo Cách mạng tháng Tám năm 1945, nội dung nào sau đây thể hiện vai trò của Nguyễn Ái Quốc trong việc chuẩn bị lực lượng chính trị?",
+    a: "C",
+    o: [
+      "Xây dựng và mở rộng căn cứ địa cách mạng.",
+      "Ra Chỉ thị thành lập Khu giải phóng Việt Bắc.",
+      "Sáng lập và mở rộng Việt Nam Độc lập Đồng minh.",
+      "Thành lập Đội Việt Nam Tuyên truyền Giải phóng quân."
+    ],
+    r: {
+      A: "Sai. Xây dựng căn cứ địa là chuẩn bị về địa bàn, hậu phương và điều kiện vật chất, chưa trực tiếp phản ánh việc chuẩn bị lực lượng chính trị.",
+      B: "Sai. Thành lập Khu giải phóng Việt Bắc là bước xây dựng căn cứ và chính quyền cách mạng ở một vùng, không phải biểu hiện tiêu biểu nhất của việc chuẩn bị lực lượng chính trị.",
+      C: "Đúng. Việt Nam Độc lập Đồng minh (Việt Minh) là hình thức tập hợp, giác ngộ, đoàn kết quần chúng rộng rãi nhất; việc sáng lập và mở rộng Việt Minh thể hiện rõ vai trò chuẩn bị lực lượng chính trị cho Tổng khởi nghĩa.",
+      D: "Sai. Thành lập Đội Việt Nam Tuyên truyền Giải phóng quân là chuẩn bị về lực lượng vũ trang, không phải lực lượng chính trị."
+    }
+  },
+  {
+    q: "Hội nghị Ban Chấp hành Trung ương Đảng Cộng sản Đông Dương (5-1941) do Nguyễn Ái Quốc chủ trì xác định nhiệm vụ trực tiếp, trước mắt là",
+    a: "D",
+    o: [
+      "giải phóng giai cấp.",
+      "cải cách ruộng đất.",
+      "xóa bỏ tàn dư phong kiến.",
+      "giải phóng dân tộc."
+    ],
+    r: {
+      A: "Sai. Trong bối cảnh 1941, nhiệm vụ cấp bách nhất không phải là giải phóng giai cấp, mà là giải quyết vấn đề dân tộc đang đặt ra gay gắt.",
+      B: "Sai. Cải cách ruộng đất là nhiệm vụ quan trọng nhưng chưa phải nhiệm vụ trực tiếp, trước mắt mà Hội nghị 5-1941 xác định.",
+      C: "Sai. Xóa bỏ tàn dư phong kiến thuộc nội dung cách mạng xã hội sâu hơn, không phải nhiệm vụ số một trong bối cảnh đất nước bị phát xít Nhật và thực dân Pháp thống trị.",
+      D: "Đúng. Hội nghị Trung ương 8 (5-1941) do Nguyễn Ái Quốc chủ trì đã đặt nhiệm vụ giải phóng dân tộc lên hàng đầu, coi đây là nhiệm vụ trực tiếp, trước mắt của cách mạng Việt Nam."
+    }
+  },
+  {
+    q: "Khi Nhật Bản đầu hàng quân Đồng minh (15-8-1945), Hồ Chí Minh và Đảng Cộng sản Đông Dương đã lãnh đạo nhân dân giành chính quyền bằng hình thức nào sau đây?",
+    a: "D",
+    o: [
+      "Sử dụng các lực lượng vũ trang làm nòng cốt trong suốt quá trình khởi nghĩa.",
+      "Kết hợp lực lượng ba thứ quân trong tổng tiến công và nổi dậy trên toàn quốc.",
+      "Tổng khởi nghĩa trong cả nước trước khi Nhật Bản đầu hàng quân Đồng minh.",
+      "Tổng khởi nghĩa trong cả nước trước khi quân Đồng minh vào Đông Dương."
+    ],
+    r: {
+      A: "Sai. Lực lượng vũ trang có vai trò quan trọng nhưng Cách mạng tháng Tám không phải quá trình thuần túy quân sự; đây là cuộc tổng khởi nghĩa của toàn dân với lực lượng chính trị quần chúng là chủ yếu.",
+      B: "Sai. Cụm từ 'ba thứ quân' phù hợp hơn với chiến tranh nhân dân sau này, không phản ánh chuẩn xác hình thức giành chính quyền trong tháng Tám 1945.",
+      C: "Sai. Nhật đã đầu hàng ngày 15-8-1945 rồi cuộc Tổng khởi nghĩa mới diễn ra; vì vậy không thể nói là khởi nghĩa trước khi Nhật đầu hàng.",
+      D: "Đúng. Hồ Chí Minh và Đảng đã kịp thời phát động Tổng khởi nghĩa trên cả nước trong khoảng trống quyền lực sau khi Nhật đầu hàng nhưng trước khi quân Đồng minh vào Đông Dương."
+    }
+  },
+  {
+    q: "Trong quá trình lãnh đạo Cách mạng tháng Tám năm 1945, Hồ Chí Minh và Đảng Cộng sản Đông Dương đã",
+    a: "A",
+    o: [
+      "tận dụng thời cơ để đẩy lùi nguy cơ.",
+      "kết hợp đấu tranh chính trị và ngoại giao.",
+      "tiến hành tổng tiến công và nổi dậy.",
+      "tổng khởi nghĩa từ khi Nhật đảo chính Pháp."
+    ],
+    r: {
+      A: "Đúng. Thành công lớn của Hồ Chí Minh và Đảng trong Cách mạng tháng Tám là nhận diện đúng thời cơ sau khi Nhật đầu hàng, nhanh chóng phát động toàn dân nổi dậy, qua đó đẩy lùi các nguy cơ bất lợi cho cách mạng.",
+      B: "Sai. Trong Cách mạng tháng Tám, yếu tố quyết định là nắm bắt thời cơ và phát động khởi nghĩa, không phải kết hợp đấu tranh chính trị với ngoại giao như ở các giai đoạn sau.",
+      C: "Sai. 'Tổng tiến công và nổi dậy' là khái niệm thường gắn với chiến tranh cách mạng sau này, không phản ánh thật chuẩn hình thức tháng Tám 1945.",
+      D: "Sai. Sau khi Nhật đảo chính Pháp ngày 9-3-1945, Đảng mới chuyển hướng mạnh mẽ để chuẩn bị khởi nghĩa từng phần; chưa phát động tổng khởi nghĩa ngay."
+    }
+  },
+  {
+    q: "Thành công của Cách mạng tháng Tám năm 1945 ở Việt Nam do Chủ tịch Hồ Chí Minh và Đảng Cộng sản Đông Dương lãnh đạo đã",
+    a: "D",
+    o: [
+      "làm phá sản chiến lược toàn cầu của Mỹ.",
+      "xóa bỏ được mọi tàn dư của chế độ phong kiến.",
+      "xóa bỏ chủ nghĩa thực dân mới trên thế giới.",
+      "khai sinh ra nước Việt Nam Dân chủ Cộng hòa."
+    ],
+    r: {
+      A: "Sai. Năm 1945 chưa có vấn đề 'chiến lược toàn cầu của Mỹ' theo cách hiểu của thời kì Chiến tranh lạnh sau này.",
+      B: "Sai. Cách mạng tháng Tám đã lật đổ chế độ phong kiến tồn tại hàng nghìn năm, nhưng không thể nói là xóa bỏ mọi tàn dư phong kiến ngay lập tức.",
+      C: "Sai. Cách mạng tháng Tám có ảnh hưởng lớn tới phong trào giải phóng dân tộc thế giới, nhưng không thể nói nó xóa bỏ chủ nghĩa thực dân mới trên toàn thế giới.",
+      D: "Đúng. Kết quả trực tiếp, lớn nhất và rõ nhất của Cách mạng tháng Tám là sự ra đời của nước Việt Nam Dân chủ Cộng hòa ngày 2-9-1945."
+    }
+  },
+  {
+    q: "Trong việc giải quyết mối quan hệ Việt - Pháp (từ đầu tháng 3 đến trước ngày 19-12-1946), Chủ tịch Hồ Chí Minh và Ban Thường vụ Trung ương Đảng đã",
+    a: "A",
+    o: [
+      "thực hiện chủ trương \"hòa để tiến\".",
+      "nhận viện trợ của các nước xã hội chủ nghĩa.",
+      "đối đầu quân sự với thực dân Pháp.",
+      "từ chối thiết lập quan hệ với phương Tây."
+    ],
+    r: {
+      A: "Đúng. Từ sau Hiệp định Sơ bộ 6-3-1946 đến trước Toàn quốc kháng chiến, Hồ Chí Minh và Đảng thực hiện sách lược 'hòa để tiến', tranh thủ thời gian hòa hoãn để củng cố lực lượng, chuẩn bị cho cuộc kháng chiến lâu dài.",
+      B: "Sai. Giai đoạn 1946 Việt Nam chưa thể nhận viện trợ từ các nước xã hội chủ nghĩa như về sau.",
+      C: "Sai. Trước 19-12-1946, chủ trương chủ yếu là hòa hoãn, nhân nhượng có nguyên tắc để tránh cùng lúc đối phó nhiều kẻ thù, không phải đối đầu quân sự trực diện ngay từ đầu.",
+      D: "Sai. Chính sách đối ngoại của Việt Nam thời kì này không phải khước từ phương Tây, mà là mềm dẻo, tranh thủ mọi khả năng có lợi cho nền độc lập non trẻ."
+    }
+  },
+  
+  
+  {
+    q: "Những hoạt động của Chủ tịch Hồ Chí Minh (từ đầu tháng 3 đến tháng 12-1946) có tác dụng nào sau đây đối với cách mạng Việt Nam?",
+    a: "C",
+    o: [
+      "Buộc thực dân Pháp thi hành nghiêm túc Hiệp định Sơ bộ.",
+      "Tránh được cuộc chiến tranh với thực dân Pháp sau này.",
+      "Kéo dài thời gian hòa bình để chuẩn bị kháng chiến lâu dài.",
+      "Chuẩn bị trực tiếp cho Đại hội đại biểu lần thứ II của Đảng."
+    ],
+    r: {
+      A: "Sai. Thực dân Pháp không thi hành nghiêm túc Hiệp định Sơ bộ 6-3-1946 mà liên tiếp có hành động lấn tới, gây hấn. Hoạt động của Hồ Chí Minh không thể buộc Pháp thực hiện đầy đủ cam kết.",
+      B: "Sai. Chủ trương hòa hoãn chỉ có tác dụng tạm thời, không thể ngăn chặn hoàn toàn cuộc chiến tranh xâm lược của Pháp. Cuối cùng, kháng chiến toàn quốc vẫn bùng nổ ngày 19-12-1946.",
+      C: "Đúng. Từ tháng 3 đến tháng 12-1946, Hồ Chí Minh và Đảng thực hiện sách lược mềm dẻo để kéo dài thời gian hòa bình, tranh thủ củng cố chính quyền, xây dựng lực lượng và chuẩn bị cho cuộc kháng chiến lâu dài.",
+      D: "Sai. Đại hội đại biểu lần thứ II của Đảng diễn ra năm 1951, không phải mục tiêu trực tiếp của các hoạt động đối ngoại và hòa hoãn trong năm 1946."
+    }
+  },
+  {
+    q: "Nội dung nào sau đây không phải là vai trò của Chủ tịch Hồ Chí Minh trong giai đoạn từ tháng 12-1946 đến tháng 7-1954 của cuộc kháng chiến chống thực dân Pháp?",
+    a: "B",
+    o: [
+      "Ra Lời kêu gọi toàn quốc kháng chiến.",
+      "Chủ động kí với Pháp bản Hiệp định Sơ bộ.",
+      "Họp bàn, chỉ đạo các chiến dịch quan trọng.",
+      "Chủ trì Đại hội đại biểu lần thứ II của Đảng."
+    ],
+    r: {
+      A: "Sai vì đây không phải đáp án cần chọn. Ngày 19-12-1946, Chủ tịch Hồ Chí Minh ra Lời kêu gọi toàn quốc kháng chiến, mở đầu cuộc kháng chiến chống Pháp trên phạm vi cả nước.",
+      B: "Đúng. Việc kí Hiệp định Sơ bộ với Pháp diễn ra ngày 6-3-1946, thuộc giai đoạn trước toàn quốc kháng chiến, nên không phải vai trò của Hồ Chí Minh trong khoảng từ tháng 12-1946 đến tháng 7-1954.",
+      C: "Sai vì đây không phải đáp án cần chọn. Trong kháng chiến chống Pháp, Hồ Chí Minh giữ vai trò quan trọng trong bàn bạc chủ trương và chỉ đạo các chiến dịch lớn.",
+      D: "Sai vì đây không phải đáp án cần chọn. Đại hội đại biểu toàn quốc lần thứ II của Đảng năm 1951 do Hồ Chí Minh chủ trì là sự kiện quan trọng trong thời kì kháng chiến chống Pháp."
+    }
+  },
+  {
+    q: "Việc Chủ tịch Hồ Chí Minh đẩy mạnh hoạt động ngoại giao với nhân dân Pháp tiến bộ, Trung Quốc, Liên Xô và các nước Đông Âu (1949-1950) đem lại tác dụng nào sau đây?",
+    a: "A",
+    o: [
+      "Tranh thủ được sự ủng hộ, giúp đỡ của các nước đối với cuộc kháng chiến.",
+      "Đặt cơ sở cho Việt Nam gia nhập Hiệp hội các quốc gia Đông Nam Á.",
+      "Buộc Chính phủ Trung Hoa Dân quốc rút hết quân ra khỏi Việt Nam.",
+      "Tạo điều kiện thuận lợi để miền Bắc Việt Nam đi lên chủ nghĩa xã hội."
+    ],
+    r: {
+      A: "Đúng. Hoạt động ngoại giao của Hồ Chí Minh giai đoạn 1949-1950 đã giúp cuộc kháng chiến của Việt Nam tranh thủ được sự công nhận, ủng hộ và giúp đỡ quốc tế, nhất là từ các nước xã hội chủ nghĩa.",
+      B: "Sai. ASEAN chỉ ra đời năm 1967, nên hoàn toàn không liên quan đến hoạt động ngoại giao của Việt Nam trong giai đoạn 1949-1950.",
+      C: "Sai. Quân Trung Hoa Dân quốc đã rút khỏi Việt Nam từ năm 1946 sau các dàn xếp ngoại giao, không phải kết quả trực tiếp của hoạt động ngoại giao 1949-1950.",
+      D: "Sai. Miền Bắc đi lên chủ nghĩa xã hội là nhiệm vụ nổi bật sau năm 1954. Hoạt động ngoại giao 1949-1950 chủ yếu phục vụ cuộc kháng chiến chống Pháp."
+    }
+  },
+  {
+    q: "Tháng 6 năm 1925 đánh dấu sự ra đời của tổ chức cách mạng nào sau đây ở Việt Nam?",
+    a: "D",
+    o: [
+      "Tân Việt Cách mạng đảng.",
+      "Việt Nam Quốc dân đảng.",
+      "Đông Dương Cộng sản đảng.",
+      "Hội Việt Nam Cách mạng Thanh niên."
+    ],
+    r: {
+      A: "Sai. Tân Việt Cách mạng đảng ra đời sau đó từ sự phát triển của Hội Phục Việt, không phải tổ chức được thành lập vào tháng 6-1925.",
+      B: "Sai. Việt Nam Quốc dân đảng được thành lập năm 1927, không phải năm 1925.",
+      C: "Sai. Đông Dương Cộng sản đảng ra đời năm 1929, gắn với sự phân hóa của Hội Việt Nam Cách mạng Thanh niên.",
+      D: "Đúng. Tháng 6-1925, Nguyễn Ái Quốc thành lập Hội Việt Nam Cách mạng Thanh niên tại Quảng Châu, đánh dấu bước chuẩn bị quan trọng về tổ chức cho cách mạng Việt Nam."
+    }
+  },
+  {
+    q: "Một trong những lí do Hồ Chí Minh sống mãi trong lòng nhân dân Việt Nam vì Người",
+    a: "A",
+    o: [
+      "có tinh thần quốc tế vô sản, cần, kiệm, liêm, chính, chí công vô tư.",
+      "đã xây dựng nền kinh tế tri thức, tự chủ để nâng cao đời sống nhân dân.",
+      "đã góp phần phát triển nền giáo dục hiện đại, vươn ra tầm cao thế giới.",
+      "đưa đất nước thoát khỏi tình trạng bị các nước bao vây cấm vận kinh tế."
+    ],
+    r: {
+      A: "Đúng. Hồ Chí Minh sống mãi trong lòng nhân dân trước hết bởi nhân cách lớn, đạo đức trong sáng, lối sống giản dị và tinh thần suốt đời vì nước vì dân.",
+      B: "Sai. Khái niệm xây dựng nền kinh tế tri thức, tự chủ là nội dung của thời kì phát triển sau này, không phải đóng góp lịch sử trực tiếp của Hồ Chí Minh.",
+      C: "Sai. Hồ Chí Minh rất coi trọng giáo dục, nhưng phương án này diễn đạt không đúng trọng tâm và tầm mức lịch sử thường được dùng để lí giải việc Người sống mãi trong lòng dân.",
+      D: "Sai. Việc đất nước thoát bao vây cấm vận là kết quả của giai đoạn sau này, không phải lí do trực tiếp để giải thích vị trí của Hồ Chí Minh trong lòng nhân dân."
+    }
+  },
+  {
+    q: "Những quốc gia nào sau đây ở châu Âu có nhiều hoạt động vinh danh Chủ tịch Hồ Chí Minh?",
+    a: "A",
+    o: [
+      "Pháp, Nga.",
+      "Pháp, Đức.",
+      "Nga, Thụy Sĩ, Đức.",
+      "Pháp, Hà Lan."
+    ],
+    r: {
+      A: "Đúng. Trong các nước châu Âu, Pháp và Nga là hai nơi có nhiều hoạt động tưởng niệm, nghiên cứu, trưng bày, đặt tên đường hoặc dựng tượng đài gắn với Chủ tịch Hồ Chí Minh.",
+      B: "Sai. Đức có những hoạt động tưởng niệm nhất định, nhưng không tiêu biểu và phổ biến bằng Pháp và Nga trong các tài liệu lịch sử phổ thông về vinh danh Hồ Chí Minh.",
+      C: "Sai. Nga có nhiều hoạt động vinh danh, nhưng Thụy Sĩ và Đức không phải cặp tiêu biểu thường được nhấn mạnh như Pháp và Nga.",
+      D: "Sai. Hà Lan không phải nước thường được nhắc đến nổi bật trong hệ thống tư liệu phổ thông về các hoạt động vinh danh Chủ tịch Hồ Chí Minh ở châu Âu."
+    }
+  },
+  {
+    q: "Thế giới vinh danh Chủ tịch Hồ Chí Minh xuất phát từ một trong những lí do cơ bản nào sau đây?",
+    a: "B",
+    o: [
+      "Là đặc phái viên của Quốc tế Cộng sản, tham gia bảo vệ hòa bình thế giới.",
+      "Chủ tịch Hồ Chí Minh đã cống hiến trọn đời mình cho dân tộc Việt Nam.",
+      "Chủ tịch Hồ Chí Minh ủng hộ nhân dân Nam Phi chống chế độ A-pác-thai.",
+      "Có đóng góp trực tiếp vào giải quyết mâu thuẫn cuộc đối đầu Đông - Tây."
+    ],
+    r: {
+      A: "Sai. Hồ Chí Minh có hoạt động trong phong trào cộng sản và công nhân quốc tế, nhưng đây không phải lí do cơ bản nhất khiến thế giới vinh danh Người.",
+      B: "Đúng. Hồ Chí Minh được thế giới vinh danh vì cuộc đời cống hiến trọn vẹn cho độc lập dân tộc, tự do của nhân dân Việt Nam, đồng thời có ảnh hưởng lớn đến phong trào giải phóng dân tộc và các giá trị văn hóa tiến bộ.",
+      C: "Sai. Đây không phải nguyên nhân cơ bản và tiêu biểu nhất thường được dùng để lí giải việc thế giới vinh danh Hồ Chí Minh.",
+      D: "Sai. Hồ Chí Minh có ảnh hưởng quốc tế rộng lớn, nhưng không trực tiếp nổi bật ở vai trò giải quyết mâu thuẫn Đông - Tây như cách nêu trong phương án."
+    }
+  },
+  {
+    q: "Năm 1987, cuộc họp Đại hội đồng UNESCO lần thứ 24 tại Pa-ri (Pháp) đã ra Nghị quyết số 24C/18.65, ghi nhận Chủ tịch Hồ Chí Minh là",
+    a: "C",
+    o: [
+      "một nhà ngoại giao có tầm ảnh hưởng lớn ở châu Á trong thế kỉ XX.",
+      "nhà chính trị, quân sự, nhà thơ nổi tiếng của Việt Nam thời phong kiến.",
+      "Anh hùng giải phóng dân tộc và Nhà văn hóa kiệt xuất của Việt Nam.",
+      "người vận dụng xuất sắc chủ nghĩa Mác - Lê-nin vào thực tiễn Việt Nam."
+    ],
+    r: {
+      A: "Sai. UNESCO không ghi nhận Hồ Chí Minh theo cách diễn đạt hẹp là một nhà ngoại giao có ảnh hưởng ở châu Á, mà tôn vinh Người trên tầm vóc lớn hơn nhiều.",
+      B: "Sai. Hồ Chí Minh là nhân vật lịch sử hiện đại, không thuộc thời phong kiến Việt Nam.",
+      C: "Đúng. Nghị quyết của UNESCO năm 1987 đã ghi nhận Hồ Chí Minh là 'Anh hùng giải phóng dân tộc, Nhà văn hóa kiệt xuất của Việt Nam'. Đây là cách tôn vinh chính thức, nổi tiếng và chuẩn xác nhất.",
+      D: "Sai. Đây là một nhận xét đúng về tư tưởng và đóng góp của Hồ Chí Minh, nhưng không phải nội dung ghi nhận chính thức trong Nghị quyết của UNESCO."
+    }
+  },
+  {
+    q: "Hoạt động tưởng niệm Chủ tịch Hồ Chí Minh của nhân dân các nước trên thế giới không có hình thức nào sau đây?",
+    a: "C",
+    o: [
+      "Xây dựng tượng đài Hồ Chí Minh.",
+      "Xây dựng quảng trường.",
+      "Xây dựng Lăng Chủ tịch.",
+      "Xây dựng nhà lưu niệm."
+    ],
+    r: {
+      A: "Sai vì đây không phải đáp án cần chọn. Nhiều nước trên thế giới có xây dựng tượng đài hoặc tượng Hồ Chí Minh để tưởng niệm Người.",
+      B: "Sai vì đây không phải đáp án cần chọn. Một số nơi có quảng trường, công viên, đường phố mang tên Hồ Chí Minh như một hình thức vinh danh và tưởng niệm.",
+      C: "Đúng. Lăng Chủ tịch Hồ Chí Minh là công trình đặc biệt ở Việt Nam; các nước trên thế giới không có hình thức tưởng niệm phổ biến bằng việc xây lăng Chủ tịch như phương án nêu.",
+      D: "Sai vì đây không phải đáp án cần chọn. Nhà lưu niệm, phòng trưng bày hoặc địa điểm kỉ niệm về Hồ Chí Minh là hình thức tưởng niệm đã xuất hiện ở một số nơi."
+    }
+  },
+  {
+    q: "Chủ tịch Hồ Chí Minh sống mãi trong lòng nhân dân Việt Nam vì một trong những lí do cơ bản nào sau đây?",
+    a: "A",
+    o: [
+      "Là tấm gương sáng về đạo đức, phẩm chất, lối sống cho các thế hệ.",
+      "Góp phần vào xây dựng thành công chủ nghĩa xã hội ở miền Bắc.",
+      "Là người Việt Nam đầu tiên xuất dương tìm đường cứu nước.",
+      "Là Tổng Bí thư và Chủ tịch nước đầu tiên của nước Việt Nam."
+    ],
+    r: {
+      A: "Đúng. Một lí do cơ bản khiến Hồ Chí Minh sống mãi trong lòng nhân dân là Người để lại tấm gương mẫu mực về đạo đức cách mạng, nhân cách, lối sống giản dị và tinh thần suốt đời vì dân vì nước.",
+      B: "Sai. Hồ Chí Minh có công lao to lớn với sự nghiệp xây dựng miền Bắc, nhưng đây không phải lí do khái quát và cơ bản nhất để giải thích vị trí của Người trong lòng nhân dân.",
+      C: "Sai. Hồ Chí Minh không phải người Việt Nam đầu tiên ra nước ngoài tìm đường cứu nước; trước đó đã có các sĩ phu như Phan Bội Châu.",
+      D: "Sai. Hồ Chí Minh là Chủ tịch nước đầu tiên của Việt Nam Dân chủ Cộng hòa, nhưng không phải Tổng Bí thư đầu tiên của Đảng."
+    }
+  },
+  {
+    q: "Sau khi Chủ tịch Hồ Chí Minh qua đời (9-1969), nội dung nào sau đây phản ánh việc nhân dân miền Nam đã làm để tưởng nhớ Người?",
+    a: "D",
+    o: [
+      "Tấn công chống chính quyền Diệm.",
+      "Cử các đại biểu ra Bắc dâng hương.",
+      "Xây dựng nhiều khu tưởng niệm.",
+      "Nhân dân đã đồng loạt tưởng niệm Người."
+    ],
+    r: {
+      A: "Sai. Chính quyền Diệm đã sụp đổ từ năm 1963, nên phương án này sai cả về thời gian lẫn nội dung.",
+      B: "Sai. Trong bối cảnh chiến tranh năm 1969, việc cử đại biểu miền Nam ra Bắc dâng hương không phải biểu hiện tiêu biểu và phổ biến nhất được nhấn mạnh trong lịch sử phổ thông.",
+      C: "Sai. Việc xây dựng nhiều khu tưởng niệm diễn ra về sau, không phản ánh ngay hành động tiêu biểu của nhân dân miền Nam sau khi Bác qua đời.",
+      D: "Đúng. Sau khi Chủ tịch Hồ Chí Minh qua đời, nhân dân miền Nam đã đồng loạt tổ chức tưởng niệm, bày tỏ lòng tiếc thương sâu sắc và biến đau thương thành hành động cách mạng."
+    }
+  },
+  {
+    q: "Nội dung nào sau đây là hành động thể hiện sự sống mãi của Chủ tịch Hồ Chí Minh trong lòng nhân dân Việt Nam?",
+    a: "D",
+    o: [
+      "Xây dựng Lăng Chủ tịch Hồ Chí Minh ở các thành phố lớn trong cả nước.",
+      "Vận động bạn bè quốc tế xây dựng các trường học mang tên Hồ Chí Minh.",
+      "Giữ nguyên tuyến đường mòn Hồ Chí Minh để ghi dấu ấn lịch sử về Người.",
+      "Phát động phong trào: \"Học tập và làm theo tấm gương đạo đức Hồ Chí Minh\"."
+    ],
+    r: {
+      A: "Sai. Việt Nam chỉ có một Lăng Chủ tịch Hồ Chí Minh tại Hà Nội, không có việc xây lăng ở nhiều thành phố lớn trong cả nước.",
+      B: "Sai. Đây không phải hành động tiêu biểu, phổ biến và trực tiếp nhất thể hiện việc Hồ Chí Minh sống mãi trong lòng nhân dân Việt Nam.",
+      C: "Sai. Tuyến đường mòn Hồ Chí Minh là di tích lịch sử quan trọng, nhưng việc 'giữ nguyên' nó không phải biểu hiện tiêu biểu nhất về sự tiếp nối giá trị tinh thần của Bác.",
+      D: "Đúng. Phong trào 'Học tập và làm theo tấm gương đạo đức Hồ Chí Minh' là biểu hiện rõ ràng của việc nhân dân Việt Nam tiếp tục noi gương, kế thừa và phát huy giá trị tư tưởng, đạo đức của Người."
+    }
+  },
+  {
+    q: "Chủ tịch Hồ Chí Minh có cống hiến nào sau đây đối với nhân dân thế giới?",
+    a: "D",
+    o: [
+      "Đánh giá đúng vai trò lãnh đạo cách mạng của giai cấp công nhân và nông dân.",
+      "Gây dựng quan hệ với giai cấp vô sản thông qua việc sáng lập Quốc tế Cộng sản.",
+      "Xây dựng được mối quan hệ giữa cách mạng Việt Nam với mọi tổ chức quốc tế.",
+      "Góp phần xây dựng và phát huy sức mạnh của các tổ chức cách mạng, tiến bộ."
+    ],
+    r: {
+      A: "Sai. Đây là đóng góp về nhận thức lí luận đối với cách mạng Việt Nam, nhưng chưa phản ánh trực tiếp và đầy đủ cống hiến của Hồ Chí Minh đối với nhân dân thế giới.",
+      B: "Sai. Hồ Chí Minh không phải người sáng lập Quốc tế Cộng sản; vì vậy phương án này sai về mặt lịch sử.",
+      C: "Sai. Cách diễn đạt 'mọi tổ chức quốc tế' là quá tuyệt đối và không chính xác.",
+      D: "Đúng. Hồ Chí Minh có đóng góp cho phong trào cách mạng và tiến bộ thế giới thông qua việc xây dựng, cổ vũ và phát huy sức mạnh của các lực lượng đấu tranh vì độc lập dân tộc, dân chủ và hòa bình."
+    }
+  },
+  {
+    q: "Nội dung nào sau đây lí giải vì sao Chủ tịch Hồ Chí Minh sống mãi trong lòng nhân dân Việt Nam?",
+    a: "A",
+    o: [
+      "Người đã cống hiến trọn đời cho độc lập dân tộc, tự do, hạnh phúc của nhân dân.",
+      "Những tư tưởng lớn của Người để lại mang tầm vóc vĩ nhân của thế giới.",
+      "Người hội tụ tinh hoa, giá trị văn hóa phương Đông và văn hóa phương Tây.",
+      "Người là biểu tượng của sức mạnh đoàn kết các dân tộc bị áp bức trên thế giới."
+    ],
+    r: {
+      A: "Đúng. Lí do cơ bản nhất là Hồ Chí Minh đã hi sinh, cống hiến trọn đời cho sự nghiệp độc lập dân tộc, tự do và hạnh phúc của nhân dân Việt Nam, nên được nhân dân đời đời kính yêu, tưởng nhớ.",
+      B: "Sai. Đây là một nhận xét đúng về tầm vóc tư tưởng của Hồ Chí Minh, nhưng chưa phải cách lí giải trực tiếp, cơ bản nhất về tình cảm sâu nặng của nhân dân Việt Nam dành cho Người.",
+      C: "Sai. Việc hội tụ tinh hoa văn hóa Đông - Tây góp phần làm nên tầm vóc Hồ Chí Minh, nhưng không phải lí do cơ bản nhất để giải thích Người sống mãi trong lòng nhân dân Việt Nam.",
+      D: "Sai. Đây là giá trị quốc tế rất lớn của Hồ Chí Minh, nhưng câu hỏi nhấn vào tình cảm của nhân dân Việt Nam, nên cần chọn phương án gắn trực tiếp với sự cống hiến cho dân tộc Việt Nam."
+    }
   }
 ];
