@@ -3159,10 +3159,11 @@
       try {
         await warmupAudio();
         if (!state.audioCtx) return;
-        createTone({ freq: 392, type: "triangle", start: 0.00, dur: 0.11, gain: 0.032, filterFreq: 2400 });
-        createTone({ freq: 587.33, type: "triangle", start: 0.06, dur: 0.13, gain: 0.036, filterFreq: 2900 });
-        createTone({ freq: 783.99, type: "sine", start: 0.12, dur: 0.20, gain: 0.032, filterFreq: 3600 });
-        createTone({ freq: 1046.5, type: "sine", start: 0.18, dur: 0.28, gain: 0.018, endFreq: 1174.66, filterFreq: 4200 });
+        createTone({ freq: 392, type: "triangle", start: 0.00, dur: 0.10, gain: 0.026, endFreq: 440, filterFreq: 2200 });
+        createTone({ freq: 523.25, type: "sine", start: 0.03, dur: 0.16, gain: 0.029, endFreq: 659.25, filterFreq: 3200 });
+        createTone({ freq: 783.99, type: "triangle", start: 0.09, dur: 0.22, gain: 0.026, endFreq: 987.77, filterFreq: 4200 });
+        createTone({ freq: 1174.66, type: "sine", start: 0.15, dur: 0.34, gain: 0.017, endFreq: 1318.51, filterFreq: 5200 });
+        createTone({ freq: 1567.98, type: "sine", start: 0.23, dur: 0.24, gain: 0.008, endFreq: 1760, filterFreq: 6400 });
       } catch (e) {}
     }
 
