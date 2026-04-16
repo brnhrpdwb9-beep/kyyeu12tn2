@@ -101,6 +101,32 @@
       overflow-y:auto;
     }
     body{position:relative}
+    body::before,
+    body::after{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:1;
+    }
+    body::before{
+      background:
+        radial-gradient(circle at 12% 24%, rgba(164,193,255,.08) 0 1.4%, transparent 1.8%),
+        radial-gradient(circle at 26% 68%, rgba(105,228,255,.07) 0 1.2%, transparent 1.7%),
+        radial-gradient(circle at 72% 34%, rgba(225,178,255,.07) 0 1.5%, transparent 1.9%),
+        radial-gradient(circle at 82% 74%, rgba(255,205,120,.06) 0 1.3%, transparent 1.8%);
+      background-size:260px 260px, 340px 340px, 300px 300px, 380px 380px;
+      opacity:.65;
+      animation:driftDust 88s linear infinite reverse;
+    }
+    body::after{
+      background:
+        radial-gradient(circle at 20% 30%, rgba(120,171,255,.05), transparent 18%),
+        radial-gradient(circle at 78% 26%, rgba(255,214,125,.04), transparent 16%),
+        radial-gradient(circle at 60% 72%, rgba(178,120,255,.04), transparent 20%);
+      filter:blur(26px);
+      opacity:.7;
+    }
     button{font-family:inherit}
 
     .universe,.stars,.stars2,.stars3,.cosmic-dust,.space-grid,.nebula-detail{position:absolute;inset:0}
@@ -1317,14 +1343,46 @@
       font-size:11px;
       line-height:1.55;
       color:#c9d7ff;
+      text-shadow:0 10px 18px rgba(0,0,0,.20);
+    }
+
+    .upgrade-pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-top:8px;
+      padding:8px 12px;
+      width:max-content;
+      max-width:100%;
+      border-radius:999px;
+      border:1px solid rgba(145,180,255,.16);
+      background:linear-gradient(145deg, rgba(17,26,60,.58), rgba(8,14,34,.26));
+      color:#edf5ff;
+      font-size:10px;
+      font-weight:900;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 10px 20px rgba(0,0,0,.14);
+      text-shadow:0 0 20px rgba(255,255,255,.14),0 10px 20px rgba(0,0,0,.22);
+    }
+    .upgrade-pill::before{
+      content:"";
+      width:8px;height:8px;border-radius:50%;
+      background:radial-gradient(circle at 30% 30%, #ffffff, #9ebeff 58%, #4e6eb9 100%);
+      box-shadow:0 0 16px rgba(170,210,255,.28);
+      flex:none;
+    }
+    .upgrade-pill[data-combo="ready"]{
+      border-color:rgba(255,224,118,.28);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 12px 22px rgba(0,0,0,.18),0 0 16px rgba(255,218,112,.10);
     }
 
     .mission-panel{
       position:relative;
       border-radius:30px;
-      background:transparent;
-      border:1px solid rgba(145,180,255,.08);
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.03),0 18px 40px rgba(0,0,0,.08);
+      background:linear-gradient(180deg, rgba(11,18,44,.62), rgba(8,12,28,.42));
+      border:1px solid rgba(145,180,255,.12);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 18px 40px rgba(0,0,0,.12);
       overflow:hidden;
     }
     .mission-panel::before{
@@ -1332,8 +1390,18 @@
       position:absolute;inset:0;
       background:
         linear-gradient(180deg, rgba(255,255,255,.025), transparent 24%),
-        radial-gradient(circle at top right, rgba(103,233,255,.05), transparent 22%),
-        radial-gradient(circle at bottom left, rgba(196,122,255,.04), transparent 24%);
+        radial-gradient(circle at top right, rgba(103,233,255,.06), transparent 22%),
+        radial-gradient(circle at bottom left, rgba(196,122,255,.05), transparent 24%);
+      pointer-events:none;
+    }
+    .mission-panel::after{
+      content:"1010 1100 0111";
+      position:absolute;
+      right:18px;
+      bottom:16px;
+      font:700 11px/1.2 monospace;
+      letter-spacing:.22em;
+      color:rgba(182,204,255,.16);
       pointer-events:none;
     }
 
@@ -1349,13 +1417,13 @@
       line-height:1.5;
       color:#f3f8ff;
       margin-bottom:18px;
-      text-shadow:0 8px 18px rgba(0,0,0,.16);
+      text-shadow:0 8px 18px rgba(0,0,0,.16),0 0 18px rgba(152,196,255,.10);
     }
     .options{display:grid;gap:12px}
     .option-btn{
-      width:100%;padding:14px 16px;border-radius:18px;border:1px solid rgba(145,180,255,.14);
+      width:100%;padding:14px 16px;border-radius:18px;border:1px solid rgba(145,180,255,.16);
       text-align:left;display:flex;align-items:center;gap:14px;font-size:15px;color:#edf4ff;
-      background:rgba(14,20,46,.16);
+      background:linear-gradient(145deg, rgba(16,24,54,.60), rgba(8,12,28,.30));
       backdrop-filter:blur(calc(2px * var(--use-backdrop)));
       -webkit-backdrop-filter:blur(calc(2px * var(--use-backdrop)));
       transition:transform .16s,border-color .16s,box-shadow .16s,background .16s,opacity .16s;
@@ -1364,16 +1432,16 @@
     }
     .option-btn:hover:not(:disabled){
       transform:translateY(-2px);
-      border-color:rgba(255,224,118,.28);
-      background:rgba(18,26,58,.20);
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 10px 16px rgba(0,0,0,.10),0 0 12px rgba(255,220,118,.05);
+      border-color:rgba(255,224,118,.26);
+      background:linear-gradient(145deg, rgba(25,35,72,.72), rgba(12,16,36,.40));
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 10px 16px rgba(0,0,0,.10),0 0 12px rgba(255,220,118,.06);
     }
     .option-btn:disabled{cursor:default}
 
     .letter{
       width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;
       flex-shrink:0;font-weight:900;color:#dce8ff;background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.08);box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+      border:1px solid rgba(168,194,255,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
     }
 
     .option-btn.correct{
@@ -1394,12 +1462,12 @@
     }
 
     .question-media{
-      margin:-4px 0 14px;
-      border-radius:20px;
+      margin:-4px 0 16px;
+      border-radius:22px;
       overflow:hidden;
       border:1px solid rgba(255,225,170,.16);
-      background:linear-gradient(145deg, rgba(28,22,14,.50), rgba(12,10,8,.24));
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.04), 0 10px 22px rgba(0,0,0,.12);
+      background:linear-gradient(145deg, rgba(20,26,58,.58), rgba(10,12,28,.34));
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 12px 24px rgba(0,0,0,.10);
     }
     .question-media img{
       display:block;
@@ -1415,22 +1483,22 @@
     }
     .tf-card{
       border-radius:18px;
-      border:1px solid rgba(255,225,170,.12);
-      background:linear-gradient(145deg, rgba(34,26,16,.54), rgba(12,10,8,.24));
+      border:1px solid rgba(145,180,255,.14);
+      background:linear-gradient(145deg, rgba(16,24,54,.60), rgba(8,12,28,.30));
       box-shadow:inset 0 1px 0 rgba(255,255,255,.03),0 8px 14px rgba(0,0,0,.07);
       padding:13px 14px 12px;
       display:grid;
       gap:10px;
     }
     .tf-card.answered{
-      border-color:rgba(255,228,182,.18);
+      border-color:rgba(176,204,255,.20);
     }
     .tf-statement{
       display:grid;
       grid-template-columns:auto 1fr;
       gap:10px;
       align-items:flex-start;
-      color:#f4ead8;
+      color:#edf4ff;
       line-height:1.58;
       font-size:14px;
     }
@@ -1443,9 +1511,9 @@
       justify-content:center;
       font-size:13px;
       font-weight:900;
-      color:#fff7ea;
-      background:rgba(255,240,214,.08);
-      border:1px solid rgba(255,235,205,.12);
+      color:#eef6ff;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(168,194,255,.12);
       box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
       flex-shrink:0;
     }
@@ -1458,9 +1526,9 @@
       min-width:88px;
       padding:8px 12px;
       border-radius:12px;
-      border:1px solid rgba(255,227,184,.14);
-      background:rgba(255,248,235,.04);
-      color:#f7eee0;
+      border:1px solid rgba(145,180,255,.14);
+      background:rgba(255,255,255,.04);
+      color:#edf4ff;
       font-weight:800;
       font-size:13px;
       line-height:1.2;
@@ -1469,14 +1537,14 @@
     }
     .tf-toggle:hover:not(:disabled){
       transform:translateY(-1px);
-      border-color:rgba(255,229,188,.26);
-      background:rgba(74,58,38,.48);
+      border-color:rgba(255,224,118,.24);
+      background:rgba(24,34,72,.54);
       box-shadow:0 8px 14px rgba(0,0,0,.10),0 0 12px rgba(255,215,150,.06);
     }
     .tf-toggle.active{
-      border-color:rgba(255,232,196,.28);
-      background:rgba(106,86,46,.34);
-      box-shadow:0 0 0 1px rgba(255,229,188,.08),0 0 10px rgba(255,214,150,.06);
+      border-color:rgba(186,210,255,.28);
+      background:rgba(62,84,140,.34);
+      box-shadow:0 0 0 1px rgba(184,206,255,.08),0 0 10px rgba(154,195,255,.06);
     }
     .tf-toggle.correct{
       border-color:rgba(232,236,243,.42);
@@ -2417,6 +2485,7 @@
               <div id="scan-progress">0 / 10 mốc</div>
               <div id="planet-stability">Ổn định cơ bản</div>
               <div id="mission-text">Còn câu hỏi để hoàn tất chiến dịch chinh phục hành tinh.</div>
+              <div id="upgrade-pill" class="upgrade-pill">Kernel Boot</div>
             </div>
           </div>
 
@@ -2614,6 +2683,17 @@
     const $ = id => document.getElementById(id);
     const rootStyle = document.documentElement.style;
     const els = {};
+    const HISTORY_UNLOCKS = [
+      { min: 0, label: "Khởi động", detail: "Sẵn sàng khảo sát hành tinh" },
+      { min: 3, label: "Bản đồ cổ", detail: "Mở khóa dữ liệu nền văn minh" },
+      { min: 6, label: "Dấu mốc", detail: "Tăng tốc quét mốc sự kiện" },
+      { min: 10, label: "Biên niên", detail: "Kích hoạt lớp ghi chép lịch sử" },
+      { min: 14, label: "Di sản", detail: "Mở rộng vùng ảnh hưởng tri thức" },
+      { min: 18, label: "Đế chế", detail: "Củng cố vành đai chinh phục" },
+      { min: 24, label: "Niên đại", detail: "Đồng bộ trục thời gian" },
+      { min: 32, label: "Văn minh", detail: "Hợp nhất các lớp dữ liệu" },
+      { min: 42, label: "Huyền sử", detail: "Hoàn thiện lõi hành tinh sử học" }
+    ];
 
     function cacheDom() {
       els.planetStage = $("planetStage");
@@ -2624,6 +2704,7 @@
       els.scanProgress = $("scan-progress");
       els.planetStability = $("planet-stability");
       els.missionText = $("mission-text");
+      els.upgradePill = $("upgrade-pill");
       els.progressText = $("progress-text");
       els.journeyFill = $("journey-fill");
       els.question = $("question");
@@ -3262,6 +3343,23 @@
       els.flagBurst.style.setProperty("--flag-origin-y", `${originY.toFixed(1)}%`);
     }
 
+    function getCurrentUnlock(answered) {
+      let current = HISTORY_UNLOCKS[0];
+      for (let i = 0; i < HISTORY_UNLOCKS.length; i++) {
+        if (answered >= HISTORY_UNLOCKS[i].min) current = HISTORY_UNLOCKS[i];
+      }
+      return current;
+    }
+
+    function updateMeteorComboState() {
+      if (!els.upgradePill) return;
+      els.upgradePill.dataset.combo = state.correctStreak >= 7 ? "ready" : "idle";
+      els.upgradePill.title = state.correctStreak >= 7
+        ? `Đã đạt chuỗi đúng ${state.correctStreak} câu`
+        : "";
+      els.upgradePill.hidden = false;
+    }
+
     function triggerMeteorBurst() {
       document.body.classList.remove("meteor-combo");
       void document.body.offsetWidth;
@@ -3622,6 +3720,14 @@
       if (els.missionText.textContent !== missionText) {
         els.missionText.textContent = missionText;
       }
+
+      const unlock = getCurrentUnlock(answered);
+      const upgradeText = `${unlock.label} • ${unlock.detail}`;
+      if (els.upgradePill && els.upgradePill.textContent !== upgradeText) {
+        els.upgradePill.textContent = upgradeText;
+      }
+
+      updateMeteorComboState();
 
       if (lastResult === "correct") {
         spawnPlanetParticles("good");
