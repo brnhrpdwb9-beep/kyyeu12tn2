@@ -1324,19 +1324,18 @@
       display:grid;
       gap:6px;
       text-align:center;
-      padding:10px 6px 4px;
-      background:transparent;
-      border:none;
-      box-shadow:none;
+      padding:12px 14px;
+      border-radius:18px;
+      background:rgba(10,16,38,.14);
+      border:1px solid rgba(145,180,255,.10);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.03);
       color:var(--muted);
       font-size:12px;
       line-height:1.5;
-      overflow-wrap:anywhere;
     }
     .planet-mini-status strong{
       color:#eef6ff;
       font-size:13px;
-      text-shadow:0 0 18px rgba(255,232,170,.10), 0 10px 18px rgba(0,0,0,.18);
     }
 
     #mission-text{
@@ -1348,24 +1347,22 @@
     }
 
     .upgrade-pill{
-      justify-self:center;
       display:inline-flex;
       align-items:center;
       gap:8px;
-      margin-top:6px;
-      padding:0;
-      width:auto;
+      margin-top:8px;
+      padding:8px 12px;
+      width:max-content;
       max-width:100%;
       border-radius:999px;
-      border:none;
-      background:transparent;
+      border:1px solid rgba(145,180,255,.16);
+      background:linear-gradient(145deg, rgba(17,26,60,.58), rgba(8,14,34,.26));
       color:#edf5ff;
-      font:800 11px/1.2 monospace;
+      font-size:10px;
+      font-weight:900;
       letter-spacing:.12em;
       text-transform:uppercase;
-      text-align:center;
-      white-space:normal;
-      box-shadow:none;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 10px 20px rgba(0,0,0,.14);
       text-shadow:0 0 20px rgba(255,255,255,.14),0 10px 20px rgba(0,0,0,.22);
     }
     .upgrade-pill::before{
@@ -1376,8 +1373,8 @@
       flex:none;
     }
     .upgrade-pill[data-combo="ready"]{
-      color:#fff5c8;
-      text-shadow:0 0 18px rgba(255,220,118,.28),0 10px 20px rgba(0,0,0,.22);
+      border-color:rgba(255,224,118,.28);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 12px 22px rgba(0,0,0,.18),0 0 16px rgba(255,218,112,.10);
     }
 
     .mission-panel{
@@ -2113,117 +2110,57 @@
         --use-backdrop:0;
       }
 
-      /* Dynamic font scaling if content exceeds viewport height */
-      .question, .options { 
-        font-size:clamp(14px, calc(2.5vw + 1.8vh), 22px) !important; 
-      }
-
+      .page{width:100%;padding:8px 8px 16px;min-height:100vh;height:auto}
       .planet-stage{border-radius:22px;min-height:calc(100vh - 16px);height:auto;overflow:visible}
-      .planet-inner{padding:10px 10px 10px;height:auto;display:flex;flex-direction:column;gap:8px}
-      .top-head{gap:6px}
-      .planet-badge{padding:7px 11px;font-size:10px}
-      .flag-burst{width:min(190px, 52vw);right:2px;top:48px}
-      .command-grid{grid-template-columns:1fr;gap:8px}
-      .planet-column{min-height:unset;display:grid;grid-template-columns:92px 1fr;align-items:center;gap:8px;padding:2px 2px 0}
-      .planet-wrap{min-height:auto;margin:0;width:92px;height:92px}
-      .planet-link-wrap{gap:4px}
-      .history-planet-shell,.history-planet{width:72px;height:72px}
-      .planet-link-wrap::before{width:132px;height:132px}
-      .planet-shadow{width:68%;height:10px;transform:translateY(-4px)}
-      .planet-mini-status{
-        max-width:none;
-        text-align:left;
-        padding:8px 10px;
-        gap:4px;
-        font-size:11px;
-        line-height:1.4;
-        border-radius:16px;
-      }
-      .planet-mini-status strong{font-size:12.5px}
-      #planet-stability,
-      #upgrade-pill{display:none}
-      #scan-progress{
-        display:block;
-        font-size:10.5px;
-        color:#d6e3ff;
-      }
-      #mission-text{
-        display:block;
-        margin-top:1px;
-        font-size:10.5px;
-        line-height:1.38;
-        color:#c7d7ff;
-        display:-webkit-box;
-        -webkit-line-clamp:2;
-        -webkit-box-orient:vertical;
-        overflow:hidden;
-      }
+      .planet-inner{padding:12px 10px 12px;height:auto;display:flex;flex-direction:column;gap:10px}
+      .top-head{gap:8px}
+      .planet-badge{padding:8px 12px;font-size:11px}
+      .flag-burst{width:min(230px, 62vw);right:4px;top:54px}
+      .command-grid{grid-template-columns:1fr;gap:10px}
+      .planet-column{min-height:unset;display:grid;grid-template-columns:120px 1fr;align-items:center;gap:10px;padding:6px 4px 2px}
+      .planet-wrap{min-height:auto;margin:0;width:120px;height:120px}
+      .planet-link-wrap{gap:6px}
+      .history-planet-shell,.history-planet{width:88px;height:88px}
+      .planet-link-wrap::before{width:170px;height:170px}
+      .planet-shadow{width:70%;height:12px;transform:translateY(-6px)}
+      .planet-mini-status{max-width:none;text-align:left;padding:10px 12px;font-size:11px}
+      #mission-text{font-size:10.5px}
       .floating-star,.nebula-detail{display:none}
       .mini-orbit-track.m4,.mini-orbit-track.m5{display:none}
-      .mission-panel{min-height:0;height:auto;border-radius:20px;overflow:visible}
-      .mission-inner{padding:10px;height:auto;display:flex;flex-direction:column;min-height:0;overflow:visible}
-      .mission-panel::after{display:none}
+      .mission-panel{min-height:0;height:auto;border-radius:22px;overflow:visible}
+      .mission-inner{padding:12px;height:auto;display:flex;flex-direction:column;min-height:0;overflow:visible}
 
       .question-toolbar{
         grid-template-columns:auto 1fr auto;
-        gap:6px;
+        gap:8px;
         padding:0;
-        margin-bottom:8px;
+        margin-bottom:10px;
       }
 
       .progress-mini{
-        font-size:10px;
+        font-size:11px;
         letter-spacing:.05em;
       }
 
-      .toolbar-bar{height:7px}
-      .toolbar-actions{gap:6px}
+      .toolbar-bar{height:8px}
+      .toolbar-actions{gap:8px}
 
       .nav-icon{
-        width:34px;
-        height:34px;
-        font-size:16px;
-        border-radius:10px;
+        width:38px;
+        height:38px;
+        font-size:18px;
+        border-radius:12px;
       }
 
-      .question{
-        font-size:clamp(18px, 4vw, 26px);
-        line-height:1.4;
-        margin-bottom:8px;
-        display:flex;
-        align-items:center;
-        white-space:nowrap;
-        overflow-x:auto;
-        overflow-y:visible;
-        -webkit-overflow-scrolling:touch;
-        text-shadow:0 8px 18px rgba(0,0,0,.16),0 0 18px rgba(152,196,255,.10);
-      }
-      .question-media{
-        margin:-2px 0 8px;
-        border-radius:14px;
-      }
-      .question-media img{max-height:140px}
-      .options{gap:6px}
-      .option-btn{
-        min-height:44px;
-        padding:10px 12px;
-        font-size:clamp(15px, 3.8vw, 20px);
-        gap:9px;
-        border-radius:12px;
-        align-items:center;
-      }
-      .letter{width:25px;height:25px;font-size:11.5px}
-      .tf-card{padding:10px 11px;gap:8px}
-      .tf-statement{gap:8px;font-size:13px;line-height:1.45}
-      .tf-letter{width:25px;height:25px;font-size:11.5px}
-      .tf-actions{gap:6px}
-      .tf-toggle{min-width:72px;padding:7px 10px;font-size:12.5px}
-      .tf-feedback{padding:8px 10px;font-size:12.5px;line-height:1.45}
-      .explanation{margin-top:8px;padding:10px 12px;font-size:12px;line-height:1.5}
+      .question{font-size:16px;line-height:1.45;margin-bottom:10px}
+      .options{gap:8px}
+      .option-btn{padding:10px 12px;font-size:13px;gap:10px;border-radius:14px}
+      .letter{width:28px;height:28px;font-size:12px}
+      .explanation{margin-top:10px;padding:12px 14px;font-size:12px;line-height:1.6}
 
       .nav-grid{grid-template-columns:repeat(5,1fr);gap:6px}
       .nav-dot{border-radius:10px;font-size:10px}
-      .conquest-banner{margin-top:8px;padding:12px;font-size:11px;line-height:1.5}
+      .conquest-banner{margin-top:10px;padding:14px;font-size:12px;line-height:1.6}
       .result-title{font-size:17px}
       .result-metrics{grid-template-columns:1fr}
       .result-layout{gap:12px}
