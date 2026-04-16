@@ -741,8 +741,8 @@ Xác định các nhận định sau:`,
       },
       {
         text: "Tác phẩm Bản án chế độ thực dân Pháp và cuốn Đường Kách mệnh đều do Nguyễn Ái Quốc soạn thảo, phục vụ cho hoạt động cách mạng.",
-        answer: true,
-        explanation: "Cả hai tác phẩm đều do Nguyễn Ái Quốc biên soạn và đều phục vụ trực tiếp cho mục tiêu tuyên truyền, giác ngộ và định hướng con đường cách mạng."
+        answer: false,
+        explanation: "Đường Kách Mệnh là tập hợp các bài giảng của Bác chứ không phải do Bác SOẠN THẢO. băn bụm"
       },
       {
         text: "Trong cuốn Đường Kách mệnh, Nguyễn Ái Quốc đã bước đầu vạch ra phương hướng, con đường cụ thể để giải phóng dân tộc Việt Nam.",
@@ -752,7 +752,7 @@ Xác định các nhận định sau:`,
       {
         text: "Cuốn Đường Kách mệnh được xuất bản ở Quảng Châu (Trung Quốc), do Nguyễn Ái Quốc xuất bản để phục vụ cách mạng.",
         answer: false,
-        explanation: "Đường Kách mệnh được xuất bản tại Quảng Châu, nhưng nói 'do Nguyễn Ái Quốc xuất bản' là không chính xác. Nguyễn Ái Quốc là người biên soạn nội dung, còn việc xuất bản gắn với tổ chức cách mạng lúc bấy giờ."
+        explanation: "(Dùng từ xuất bản  cũng k đúng) .Đường Kách mệnh được xuất bản tại Quảng Châu, nhưng nói 'do Nguyễn Ái Quốc xuất bản' là không chính xác. Nguyễn Ái Quốc là người biên soạn nội dung, còn việc xuất bản gắn với tổ chức cách mạng lúc bấy giờ."
       }
     ]
   },
@@ -771,8 +771,8 @@ Xác định các nhận định sau:`,
       },
       {
         text: "Sự kiện đọc Luận cương đã đưa Nguyễn Ái Quốc từ người thanh niên yêu nước trở thành một chiến sĩ cộng sản quốc tế.",
-        answer: true,
-        explanation: "Việc tiếp cận Luận cương của Lê-nin có ý nghĩa quyết định đối với bước chuyển biến tư tưởng của Nguyễn Ái Quốc, từ chủ nghĩa yêu nước đến với chủ nghĩa Mác - Lê-nin và lập trường cộng sản."
+        answer: false,
+        explanation: "bỏ phiếu tán thành, gia nhập... mới đánh dấu Bác là chiến sĩ cộng sản quốc tế, k phải do sự kiện đọc luận cương"
       },
       {
         text: "Con đường cách mạng vô sản mà Nguyễn Ái Quốc khẳng định đã gắn cách mạng Việt Nam với phong trào cộng sản quốc tế.",
@@ -790,7 +790,7 @@ Xác định các nhận định sau:`,
 
   {
     q: "Hoạt động của Nguyễn Ái Quốc - Hồ Chí Minh trong những năm 1945 - 1954 có điểm khác biệt nào sau đây so với thời kì 1930 - 1945?",
-    a: "B",
+    a: "C",
     o: [
       "Lãnh đạo cuộc tổng khởi nghĩa giành chính quyền ở Việt Nam.",
       "Góp phần xây dựng cơ sở cho chế độ xã hội mới ở Việt Nam.",
@@ -799,8 +799,8 @@ Xác định các nhận định sau:`,
     ],
     r: {
       A: "Sai. Nội dung này gắn trực tiếp với thắng lợi của Cách mạng tháng Tám năm 1945, không phải nét khác biệt tiêu biểu của cả giai đoạn 1945 - 1954 so với 1930 - 1945.",
-      B: "Đúng. Từ sau khi giành chính quyền, Hồ Chí Minh cùng Đảng và Nhà nước vừa lãnh đạo kháng chiến vừa xây dựng nền móng của chế độ mới. Đây là điểm khác biệt rõ so với thời kì trước 1945.",
-      C: "Sai. Đây là hoạt động tiêu biểu của giai đoạn 1945 - 1954, nhưng chưa thể hiện rõ bằng nhiệm vụ xây dựng cơ sở cho chế độ xã hội mới.",
+      B: "Sai. Từ sau khi giành chính quyền, Hồ Chí Minh cùng Đảng và Nhà nước vừa lãnh đạo kháng chiến vừa xây dựng nền móng của chế độ mới. Đây là điểm khác biệt rõ so với thời kì trước 1945.",
+      C: "Đúng. thời kì 1930-1945 nhân nhượng và sau đó là kêu gọi toàn dân kc",
       D: "Sai. Mặt trận dân tộc thống nhất đầu tiên được thành lập trước giai đoạn này, nên không phải điểm khác biệt của thời kì 1945 - 1954."
     }
   },
@@ -902,7 +902,7 @@ Xác định các nhận định sau:`,
   },
   {
     q: "Những hoạt động của Nguyễn Ái Quốc trong giai đoạn từ năm 1920 đến năm 1930 có đóng góp nào sau đây đối với cách mạng Việt Nam?",
-    a: "C",
+    a: "A",
     o: [
       "Tạo ra nhân tố chuẩn bị đầu tiên, quyết định mọi bước phát triển nhảy vọt của lịch sử dân tộc.",
       "Đưa Việt Nam chính thức đứng vào hàng ngũ các nước dân chủ và phong trào cộng sản quốc tế.",
@@ -910,9 +910,9 @@ Xác định các nhận định sau:`,
       "Vạch ra phương hướng và chỉ đạo toàn dân tiến hành cuộc cách mạng dân tộc dân chủ nhân dân."
     ],
     r: {
-      A: "Sai. Cách diễn đạt này quá chung và thường dùng để nói về vai trò của Đảng Cộng sản Việt Nam sau khi ra đời.",
-      B: "Sai. Nhận định này không đúng với đóng góp trực tiếp của Nguyễn Ái Quốc giai đoạn 1920 - 1930.",
-      C: "Đúng. Trong giai đoạn này, Nguyễn Ái Quốc xác lập và hoàn chỉnh những nét cơ bản của đường lối chiến lược, sách lược cho cách mạng giải phóng dân tộc ở Việt Nam.",
+      A: "Đúng vì đây là gdd đầu",
+      B: "Sai.",
+      C: "Sai.",
       D: "Sai. Nội dung này gắn với giai đoạn lãnh đạo cách mạng sau khi Đảng ra đời, không phản ánh đúng trọng tâm đóng góp của giai đoạn 1920 - 1930."
     }
   },
