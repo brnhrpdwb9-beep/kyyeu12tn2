@@ -2177,13 +2177,13 @@
       }
 
       .question{
-        font-size:16px;
-        line-height:1.45;
+        font-size:18px;
+        line-height:1.5;
         margin-bottom:10px;
-        display:-webkit-box;
-        -webkit-line-clamp:3;
-        -webkit-box-orient:vertical;
-        overflow:hidden;
+        display:block;
+        overflow:visible;
+        white-space:normal;
+        word-break:break-word;
       }
       .question-media{
         margin:-2px 0 10px;
@@ -2194,17 +2194,17 @@
       .option-btn{
         min-height:42px;
         padding:10px 12px;
-        font-size:13px;
+        font-size:15px;
         gap:10px;
         border-radius:14px;
         align-items:center;
       }
-      .letter{width:28px;height:28px;font-size:12px}
+      .letter{width:30px;height:30px;font-size:12.5px}
       .tf-card{padding:10px 11px;gap:8px}
-      .tf-statement{gap:8px;font-size:14px;line-height:1.45}
-      .tf-letter{width:25px;height:25px;font-size:11.5px}
+      .tf-statement{gap:8px;font-size:15px;line-height:1.5}
+      .tf-letter{width:26px;height:26px;font-size:12px}
       .tf-actions{gap:6px}
-      .tf-toggle{min-width:72px;padding:7px 10px;font-size:12.5px}
+      .tf-toggle{min-width:72px;padding:7px 10px;font-size:13px}
       .tf-feedback{padding:8px 10px;font-size:12.5px;line-height:1.45}
       .explanation{margin-top:10px;padding:12px 14px;font-size:12px;line-height:1.6}
 
@@ -2646,7 +2646,8 @@
         lastQuestionText: "",
         lastProgressText: "",
         lastExplanationKey: "",
-        lastScrollTarget: -1
+        lastScrollTarget: -1,
+        textSizingRAF: 0
       }
     };
 
@@ -2724,6 +2725,124 @@
       if (value === true || value === false) return value;
       const normalized = String(value ?? "").trim().toLowerCase();
       return normalized === "đúng" || normalized === "dung" || normalized === "true";
+    }
+
+    function isMobileLayout() {
+      return window.matchMedia("(max-width: 720px)").matches;
+    }
+
+    function resetAdaptiveMobileTextSizing() {
+      if (els.question) els.question.style.fontSize = "";
+
+      const optionButtons = els.options?.querySelectorAll(".option-btn") || [];
+      optionButtons.forEach(btn => {
+        btn.style.fontSize = "";
+        const letter = btn.querySelector(".letter");
+        if (letter) {
+          letter.style.width = "";
+          letter.style.height = "";
+          letter.style.fontSize = "";
+        }
+      });
+
+      const tfStatements = els.options?.querySelectorAll(".tf-statement") || [];
+      tfStatements.forEach(node => {
+        node.style.fontSize = "";
+      });
+
+      const tfLetters = els.options?.querySelectorAll(".tf-letter") || [];
+      tfLetters.forEach(node => {
+        node.style.width = "";
+        node.style.height = "";
+        node.style.fontSize = "";
+      });
+
+      const tfToggles = els.options?.querySelectorAll(".tf-toggle") || [];
+      tfToggles.forEach(node => {
+        node.style.fontSize = "";
+      });
+    }
+
+    function applyAdaptiveMobileTextSizing() {
+      if (!els.question || !els.options) return;
+
+      if (!isMobileLayout()) {
+        resetAdaptiveMobileTextSizing();
+        return;
+      }
+
+      const tiers = [
+        { question: 18, option: 15, letter: 12.5, letterBox: 30, tfStatement: 15, tfLetter: 12, tfLetterBox: 26, tfToggle: 13 },
+        { question: 17.4, option: 14.5, letter: 12, letterBox: 29, tfStatement: 14.5, tfLetter: 11.8, tfLetterBox: 25, tfToggle: 12.6 },
+        { question: 16.6, option: 13.8, letter: 11.6, letterBox: 28, tfStatement: 13.8, tfLetter: 11.4, tfLetterBox: 24, tfToggle: 12.2 },
+        { question: 15.8, option: 13.1, letter: 11.1, letterBox: 27, tfStatement: 13.2, tfLetter: 11.1, tfLetterBox: 23, tfToggle: 11.8 },
+        { question: 15, option: 12.4, letter: 10.8, letterBox: 26, tfStatement: 12.7, tfLetter: 10.8, tfLetterBox: 22, tfToggle: 11.4 }
+      ];
+
+      const questionText = (els.question.textContent || "").trim();
+      const optionButtons = Array.from(els.options.querySelectorAll(".option-btn"));
+      const optionTexts = optionButtons.map(btn => btn.querySelector(":scope > span:last-child")?.textContent?.trim() || btn.textContent.trim());
+      const tfStatements = Array.from(els.options.querySelectorAll(".tf-statement"));
+      const tfToggles = Array.from(els.options.querySelectorAll(".tf-toggle"));
+      const maxOptionLength = optionTexts.reduce((max, text) => Math.max(max, text.length), 0);
+      const totalOptionLength = optionTexts.reduce((sum, text) => sum + text.length, 0);
+      const totalTextLength = questionText.length + totalOptionLength;
+      let tierIndex = 0;
+
+      if (questionText.length > 130 || maxOptionLength > 72 || totalTextLength > 320) tierIndex = 1;
+      if (questionText.length > 180 || maxOptionLength > 95 || totalTextLength > 430) tierIndex = 2;
+      if (questionText.length > 240 || maxOptionLength > 120 || totalTextLength > 560) tierIndex = 3;
+      if (questionText.length > 320 || maxOptionLength > 150 || totalTextLength > 700) tierIndex = 4;
+
+      const applyTier = tier => {
+        els.question.style.fontSize = `${tier.question}px`;
+
+        optionButtons.forEach(btn => {
+          btn.style.fontSize = `${tier.option}px`;
+          const letter = btn.querySelector(".letter");
+          if (letter) {
+            letter.style.width = `${tier.letterBox}px`;
+            letter.style.height = `${tier.letterBox}px`;
+            letter.style.fontSize = `${tier.letter}px`;
+          }
+        });
+
+        tfStatements.forEach(node => {
+          node.style.fontSize = `${tier.tfStatement}px`;
+        });
+
+        const tfLetters = els.options.querySelectorAll(".tf-letter");
+        tfLetters.forEach(node => {
+          node.style.width = `${tier.tfLetterBox}px`;
+          node.style.height = `${tier.tfLetterBox}px`;
+          node.style.fontSize = `${tier.tfLetter}px`;
+        });
+
+        tfToggles.forEach(node => {
+          node.style.fontSize = `${tier.tfToggle}px`;
+        });
+      };
+
+      applyTier(tiers[tierIndex]);
+
+      const viewportLimit = Math.max(380, window.innerHeight * 0.72);
+      const getContentHeight = () => {
+        const mediaHeight = els.questionMedia && !els.questionMedia.hidden ? els.questionMedia.offsetHeight : 0;
+        return els.question.offsetHeight + mediaHeight + els.options.offsetHeight;
+      };
+
+      while (tierIndex < tiers.length - 1 && getContentHeight() > viewportLimit) {
+        tierIndex += 1;
+        applyTier(tiers[tierIndex]);
+      }
+    }
+
+    function scheduleAdaptiveMobileTextSizing() {
+      cancelAnimationFrame(state.ui.textSizingRAF || 0);
+      state.ui.textSizingRAF = requestAnimationFrame(() => {
+        applyAdaptiveMobileTextSizing();
+        state.ui.textSizingRAF = 0;
+      });
     }
 
     const TRUE_LABEL = "Đúng";
@@ -3917,6 +4036,7 @@
       renderOptions(data, answered);
       updateExplanation(data, answered);
       updateNavDots();
+      scheduleAdaptiveMobileTextSizing();
 
       els.btnPrev.disabled = state.currentIndex === 0;
       els.btnNext.disabled = false;
@@ -4083,6 +4203,7 @@
       renderOptions(data, answered);
       updateExplanation(data, answered);
       updateNavDots();
+      scheduleAdaptiveMobileTextSizing();
 
       els.btnPrev.disabled = state.currentIndex === 0;
       els.btnNext.disabled = false;
@@ -4319,6 +4440,7 @@
       setupButtons();
       setupKeyboardShortcuts();
       setupTilt();
+      window.addEventListener("resize", scheduleAdaptiveMobileTextSizing, { passive: true });
 
       document.addEventListener("touchstart", unlockAudio, { passive: true });
       document.addEventListener("click", unlockAudio);
