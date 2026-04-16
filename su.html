@@ -1420,7 +1420,7 @@
       font-weight:800;
       line-height:1.5;
       color:#f3f8ff;
-      margin-bottom:18px;
+      margin-bottom:10px;
       margin-left:-20px;
       margin-right:-20px;
       padding:10px 20px 10px 20px;
@@ -1433,7 +1433,7 @@
       box-shadow:inset 0 1px 0 rgba(255,255,255,.02);
       text-shadow:0 8px 18px rgba(0,0,0,.16),0 0 18px rgba(152,196,255,.10);
     }
-    .options{display:grid;gap:8px}
+    .options{display:grid;gap:6px}
     .option-btn{
       width:100%;padding:12px 14px;border-radius:18px;border:1px solid rgba(145,180,255,.14);
       text-align:left;display:flex;align-items:center;gap:14px;font-size:15px;color:#edf4ff;
@@ -1476,7 +1476,7 @@
     }
 
     .question-media{
-      margin:-4px 0 16px;
+      margin:-2px 0 10px;
       border-radius:22px;
       overflow:hidden;
       border:1px solid rgba(255,225,170,.16);
@@ -1493,7 +1493,7 @@
 
     .tf-board{
       display:grid;
-      gap:10px;
+      gap:6px;
     }
     .tf-card{
       border-radius:14px;
@@ -1502,7 +1502,7 @@
       box-shadow:none;
       padding:10px 10px 10px 8px;
       display:grid;
-      gap:8px;
+      gap:6px;
     }
     .tf-card.answered{
       border-color:rgba(176,204,255,.20);
@@ -1610,7 +1610,7 @@
       grid-template-columns:auto minmax(0,1fr) auto;
       align-items:center;
       gap:12px;
-      margin:0 0 18px;
+      margin:0 0 10px;
       padding:0;
       border-radius:0;
       background:transparent;
@@ -1773,7 +1773,7 @@
     .nav-btn:active{transform:scale(.98)}
     .nav-btn:disabled{opacity:.3;cursor:not-allowed}
 
-    .nav-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:7px;margin-top:16px}
+    .nav-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:7px;margin-top:12px}
     .nav-dot{
       aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:12px;
       font-size:11px;font-weight:800;color:#dce8ff;cursor:pointer;border:1px solid rgba(145,180,255,.14);
@@ -2191,7 +2191,7 @@
       .question{
         font-size:18px;
         line-height:1.5;
-        margin-bottom:10px;
+        margin-bottom:8px;
         margin-left:-12px;
         margin-right:-12px;
         padding:8px 12px;
@@ -2202,11 +2202,11 @@
         word-break:break-word;
       }
       .question-media{
-        margin:-2px 0 10px;
+        margin:0 0 8px;
         border-radius:14px;
       }
       .question-media img{max-height:140px}
-      .options{gap:6px}
+      .options{gap:5px}
       .option-btn{
         min-height:42px;
         padding:10px 12px;
@@ -2216,15 +2216,15 @@
         align-items:center;
       }
       .letter{width:30px;height:30px;font-size:12.5px}
-      .tf-card{padding:8px 8px 8px 6px;gap:8px;border-radius:10px}
+      .tf-card{padding:8px 8px 8px 6px;gap:6px;border-radius:10px}
       .tf-statement{gap:8px;font-size:15px;line-height:1.5}
       .tf-letter{width:26px;height:26px;font-size:12px}
       .tf-actions{gap:6px}
       .tf-toggle{min-width:72px;padding:7px 10px;font-size:13px}
       .tf-feedback{padding:8px 10px;font-size:12.5px;line-height:1.45}
-      .explanation{margin-top:10px;padding:8px 0 0 12px;font-size:12px;line-height:1.6}
+      .explanation{margin-top:6px;padding:6px 0 0 10px;font-size:12px;line-height:1.55}
 
-      .nav-grid{grid-template-columns:repeat(5,1fr);gap:6px}
+      .nav-grid{grid-template-columns:repeat(5,1fr);gap:5px}
       .nav-dot{border-radius:10px;font-size:10px}
       .conquest-banner{margin-top:10px;padding:14px;font-size:12px;line-height:1.6}
       .result-title{font-size:17px}
@@ -3460,8 +3460,8 @@
 
     function updateMeteorComboState() {
       if (!els.upgradePill) return;
-      els.upgradePill.dataset.combo = state.correctStreak >= 7 ? "ready" : "idle";
-      els.upgradePill.title = state.correctStreak >= 7
+      els.upgradePill.dataset.combo = state.correctStreak >= 5 ? "ready" : "idle";
+      els.upgradePill.title = state.correctStreak >= 5
         ? `Đã đạt chuỗi đúng ${state.correctStreak} câu`
         : "";
       els.upgradePill.hidden = false;
@@ -4115,7 +4115,7 @@
       if (isCorrect) {
         state.correctCount++;
         state.correctStreak++;
-        if (state.correctStreak === 7) {
+        if (state.correctStreak === 5) {
           triggerMeteorBurst();
           triggerFlagBurst();
         }
@@ -4147,7 +4147,7 @@
       if (isCorrect) {
         state.correctCount++;
         state.correctStreak++;
-        if (state.correctStreak === 7) {
+        if (state.correctStreak === 5) {
           triggerMeteorBurst();
           triggerFlagBurst();
         }
