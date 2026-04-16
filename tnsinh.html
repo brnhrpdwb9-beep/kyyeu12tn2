@@ -4,21 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
   <meta name="theme-color" content="#050918">
-  <title>Hành Tinh Sinh Học</title>
+  <title>Hành Tinh Tin Học</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg-1:#02090a;
-      --bg-2:#071713;
-      --bg-3:#0d2e23;
-      --bg-4:#163224;
+      --bg-1:#040608;
+      --bg-2:#0b1016;
+      --bg-3:#151b23;
+      --bg-4:#202833;
 
       --text:#eef4ff;
-      --muted:#b8d8c0;
-      --success:#39d98a;
+      --muted:#c6ccd6;
+      --success:#e8edf5;
       --warning:#ffb763;
       --danger:#ff7a92;
 
@@ -31,10 +31,10 @@
       --planet-depth:.14;
       --planet-shadow-strength:.34;
 
-      --planet-core:#e8ff8a;
-      --planet-core-2:#68c84d;
-      --planet-core-3:#154329;
-      --planet-glow-color:rgba(132,255,146,.26);
+      --planet-core:#f5f7fa;
+      --planet-core-2:#c1c8d2;
+      --planet-core-3:#3b424c;
+      --planet-glow-color:rgba(222,228,238,.24);
 
       --planet-ring-opacity:.18;
       --planet-surface-pattern-opacity:.78;
@@ -64,10 +64,10 @@
       --ring-burst-scale:1;
       --ring-count-boost:1;
 
-      --mini-planet-1:#d8ff8f;
-      --mini-planet-2:#85dd6a;
-      --mini-planet-3:#f0ffd0;
-      --mini-planet-glow:rgba(149,255,172,.18);
+      --mini-planet-1:#eef2f7;
+      --mini-planet-2:#b7bfca;
+      --mini-planet-3:#ffffff;
+      --mini-planet-glow:rgba(220,226,236,.18);
       --mini-orbit-shift:0px;
 
       --mini-visible-1:0;
@@ -248,6 +248,45 @@
       filter:drop-shadow(0 0 4px rgba(255,255,255,.22));
     }
 
+    .shooting-star{
+      position:absolute;
+      width:180px;
+      height:2px;
+      background:linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,1), rgba(103,220,255,0));
+      border-radius:999px;
+      filter:drop-shadow(0 0 12px rgba(255,255,255,.8));
+      opacity:0;
+      pointer-events:none;
+      transform:rotate(-25deg);
+      animation:shooting 9s ease-in-out infinite;
+      will-change:transform,opacity;
+    }
+    .shooting-star.one{top:12%;left:72%;animation-delay:0s}
+    .shooting-star.two{top:26%;left:18%;width:140px;animation-delay:3s}
+    .shooting-star.three{top:8%;left:45%;width:210px;animation-delay:6s}
+
+    .meteor-cluster{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      opacity:0;
+      transition:opacity .35s ease;
+    }
+    body.meteor-combo .meteor-cluster{opacity:1}
+    .shooting-star.combo{animation-duration:9s}
+    .shooting-star.combo.c1{top:14%;left:82%;width:180px;animation-delay:.2s}
+    .shooting-star.combo.c2{top:22%;left:64%;width:140px;animation-delay:.9s}
+    .shooting-star.combo.c3{top:18%;left:92%;width:210px;animation-delay:1.5s}
+    .shooting-star.combo.c4{top:34%;left:74%;width:180px;animation-delay:2.1s}
+    .shooting-star.combo.c5{top:10%;left:58%;width:140px;animation-delay:2.8s}
+    .shooting-star.combo.c6{top:28%;left:88%;width:210px;animation-delay:3.3s}
+
+    @keyframes shooting{
+      0%,100%{opacity:0;transform:translate3d(0,0,0) rotate(-25deg) scaleX(.7);}
+      8%{opacity:1;}
+      18%{opacity:0;transform:translate3d(-220px,140px,0) rotate(-25deg) scaleX(1);}
+    }
+
     .page{
       position:relative;
       z-index:2;
@@ -261,12 +300,9 @@
       min-height:760px;
       overflow:hidden;
       border-radius:34px;
-      background:
-        radial-gradient(circle at top right, rgba(120,255,156,.08), transparent 24%),
-        radial-gradient(circle at bottom left, rgba(212,255,131,.05), transparent 22%),
-        linear-gradient(180deg, rgba(8,25,20,.58), rgba(6,16,18,.32));
-      border:1px solid rgba(145,232,168,.12);
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 20px 50px rgba(0,0,0,.14),0 0 0 1px rgba(102,205,142,.05);
+      background:transparent;
+      border:1px solid rgba(214,221,232,.08);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.03),0 20px 50px rgba(0,0,0,.08);
       contain:layout paint;
     }
     .planet-stage::before{
@@ -546,7 +582,7 @@
     .planet-bloom{
       inset:-28%;
       background:
-        radial-gradient(circle, rgba(250,255,243,.95) 0 7%, rgba(175,255,148,.68) 14%, rgba(111,222,97,.22) 34%, transparent 62%);
+        radial-gradient(circle, rgba(255,255,255,.96) 0 7%, rgba(226,230,236,.72) 14%, rgba(156,162,172,.24) 34%, transparent 62%);
       opacity:0;
       transform:scale(.7);
       filter:blur(12px);
@@ -556,12 +592,12 @@
 
     .planet-shockwave{
       inset:-34%;
-      border:2px solid rgba(171,255,162,.20);
+      border:2px solid rgba(236,240,246,.24);
       opacity:0;
       transform:scale(.6);
       pointer-events:none;
       z-index:20;
-      box-shadow:0 0 24px rgba(132,255,149,.20),0 0 42px rgba(214,255,130,.12);
+      box-shadow:0 0 24px rgba(238,242,248,.18),0 0 42px rgba(180,186,198,.12);
     }
 
     .planet-flare{
@@ -569,12 +605,12 @@
       background:
         conic-gradient(from 0deg,
           transparent 0deg,
-          rgba(188,255,152,0) 12deg,
-          rgba(180,255,145,.22) 32deg,
+          rgba(255,255,255,0) 12deg,
+          rgba(236,240,246,.24) 32deg,
           transparent 58deg,
           transparent 168deg,
-          rgba(121,255,145,0) 190deg,
-          rgba(220,255,126,.18) 218deg,
+          rgba(255,255,255,0) 190deg,
+          rgba(206,212,222,.20) 218deg,
           transparent 248deg,
           transparent 360deg);
       mix-blend-mode:screen;
@@ -1140,8 +1176,8 @@
       will-change:transform,opacity;
     }
     .fx-particle.good{
-      background:radial-gradient(circle, rgba(255,255,255,1), rgba(255,226,132,.84) 42%, rgba(255,226,132,0));
-      box-shadow:0 0 12px rgba(255,226,132,.48), 0 0 24px rgba(255,210,132,.16);
+      background:radial-gradient(circle, rgba(255,255,255,1), rgba(220,225,234,.88) 42%, rgba(220,225,234,0));
+      box-shadow:0 0 12px rgba(255,255,255,.34), 0 0 24px rgba(188,194,206,.16);
       animation:particleArcGood 1.05s cubic-bezier(.18,.78,.24,1) forwards;
     }
     .fx-particle.bad{
@@ -1164,32 +1200,59 @@
       display:grid;
       gap:6px;
       text-align:center;
-      padding:12px 14px;
-      border-radius:18px;
-      background:rgba(8,28,18,.30);
-      border:1px solid rgba(145,232,168,.12);
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 12px 24px rgba(0,0,0,.08);
+      padding:10px 6px 4px;
       color:var(--muted);
       font-size:12px;
       line-height:1.5;
+      background:transparent;
+      border:none;
+      box-shadow:none;
+      backdrop-filter:none;
+      -webkit-backdrop-filter:none;
     }
     .planet-mini-status strong{
-      color:#f2fff4;
+      color:#f3f6fb;
       font-size:13px;
+      text-shadow:0 0 18px rgba(255,255,255,.12), 0 10px 18px rgba(0,0,0,.18);
+    }
+    .upgrade-pill{
+      margin-top:6px;
+      justify-self:center;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:0;
+      border-radius:999px;
+      border:none;
+      background:transparent;
+      color:#f7f9fc;
+      font:800 11px/1.1 monospace;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      box-shadow:none;
+      text-shadow:0 0 20px rgba(255,255,255,.18),0 10px 20px rgba(0,0,0,.22);
+    }
+    .upgrade-pill::before{
+      content:"";
+      width:8px;height:8px;border-radius:50%;
+      background:radial-gradient(circle at 30% 30%, #ffffff, #a9afb8 72%, #555b64 100%);
+      box-shadow:0 0 16px rgba(255,255,255,.28);
+      flex:none;
     }
 
     #mission-text{
       margin-top:2px;
       font-size:11px;
       line-height:1.55;
-      color:#cfeeda;
+      color:#d7dde7;
+      text-shadow:0 10px 18px rgba(0,0,0,.20);
     }
 
     .mission-panel{
       position:relative;
       border-radius:30px;
-      background:linear-gradient(180deg, rgba(8,25,18,.54), rgba(8,15,18,.34));
-      border:1px solid rgba(145,232,168,.12);
+      background:linear-gradient(180deg, rgba(13,17,22,.62), rgba(8,11,16,.42));
+      border:1px solid rgba(214,221,232,.12);
       box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 18px 40px rgba(0,0,0,.12);
       overflow:hidden;
     }
@@ -1198,8 +1261,8 @@
       position:absolute;inset:0;
       background:
         linear-gradient(180deg, rgba(255,255,255,.025), transparent 24%),
-        radial-gradient(circle at top right, rgba(135,255,166,.06), transparent 22%),
-        radial-gradient(circle at bottom left, rgba(222,255,124,.05), transparent 24%);
+        radial-gradient(circle at top right, rgba(232,238,247,.06), transparent 22%),
+        radial-gradient(circle at bottom left, rgba(189,197,208,.05), transparent 24%);
       pointer-events:none;
     }
 
@@ -1213,15 +1276,29 @@
       font-size:clamp(20px,2.3vw,29px);
       font-weight:800;
       line-height:1.5;
-      color:#f4fff4;
+      color:#f4f7fb;
       margin-bottom:18px;
-      text-shadow:0 8px 18px rgba(0,0,0,.16),0 0 18px rgba(118,255,154,.08);
+      text-shadow:0 8px 18px rgba(0,0,0,.16),0 0 18px rgba(228,234,242,.10);
+    }
+    .question-media{
+      margin:-4px 0 16px;
+      border-radius:22px;
+      overflow:hidden;
+      border:1px solid rgba(219,225,234,.14);
+      background:linear-gradient(145deg, rgba(22,28,36,.58), rgba(11,14,20,.34));
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 12px 24px rgba(0,0,0,.10);
+    }
+    .question-media img{
+      display:block;
+      width:100%;
+      max-height:320px;
+      object-fit:cover;
     }
     .options{display:grid;gap:12px}
     .option-btn{
-      width:100%;padding:14px 16px;border-radius:18px;border:1px solid rgba(139,232,160,.16);
-      text-align:left;display:flex;align-items:center;gap:14px;font-size:15px;color:#edfdf1;
-      background:linear-gradient(145deg, rgba(11,35,24,.58), rgba(10,20,18,.28));
+      width:100%;padding:14px 16px;border-radius:18px;border:1px solid rgba(208,216,228,.14);
+      text-align:left;display:flex;align-items:center;gap:14px;font-size:15px;color:#eef2f7;
+      background:linear-gradient(145deg, rgba(22,28,36,.60), rgba(10,14,20,.30));
       backdrop-filter:blur(calc(2px * var(--use-backdrop)));
       -webkit-backdrop-filter:blur(calc(2px * var(--use-backdrop)));
       transition:transform .16s,border-color .16s,box-shadow .16s,background .16s,opacity .16s;
@@ -1230,25 +1307,25 @@
     }
     .option-btn:hover:not(:disabled){
       transform:translateY(-2px);
-      border-color:rgba(181,255,166,.34);
-      background:linear-gradient(145deg, rgba(14,48,28,.64), rgba(11,28,20,.36));
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 10px 16px rgba(0,0,0,.10),0 0 12px rgba(129,255,150,.08);
+      border-color:rgba(227,232,240,.24);
+      background:linear-gradient(145deg, rgba(31,38,48,.72), rgba(14,18,26,.40));
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 10px 16px rgba(0,0,0,.10),0 0 12px rgba(210,216,226,.08);
     }
     .option-btn:disabled{cursor:default}
 
     .letter{
       width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-      flex-shrink:0;font-weight:900;color:#e8ffea;background:rgba(255,255,255,.06);
-      border:1px solid rgba(220,255,221,.10);box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+      flex-shrink:0;font-weight:900;color:#f0f3f8;background:rgba(255,255,255,.06);
+      border:1px solid rgba(228,232,238,.10);box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
     }
 
     .option-btn.correct{
-      border-color:rgba(57,217,138,.55);background:rgba(18,64,42,.20);color:#dffced;font-weight:700;
-      box-shadow:0 0 0 1px rgba(57,217,138,.10),0 10px 18px rgba(0,0,0,.11),0 0 12px rgba(57,217,138,.06);
+      border-color:rgba(226,231,239,.44);background:rgba(86,95,110,.18);color:#f5f8fc;font-weight:700;
+      box-shadow:0 0 0 1px rgba(226,231,239,.10),0 10px 18px rgba(0,0,0,.11),0 0 12px rgba(226,231,239,.06);
     }
     .option-btn.correct .letter{
-      background:linear-gradient(145deg,#39d98a,#189c60);color:#fff;border-color:transparent;
-      box-shadow:0 0 10px rgba(57,217,138,.18);
+      background:linear-gradient(145deg,#ffffff,#aeb5bf);color:#11151b;border-color:transparent;
+      box-shadow:0 0 10px rgba(228,232,239,.18);
     }
     .option-btn.wrong{
       border-color:rgba(255,144,94,.50);background:rgba(66,28,16,.20);color:#ffe8ed;
@@ -1257,6 +1334,124 @@
     .option-btn.wrong .letter{
       background:linear-gradient(145deg,#ffad69,#db6b2f);color:#fff;border-color:transparent;
       box-shadow:0 0 10px rgba(255,144,94,.16);
+    }
+
+    .tf-board{
+      display:grid;
+      gap:10px;
+    }
+    .tf-card{
+      border-radius:18px;
+      border:1px solid rgba(208,216,228,.14);
+      background:linear-gradient(145deg, rgba(22,28,36,.60), rgba(10,14,20,.30));
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.03),0 8px 14px rgba(0,0,0,.07);
+      padding:13px 14px 12px;
+      display:grid;
+      gap:10px;
+    }
+    .tf-card.answered{
+      border-color:rgba(224,229,237,.20);
+    }
+    .tf-statement{
+      display:grid;
+      grid-template-columns:auto 1fr;
+      gap:10px;
+      align-items:flex-start;
+      color:#eef2f7;
+      line-height:1.58;
+      font-size:14px;
+    }
+    .tf-letter{
+      width:30px;
+      height:30px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:13px;
+      font-weight:900;
+      color:#eff3f8;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(228,232,238,.10);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+      flex-shrink:0;
+    }
+    .tf-actions{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+    .tf-toggle{
+      min-width:88px;
+      padding:8px 12px;
+      border-radius:12px;
+      border:1px solid rgba(210,217,227,.14);
+      background:rgba(255,255,255,.04);
+      color:#edf1f7;
+      font-weight:800;
+      font-size:13px;
+      line-height:1.2;
+      cursor:pointer;
+      transition:transform .16s,border-color .16s,background .16s,box-shadow .16s,opacity .16s;
+    }
+    .tf-toggle:hover:not(:disabled){
+      transform:translateY(-1px);
+      border-color:rgba(227,232,240,.24);
+      background:rgba(31,38,49,.54);
+      box-shadow:0 8px 14px rgba(0,0,0,.10),0 0 12px rgba(210,216,226,.08);
+    }
+    .tf-toggle.active{
+      border-color:rgba(229,233,240,.32);
+      background:rgba(86,95,110,.34);
+      box-shadow:0 0 0 1px rgba(227,232,239,.08),0 0 10px rgba(214,220,229,.07);
+    }
+    .tf-toggle.correct{
+      border-color:rgba(226,231,239,.44);
+      background:rgba(86,95,110,.20);
+      color:#f4f7fb;
+    }
+    .tf-toggle.wrong{
+      border-color:rgba(255,144,94,.50);
+      background:rgba(66,28,16,.24);
+      color:#ffe8ed;
+    }
+    .tf-toggle:disabled{
+      cursor:default;
+    }
+    .tf-feedback{
+      margin-top:2px;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.06);
+      font-size:13px;
+      line-height:1.55;
+      background:rgba(255,255,255,.03);
+    }
+    .tf-feedback.correct{
+      border-color:rgba(226,231,239,.20);
+      background:rgba(86,95,110,.16);
+      color:#f4f7fb;
+    }
+    .tf-feedback.wrong{
+      border-color:rgba(255,144,94,.24);
+      background:rgba(66,28,16,.18);
+      color:#fff0e8;
+    }
+    .tf-feedback strong{
+      font-weight:900;
+    }
+    @media (max-width: 720px){
+      .tf-card{
+        padding:12px;
+      }
+      .tf-actions{
+        display:grid;
+        grid-template-columns:repeat(2, minmax(0,1fr));
+      }
+      .tf-toggle{
+        min-width:0;
+        width:100%;
+      }
     }
 
     .explanation{
@@ -1338,13 +1533,13 @@
     }
 
     .nav-icon.next{
-      color:#fcfff8;
-      background:linear-gradient(135deg, #d8ff85 0%, #86dc63 45%, #3da654 100%);
-      border:1px solid rgba(225,255,195,.24);
+      color:#0f1115;
+      background:linear-gradient(135deg, #f7f8fa 0%, #d3d7de 42%, #7c838d 100%);
+      border:1px solid rgba(255,255,255,.26);
       box-shadow:
-        0 10px 22px rgba(102,191,92,.28),
-        0 0 18px rgba(152,255,131,.22),
-        inset 0 1px 0 rgba(255,255,255,.28);
+        0 10px 22px rgba(119,126,138,.28),
+        0 0 18px rgba(255,255,255,.18),
+        inset 0 1px 0 rgba(255,255,255,.44);
     }
 
     .nav-icon.next::before{
@@ -1352,7 +1547,7 @@
       position:absolute;
       inset:-30%;
       background:
-        radial-gradient(circle, rgba(237,255,190,.55) 0%, rgba(158,255,106,.18) 38%, transparent 68%);
+        radial-gradient(circle, rgba(255,255,255,.52) 0%, rgba(205,210,220,.18) 38%, transparent 68%);
       opacity:.95;
       filter:blur(10px);
       z-index:0;
@@ -1380,10 +1575,10 @@
       transform:translateY(-1px) scale(1.03);
       filter:brightness(1.04);
       box-shadow:
-        0 14px 28px rgba(80,179,89,.30),
-        0 0 24px rgba(166,255,132,.24),
-        0 0 44px rgba(135,230,120,.14),
-        inset 0 1px 0 rgba(255,255,255,.34);
+        0 14px 28px rgba(118,124,134,.30),
+        0 0 24px rgba(255,255,255,.22),
+        0 0 44px rgba(182,188,198,.14),
+        inset 0 1px 0 rgba(255,255,255,.52);
     }
 
     .nav-icon:disabled{
@@ -1439,27 +1634,27 @@
     .nav-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:7px;margin-top:16px}
     .nav-dot{
       aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:12px;
-      font-size:11px;font-weight:800;color:#e8fff0;cursor:pointer;border:1px solid rgba(141,232,165,.14);
-      background:rgba(11,31,22,.28);
+      font-size:11px;font-weight:800;color:#edf1f7;cursor:pointer;border:1px solid rgba(210,217,227,.12);
+      background:rgba(18,24,32,.30);
       backdrop-filter:blur(calc(1px * var(--use-backdrop)));
       -webkit-backdrop-filter:blur(calc(1px * var(--use-backdrop)));
       transition:transform .15s,border-color .2s,background .2s;
       will-change:transform;
     }
-    .nav-dot:hover{transform:translateY(-1px);border-color:rgba(170,255,168,.24)}
+    .nav-dot:hover{transform:translateY(-1px);border-color:rgba(224,229,237,.20)}
     .nav-dot.active{
-      border-color:rgba(181,255,162,.42);background:rgba(48,95,31,.30);color:#fcfff6;
-      box-shadow:0 0 0 1px rgba(168,255,155,.10),0 0 10px rgba(168,255,155,.08);
+      border-color:rgba(230,234,241,.32);background:rgba(76,84,98,.30);color:#f9fbff;
+      box-shadow:0 0 0 1px rgba(226,231,239,.08),0 0 10px rgba(214,220,229,.07);
     }
-    .nav-dot.done-correct{background:linear-gradient(145deg,#39d98a,#189c60);color:#fff;border-color:transparent;box-shadow:0 0 8px rgba(57,217,138,.14)}
+    .nav-dot.done-correct{background:linear-gradient(145deg,#ffffff,#aeb5bf);color:#11151b;border-color:transparent;box-shadow:0 0 8px rgba(228,232,239,.14)}
     .nav-dot.done-wrong{background:linear-gradient(145deg,#ffb05b,#d96e2b);color:#fff;border-color:transparent;box-shadow:0 0 8px rgba(255,160,95,.12)}
 
     .conquest-banner{
       margin-top:16px;
       padding:18px;
       border-radius:24px;
-      background:linear-gradient(145deg, rgba(12,33,22,.46), rgba(12,18,24,.26));
-      border:1px solid rgba(146,235,169,.14);
+      background:linear-gradient(145deg, rgba(21,28,36,.46), rgba(12,18,24,.26));
+      border:1px solid rgba(219,225,234,.12);
       display:none;
       line-height:1.7;
       font-size:14px;
@@ -1532,12 +1727,12 @@
       padding:12px;
       border-radius:16px;
       background:rgba(255,255,255,.05);
-      border:1px solid rgba(218,255,212,.08);
+      border:1px solid rgba(228,232,238,.08);
     }
 
     .metric-card .label{
       font-size:11px;
-      color:#b6d8bc;
+      color:#b9c1cd;
       text-transform:uppercase;
       letter-spacing:.08em;
       font-weight:800;
@@ -1554,11 +1749,11 @@
       margin-top:12px;
       font-size:13px;
       line-height:1.65;
-      color:#d8f1e0;
+      color:#d9dfe8;
       padding:11px 13px;
       border-radius:16px;
       background:rgba(255,255,255,.04);
-      border:1px solid rgba(214,255,209,.07);
+      border:1px solid rgba(228,232,238,.07);
     }
 
     .planet-stage.is-boost .history-planet-shell{ animation:boostPlanet .92s ease; }
@@ -1587,7 +1782,6 @@
     .planet-stage.is-phase-shift .planet-ring.thin,
     .planet-stage.is-phase-shift .planet-ring.outer{ animation:ringBurst 1.05s cubic-bezier(.18,.72,.24,1); }
     .planet-stage.is-phase-shift .planet-evolution-orbits{ animation:orbitPhaseBurst 1.05s ease; }
-
     body.low-perf .nebula-detail,
     body.low-perf .space-grid,
     body.low-perf .floating-star.s6,
@@ -1623,7 +1817,6 @@
     @keyframes miniOrbitSpin3{from{transform:translate(-50%,-50%) rotateX(74deg) rotateZ(-32deg) rotate(0deg)}to{transform:translate(-50%,-50%) rotateX(74deg) rotateZ(328deg) rotate(360deg)}}
     @keyframes miniOrbitSpin4{from{transform:translate(-50%,-50%) rotateX(73deg) rotateZ(36deg) rotate(0deg)}to{transform:translate(-50%,-50%) rotateX(73deg) rotateZ(396deg) rotate(360deg)}}
     @keyframes miniOrbitSpin5{from{transform:translate(-50%,-50%) rotateX(72deg) rotateZ(-20deg) rotate(0deg)}to{transform:translate(-50%,-50%) rotateX(72deg) rotateZ(340deg) rotate(360deg)}}
-
     @keyframes boostPlanet{
       0%{transform:scale(1) rotateZ(0deg)}
       30%{transform:scale(1.13) rotateZ(-1deg)}
@@ -1739,6 +1932,141 @@
       100%{transform:scale(1)}
     }
 
+    .page::after{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:1;
+      background:
+        linear-gradient(90deg, transparent 0%, rgba(255,255,255,.015) 50%, transparent 100%),
+        repeating-linear-gradient(180deg, transparent 0 28px, rgba(255,255,255,.018) 28px 29px);
+      mix-blend-mode:screen;
+      opacity:.45;
+    }
+
+    html,body{
+      background:
+        radial-gradient(circle at 18% 16%, rgba(255,255,255,.09), transparent 16%),
+        radial-gradient(circle at 82% 18%, rgba(214,219,228,.08), transparent 18%),
+        radial-gradient(circle at 50% 74%, rgba(151,156,166,.07), transparent 22%),
+        linear-gradient(145deg, #040404, #0b0c0f 34%, #17191d 72%, #262932);
+      color:#f3f4f6;
+    }
+    body::before{
+      background:
+        radial-gradient(circle at 12% 24%, rgba(255,255,255,.08) 0 1.3%, transparent 1.9%),
+        radial-gradient(circle at 26% 68%, rgba(188,193,202,.07) 0 1.1%, transparent 1.7%),
+        radial-gradient(circle at 72% 34%, rgba(255,255,255,.06) 0 1.4%, transparent 1.8%),
+        radial-gradient(circle at 82% 74%, rgba(159,164,172,.05) 0 1.2%, transparent 1.7%);
+      opacity:.58;
+    }
+    body::after,
+    .nebula,
+    .nebula::before,
+    .nebula::after,
+    .nebula-detail{
+      filter:grayscale(1) blur(24px);
+    }
+    .space-grid{
+      background:
+        linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+      opacity:.18;
+    }
+    .planet-badge,
+    .result-badge,
+    .metric{
+      color:#f8fafc;
+      border-color:rgba(255,255,255,.18);
+      background:linear-gradient(145deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+      box-shadow:0 14px 28px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.10);
+    }
+    .planet-badge::before{
+      background:radial-gradient(circle at 35% 35%, #ffffff 0%, #c6c9d0 44%, #5b606b 100%);
+      box-shadow:0 0 14px rgba(255,255,255,.35);
+    }
+    .mission-panel,
+    .result-card,
+    .question-shell,
+    .command-card,
+    .stat-card{
+      border-color:rgba(255,255,255,.12);
+      background:linear-gradient(160deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      box-shadow:0 22px 44px rgba(0,0,0,.30), inset 0 1px 0 rgba(255,255,255,.08);
+    }
+    .mission-panel::before{
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,.08), transparent 42%),
+        linear-gradient(135deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+    }
+    .mission-panel::after{
+      content:"0101 0011 1100";
+      position:absolute;
+      right:18px;
+      bottom:16px;
+      font:700 11px/1.2 monospace;
+      letter-spacing:.22em;
+      color:rgba(255,255,255,.16);
+      pointer-events:none;
+    }
+    .option-btn,
+    .nav-btn,
+    .tf-card,
+    .tf-toggle,
+    .nav-dot{
+      border-color:rgba(255,255,255,.14);
+      background:linear-gradient(145deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
+      color:#f3f4f6;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.06), 0 10px 22px rgba(0,0,0,.16);
+    }
+    .option-btn:hover:not(:disabled),
+    .nav-btn:hover:not(:disabled),
+    .tf-toggle:hover:not(:disabled){
+      border-color:rgba(255,255,255,.28);
+      background:linear-gradient(145deg, rgba(255,255,255,.11), rgba(255,255,255,.03));
+    }
+    .letter,
+    .tf-letter{
+      background:linear-gradient(145deg, #ffffff, #cdd1d8 58%, #757b86 100%);
+      color:#111318;
+      box-shadow:0 8px 16px rgba(0,0,0,.20), inset 0 1px 0 rgba(255,255,255,.72);
+    }
+    .planet{
+      box-shadow:
+        inset -22px -26px 34px rgba(0,0,0,.48),
+        inset 12px 12px 20px rgba(255,255,255,.16),
+        inset 0 -18px 34px rgba(0,0,0,.42),
+        0 24px 46px rgba(0,0,0,.36),
+        0 0 calc(22px + 58px * var(--planet-energy)) rgba(255,255,255,.18);
+    }
+    .planet-core,
+    .planet-mini{
+      filter:grayscale(1) contrast(1.08) brightness(1.02);
+    }
+    .planet-aura,
+    .planet-ring,
+    .mini-orbit-track,
+    .mini-orbit-dot{
+      filter:grayscale(1) brightness(1.1);
+    }
+    .planet-surface-pattern{
+      opacity:calc(var(--planet-surface-pattern-opacity) * .82);
+      background:
+        radial-gradient(circle at 30% 26%, rgba(255,255,255,.22), transparent 12%),
+        radial-gradient(circle at 68% 34%, rgba(255,255,255,.10), transparent 10%),
+        radial-gradient(circle at 52% 72%, rgba(0,0,0,.18), transparent 16%),
+        radial-gradient(circle at 24% 66%, rgba(0,0,0,.16), transparent 14%),
+        radial-gradient(circle at 74% 62%, rgba(255,255,255,.08), transparent 10%);
+      mix-blend-mode:screen;
+    }
+    .journey-fill,
+    .scan-fill,
+    .progress-fill{
+      background:linear-gradient(90deg, #6d7179 0%, #f4f5f7 48%, #9ea3ab 100%);
+      box-shadow:0 0 18px rgba(255,255,255,.22);
+    }
+
     @media (max-width:900px){
       .command-grid{grid-template-columns:1fr}
       .planet-column{min-height:auto}
@@ -1838,13 +2166,24 @@
     <div class="stars"></div>
     <div class="stars2"></div>
     <div class="stars3"></div>
+    <div class="shooting-star one"></div>
+    <div class="shooting-star two"></div>
+    <div class="shooting-star three"></div>
+    <div class="meteor-cluster" aria-hidden="true">
+      <div class="shooting-star combo c1"></div>
+      <div class="shooting-star combo c2"></div>
+      <div class="shooting-star combo c3"></div>
+      <div class="shooting-star combo c4"></div>
+      <div class="shooting-star combo c5"></div>
+      <div class="shooting-star combo c6"></div>
+    </div>
   </div>
 
   <main class="page">
     <section class="planet-stage" id="planetStage">
       <div class="planet-inner">
         <div class="top-head">
-          <div class="planet-badge">Hành tinh Sinh Học</div>
+          <div class="planet-badge">Hành Tinh Tin Học</div>
         </div>
 
         <div class="command-grid">
@@ -1953,7 +2292,8 @@
               <div><strong id="conquest-level">Khởi động</strong></div>
               <div id="scan-progress">0 / 10 mốc</div>
               <div id="planet-stability">Ổn định cơ bản</div>
-              <div id="mission-text">Còn câu hỏi để hoàn tất chiến dịch chinh phục hành tinh.</div>
+              <div id="mission-text">Còn câu hỏi để hoàn tất quá trình nâng cấp hành tinh số.</div>
+              <div id="upgrade-pill" class="upgrade-pill">Kernel Boot</div>
             </div>
           </div>
 
@@ -1973,6 +2313,7 @@
               </div>
 
               <div id="question" class="question">...</div>
+              <div id="question-media" class="question-media" hidden></div>
               <div id="options" class="options"></div>
               <div id="explanation-box" class="explanation"></div>
 
@@ -1985,133 +2326,132 @@
     </section>
   </main>
 
-  <script src="quiz-data-sinh.js"></script>
+  <script src="quiz-data.js"></script>
   <script>
     const LETTERS = ["A","B","C","D"];
 
-    const EVOLUTION_PHASES = [
+        const EVOLUTION_PHASES = [
       {
-        key:"dust", threshold:0.00, label:"Tinh vân bụi", type:"Đám mây tiền hành tinh",
-        status:"Bụi và khí đang bắt đầu kết tụ",
-        core:"#a88e66", core2:"#7d623f", core3:"#2b1b10", glow:"rgba(210,180,114,.10)",
-        sat:.78, bright:.86, contrast:.98, depth:.08, shadow:.22, hue:-8,
-        ringOpacity:.08, thinRing:.00, outerRing:0, ringBoost:1.00,
-        orbitEmphasis:.10, orbitScale:1.00, orbitSpeed:.90, orbitDash:.10,
-        lava:0, continents:0, continentGlow:0, ice:0, cloud:0, ocean:0, aurora:0, debris:.16,
-        reaction:"Vật chất mới chỉ gom tụ trong đĩa tiền hành tinh, chưa có bề mặt ổn định.",
-        desc:"Đây là giai đoạn bụi và khí bắt đầu tích tụ bằng hấp dẫn.",
-        mini:["#d8c6a0","#cba25f","#f2df9c"]
+        key:"dust", threshold:0.00, label:"Nhiễu Số", type:"Đám bụi dữ liệu",
+        status:"Tín hiệu rời rạc mới bắt đầu gom cụm trong không gian số",
+        core:"#b9bcc4", core2:"#6e727b", core3:"#17191d", glow:"rgba(255,255,255,.08)",
+        sat:.18, bright:.78, contrast:1.02, depth:.16, shadow:.40, hue:0,
+        ringOpacity:.06, thinRing:.02, outerRing:0, ringBoost:1.00,
+        orbitEmphasis:.10, orbitScale:1.00, orbitSpeed:.96, orbitDash:.10,
+        lava:0, continents:0, continentGlow:0, ice:.02, cloud:.04, ocean:0, aurora:0, debris:.30,
+        reaction:"Các bit nhiễu đang tụ lại như bụi sao, chưa đủ để tạo thành một hệ thống hoàn chỉnh.",
+        desc:"Đây là vùng khởi phát của trí nhớ, tín hiệu và những mảnh lệnh rời rạc.",
+        mini:["#d9dbe0","#8a8f98","#f4f5f7"]
       },
       {
-        key:"planetesimal", threshold:0.10, label:"Vi hành tinh", type:"Khối bồi tụ va chạm",
-        status:"Các mảnh vật chất va chạm và lớn dần",
-        core:"#cba062", core2:"#a56c28", core3:"#41240d", glow:"rgba(225,178,90,.13)",
-        sat:.92, bright:.92, contrast:1.01, depth:.10, shadow:.24, hue:-2,
-        ringOpacity:.12, thinRing:.03, outerRing:0, ringBoost:1.04,
-        orbitEmphasis:.16, orbitScale:1.01, orbitSpeed:.98, orbitDash:.12,
-        lava:.05, continents:0, continentGlow:.04, ice:0, cloud:0, ocean:0, aurora:0, debris:.22,
-        reaction:"Những mảnh đá nhỏ đang hợp nhất, tạo nền cho tiền hành tinh.",
-        desc:"Cấu trúc cầu còn yếu, va chạm vẫn là động lực chính.",
-        mini:["#ffe69a","#ffc95c","#ffeab5"]
+        key:"planetesimal", threshold:0.10, label:"Mạch Sơ Khai", type:"Cụm lệnh đầu tiên",
+        status:"Những cấu trúc xử lý nhỏ đang kết nối thành mạch nền",
+        core:"#d7d9de", core2:"#8c9097", core3:"#1b1d22", glow:"rgba(255,255,255,.10)",
+        sat:.16, bright:.82, contrast:1.04, depth:.17, shadow:.41, hue:0,
+        ringOpacity:.08, thinRing:.03, outerRing:.01, ringBoost:1.02,
+        orbitEmphasis:.16, orbitScale:1.02, orbitSpeed:1.00, orbitDash:.12,
+        lava:0, continents:.02, continentGlow:.04, ice:.04, cloud:.06, ocean:0, aurora:0, debris:.24,
+        reaction:"Các cụm mạch nhỏ đã xuất hiện, cho thấy hành tinh bắt đầu hiểu cách vận hành.",
+        desc:"Nền tảng logic hình thành từ những kết nối tối giản nhưng ổn định hơn trước.",
+        mini:["#eceef2","#9ba0a8","#ffffff"]
       },
       {
-        key:"protoplanet", threshold:0.20, label:"Tiền hành tinh", type:"Khối cầu sơ khai",
-        status:"Khối cầu vật chất đang tăng nhanh khối lượng",
-        core:"#e3b86d", core2:"#c8842c", core3:"#4c2808", glow:"rgba(235,182,88,.16)",
-        sat:1.00, bright:.97, contrast:1.03, depth:.12, shadow:.26, hue:2,
-        ringOpacity:.18, thinRing:.08, outerRing:.03, ringBoost:1.10,
-        orbitEmphasis:.26, orbitScale:1.03, orbitSpeed:1.04, orbitDash:.16,
-        lava:.16, continents:.04, continentGlow:.10, ice:0, cloud:.02, ocean:0, aurora:0, debris:.26,
-        reaction:"Khối cầu sơ khai đã hình thành, nhưng bề mặt còn rất bất ổn.",
-        desc:"Khả năng giữ vật chất tăng lên khi khối lượng lớn dần.",
-        mini:["#ffe27e","#ffc857","#fff0b8"]
+        key:"protoplanet", threshold:0.20, label:"Lõi Nhị Phân", type:"Khung máy đang dựng",
+        status:"Các lớp xử lý cơ bản đang sắp xếp thành kiến trúc rõ ràng",
+        core:"#f0f1f4", core2:"#9da2aa", core3:"#1f2228", glow:"rgba(255,255,255,.12)",
+        sat:.14, bright:.86, contrast:1.05, depth:.18, shadow:.42, hue:0,
+        ringOpacity:.10, thinRing:.04, outerRing:.02, ringBoost:1.04,
+        orbitEmphasis:.24, orbitScale:1.04, orbitSpeed:1.04, orbitDash:.14,
+        lava:0, continents:.04, continentGlow:.08, ice:.06, cloud:.08, ocean:0, aurora:0, debris:.18,
+        reaction:"Bộ khung nhị phân đã hiện rõ, giống một lõi máy đang chờ nạp tri thức.",
+        desc:"Giai đoạn này mở ra cảm giác của một cỗ máy đang được lắp từng tầng logic.",
+        mini:["#f5f6f8","#b0b4bc","#ffffff"]
       },
       {
-        key:"magma", threshold:0.32, label:"Đại dương magma", type:"Hành tinh đá nóng chảy",
-        status:"Bề mặt nóng chảy mạnh do va chạm và nhiệt lượng cao",
-        core:"#ffc85a", core2:"#ef9020", core3:"#592207", glow:"rgba(255,172,54,.22)",
-        sat:1.12, bright:1.00, contrast:1.06, depth:.14, shadow:.28, hue:7,
-        ringOpacity:.24, thinRing:.12, outerRing:.08, ringBoost:1.16,
-        orbitEmphasis:.34, orbitScale:1.05, orbitSpeed:1.08, orbitDash:.20,
-        lava:.58, continents:.05, continentGlow:.24, ice:0, cloud:.04, ocean:0, aurora:0, debris:.18,
-        reaction:"Hành tinh bị nung nóng dữ dội, lớp ngoài giống đại dương magma.",
-        desc:"Nhiệt do va chạm, nén và phân rã phóng xạ làm bề mặt rực sáng.",
-        mini:["#ffd46d","#ffb347","#ffef9d"]
+        key:"magma", threshold:0.32, label:"Lõi Xử Lý", type:"Nhân CPU thức tỉnh",
+        status:"Năng lượng tính toán tăng mạnh, tạo ra chuyển động rõ trong lõi",
+        core:"#ffffff", core2:"#b6bbc4", core3:"#242832", glow:"rgba(255,255,255,.16)",
+        sat:.12, bright:.92, contrast:1.07, depth:.19, shadow:.43, hue:0,
+        ringOpacity:.12, thinRing:.05, outerRing:.03, ringBoost:1.08,
+        orbitEmphasis:.34, orbitScale:1.06, orbitSpeed:1.08, orbitDash:.18,
+        lava:.04, continents:.06, continentGlow:.12, ice:.10, cloud:.10, ocean:0, aurora:.02, debris:.14,
+        reaction:"Nhân xử lý đã sáng lên như bề mặt trăng phản chiếu, báo hiệu sức mạnh đang tăng.",
+        desc:"Hành tinh bắt đầu có cảm giác của một cỗ máy thực thụ thay vì một khối vật chất tĩnh.",
+        mini:["#ffffff","#c3c7cf","#eef0f4"]
       },
       {
-        key:"bombardment", threshold:0.44, label:"Bắn phá mạnh", type:"Hành tinh va chạm dày đặc",
-        status:"Mưa thiên thạch tiếp tục tái định hình bề mặt",
-        core:"#ffd15e", core2:"#f09923", core3:"#622a08", glow:"rgba(255,184,62,.24)",
-        sat:1.16, bright:1.02, contrast:1.08, depth:.16, shadow:.29, hue:8,
-        ringOpacity:.34, thinRing:.18, outerRing:.16, ringBoost:1.28,
-        orbitEmphasis:.46, orbitScale:1.08, orbitSpeed:1.14, orbitDash:.24,
-        lava:.42, continents:.08, continentGlow:.32, ice:0, cloud:.06, ocean:0, aurora:0, debris:.34,
-        reaction:"Giai đoạn này có nhiều vành vật chất và mảnh vụn nhất do va chạm liên tục.",
-        desc:"Các cú đâm va lớn làm vật chất bắn ra quỹ đạo, tạo đai debris rõ.",
-        mini:["#ffe07a","#ffc74d","#fff2bf"]
+        key:"bombardment", threshold:0.44, label:"Mưa Dữ Liệu", type:"Quỹ đạo gói tin",
+        status:"Thông tin đổ về dày đặc, các vòng quỹ đạo trở nên sống động",
+        core:"#f8f9fb", core2:"#c0c4cb", core3:"#262a33", glow:"rgba(255,255,255,.18)",
+        sat:.12, bright:.95, contrast:1.08, depth:.20, shadow:.44, hue:0,
+        ringOpacity:.18, thinRing:.08, outerRing:.06, ringBoost:1.14,
+        orbitEmphasis:.46, orbitScale:1.10, orbitSpeed:1.14, orbitDash:.22,
+        lava:.03, continents:.10, continentGlow:.18, ice:.12, cloud:.12, ocean:0, aurora:.04, debris:.18,
+        reaction:"Dữ liệu xoáy quanh hành tinh như mưa sao băng số, tạo cảm giác ôn luyện rất đã mắt.",
+        desc:"Các lớp thông tin liên tục chạm vào lõi và để lại những đường sáng như dấu vết thuật toán.",
+        mini:["#ffffff","#cfd3da","#f5f6f8"]
       },
       {
-        key:"cooling", threshold:0.56, label:"Vỏ nguội sơ khai", type:"Hành tinh đá đang ổn định",
-        status:"Lớp vỏ rắn đầu tiên bắt đầu ổn định",
-        core:"#ffd76c", core2:"#d19334", core3:"#56320d", glow:"rgba(255,194,82,.20)",
-        sat:1.14, bright:1.03, contrast:1.10, depth:.18, shadow:.31, hue:5,
-        ringOpacity:.30, thinRing:.16, outerRing:.10, ringBoost:1.22,
-        orbitEmphasis:.58, orbitScale:1.11, orbitSpeed:1.18, orbitDash:.28,
-        lava:.22, continents:.24, continentGlow:.42, ice:0, cloud:.10, ocean:0, aurora:0, debris:.15,
-        reaction:"Lớp vỏ đầu tiên hình thành, bề mặt dần chuyển từ magma sang đá.",
-        desc:"Nhiệt mất dần, cấu trúc vỏ rắn xuất hiện theo từng vùng.",
-        mini:["#ffe485","#ffcb5c","#fff1bf"]
+        key:"cooling", threshold:0.56, label:"Vỏ Hệ Thống", type:"Bề mặt mã hóa",
+        status:"Giao diện ngoài đã ổn định, bề mặt xuất hiện các mảng như lục địa thuật toán",
+        core:"#f4f5f7", core2:"#bcc0c7", core3:"#23262d", glow:"rgba(255,255,255,.20)",
+        sat:.10, bright:.96, contrast:1.10, depth:.21, shadow:.45, hue:0,
+        ringOpacity:.16, thinRing:.08, outerRing:.05, ringBoost:1.12,
+        orbitEmphasis:.58, orbitScale:1.13, orbitSpeed:1.18, orbitDash:.26,
+        lava:.02, continents:.20, continentGlow:.28, ice:.16, cloud:.16, ocean:.04, aurora:.06, debris:.10,
+        reaction:"Bề mặt hệ thống đã mượt hơn, trông như địa hình mặt trăng khắc bởi những dải mã sáng.",
+        desc:"Đây là lúc hành tinh bắt đầu vừa đẹp mắt vừa có cảm giác chuyên nghiệp của công nghệ.",
+        mini:["#ffffff","#b7bcc5","#eceff3"]
       },
       {
-        key:"steam", threshold:0.68, label:"Khí quyển hơi nước", type:"Hành tinh khí quyển dày",
-        status:"Khí thoát ra từ núi lửa bao phủ hành tinh",
-        core:"#ffe07a", core2:"#d1a143", core3:"#534118", glow:"rgba(255,216,106,.20)",
-        sat:1.16, bright:1.05, contrast:1.12, depth:.20, shadow:.33, hue:-2,
-        ringOpacity:.26, thinRing:.14, outerRing:.08, ringBoost:1.18,
-        orbitEmphasis:.68, orbitScale:1.14, orbitSpeed:1.24, orbitDash:.30,
-        lava:.16, continents:.32, continentGlow:.56, ice:0, cloud:.32, ocean:.06, aurora:0, debris:.08,
-        reaction:"Khí quyển dày lên bởi khí thoát núi lửa, chuẩn bị cho ngưng tụ nước.",
-        desc:"Hành tinh dịu dần nhưng vẫn giữ sắc vàng nóng của giai đoạn trẻ.",
-        mini:["#ffe783","#ffd260","#fff3c8"]
+        key:"steam", threshold:0.68, label:"Giao Diện Lệnh", type:"Trường nhập lệnh",
+        status:"Các lớp hiển thị và đường dẫn lệnh bắt đầu phủ đều khắp hành tinh",
+        core:"#ffffff", core2:"#d0d4db", core3:"#20242d", glow:"rgba(255,255,255,.24)",
+        sat:.08, bright:1.00, contrast:1.12, depth:.22, shadow:.46, hue:0,
+        ringOpacity:.18, thinRing:.10, outerRing:.06, ringBoost:1.16,
+        orbitEmphasis:.70, orbitScale:1.16, orbitSpeed:1.24, orbitDash:.30,
+        lava:.01, continents:.28, continentGlow:.42, ice:.18, cloud:.18, ocean:.08, aurora:.08, debris:.06,
+        reaction:"Những lớp lệnh và phản hồi hệ thống khiến hành tinh giống một bảng điều khiển đang vận hành.",
+        desc:"Không khí của giai đoạn này là terminal, command line và nhịp xử lý rất cuốn hút.",
+        mini:["#ffffff","#d6dae1","#f7f8fa"]
       },
       {
-        key:"proto-ocean", threshold:0.80, label:"Đại dương sơ khai", type:"Hành tinh biển - đá",
-        status:"Hơi nước ngưng tụ thành các bồn nước đầu tiên",
-        core:"#ffe78d", core2:"#d7af46", core3:"#385166", glow:"rgba(255,220,120,.24)",
-        sat:1.18, bright:1.07, contrast:1.14, depth:.22, shadow:.34, hue:-6,
-        ringOpacity:.22, thinRing:.10, outerRing:.04, ringBoost:1.14,
-        orbitEmphasis:.78, orbitScale:1.17, orbitSpeed:1.30, orbitDash:.34,
-        lava:.08, continents:.40, continentGlow:.72, ice:.04, cloud:.40, ocean:.40, aurora:.04, debris:.03,
-        reaction:"Nước lỏng xuất hiện nhưng hành tinh vẫn giữ gam vàng sáng đặc trưng.",
-        desc:"Sự cân bằng giữa đá, nước và khí quyển bắt đầu rõ hơn.",
-        mini:["#ffeb92","#ffd76a","#fff6cf"]
+        key:"proto-ocean", threshold:0.80, label:"Mạng Nội Bộ", type:"Liên kết hệ thống",
+        status:"Các tuyến dữ liệu liên kết mạnh hơn, tạo thành mạng lưới ổn định quanh lõi",
+        core:"#ffffff", core2:"#d9dde4", core3:"#1d2129", glow:"rgba(255,255,255,.28)",
+        sat:.08, bright:1.02, contrast:1.15, depth:.23, shadow:.47, hue:0,
+        ringOpacity:.20, thinRing:.12, outerRing:.08, ringBoost:1.18,
+        orbitEmphasis:.82, orbitScale:1.19, orbitSpeed:1.30, orbitDash:.34,
+        lava:0, continents:.36, continentGlow:.56, ice:.22, cloud:.22, ocean:.12, aurora:.10, debris:.04,
+        reaction:"Quỹ đạo dữ liệu chạy mượt quanh hành tinh như một mạng nội bộ đang đồng bộ hoàn hảo.",
+        desc:"Từ đây việc ôn trắc nghiệm tạo cảm giác như đang mở khóa từng lớp trong một hệ thống lớn.",
+        mini:["#ffffff","#dfe3e8","#f4f6f9"]
       },
       {
-        key:"stable", threshold:0.90, label:"Lục địa ổn định", type:"Hành tinh đá trưởng thành",
-        status:"Đại dương và các mảng lục địa đã phân bố rõ",
-        core:"#ffea95", core2:"#e0b84f", core3:"#334f63", glow:"rgba(255,226,126,.26)",
-        sat:1.22, bright:1.08, contrast:1.17, depth:.24, shadow:.36, hue:-8,
-        ringOpacity:.18, thinRing:.08, outerRing:.02, ringBoost:1.10,
-        orbitEmphasis:.88, orbitScale:1.20, orbitSpeed:1.36, orbitDash:.38,
-        lava:.02, continents:.62, continentGlow:.90, ice:.12, cloud:.46, ocean:.62, aurora:.10, debris:0,
-        reaction:"Hành tinh chuyển sang trạng thái ổn định nhưng vẫn giữ lõi hình ảnh vàng sáng.",
-        desc:"Cấu trúc trưởng thành với biển, mây, lục địa và ánh khí quyển.",
-        mini:["#ffec96","#ffdc72","#fff6d3"]
+        key:"stable", threshold:0.90, label:"Thuật Toán Ổn Định", type:"Hệ thống tối ưu",
+        status:"Các mô-đun đã vận hành nhịp nhàng, tốc độ và hình thái đều rất cân đối",
+        core:"#ffffff", core2:"#e2e6eb", core3:"#1b1f27", glow:"rgba(255,255,255,.32)",
+        sat:.06, bright:1.04, contrast:1.18, depth:.24, shadow:.48, hue:0,
+        ringOpacity:.22, thinRing:.13, outerRing:.10, ringBoost:1.22,
+        orbitEmphasis:.92, orbitScale:1.22, orbitSpeed:1.36, orbitDash:.38,
+        lava:0, continents:.46, continentGlow:.70, ice:.26, cloud:.24, ocean:.16, aurora:.12, debris:0,
+        reaction:"Hành tinh giờ mang vẻ đẹp lạnh của mặt trăng, nhưng có nhịp sống riêng của thuật toán.",
+        desc:"Các chi tiết bề mặt, vành quỹ đạo và vệ tinh phụ đã đồng bộ như một hệ điều hành trưởng thành.",
+        mini:["#ffffff","#e5e8ed","#fafbfd"]
       },
       {
-        key:"balanced", threshold:0.98, label:"Hành tinh cân bằng vàng", type:"Hành tinh hoàn thiện",
-        status:"Hệ khí hậu và bề mặt đạt trạng thái ổn định đẹp nhất",
-        core:"#fff09b", core2:"#f2c44e", core3:"#2d4759", glow:"rgba(255,232,146,.30)",
-        sat:1.26, bright:1.10, contrast:1.20, depth:.26, shadow:.38, hue:-10,
-        ringOpacity:.20, thinRing:.12, outerRing:.06, ringBoost:1.26,
-        orbitEmphasis:1.0, orbitScale:1.24, orbitSpeed:1.44, orbitDash:.44,
-        lava:0, continents:.74, continentGlow:1, ice:.18, cloud:.54, ocean:.70, aurora:.22, debris:0,
-        reaction:"Trạng thái cuối giữ màu vàng chủ đạo như một hành tinh hoàn thiện, giàu năng lượng và ổn định.",
-        desc:"Một phiên bản hành tinh hoàn chỉnh với sắc vàng chi phối, nhiều lớp vành mỏng lan tỏa như dư âm hình thành.",
-        mini:["#fff2a2","#ffe07d","#fff8dc"]
+        key:"balanced", threshold:0.98, label:"Hành Tinh Tin Học", type:"Trung tâm tri thức số",
+        status:"Mọi tầng xử lý và quỹ đạo đều đạt trạng thái hoàn thiện đẹp mắt nhất",
+        core:"#ffffff", core2:"#edf0f4", core3:"#171b22", glow:"rgba(255,255,255,.38)",
+        sat:.04, bright:1.08, contrast:1.22, depth:.25, shadow:.50, hue:0,
+        ringOpacity:.24, thinRing:.14, outerRing:.12, ringBoost:1.26,
+        orbitEmphasis:1.00, orbitScale:1.25, orbitSpeed:1.44, orbitDash:.44,
+        lava:0, continents:.56, continentGlow:.86, ice:.30, cloud:.28, ocean:.18, aurora:.14, debris:0,
+        reaction:"Toàn bộ hành tinh đã trở thành một vệ tinh tri thức đen-trắng, sắc lạnh và cực kỳ cuốn hút.",
+        desc:"Đây là phiên bản đẹp nhất của hành tinh Tin học: tinh gọn, thông minh và đậm chất công nghệ.",
+        mini:["#ffffff","#eef1f5","#fcfdff"]
       }
     ];
-
     const state = {
       quizData: [],
       currentIndex: 0,
@@ -2132,6 +2472,8 @@
       damageCacheKey: "",
       perfMode: "full",
       damageSeed: 17321,
+      correctStreak: 0,
+      meteorBurstTimer: 0,
       navDots: [],
       optionButtons: [],
       finalBannerRendered: false,
@@ -2147,6 +2489,17 @@
     const $ = id => document.getElementById(id);
     const rootStyle = document.documentElement.style;
     const els = {};
+    const COMPUTING_UNLOCKS = [
+      { min: 0, label: "Kernel Boot", detail: "Khởi động lõi xử lý" },
+      { min: 3, label: "Cache Sync", detail: "Đồng bộ bộ nhớ đệm" },
+      { min: 6, label: "Logic Boost", detail: "Tăng tốc suy luận" },
+      { min: 10, label: "Orbit Scan", detail: "Quét vành đai dữ liệu" },
+      { min: 14, label: "Code Shield", detail: "Kích hoạt lớp phòng vệ số" },
+      { min: 18, label: "Neural Link", detail: "Liên kết tri thức mở rộng" },
+      { min: 24, label: "Quantum Core", detail: "Mở lõi xử lý nâng cao" },
+      { min: 32, label: "Satellite Mesh", detail: "Tạo mạng vệ tinh thuật toán" },
+      { min: 42, label: "System Crown", detail: "Hoàn thiện vương miện dữ liệu" }
+    ];
 
     function cacheDom() {
       els.planetStage = $("planetStage");
@@ -2156,9 +2509,11 @@
       els.scanProgress = $("scan-progress");
       els.planetStability = $("planet-stability");
       els.missionText = $("mission-text");
+      els.upgradePill = $("upgrade-pill");
       els.progressText = $("progress-text");
       els.journeyFill = $("journey-fill");
       els.question = $("question");
+      els.questionMedia = $("question-media");
       els.options = $("options");
       els.explanationBox = $("explanation-box");
       els.btnPrev = $("btn-prev");
@@ -2199,8 +2554,54 @@
       return clone;
     }
 
+    function coerceTrueFalseValue(value) {
+      if (value === true || value === false) return value;
+      const normalized = String(value ?? "").trim().toLowerCase();
+      return normalized === "đúng" || normalized === "dung" || normalized === "true";
+    }
+
+    const TRUE_LABEL = "\u0110\u00FAng";
+    const FALSE_LABEL = "Sai";
+
+    function isTrueFalseQuestion(data) {
+      return data?.questionType === "true_false";
+    }
+
     function normalizeQuizData(rawData) {
       return shuffleArray(rawData).map((item, qIndex) => {
+        if (Array.isArray(item.statements) && item.statements.length === 4) {
+          const statements = item.statements.map((statement, idx) => {
+            const letter = LETTERS[idx];
+            const source = typeof statement === "string" ? { text: statement } : (statement || {});
+            const explanationMap = item.r || {};
+            const fallbackExplanation = explanationMap[letter] || explanationMap[letter.toLowerCase()] || "";
+
+            return {
+              letter,
+              text: source.text || source.statement || "",
+              answer: coerceTrueFalseValue(
+                source.answer ??
+                source.correct ??
+                source.isTrue ??
+                (Array.isArray(item.a) ? item.a[idx] : item.a?.[letter] ?? item.a?.[letter.toLowerCase()])
+              ),
+              explanation:
+                source.explanation ??
+                source.reason ??
+                fallbackExplanation
+            };
+          });
+
+          return {
+            id: qIndex + 1,
+            q: item.q,
+            questionType: "true_false",
+            image: item.image || item.img || "",
+            imageAlt: item.imageAlt || item.q,
+            statements
+          };
+        }
+
         const correctLetter = item.a;
         const originalOptions = item.o.map((text, idx) => ({
           originalLetter: LETTERS[idx],
@@ -2212,6 +2613,7 @@
         return {
           id: qIndex + 1,
           q: item.q,
+          questionType: "single",
           options: shuffledOptions.map((opt, idx) => ({
             letter: LETTERS[idx],
             text: opt.text,
@@ -2270,6 +2672,140 @@
 
       els.options.textContent = "";
       els.options.appendChild(frag);
+    }
+
+    function renderQuestionMedia(data) {
+      if (!els.questionMedia) return;
+
+      if (!data.image) {
+        els.questionMedia.hidden = true;
+        els.questionMedia.innerHTML = "";
+        return;
+      }
+
+      const nextHtml = `<img src="${data.image}" alt="${data.imageAlt || "Hình minh họa câu hỏi"}" loading="lazy">`;
+      if (els.questionMedia.innerHTML !== nextHtml) {
+        els.questionMedia.innerHTML = nextHtml;
+      }
+      els.questionMedia.hidden = false;
+    }
+
+    function renderSingleChoiceOptions(data, answered) {
+      if (state.optionButtons.length !== 4 || els.options.querySelectorAll(".option-btn").length !== 4) {
+        buildOptions();
+      }
+
+      const selected = state.userAnswers[state.currentIndex];
+
+      for (let i = 0; i < state.optionButtons.length; i++) {
+        const btn = state.optionButtons[i];
+        const option = data.options[i];
+        const char = option.letter;
+        const isCorrect = char === data.correctLetter;
+        const isWrong = char === selected && !isCorrect;
+
+        if (btn._currentLetter !== char) {
+          btn._letterNode.textContent = char;
+          btn._currentLetter = char;
+        }
+
+        if (btn._currentText !== option.text) {
+          btn._textNode.textContent = option.text;
+          btn._currentText = option.text;
+        }
+
+        let nextClass = "option-btn";
+        let nextOpacity = "";
+        const nextDisabled = answered;
+
+        if (answered) {
+          if (isCorrect) nextClass += " correct";
+          else if (isWrong) nextClass += " wrong";
+          else nextOpacity = ".35";
+        }
+
+        if (btn.className !== nextClass) btn.className = nextClass;
+        if (btn.disabled !== nextDisabled) btn.disabled = nextDisabled;
+
+        const currentOpacity = btn.style.opacity || "";
+        if (currentOpacity !== nextOpacity) btn.style.opacity = nextOpacity;
+
+        if (!answered) {
+          if (btn.dataset.char !== char) btn.dataset.char = char;
+        } else if (btn.dataset.char) {
+          btn.removeAttribute("data-char");
+        }
+      }
+    }
+
+    function renderTrueFalseOptions(data, answered) {
+      const selected = state.userAnswers[state.currentIndex] || {};
+      let html = `<div class="tf-board">`;
+
+      for (const statement of data.statements) {
+        const chosenValue = selected[statement.letter];
+        const isChosenTrue = chosenValue === true;
+        const isChosenFalse = chosenValue === false;
+        const statementAnswered = typeof chosenValue === "boolean";
+        const pickedCorrectly = statementAnswered && chosenValue === statement.answer;
+        const trueClass = ["tf-toggle"];
+        const falseClass = ["tf-toggle"];
+
+        if (!statementAnswered) {
+          if (isChosenTrue) trueClass.push("active");
+          if (isChosenFalse) falseClass.push("active");
+        } else {
+          const correctButton = statement.answer ? trueClass : falseClass;
+          correctButton.push("correct");
+
+          if (!pickedCorrectly) {
+            const wrongButton = statement.answer ? falseClass : trueClass;
+            wrongButton.push("wrong");
+          }
+        }
+
+        const feedbackHtml = statementAnswered
+          ? `
+            <div class="tf-feedback ${pickedCorrectly ? "correct" : "wrong"}">
+              <strong>${pickedCorrectly ? "Chính xác" : "Chưa đúng"}.</strong>
+              Bạn chọn: ${chosenValue ? TRUE_LABEL : FALSE_LABEL}. Đáp án: ${statement.answer ? TRUE_LABEL : FALSE_LABEL}.<br>
+              ${statement.explanation || "Chưa có giải thích cho ý này."}
+            </div>
+          `
+          : "";
+
+        html += `
+          <div class="tf-card${statementAnswered ? " answered" : ""}">
+            <div class="tf-statement">
+              <div class="tf-letter">${statement.letter}</div>
+              <div>${statement.text}</div>
+            </div>
+            <div class="tf-actions">
+              <button
+                type="button"
+                class="${trueClass.join(" ")}"
+                data-tf-letter="${statement.letter}"
+                data-tf-value="true"
+                ${statementAnswered ? "disabled" : ""}
+              >${TRUE_LABEL}</button>
+              <button
+                type="button"
+                class="${falseClass.join(" ")}"
+                data-tf-letter="${statement.letter}"
+                data-tf-value="false"
+                ${statementAnswered ? "disabled" : ""}
+              >${FALSE_LABEL}</button>
+            </div>
+            ${feedbackHtml}
+          </div>
+        `;
+      }
+
+      html += `</div>`;
+
+      if (els.options.innerHTML !== html) {
+        els.options.innerHTML = html;
+      }
     }
 
     function ensureAudioContext() {
@@ -2341,7 +2877,11 @@
     }
 
     function getAnsweredCount() {
-      return Object.keys(state.userAnswers).length;
+      let total = 0;
+      for (let i = 0; i < state.quizData.length; i++) {
+        if (isQuestionAnswered(i)) total++;
+      }
+      return total;
     }
 
     function getConquestPercent() {
@@ -2352,6 +2892,26 @@
       return state.quizData.length ? getAnsweredCount() / state.quizData.length : 0;
     }
 
+    function isQuestionAnswered(index) {
+      const data = state.quizData[index];
+      const answer = state.userAnswers[index];
+      if (!data) return false;
+      if (isTrueFalseQuestion(data)) {
+        return !!answer && data.statements.every(statement => typeof answer[statement.letter] === "boolean");
+      }
+      return answer !== undefined;
+    }
+
+    function isQuestionCorrect(index) {
+      const data = state.quizData[index];
+      const answer = state.userAnswers[index];
+      if (!data || !isQuestionAnswered(index)) return false;
+      if (isTrueFalseQuestion(data)) {
+        return data.statements.every(statement => answer[statement.letter] === statement.answer);
+      }
+      return answer === data.correctLetter;
+    }
+
     function getPhaseIndexByPercent(percent) {
       let idx = 0;
       for (let i = 0; i < EVOLUTION_PHASES.length; i++) {
@@ -2360,16 +2920,44 @@
       return idx;
     }
 
+    function getCurrentUnlock(answered) {
+      let current = COMPUTING_UNLOCKS[0];
+      for (let i = 0; i < COMPUTING_UNLOCKS.length; i++) {
+        if (answered >= COMPUTING_UNLOCKS[i].min) current = COMPUTING_UNLOCKS[i];
+      }
+      return current;
+    }
+
+    function updateMeteorComboState() {
+      if (els.upgradePill) {
+        els.upgradePill.dataset.combo = state.correctStreak >= 7 ? "ready" : "idle";
+        els.upgradePill.title = state.correctStreak >= 7
+          ? `Đã đạt chuỗi đúng ${state.correctStreak} câu`
+          : "";
+      }
+    }
+
+    function triggerMeteorBurst() {
+      document.body.classList.add("meteor-combo");
+      if (state.meteorBurstTimer) {
+        clearTimeout(state.meteorBurstTimer);
+      }
+      state.meteorBurstTimer = window.setTimeout(() => {
+        document.body.classList.remove("meteor-combo");
+        state.meteorBurstTimer = 0;
+      }, 5200);
+    }
+
     function getPlanetVisualStage() {
       return EVOLUTION_PHASES[getPhaseIndexByPercent(getConquestPercent())];
     }
 
-    function getFinalSummary() {
+        function getFinalSummary() {
       const percent = Math.round(getConquestPercent() * 100);
-      if (percent >= 90) return { title: "🌕 Hành tinh vàng đã hoàn thiện", desc: "Bạn đã đưa hành tinh từ bụi vũ trụ tới trạng thái cân bằng ổn định và rực sáng." };
-      if (percent >= 72) return { title: "🪐 Tiến hóa rất mạnh", desc: "Hành tinh đã vượt phần lớn các chặng hình thành và đang đạt cấu trúc trưởng thành." };
-      if (percent >= 50) return { title: "🌍 Đã qua pha sơ khai", desc: "Hành tinh đã có bề mặt và khí quyển tương đối rõ, nhưng còn cần thêm tri thức để hoàn chỉnh." };
-      return { title: "☄️ Mới qua giai đoạn đầu", desc: "Hành tinh vẫn đang ở giai đoạn bồi tụ và ổn định ban đầu. Cần thêm câu đúng để phát triển tiếp." };
+      if (percent >= 90) return { title: "Hành tinh Tin học đã hoàn thiện", desc: "Bạn đã đưa hành tinh từ vùng nhiễu số đến trạng thái hệ thống ổn định, sắc lạnh và đầy tri thức." };
+      if (percent >= 72) return { title: "Tiến hóa công nghệ rất mạnh", desc: "Hành tinh đã vượt qua phần lớn các tầng xử lý và đang tiến gần đến trạng thái tối ưu." };
+      if (percent >= 50) return { title: "Đã hình thành lõi hệ thống", desc: "Hành tinh đã có cấu trúc xử lý rõ ràng, các quỹ đạo dữ liệu đang dần ổn định." };
+      return { title: "Mới qua pha khởi động", desc: "Hành tinh vẫn đang gom cụm tín hiệu và xây nền logic đầu tiên. Cần thêm câu đúng để tiếp tục nâng cấp." };
     }
 
     function setupPerfMode() {
@@ -2884,6 +3472,14 @@
         els.missionText.textContent = missionText;
       }
 
+      const unlock = getCurrentUnlock(answered);
+      const upgradeText = `${unlock.label} • ${unlock.detail}`;
+      if (els.upgradePill && els.upgradePill.textContent !== upgradeText) {
+        els.upgradePill.textContent = upgradeText;
+      }
+
+      updateMeteorComboState();
+
       if (lastResult === "correct") {
         spawnPlanetParticles("good");
         setStageFx(state.planetDamage > 0 ? "is-heal" : "is-boost");
@@ -3029,47 +3625,12 @@
     }
 
     function renderOptions(data, answered) {
-      const selected = state.userAnswers[state.currentIndex];
-
-      for (let i = 0; i < state.optionButtons.length; i++) {
-        const btn = state.optionButtons[i];
-        const option = data.options[i];
-        const char = option.letter;
-        const isCorrect = char === data.correctLetter;
-        const isWrong = char === selected && !isCorrect;
-
-        if (btn._currentLetter !== char) {
-          btn._letterNode.textContent = char;
-          btn._currentLetter = char;
-        }
-
-        if (btn._currentText !== option.text) {
-          btn._textNode.textContent = option.text;
-          btn._currentText = option.text;
-        }
-
-        let nextClass = "option-btn";
-        let nextOpacity = "";
-        const nextDisabled = answered;
-
-        if (answered) {
-          if (isCorrect) nextClass += " correct";
-          else if (isWrong) nextClass += " wrong";
-          else nextOpacity = ".35";
-        }
-
-        if (btn.className !== nextClass) btn.className = nextClass;
-        if (btn.disabled !== nextDisabled) btn.disabled = nextDisabled;
-
-        const currentOpacity = btn.style.opacity || "";
-        if (currentOpacity !== nextOpacity) btn.style.opacity = nextOpacity;
-
-        if (!answered) {
-          if (btn.dataset.char !== char) btn.dataset.char = char;
-        } else if (btn.dataset.char) {
-          btn.removeAttribute("data-char");
-        }
+      if (isTrueFalseQuestion(data)) {
+        renderTrueFalseOptions(data, answered);
+        return;
       }
+
+      renderSingleChoiceOptions(data, answered);
     }
 
     function updateExplanation(data, answered) {
@@ -3084,19 +3645,41 @@
         return;
       }
 
+      if (isTrueFalseQuestion(data)) {
+        const selectedAnswers = state.userAnswers[state.currentIndex] || {};
+        const key = `${state.currentIndex}|${JSON.stringify(selectedAnswers)}`;
+
+        if (state.ui.lastExplanationKey === key) return;
+        state.ui.lastExplanationKey = key;
+
+        const ok = isQuestionCorrect(state.currentIndex);
+        els.explanationBox.style.display = "block";
+        els.explanationBox.style.borderLeft = `4px solid var(${ok ? "--ok" : "--bad"})`;
+        els.explanationBox.style.background = ok ? "rgba(86,95,110,.16)" : "rgba(66,38,12,.16)";
+        els.explanationBox.style.color = ok ? "#ddffef" : "#fff1df";
+        els.explanationBox.innerHTML = data.statements.map(statement => {
+          const chosen = selectedAnswers[statement.letter] ? TRUE_LABEL : FALSE_LABEL;
+          const answer = statement.answer ? TRUE_LABEL : FALSE_LABEL;
+          const badge = selectedAnswers[statement.letter] === statement.answer ? TRUE_LABEL : FALSE_LABEL;
+          const explanation = statement.explanation || "Chưa có giải thích cho ý này.";
+          return `<div><strong>${statement.letter}) ${badge}</strong> - Bạn chọn: ${chosen}. Đáp án: ${answer}.<br>${explanation}</div>`;
+        }).join("<br>");
+        return;
+      }
+
       const selectedLetter = state.userAnswers[state.currentIndex];
       const selectedOption = data.options.find(opt => opt.letter === selectedLetter);
       const originalLetter = selectedOption ? selectedOption.originalLetter : selectedLetter;
       const explanation = data.explanationMap?.[originalLetter] || "Chưa có giải thích cho đáp án này.";
       const ok = selectedLetter === data.correctLetter;
-      const key = `${state.currentIndex}|${selectedLetter}|${originalLetter}`;
+      const key = `${state.currentIndex}|${selectedLetter}|${ok}`;
 
       if (state.ui.lastExplanationKey === key) return;
       state.ui.lastExplanationKey = key;
 
       els.explanationBox.style.display = "block";
-      els.explanationBox.style.borderLeft = `4px solid var(${ok ? "--success" : "--warning"})`;
-      els.explanationBox.style.background = ok ? "rgba(18,64,42,.16)" : "rgba(66,38,12,.16)";
+      els.explanationBox.style.borderLeft = `4px solid var(${ok ? "--ok" : "--bad"})`;
+      els.explanationBox.style.background = ok ? "rgba(86,95,110,.16)" : "rgba(66,38,12,.16)";
       els.explanationBox.style.color = ok ? "#ddffef" : "#fff1df";
       els.explanationBox.innerHTML = explanation;
     }
@@ -3107,8 +3690,8 @@
         let cls = "nav-dot";
 
         if (i === state.currentIndex) cls += " active";
-        if (state.userAnswers[i] !== undefined) {
-          cls += state.userAnswers[i] === state.quizData[i].correctLetter
+        if (isQuestionAnswered(i)) {
+          cls += isQuestionCorrect(i)
             ? " done-correct"
             : " done-wrong";
         }
@@ -3119,7 +3702,7 @@
 
     function render(scrollTop = false, lastResult = null) {
       const data = state.quizData[state.currentIndex];
-      const answered = state.userAnswers[state.currentIndex] !== undefined;
+      const answered = isQuestionAnswered(state.currentIndex);
 
       const questionText = `Câu ${state.currentIndex + 1}: ${data.q}`;
       if (state.ui.lastQuestionText !== questionText) {
@@ -3133,6 +3716,7 @@
         els.progressText.textContent = progressText;
       }
 
+      renderQuestionMedia(data);
       renderOptions(data, answered);
       updateExplanation(data, answered);
       updateNavDots();
@@ -3161,16 +3745,50 @@
     }
 
     async function select(char) {
-      if (state.userAnswers[state.currentIndex] !== undefined) return;
+      const currentData = state.quizData[state.currentIndex];
+      if (isTrueFalseQuestion(currentData) || isQuestionAnswered(state.currentIndex)) return;
 
       try { await warmupAudio(); } catch (e) {}
 
       state.userAnswers[state.currentIndex] = char;
-      const isCorrect = char === state.quizData[state.currentIndex].correctLetter;
+      const isCorrect = char === currentData.correctLetter;
 
       if (isCorrect) {
         state.correctCount++;
+        state.correctStreak++;
+        if (state.correctStreak === 7) triggerMeteorBurst();
         playSoftCorrectSound();
+      } else {
+        state.correctStreak = 0;
+      }
+
+      render(false, isCorrect ? "correct" : "wrong");
+    }
+
+    async function selectTrueFalse(letter, value) {
+      const currentData = state.quizData[state.currentIndex];
+      if (!isTrueFalseQuestion(currentData) || isQuestionAnswered(state.currentIndex)) return;
+
+      try { await warmupAudio(); } catch (e) {}
+
+      const nextAnswers = { ...(state.userAnswers[state.currentIndex] || {}) };
+      if (typeof nextAnswers[letter] === "boolean") return;
+      nextAnswers[letter] = value;
+      state.userAnswers[state.currentIndex] = nextAnswers;
+
+      if (!isQuestionAnswered(state.currentIndex)) {
+        render(false);
+        return;
+      }
+
+      const isCorrect = isQuestionCorrect(state.currentIndex);
+      if (isCorrect) {
+        state.correctCount++;
+        state.correctStreak++;
+        if (state.correctStreak === 7) triggerMeteorBurst();
+        playSoftCorrectSound();
+      } else {
+        state.correctStreak = 0;
       }
 
       render(false, isCorrect ? "correct" : "wrong");
@@ -3181,7 +3799,7 @@
 
       if (idx >= state.quizData.length) {
         if (getAnsweredCount() < state.quizData.length) {
-          state.currentIndex = state.quizData.findIndex((_, i) => state.userAnswers[i] === undefined);
+          state.currentIndex = state.quizData.findIndex((_, i) => !isQuestionAnswered(i));
           if (state.currentIndex < 0) state.currentIndex = state.quizData.length - 1;
           render(true);
           return;
@@ -3207,8 +3825,14 @@
     function setupOptionEvents() {
       els.options.addEventListener("click", e => {
         const btn = e.target.closest(".option-btn[data-char]");
-        if (!btn) return;
-        select(btn.dataset.char);
+        if (btn) {
+          select(btn.dataset.char);
+          return;
+        }
+
+        const tfBtn = e.target.closest(".tf-toggle[data-tf-letter][data-tf-value]");
+        if (!tfBtn) return;
+        selectTrueFalse(tfBtn.dataset.tfLetter, tfBtn.dataset.tfValue === "true");
       });
     }
 
@@ -3312,6 +3936,12 @@
         if (e.key === "ArrowRight") {
           e.preventDefault();
           change(state.currentIndex + 1);
+          return;
+        }
+
+        if (e.key === "ArrowLeft") {
+          e.preventDefault();
+          change(state.currentIndex - 1);
         }
       });
     }
@@ -3323,7 +3953,7 @@
         null;
 
       if (!rawSource) {
-        alert("Không tìm thấy dữ liệu câu hỏi. Hãy kiểm tra file quiz-data-sinh.js");
+        alert("Không tìm thấy dữ liệu câu hỏi. Hãy kiểm tra file quiz-data.js");
         return;
       }
 
@@ -3351,3 +3981,6 @@
   </script>
 </body>
 </html>
+
+
+
