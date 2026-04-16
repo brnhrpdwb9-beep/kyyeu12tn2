@@ -756,35 +756,7 @@ Xác định các nhận định sau:`,
       }
     ]
   },
-  {
-    q: `Cho đoạn tư liệu sau đây:
-"... Luận cương của Lê-nin làm cho tôi rất cảm động, phấn khởi, sáng tỏ, tin tưởng biết bao! Tôi vui mừng đến phát khóc lên. Ngồi một mình trong buồng mà tôi nói to lên như đang nói trước quần chúng đông đảo: 'Hỡi đồng bào bị đọa đày đau khổ! Đây là cái cần thiết cho chúng ta, đây là con đường giải phóng chúng ta! Từ đó tôi hoàn toàn tin theo Lê-nin, tin theo Quốc tế thứ ba'."
-(Hồ Chí Minh, "Con đường dẫn tôi đến chủ nghĩa Mác - Lê-nin", trích trong: Hồ Chí Minh, Toàn tập, Tập 12, NXB Chính trị quốc gia Sự thật, Hà Nội, 2011, tr.562)
-
-Xác định các nhận định sau:`,
-    statements: [
-      {
-        text: "Lúc đầu, chính là chủ nghĩa yêu nước, chứ chưa phải là chủ nghĩa cộng sản đã đưa Nguyễn Ái Quốc đến với Lê-nin, tin theo Quốc tế thứ ba.",
-        answer: true,
-        explanation: "Nhận định này phù hợp với quá trình nhận thức của Nguyễn Ái Quốc. Từ lòng yêu nước, thương dân, Người đi tìm con đường cứu nước và đến với chủ nghĩa Mác - Lê-nin."
-      },
-      {
-        text: "Sự kiện Nguyễn Ái Quốc 'hoàn toàn tin theo Lê-nin, tin theo Quốc tế thứ ba' đã mở ra cơ hội mới trong cuộc hành trình tìm đường cứu nước.",
-        answer: true,
-        explanation: "Sự kiện này đánh dấu bước chuyển lớn trong nhận thức của Nguyễn Ái Quốc, giúp Người tìm ra con đường cứu nước đúng đắn và mở ra chặng đường mới trong hành trình giải phóng dân tộc."
-      },
-      {
-        text: "Cụm từ 'đây là con đường giải phóng chúng ta' trong đoạn tư liệu trên chính là con đường cứu nước theo khuynh hướng cách mạng vô sản.",
-        answer: true,
-        explanation: "Sau khi tiếp cận Luận cương của Lê-nin, Nguyễn Ái Quốc xác định con đường giải phóng dân tộc phải gắn với cách mạng vô sản, đi theo chủ nghĩa Mác - Lê-nin."
-      },
-      {
-        text: "Nguyễn Ái Quốc hoàn toàn tin theo Lê-nin, tin theo Quốc tế thứ ba vì đó là con đường cứu nước gắn giải phóng dân tộc với tiến bộ xã hội.",
-        answer: true,
-        explanation: "Con đường cách mạng vô sản mà Nguyễn Ái Quốc lựa chọn không chỉ nhằm giải phóng dân tộc mà còn hướng tới giải phóng xã hội, giải phóng con người, phù hợp với xu thế tiến bộ của thời đại."
-      }
-    ]
-  },
+  
   {
     q: `Cho đoạn tư liệu sau đây:
 "... Luận cương của Lênin làm cho tôi rất cảm động, phấn khởi, sáng tỏ, tin tưởng biết bao! Tôi vui mừng đến phát khóc lên. Ngồi một mình trong buồng mà tôi nói to như đang nói trước quần chúng đông đảo: 'Hỡi đồng bào bị đọa đày đau khổ! Đây là cái cần thiết cho chúng ta, đây là con đường giải phóng chúng ta!' Từ đó tôi hoàn toàn tin theo Lênin, tin theo Quốc tế thứ ba."
