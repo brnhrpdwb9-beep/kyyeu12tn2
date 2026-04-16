@@ -428,6 +428,7 @@
       border:1px solid rgba(145,180,255,.08);
       box-shadow:inset 0 1px 0 rgba(255,255,255,.03),0 20px 50px rgba(0,0,0,.08);
       contain:layout paint;
+      isolation:isolate;
     }
     .planet-stage::before{
       content:"";
@@ -557,6 +558,7 @@
       margin:8px 0 12px;
       perspective:1400px;
       transform-style:preserve-3d;
+      contain:paint;
     }
 
     .mini-orbit-system{
@@ -623,6 +625,7 @@
       transition:transform .42s ease;
       z-index:3;
       will-change:transform;
+      backface-visibility:hidden;
     }
 
     .planet-link-wrap{
@@ -635,6 +638,7 @@
       transition:transform .18s linear;
       transform:translate3d(0,0,0);
       will-change:transform;
+      backface-visibility:hidden;
     }
     .planet-link-wrap::before{
       content:"";
@@ -665,6 +669,7 @@
         contrast(var(--planet-contrast));
       transform:translateZ(0);
       will-change:transform,filter;
+      backface-visibility:hidden;
     }
     .result-shell{
       width:110px;height:110px;
@@ -1801,6 +1806,8 @@
       line-height:1.7;
       font-size:14px;
       box-shadow:inset 0 1px 0 rgba(255,255,255,.04), 0 14px 28px rgba(0,0,0,.12);
+      content-visibility:auto;
+      contain-intrinsic-size:220px;
     }
 
     .result-panel-head{
@@ -1931,6 +1938,14 @@
     body.low-perf .floating-star.s7{
       display:none;
     }
+    body.low-perf .mini-orbit-track.m3,
+    body.low-perf .mini-orbit-track.m4,
+    body.low-perf .mini-orbit-track.m5,
+    body.low-perf .planet-ring.dust,
+    body.low-perf .planet-ring.outer,
+    body.low-perf .planet-link-wrap::before{
+      display:none;
+    }
     body.low-perf .stars2,
     body.low-perf .stars3,
     body.low-perf .cosmic-dust,
@@ -1958,11 +1973,28 @@
     body.low-perf .flag-dot.soft{
       display:none;
     }
+    body.low-perf .floating-star,
+    body.low-perf .mini-orbit-track,
+    body.low-perf .shooting-star,
+    body.low-perf .planet-aura,
+    body.low-perf .planet-link-wrap::before{
+      filter:none;
+      box-shadow:none;
+    }
+    body.mid-perf .mini-orbit-track.m5,
+    body.mid-perf .planet-ring.outer{
+      display:none;
+    }
     body.mid-perf .shooting-star.combo.c15,
     body.mid-perf .shooting-star.combo.c16,
     body.mid-perf .shooting-star.combo.c17,
     body.mid-perf .shooting-star.combo.c18{
       display:none;
+    }
+    body.mid-perf .floating-star,
+    body.mid-perf .mini-orbit-track,
+    body.mid-perf .shooting-star{
+      filter:none;
     }
 
     @keyframes hueShift{0%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(-2%,2%,0) scale(1.05)}100%{transform:translate3d(0,0,0) scale(1)}}
@@ -2655,6 +2687,8 @@
       correctStreak: 0,
       meteorBurstTimer: 0,
       flagBurstTimer: 0,
+      meteorBurstRAF: 0,
+      flagBurstRAF: 0,
       navDots: [],
       optionButtons: [],
       finalBannerRendered: false,
@@ -2668,6 +2702,11 @@
     };
 
     const cssVarCache = new Map();
+    const media = {
+      reducedMotion: window.matchMedia("(prefers-reduced-motion: reduce)"),
+      finePointer: window.matchMedia("(pointer:fine)"),
+      mobileLayout: window.matchMedia("(max-width: 720px)")
+    };
     const $ = id => document.getElementById(id);
     const rootStyle = document.documentElement.style;
     const els = {};
@@ -2744,7 +2783,22 @@
     }
 
     function isMobileLayout() {
-      return window.matchMedia("(max-width: 720px)").matches;
+      return media.mobileLayout.matches;
+    }
+
+    function restartBodyAnimationClass(className, rafKey) {
+      document.body.classList.remove(className);
+
+      if (state[rafKey]) {
+        cancelAnimationFrame(state[rafKey]);
+      }
+
+      state[rafKey] = requestAnimationFrame(() => {
+        state[rafKey] = requestAnimationFrame(() => {
+          document.body.classList.add(className);
+          state[rafKey] = 0;
+        });
+      });
     }
 
     function resetAdaptiveMobileTextSizing() {
@@ -3237,9 +3291,11 @@
     function setupPerfMode() {
       const isMobile = window.innerWidth <= 720;
       const verySmallScreen = window.innerWidth <= 480;
+      const constrainedDesktop = !isMobile && window.innerWidth <= 1366;
       const lowThreads = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
       const lowMemory = navigator.deviceMemory && navigator.deviceMemory <= 4;
-      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const reducedMotion = media.reducedMotion.matches;
+      const limitedDevice = lowThreads || lowMemory;
       const disableSmoothScroll = reducedMotion || (isMobile && (lowThreads || lowMemory || verySmallScreen));
 
       state.smoothScrollEnabled = !disableSmoothScroll;
@@ -3256,7 +3312,7 @@
         return;
       }
 
-      if (isMobile && (lowThreads || lowMemory || verySmallScreen)) {
+      if (isMobile && (limitedDevice || verySmallScreen)) {
         state.perfMode = "low";
         document.body.classList.add("low-perf");
         applyRootVars({
@@ -3265,7 +3321,7 @@
           "--fx-blur-aura": "4px",
           "--use-backdrop": "0"
         });
-      } else if (isMobile) {
+      } else if (isMobile || (constrainedDesktop && limitedDevice)) {
         state.perfMode = "medium";
         document.body.classList.add("mid-perf");
         applyRootVars({
@@ -3468,9 +3524,7 @@
     }
 
     function triggerMeteorBurst() {
-      document.body.classList.remove("meteor-combo");
-      void document.body.offsetWidth;
-      document.body.classList.add("meteor-combo");
+      restartBodyAnimationClass("meteor-combo", "meteorBurstRAF");
       if (state.meteorBurstTimer) {
         clearTimeout(state.meteorBurstTimer);
       }
@@ -3486,9 +3540,7 @@
 
     function triggerFlagBurst() {
       randomizeFlagBurstPose();
-      document.body.classList.remove("flag-burst-active");
-      void document.body.offsetWidth;
-      document.body.classList.add("flag-burst-active");
+      restartBodyAnimationClass("flag-burst-active", "flagBurstRAF");
       if (state.flagBurstTimer) {
         clearTimeout(state.flagBurstTimer);
       }
@@ -4206,8 +4258,8 @@
 
     function setupTilt() {
       if (!els.planetStage || !els.planetTilt || window.innerWidth <= 720) return;
-      if (state.perfMode === "low" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-      if (!window.matchMedia("(pointer:fine)").matches) return;
+      if (state.perfMode === "low" || media.reducedMotion.matches) return;
+      if (!media.finePointer.matches) return;
 
       let rect = null;
       let active = false;
@@ -4228,9 +4280,18 @@
 
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
+        const nextRotateY = (x - rect.width / 2) / 55;
+        const nextRotateX = (rect.height / 2 - y) / 62;
 
-        state.targetRotateY = (x - rect.width / 2) / 55;
-        state.targetRotateX = (rect.height / 2 - y) / 62;
+        if (
+          Math.abs(nextRotateY - state.targetRotateY) < 0.08 &&
+          Math.abs(nextRotateX - state.targetRotateX) < 0.08
+        ) {
+          return;
+        }
+
+        state.targetRotateY = nextRotateY;
+        state.targetRotateX = nextRotateX;
 
         if (!state.pointerRAF) {
           state.pointerRAF = requestAnimationFrame(applyTilt);
