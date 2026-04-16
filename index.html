@@ -177,18 +177,36 @@
       position:absolute; width:180px; height:2px;
       background:linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,1), rgba(103,220,255,0));
       border-radius:999px; filter:drop-shadow(0 0 12px rgba(255,255,255,.8)); opacity:0;
-      transform:rotate(-25deg); animation:shooting 8s ease-in-out infinite;
+      transform:rotate(-25deg); animation:shooting 9s ease-in-out infinite;
       will-change: transform, opacity;
     }
 
-    .shooting-star.one{top:12%; left:72%; animation-delay:1s;}
-    .shooting-star.two{top:26%; left:18%; animation-delay:4s; width:140px;}
-    .shooting-star.three{top:8%; left:45%; animation-delay:6.5s; width:210px;}
+    .shooting-star.one{top:12%; left:72%; animation-delay:0s;}
+    .shooting-star.two{top:26%; left:18%; animation-delay:3s; width:140px;}
+    .shooting-star.three{top:8%; left:45%; animation-delay:6s; width:210px;}
+
+    .meteor-cluster{
+      position:absolute; inset:0; pointer-events:none; opacity:0;
+      animation:meteorClusterPulse 22s linear infinite;
+    }
+    .shooting-star.combo{ animation-duration:9s; }
+    .shooting-star.combo.c1{top:14%; left:82%; width:180px; animation-delay:.2s;}
+    .shooting-star.combo.c2{top:22%; left:64%; width:140px; animation-delay:.9s;}
+    .shooting-star.combo.c3{top:18%; left:92%; width:210px; animation-delay:1.5s;}
+    .shooting-star.combo.c4{top:34%; left:74%; width:180px; animation-delay:2.1s;}
+    .shooting-star.combo.c5{top:10%; left:58%; width:140px; animation-delay:2.8s;}
+    .shooting-star.combo.c6{top:28%; left:88%; width:210px; animation-delay:3.3s;}
 
     @keyframes shooting{
       0%,100%{opacity:0; transform:translate3d(0,0,0) rotate(-25deg) scaleX(.7);}
       8%{opacity:1;}
       18%{opacity:0; transform:translate3d(-220px,140px,0) rotate(-25deg) scaleX(1);}
+    }
+    @keyframes meteorClusterPulse{
+      0%,72%,100%{opacity:0;}
+      74%{opacity:1;}
+      92%{opacity:1;}
+      100%{opacity:0;}
     }
 
     .page{ position:relative; z-index:2; width:min(1400px, calc(100% - 32px)); margin:0 auto; padding:24px 0 80px; }
@@ -425,21 +443,21 @@
 
     /* HÀNH TINH TIN HỌC */
     .physics .planet-ball { width: 92px; height: 92px; }
-    .physics .planet-ball{ background: radial-gradient(circle at 28% 24%, rgba(255,255,255,.98), rgba(255,255,255,.15) 12%, transparent 18%), radial-gradient(circle at 52% 58%, rgba(156,255,176,.14), transparent 26%), linear-gradient(155deg,#d7ff98 0%, #6fd35b 38%, #2f7f3f 68%, #0f2917 100%); }
-    .physics .planet-surface{ background: radial-gradient(circle at 26% 36%, rgba(255,255,255,.16), transparent 16%), radial-gradient(circle at 54% 56%, rgba(8,40,12,.20), transparent 22%), radial-gradient(circle at 68% 30%, rgba(226,255,224,.12), transparent 12%); }
-    .physics .planet-atmosphere{ background: radial-gradient(circle at 26% 24%, rgba(255,255,255,.10), transparent 32%), conic-gradient(from 0deg, rgba(255,255,255,0) 0deg, rgba(124,255,142,.16) 124deg, rgba(255,255,255,0) 190deg, rgba(186,255,155,.12) 260deg, rgba(255,255,255,0) 360deg); }
-    .physics .planet-night { background: linear-gradient(120deg, transparent 35%, rgba(0,0,0,.65) 85%); }
-    .physics .planet-band{ transform: rotate(-15deg); background: linear-gradient(90deg, transparent, rgba(136,255,132,.30), transparent); }
+    .physics .planet-ball{ background: radial-gradient(circle at 28% 24%, rgba(255,255,255,.98), rgba(255,255,255,.18) 12%, transparent 18%), radial-gradient(circle at 52% 58%, rgba(225,230,238,.12), transparent 26%), linear-gradient(155deg,#f8fafc 0%, #c7cdd6 38%, #676f7d 68%, #171c25 100%); }
+    .physics .planet-surface{ background: radial-gradient(circle at 26% 36%, rgba(255,255,255,.20), transparent 16%), radial-gradient(circle at 54% 56%, rgba(18,22,30,.22), transparent 22%), radial-gradient(circle at 68% 30%, rgba(232,236,243,.12), transparent 12%); }
+    .physics .planet-atmosphere{ background: radial-gradient(circle at 26% 24%, rgba(255,255,255,.10), transparent 32%), conic-gradient(from 0deg, rgba(255,255,255,0) 0deg, rgba(229,234,240,.16) 124deg, rgba(255,255,255,0) 190deg, rgba(182,189,200,.12) 260deg, rgba(255,255,255,0) 360deg); }
+    .physics .planet-night { background: linear-gradient(120deg, transparent 35%, rgba(0,0,0,.68) 85%); }
+    .physics .planet-band{ transform: rotate(-15deg); background: linear-gradient(90deg, transparent, rgba(232,236,242,.28), transparent); }
     .physics .planet-orbit.po1 { width: 190%; height: 190%; animation: pOrbit1 12s linear infinite; }
     .physics .planet-orbit.po2 { width: 250%; height: 250%; animation: pOrbit2 24s linear infinite reverse; }
-    .physics .planet-orbit::before { border-color: rgba(120,255,148,.22); box-shadow: 0 0 10px rgba(120,255,148,.16); }
-    .physics .planet-orbit::after { border-color: rgba(190,255,170,.26); }
+    .physics .planet-orbit::before { border-color: rgba(220,226,236,.22); box-shadow: 0 0 10px rgba(220,226,236,.14); }
+    .physics .planet-orbit::after { border-color: rgba(186,194,206,.22); }
     @keyframes pOrbit1 { from { transform: translate(-50%,-50%) rotateX(72deg) rotateY(15deg) rotateZ(0deg); } to { transform: translate(-50%,-50%) rotateX(72deg) rotateY(15deg) rotateZ(360deg); } }
     @keyframes pOrbit2 { from { transform: translate(-50%,-50%) rotateX(68deg) rotateY(5deg) rotateZ(0deg); } to { transform: translate(-50%,-50%) rotateX(68deg) rotateY(5deg) rotateZ(360deg); } }
-    .physics .planet-ring { width: 210%; height: 210%; left: 50%; top: 50%; transform: translate(-50%, -50%) rotateX(72deg) rotateY(15deg); border: 2px solid rgba(255,255,255,.1); border-left-color: rgba(138,255,144,.38); }
+    .physics .planet-ring { width: 210%; height: 210%; left: 50%; top: 50%; transform: translate(-50%, -50%) rotateX(72deg) rotateY(15deg); border: 2px solid rgba(255,255,255,.10); border-left-color: rgba(230,235,242,.34); }
     .physics .planet-moon.one { width:16px; height:16px; top: -12%; right: -25%; animation: moonOrbit1 8s ease-in-out infinite; }
     .physics .planet-moon.two { width:11px; height:11px; bottom: -18%; left: -32%; animation: moonOrbit2 10s ease-in-out infinite; }
-    .physics .planet-moon.one, .physics .planet-moon.two { background: radial-gradient(circle at 30% 28%, rgba(255,255,255,.95), transparent 22%), linear-gradient(145deg, #efffdc, #8fd48a 62%, #31523a); box-shadow: inset -4px -5px 8px rgba(0,0,0,.35), 0 0 16px rgba(176,255,180,.24); }
+    .physics .planet-moon.one, .physics .planet-moon.two { background: radial-gradient(circle at 30% 28%, rgba(255,255,255,.95), transparent 22%), linear-gradient(145deg, #f6f8fb, #b8bfca 62%, #353c48); box-shadow: inset -4px -5px 8px rgba(0,0,0,.35), 0 0 16px rgba(224,229,238,.20); }
 
     /* HÀNH TINH LỊCH SỬ */
     .english .planet-ball { width: 116px; height: 116px; }
@@ -517,6 +535,14 @@
     <div class="shooting-star one"></div>
     <div class="shooting-star two"></div>
     <div class="shooting-star three"></div>
+    <div class="meteor-cluster" aria-hidden="true">
+      <div class="shooting-star combo c1"></div>
+      <div class="shooting-star combo c2"></div>
+      <div class="shooting-star combo c3"></div>
+      <div class="shooting-star combo c4"></div>
+      <div class="shooting-star combo c5"></div>
+      <div class="shooting-star combo c6"></div>
+    </div>
   </div>
 
   <main class="page">
@@ -588,14 +614,13 @@
           </div>
           <div class="planet-shadow"></div>
           <div class="planet-label">
-            <strong>Hành Tinh Địa Lý</strong>
-            <span>Sáng Tạo • Thiết Kế</span>
+            <strong>Hành Tinh Tiếng Anh</strong>
           </div>
         </a>
       </article>
 
       <article class="subject-planet physics">
-        <a class="planet-link" href="tnsinh.html">
+        <a class="planet-link" href="vat-ly.html">
           <div class="planet-ball">
             <div class="planet-aura"></div>
             <div class="planet-wave"></div>
@@ -618,8 +643,8 @@
           </div>
           <div class="planet-shadow"></div>
           <div class="planet-label">
-            <strong>Hành Tinh Sinh Học</strong>
-            <span>Nhân Tố Sinh Thái - Quần Thể - Quần Xã</span>
+            <strong>Hành Tinh Tin Học</strong>
+            <span>CSS - Google Sites</span>
           </div>
         </a>
       </article>
