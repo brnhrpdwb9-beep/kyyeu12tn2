@@ -605,5 +605,585 @@ const quizData = [
       C: "Sai. Việc hội tụ tinh hoa văn hóa Đông - Tây góp phần làm nên tầm vóc Hồ Chí Minh, nhưng không phải lí do cơ bản nhất để giải thích Người sống mãi trong lòng nhân dân Việt Nam.",
       D: "Sai. Đây là giá trị quốc tế rất lớn của Hồ Chí Minh, nhưng câu hỏi nhấn vào tình cảm của nhân dân Việt Nam, nên cần chọn phương án gắn trực tiếp với sự cống hiến cho dân tộc Việt Nam."
     }
+  },
+  
+  
+  
+  
+    {
+    q: `Cho đoạn tư liệu sau đây:
+"Tôi [Hồ Chí Minh] tuyệt nhiên không ham muốn công danh phú quý nào. Bây giờ phải gánh chức Chủ tịch là vì đồng bào uỷ thác thì tôi phải gắng sức làm, cũng như một người lính vâng mệnh lệnh của quốc dân ra trước mặt trận. Bao giờ đồng bào cho tôi lui, thì tôi rất vui lòng lui."
+(Chủ tịch Hồ Chí Minh trả lời báo chí, báo Cứu quốc, số 147, ngày 21-1-1946)
+
+Xác định các nhận định sau:`,
+    statements: [
+      {
+        text: "Đoạn tư liệu khẳng định nguyên tắc của nhà lãnh đạo là phải trung thành tuyệt đối với nhân dân.",
+        answer: true,
+        explanation: "Tư liệu cho thấy Hồ Chí Minh nhận nhiệm vụ vì 'đồng bào uỷ thác' và xem mình như người lính vâng mệnh lệnh quốc dân, thể hiện rõ tinh thần vì dân, chịu trách nhiệm trước nhân dân."
+      },
+      {
+        text: "Chủ tịch Hồ Chí Minh khẳng định luôn cống hiến trọn đời mình cho nhân dân và Tổ quốc.",
+        answer: false,
+        explanation: "Đoạn tư liệu này không trực tiếp nói tới việc 'cống hiến trọn đời', mà nhấn mạnh tinh thần nhận và làm tròn nhiệm vụ do nhân dân giao phó."
+      },
+      {
+        text: "Chủ tịch Hồ Chí Minh trả lời báo chí về quá trình lãnh đạo cách mạng giải phóng dân tộc.",
+        answer: false,
+        explanation: "Nội dung tư liệu không nói về quá trình lãnh đạo cách mạng giải phóng dân tộc mà nói về quan điểm của Hồ Chí Minh khi đảm nhận chức vụ Chủ tịch."
+      },
+      {
+        text: "Chủ tịch Hồ Chí Minh giáo dục lịch sử cho chiến sĩ, động viên quân đội trước giờ ra trận.",
+        answer: false,
+        explanation: "Đoạn tư liệu là lời trả lời báo chí về trách nhiệm với nhân dân, không phải lời huấn thị cho chiến sĩ hay quân đội."
+      }
+    ]
+  },
+  {
+    q: `Cho đoạn tư liệu sau đây:
+"Trung ương đã quyết định cần tích cực chuẩn bị cho cuộc họp Hội nghị toàn quốc của Đảng và Quốc dân đại hội đại biểu. Bác [Hồ Chí Minh] giục chuẩn bị cho kịp họp hai hội nghị quan trọng này từ tháng 7... Giữa lúc công việc bộn bề như thế, Bác bỗng bị mệt. Lúc nào tỉnh, Bác chỉ nói chuyện tình hình: 'Lúc này thời cơ thuận lợi đã tới, dù hi sinh tới đâu, dù phải đốt cháy cả dãy Trường Sơn cũng phải kiên quyết giành cho được độc lập'."
+(Theo Đại tướng Võ Nguyên Giáp, Tổng tập hồi kí)
+
+Xác định các nhận định sau:`,
+    statements: [
+      {
+        text: "Đoạn tư liệu ghi nhận vai trò của Chủ tịch Hồ Chí Minh và Đảng Cộng sản Đông Dương trong việc chớp thời cơ, lãnh đạo Cách mạng tháng Tám năm 1945.",
+        answer: true,
+        explanation: "Tư liệu phản ánh rõ sự chuẩn bị của Trung ương, của Hồ Chí Minh và quyết tâm giành độc lập khi thời cơ đến, gắn trực tiếp với vai trò lãnh đạo Cách mạng tháng Tám."
+      },
+      {
+        text: "Hồ Chí Minh xác định thời cơ Tổng khởi nghĩa giành chính quyền trên toàn quốc từ khi Nhật đầu hàng quân Đồng minh đến trước khi quân Đồng minh vào Đông Dương.",
+        answer: true,
+        explanation: "Đây là khoảng thời gian thuận lợi nhất để phát động tổng khởi nghĩa vì bộ máy cai trị cũ tan rã, còn lực lượng Đồng minh chưa kịp kéo vào Đông Dương."
+      },
+      {
+        text: "Thời cơ của Tổng khởi nghĩa trong Cách mạng tháng Tám năm 1945 ở Việt Nam được tính từ khi Nhật tiến hành đảo chính Pháp trên toàn Đông Dương (9-3-1943).",
+        answer: false,
+        explanation: "Sai cả mốc thời gian lẫn nội dung. Nhật đảo chính Pháp diễn ra ngày 9-3-1945, và đó chưa phải thời cơ tổng khởi nghĩa chín muồi nhất."
+      },
+      {
+        text: "Bối cảnh nổ ra cuộc Tổng khởi nghĩa trong Cách mạng tháng Tám năm 1945 ở Việt Nam có sự đan xen giữa thời cơ và nguy cơ.",
+        answer: true,
+        explanation: "Đúng vì bên cạnh thời cơ rất thuận lợi sau khi Nhật đầu hàng, cách mạng cũng đứng trước nguy cơ nếu chậm trễ thì quân Đồng minh vào, tình hình sẽ phức tạp hơn."
+      }
+    ]
+  },
+  {
+    q: `Cho đoạn tư liệu sau đây:
+"... Chủ tịch Hồ Chí Minh, một biểu tượng xuất sắc về sự tự khẳng định dân tộc, đã cống hiến trọn đời mình cho sự nghiệp giải phóng dân tộc của nhân dân Việt Nam, góp phần vào cuộc đấu tranh chung của các dân tộc vì hòa bình, độc lập dân tộc, dân chủ và tiến bộ xã hội."
+(Tập biên bản của Đại Hội đồng UNESCO)
+
+Xác định các nhận định sau:`,
+    statements: [
+      {
+        text: "Chủ tịch Hồ Chí Minh đã cống hiến trọn đời mình cho dân tộc Việt Nam.",
+        answer: true,
+        explanation: "Nhận định này đúng sát với nội dung tư liệu khi UNESCO khẳng định Hồ Chí Minh đã cống hiến trọn đời cho sự nghiệp giải phóng dân tộc của nhân dân Việt Nam."
+      },
+      {
+        text: "Chủ tịch Hồ Chí Minh được UNESCO ghi nhận có nhiều đóng góp cho nhân loại.",
+        answer: true,
+        explanation: "Ngoài đóng góp cho Việt Nam, tư liệu còn nhấn mạnh vai trò của Người đối với cuộc đấu tranh chung của các dân tộc vì hòa bình, độc lập, dân chủ và tiến bộ xã hội."
+      },
+      {
+        text: "Liên hợp quốc đã ghi nhận Chủ tịch Hồ Chí Minh là 'Anh hùng giải phóng dân tộc và Nhà văn hóa kiệt xuất của Việt Nam'.",
+        answer: false,
+        explanation: "Trong ngữ cảnh này, chủ thể được nêu là UNESCO. Cách diễn đạt gán chung cho 'Liên hợp quốc' là không chính xác theo nội dung tư liệu."
+      },
+      {
+        text: "Nhân dân Việt Nam và thế giới vinh danh và tri ân Chủ tịch Hồ Chí Minh bằng nhiều hình thức khác nhau và nối tiếp qua nhiều thế hệ.",
+        answer: true,
+        explanation: "Nhận định này phù hợp với ý nghĩa của việc UNESCO tôn vinh và thực tế lịch sử khi Hồ Chí Minh được tưởng niệm, nghiên cứu và vinh danh rộng rãi ở Việt Nam cũng như trên thế giới."
+      }
+    ]
+  },
+  {
+    q: `Cho đoạn tư liệu sau đây:
+"Từ buổi thiếu niên cho đến phút cuối cùng, Hồ Chủ tịch đã cống hiến trọn đời mình cho sự nghiệp cách mạng của nhân dân ta và nhân dân thế giới. Người đã trải qua một cuộc đời oanh liệt, đầy gian khổ hi sinh, vô cùng cao thượng và phong phú, vô cùng trong sáng và đẹp đẽ."
+(Điếu văn của Ban Chấp hành Trung ương Đảng Lao động Việt Nam trong Lễ truy điệu Chủ tịch Hồ Chí Minh ngày 9-9-1969)
+
+Xác định các nhận định sau:`,
+    statements: [
+      {
+        text: "Theo đoạn tư liệu, không chỉ tham gia sự nghiệp giải phóng dân tộc và nhân loại, Chủ tịch Hồ Chí Minh còn đóng góp quan trọng trên các lĩnh vực tư tưởng, văn hóa, giáo dục.",
+        answer: false,
+        explanation: "Đoạn tư liệu chỉ nhấn mạnh sự cống hiến trọn đời cho sự nghiệp cách mạng của nhân dân Việt Nam và nhân dân thế giới, không nêu trực tiếp các lĩnh vực tư tưởng, văn hóa, giáo dục."
+      },
+      {
+        text: "Chủ tịch Hồ Chí Minh có nhiều đóng góp cho sự nghiệp cách mạng của dân tộc Việt Nam và thế giới.",
+        answer: true,
+        explanation: "Đây là nội dung được thể hiện trực tiếp trong tư liệu qua cụm 'cống hiến trọn đời mình cho sự nghiệp cách mạng của nhân dân ta và nhân dân thế giới'."
+      },
+      {
+        text: "UNESCO ghi nhận Chủ tịch Hồ Chí Minh là Anh hùng giải phóng dân tộc vào đúng dịp kỷ niệm 100 năm thành lập Đảng Cộng sản Việt Nam.",
+        answer: false,
+        explanation: "UNESCO gắn việc tôn vinh Hồ Chí Minh với dịp kỷ niệm 100 năm ngày sinh của Người, không phải 100 năm thành lập Đảng Cộng sản Việt Nam."
+      },
+      {
+        text: "UNESCO ra nghị quyết yêu cầu các nước thống nhất việc xây dựng tượng đài Chủ tịch Hồ Chí Minh.",
+        answer: false,
+        explanation: "Không có nội dung nào như vậy. Đây là nhận định sai và không phản ánh quyết nghị tôn vinh của UNESCO."
+      }
+    ]
+  },
+  
+  {
+    q: `Cho đoạn tư liệu sau đây:
+"... Cuốn sách không đề tên tác giả và được lưu hành trong Việt kiều ở Quảng Châu, cuốn sách tóm tắt những bài giảng của đồng chí ấy về chủ nghĩa Mác - Lê-nin và nhiệm vụ của cách mạng Việt Nam. Cuốn 'Đường Kách mệnh' là sự tiếp theo một cách lô-gic cuốn 'Bản án chế độ thực dân Pháp'. Nếu trong cuốn 'Bản án chế độ thực dân Pháp', Nguyễn Ái Quốc thẳng tay vạch trần những tội ác của đế quốc Pháp trong những lãnh thổ thuộc địa bao la của chúng thì trong cuốn 'Đường Kách mệnh', Nguyễn Ái Quốc vạch ra con đường cụ thể giải phóng dân tộc".
+(E. Cô-bê-lép, Đồng chí Hồ Chí Minh, NXB Tiến bộ, Mát-xcơ-va, 1985, tr. 142)
+
+Xác định các nhận định sau:`,
+    statements: [
+      {
+        text: "Cùng với báo Thanh niên, cuốn sách Đường Kách mệnh về sau trở thành Cương lĩnh chính trị đầu tiên của Đảng Cộng sản Việt Nam.",
+        answer: false,
+        explanation: "Đường Kách mệnh và báo Thanh niên là những tài liệu quan trọng chuẩn bị về tư tưởng, chính trị cho sự ra đời của Đảng, nhưng không phải là Cương lĩnh chính trị đầu tiên của Đảng. Cương lĩnh đầu tiên được thông qua đầu năm 1930 gồm Chánh cương vắn tắt, Sách lược vắn tắt và các văn kiện liên quan."
+      },
+      {
+        text: "Tác phẩm Bản án chế độ thực dân Pháp và cuốn Đường Kách mệnh đều do Nguyễn Ái Quốc soạn thảo, phục vụ cho hoạt động cách mạng.",
+        answer: true,
+        explanation: "Cả hai tác phẩm đều do Nguyễn Ái Quốc biên soạn và đều phục vụ trực tiếp cho mục tiêu tuyên truyền, giác ngộ và định hướng con đường cách mạng."
+      },
+      {
+        text: "Trong cuốn Đường Kách mệnh, Nguyễn Ái Quốc đã bước đầu vạch ra phương hướng, con đường cụ thể để giải phóng dân tộc Việt Nam.",
+        answer: true,
+        explanation: "Đường Kách mệnh là tác phẩm thể hiện rõ việc Nguyễn Ái Quốc truyền bá chủ nghĩa Mác - Lê-nin và bước đầu xác định con đường cứu nước theo khuynh hướng cách mạng vô sản cho Việt Nam."
+      },
+      {
+        text: "Cuốn Đường Kách mệnh được xuất bản ở Quảng Châu (Trung Quốc), do Nguyễn Ái Quốc xuất bản để phục vụ cách mạng.",
+        answer: false,
+        explanation: "Đường Kách mệnh được xuất bản tại Quảng Châu, nhưng nói 'do Nguyễn Ái Quốc xuất bản' là không chính xác. Nguyễn Ái Quốc là người biên soạn nội dung, còn việc xuất bản gắn với tổ chức cách mạng lúc bấy giờ."
+      }
+    ]
+  },
+  {
+    q: `Cho đoạn tư liệu sau đây:
+"... Luận cương của Lê-nin làm cho tôi rất cảm động, phấn khởi, sáng tỏ, tin tưởng biết bao! Tôi vui mừng đến phát khóc lên. Ngồi một mình trong buồng mà tôi nói to lên như đang nói trước quần chúng đông đảo: 'Hỡi đồng bào bị đọa đày đau khổ! Đây là cái cần thiết cho chúng ta, đây là con đường giải phóng chúng ta! Từ đó tôi hoàn toàn tin theo Lê-nin, tin theo Quốc tế thứ ba'."
+(Hồ Chí Minh, "Con đường dẫn tôi đến chủ nghĩa Mác - Lê-nin", trích trong: Hồ Chí Minh, Toàn tập, Tập 12, NXB Chính trị quốc gia Sự thật, Hà Nội, 2011, tr.562)
+
+Xác định các nhận định sau:`,
+    statements: [
+      {
+        text: "Lúc đầu, chính là chủ nghĩa yêu nước, chứ chưa phải là chủ nghĩa cộng sản đã đưa Nguyễn Ái Quốc đến với Lê-nin, tin theo Quốc tế thứ ba.",
+        answer: true,
+        explanation: "Nhận định này phù hợp với quá trình nhận thức của Nguyễn Ái Quốc. Từ lòng yêu nước, thương dân, Người đi tìm con đường cứu nước và đến với chủ nghĩa Mác - Lê-nin."
+      },
+      {
+        text: "Sự kiện Nguyễn Ái Quốc 'hoàn toàn tin theo Lê-nin, tin theo Quốc tế thứ ba' đã mở ra cơ hội mới trong cuộc hành trình tìm đường cứu nước.",
+        answer: true,
+        explanation: "Sự kiện này đánh dấu bước chuyển lớn trong nhận thức của Nguyễn Ái Quốc, giúp Người tìm ra con đường cứu nước đúng đắn và mở ra chặng đường mới trong hành trình giải phóng dân tộc."
+      },
+      {
+        text: "Cụm từ 'đây là con đường giải phóng chúng ta' trong đoạn tư liệu trên chính là con đường cứu nước theo khuynh hướng cách mạng vô sản.",
+        answer: true,
+        explanation: "Sau khi tiếp cận Luận cương của Lê-nin, Nguyễn Ái Quốc xác định con đường giải phóng dân tộc phải gắn với cách mạng vô sản, đi theo chủ nghĩa Mác - Lê-nin."
+      },
+      {
+        text: "Nguyễn Ái Quốc hoàn toàn tin theo Lê-nin, tin theo Quốc tế thứ ba vì đó là con đường cứu nước gắn giải phóng dân tộc với tiến bộ xã hội.",
+        answer: true,
+        explanation: "Con đường cách mạng vô sản mà Nguyễn Ái Quốc lựa chọn không chỉ nhằm giải phóng dân tộc mà còn hướng tới giải phóng xã hội, giải phóng con người, phù hợp với xu thế tiến bộ của thời đại."
+      }
+    ]
+  },
+  {
+    q: `Cho đoạn tư liệu sau đây:
+"... Luận cương của Lênin làm cho tôi rất cảm động, phấn khởi, sáng tỏ, tin tưởng biết bao! Tôi vui mừng đến phát khóc lên. Ngồi một mình trong buồng mà tôi nói to như đang nói trước quần chúng đông đảo: 'Hỡi đồng bào bị đọa đày đau khổ! Đây là cái cần thiết cho chúng ta, đây là con đường giải phóng chúng ta!' Từ đó tôi hoàn toàn tin theo Lênin, tin theo Quốc tế thứ ba."
+(Hồ Chí Minh, Con đường dẫn tôi đến chủ nghĩa Mác - Lênin, trích trong: Hồ Chí Minh toàn tập, tập 12, NXB Chính trị quốc gia Sự thật, Hà Nội, 2011, tr. 562)
+
+Xác định các nhận định sau:`,
+    statements: [
+      {
+        text: "Nguyễn Ái Quốc đọc Luận cương về vấn đề dân tộc và vấn đề thuộc địa của Lê-nin trong thời gian Người đang hoạt động tại Liên Xô.",
+        answer: false,
+        explanation: "Nguyễn Ái Quốc đọc Luận cương của Lê-nin khi đang hoạt động ở Pháp, không phải tại Liên Xô. Đây là mốc rất hay bị ra bẫy vì đề Sử thích làm cuộc đời học sinh thêm phần phong phú."
+      },
+      {
+        text: "Sự kiện đọc Luận cương đã đưa Nguyễn Ái Quốc từ người thanh niên yêu nước trở thành một chiến sĩ cộng sản quốc tế.",
+        answer: true,
+        explanation: "Việc tiếp cận Luận cương của Lê-nin có ý nghĩa quyết định đối với bước chuyển biến tư tưởng của Nguyễn Ái Quốc, từ chủ nghĩa yêu nước đến với chủ nghĩa Mác - Lê-nin và lập trường cộng sản."
+      },
+      {
+        text: "Con đường cách mạng vô sản mà Nguyễn Ái Quốc khẳng định đã gắn cách mạng Việt Nam với phong trào cộng sản quốc tế.",
+        answer: true,
+        explanation: "Việc lựa chọn con đường cách mạng vô sản đã đặt cách mạng Việt Nam trong mối liên hệ với phong trào cách mạng thế giới, đặc biệt là phong trào cộng sản và công nhân quốc tế."
+      },
+      {
+        text: "Việc Nguyễn Ái Quốc tìm thấy con đường cứu nước đã đánh dấu bước ngoặt của cách mạng Việt Nam.",
+        answer: false,
+        explanation: "Sự kiện này trước hết đánh dấu bước ngoặt trong tư tưởng và hoạt động cách mạng của Nguyễn Ái Quốc. Nó tạo cơ sở rất quan trọng cho bước ngoặt của cách mạng Việt Nam, nhưng không nên đồng nhất trực tiếp hai việc này."
+      }
+    ]
+  },
+  
+
+  {
+    q: "Hoạt động của Nguyễn Ái Quốc - Hồ Chí Minh trong những năm 1945 - 1954 có điểm khác biệt nào sau đây so với thời kì 1930 - 1945?",
+    a: "B",
+    o: [
+      "Lãnh đạo cuộc tổng khởi nghĩa giành chính quyền ở Việt Nam.",
+      "Góp phần xây dựng cơ sở cho chế độ xã hội mới ở Việt Nam.",
+      "Kêu gọi nhân dân Việt Nam kháng chiến chống Pháp xâm lược.",
+      "Thành lập Mặt trận dân tộc thống nhất đầu tiên của Việt Nam."
+    ],
+    r: {
+      A: "Sai. Nội dung này gắn trực tiếp với thắng lợi của Cách mạng tháng Tám năm 1945, không phải nét khác biệt tiêu biểu của cả giai đoạn 1945 - 1954 so với 1930 - 1945.",
+      B: "Đúng. Từ sau khi giành chính quyền, Hồ Chí Minh cùng Đảng và Nhà nước vừa lãnh đạo kháng chiến vừa xây dựng nền móng của chế độ mới. Đây là điểm khác biệt rõ so với thời kì trước 1945.",
+      C: "Sai. Đây là hoạt động tiêu biểu của giai đoạn 1945 - 1954, nhưng chưa thể hiện rõ bằng nhiệm vụ xây dựng cơ sở cho chế độ xã hội mới.",
+      D: "Sai. Mặt trận dân tộc thống nhất đầu tiên được thành lập trước giai đoạn này, nên không phải điểm khác biệt của thời kì 1945 - 1954."
+    }
+  },
+  {
+    q: "Nội dung nào sau đây phản ánh đúng vai trò của Hồ Chí Minh trong những năm 1945 đến năm 1969?",
+    a: "C",
+    o: [
+      "Chủ trì Hội nghị thành lập Đảng Cộng sản Việt Nam.",
+      "Lãnh đạo nhân dân miền Bắc chống chiến tranh phá hoại lần thứ 2 của Mỹ.",
+      "Lãnh đạo nhân dân kháng chiến chống Pháp và chống Mỹ.",
+      "Lãnh đạo nhân dân cả nước xây dựng chủ nghĩa xã hội."
+    ],
+    r: {
+      A: "Sai. Sự kiện này diễn ra đầu năm 1930, ngoài phạm vi 1945 - 1969.",
+      B: "Sai. Chiến tranh phá hoại lần thứ hai của Mỹ diễn ra năm 1972, khi Hồ Chí Minh đã qua đời.",
+      C: "Đúng. Từ 1945 đến 1969, Hồ Chí Minh gắn liền với hai cuộc kháng chiến lớn của dân tộc: chống Pháp và chống Mỹ.",
+      D: "Sai. Trong thời kì này chỉ miền Bắc xây dựng chủ nghĩa xã hội, không phải cả nước."
+    }
+  },
+  {
+    q: "Trong cuộc hành trình tìm đường cứu nước (1911 - 1920), nhận thức nào sau đây của Nguyễn Tất Thành có sự khác biệt so với các nhà yêu nước đi trước?",
+    a: "B",
+    o: [
+      "Chỉ có đoàn kết mới đánh đuổi được đế quốc, giải phóng dân tộc thoát khỏi áp bức.",
+      "Muốn cứu nước và giải phóng dân tộc phải đi theo khuynh hướng cách mạng vô sản.",
+      "Mâu thuẫn hàng đầu trong xã hội Việt Nam là giữa toàn thể dân tộc với đế quốc Pháp.",
+      "Muốn cứu nước và giải phóng dân tộc, trước tiên phải trở thành một người yêu nước."
+    ],
+    r: {
+      A: "Sai. Đây là nhận thức đúng nhưng không phải điểm khác biệt cơ bản nhất so với các nhà yêu nước trước đó.",
+      B: "Đúng. Nguyễn Ái Quốc là người đầu tiên tìm ra con đường cứu nước theo khuynh hướng cách mạng vô sản, khác hẳn khuynh hướng phong kiến và dân chủ tư sản trước đó.",
+      C: "Sai. Đây là nhận thức về tính chất xã hội và mâu thuẫn dân tộc, không phải nét khác biệt nổi bật nhất trong hành trình tìm đường cứu nước.",
+      D: "Sai. Lòng yêu nước là điểm chung của nhiều nhà yêu nước, không phải điểm riêng của Nguyễn Tất Thành."
+    }
+  },
+  {
+    q: "Con đường cứu nước của dân tộc Việt Nam do Nguyễn Ái Quốc xác định có sự khác biệt hoàn toàn so với các con đường cứu nước trước đó về điểm nào sau đây?",
+    a: "D",
+    o: [
+      "Hình thức, phương pháp đấu tranh.",
+      "Mục tiêu trực tiếp, trước mắt.",
+      "Xác định đối tượng cách mạng.",
+      "Phương hướng tiến lên."
+    ],
+    r: {
+      A: "Sai. Hình thức và phương pháp đấu tranh có thể khác nhau nhưng chưa phải điểm khác biệt hoàn toàn.",
+      B: "Sai. Mục tiêu trực tiếp trước mắt của các phong trào yêu nước đều là giành độc lập dân tộc.",
+      C: "Sai. Việc xác định đối tượng cách mạng có điểm kế thừa nhất định, không phải sự khác biệt hoàn toàn.",
+      D: "Đúng. Điểm mới căn bản là Nguyễn Ái Quốc xác định con đường phát triển của cách mạng Việt Nam theo khuynh hướng vô sản, gắn độc lập dân tộc với chủ nghĩa xã hội."
+    }
+  },
+  {
+    q: "Nội dung nào sau đây không phải là ý nghĩa sự kiện Nguyễn Ái Quốc tìm thấy con đường cứu nước cho dân tộc Việt Nam?",
+    a: "B",
+    o: [
+      "Góp phần giải quyết khủng hoảng về con đường cứu nước ở Việt Nam.",
+      "Chuẩn bị trực tiếp cho sự ra đời các tổ chức cộng sản ở Việt Nam.",
+      "Chuẩn bị các điều kiện cho sự ra đời của Đảng Cộng sản Việt Nam.",
+      "Gắn phong trào cách mạng của Việt Nam với cách mạng thế giới."
+    ],
+    r: {
+      A: "Sai. Việc tìm ra con đường cứu nước góp phần giải quyết cuộc khủng hoảng đường lối ở Việt Nam.",
+      B: "Đúng. Sự kiện này chưa trực tiếp dẫn đến sự ra đời các tổ chức cộng sản; đó là kết quả của cả quá trình chuẩn bị sau này, nhất là giai đoạn 1925 - 1929.",
+      C: "Sai. Đây là một ý nghĩa đúng vì sự kiện đó mở đầu cho quá trình chuẩn bị về tư tưởng, chính trị cho sự ra đời của Đảng.",
+      D: "Sai. Nguyễn Ái Quốc tìm ra con đường cứu nước theo khuynh hướng vô sản đã gắn cách mạng Việt Nam với cách mạng thế giới."
+    }
+  },
+  {
+    q: "Trong quá trình chuẩn bị về tư tưởng, chính trị để thành lập Đảng Cộng sản Việt Nam (1919 - 1929), Nguyễn Ái Quốc có vai trò nổi bật nào sau đây?",
+    a: "A",
+    o: [
+      "Xây dựng lí luận cách mạng giải phóng dân tộc kết hợp với giải phóng giai cấp.",
+      "Thành lập tổ chức cộng sản trên cơ sở phong trào công nhân đã đấu tranh tự giác.",
+      "Ra báo Thanh niên để phục vụ cho Hội Liên hiệp các dân tộc bị áp bức ở Á Đông.",
+      "Viết Cương lĩnh chính trị trước khi sáng lập Hội Việt Nam Cách mạng Thanh niên."
+    ],
+    r: {
+      A: "Đúng. Nguyễn Ái Quốc có vai trò nổi bật trong việc truyền bá chủ nghĩa Mác - Lênin, xây dựng lí luận giải phóng dân tộc theo khuynh hướng vô sản.",
+      B: "Sai. Các tổ chức cộng sản ở Việt Nam năm 1929 không phải do Nguyễn Ái Quốc trực tiếp thành lập.",
+      C: "Sai. Báo Thanh niên là cơ quan ngôn luận của Hội Việt Nam Cách mạng Thanh niên, không phải của Hội Liên hiệp các dân tộc bị áp bức ở Á Đông.",
+      D: "Sai. Cương lĩnh chính trị đầu tiên được soạn thảo đầu năm 1930, sau khi Hội Việt Nam Cách mạng Thanh niên đã ra đời."
+    }
+  },
+  {
+    q: "Trong quá trình chuẩn bị về tổ chức để thành lập Đảng Cộng sản Việt Nam (1919 - 1929), Nguyễn Ái Quốc có sự sáng tạo nào sau đây?",
+    a: "C",
+    o: [
+      "Chủ nhiệm, kiêm chủ bút cho tờ báo Người cùng khổ để tuyên truyền cách mạng.",
+      "Xuất bản cuốn Đường Kách mệnh, bí mật gửi về nước để tuyên truyền cách mạng.",
+      "Thành lập các tổ chức tiền cộng sản trước khi thành lập Đảng Cộng sản Việt Nam.",
+      "Viết tác phẩm Bản án chế độ thực dân Pháp để tố cáo những tội ác của thực dân Pháp."
+    ],
+    r: {
+      A: "Sai. Đây là hoạt động tuyên truyền có ý nghĩa lớn nhưng không thể hiện rõ nhất sự sáng tạo về tổ chức.",
+      B: "Sai. Đường Kách mệnh là tài liệu quan trọng về tư tưởng, chính trị hơn là sự sáng tạo về tổ chức.",
+      C: "Đúng. Nguyễn Ái Quốc không thành lập ngay Đảng Cộng sản mà lập tổ chức tiền thân để huấn luyện cán bộ, truyền bá lí luận, chuẩn bị cho sự ra đời của Đảng.",
+      D: "Sai. Đây là hoạt động tố cáo chủ nghĩa thực dân, không phải biểu hiện nổi bật nhất của sự sáng tạo về tổ chức."
+    }
+  },
+  {
+    q: "Những hoạt động của Nguyễn Ái Quốc trong giai đoạn từ năm 1920 đến năm 1930 có đóng góp nào sau đây đối với cách mạng Việt Nam?",
+    a: "C",
+    o: [
+      "Tạo ra nhân tố chuẩn bị đầu tiên, quyết định mọi bước phát triển nhảy vọt của lịch sử dân tộc.",
+      "Đưa Việt Nam chính thức đứng vào hàng ngũ các nước dân chủ và phong trào cộng sản quốc tế.",
+      "Hoàn chỉnh đường lối chiến lược và sách lược của cuộc cách mạng giải phóng dân tộc.",
+      "Vạch ra phương hướng và chỉ đạo toàn dân tiến hành cuộc cách mạng dân tộc dân chủ nhân dân."
+    ],
+    r: {
+      A: "Sai. Cách diễn đạt này quá chung và thường dùng để nói về vai trò của Đảng Cộng sản Việt Nam sau khi ra đời.",
+      B: "Sai. Nhận định này không đúng với đóng góp trực tiếp của Nguyễn Ái Quốc giai đoạn 1920 - 1930.",
+      C: "Đúng. Trong giai đoạn này, Nguyễn Ái Quốc xác lập và hoàn chỉnh những nét cơ bản của đường lối chiến lược, sách lược cho cách mạng giải phóng dân tộc ở Việt Nam.",
+      D: "Sai. Nội dung này gắn với giai đoạn lãnh đạo cách mạng sau khi Đảng ra đời, không phản ánh đúng trọng tâm đóng góp của giai đoạn 1920 - 1930."
+    }
+  },
+  {
+    q: "Hoạt động của Hồ Chí Minh trong những năm 1954 - 1969 có điểm khác biệt nào sau đây so với thời kì 1945 - 1954?",
+    a: "C",
+    o: [
+      "Lãnh đạo cuộc chiến tranh giải phóng và bảo vệ Tổ quốc Việt Nam.",
+      "Góp phần mở rộng quan hệ ngoại giao Nhà nước của Việt Nam với thế giới.",
+      "Lãnh đạo công cuộc xây dựng chủ nghĩa xã hội ở miền Bắc Việt Nam.",
+      "Lãnh đạo cách mạng Việt Nam chống thực dân Pháp và can thiệp Mỹ."
+    ],
+    r: {
+      A: "Sai. Đây là nội dung rộng, bao quát cả hai thời kì nên không thể hiện điểm khác biệt rõ nhất.",
+      B: "Sai. Hoạt động ngoại giao diễn ra ở cả hai giai đoạn, không phải điểm khác biệt nổi bật nhất.",
+      C: "Đúng. Từ sau năm 1954, nhiệm vụ mới nổi bật là lãnh đạo xây dựng chủ nghĩa xã hội ở miền Bắc, đồng thời tiếp tục đấu tranh giải phóng miền Nam.",
+      D: "Sai. Nội dung này nghiêng về giai đoạn 1945 - 1954 hơn, không phải nét đặc trưng riêng của 1954 - 1969."
+    }
+  },
+  {
+    q: "Nguyễn Tất Thành không tiếp tục hoạt động ở trong nước mà quyết định ra nước ngoài vào năm 1911 vì lí do chủ yếu nào sau đây?",
+    a: "A",
+    o: [
+      "Vì trong nước đang bế tắc về đường lối cứu nước và giai cấp lãnh đạo.",
+      "Vì Nguyễn Tất Thành tiếp thu truyền thống yêu nước của quê hương.",
+      "Vì phương Tây là nơi có khoa học kĩ thuật phát triển, có tư tưởng tiến bộ.",
+      "Vì Nguyễn Tất Thành nhận thức được sức mạnh của đoàn kết quốc tế."
+    ],
+    r: {
+      A: "Đúng. Các phong trào yêu nước cuối thế kỉ XIX đầu thế kỉ XX đều thất bại, đường lối cứu nước bế tắc, nên Nguyễn Tất Thành quyết định ra đi tìm con đường mới.",
+      B: "Sai. Đây là cơ sở hình thành lòng yêu nước, nhưng không phải lí do chủ yếu dẫn tới quyết định ra đi năm 1911.",
+      C: "Sai. Đây chỉ là một yếu tố tác động, không phải nguyên nhân chủ yếu nhất.",
+      D: "Sai. Nhận thức về đoàn kết quốc tế được hình thành rõ hơn trong quá trình hoạt động sau này."
+    }
+  },
+  {
+    q: "Từ hành trình ra đi tìm đường cứu nước của Nguyễn Tất Thành, thế hệ trẻ ngày nay cần rút ra bài học thực tiễn nào sau đây trong việc lựa chọn hướng đi cho bản thân?",
+    a: "B",
+    o: [
+      "Mạnh dạn đổi mới tư duy và hành động, duy trì thành tựu của thế hệ trước.",
+      "Chủ động tiếp thu tri thức hiện đại, góp phần vào sự phát triển của đất nước.",
+      "Nắm bắt cơ hội để hưởng thụ điều kiện sống và làm việc tốt ở các nước phát triển.",
+      "Ưu tiên chọn những ngành nghề có thể đảm bảo tương lai tài chính ổn định."
+    ],
+    r: {
+      A: "Sai. Ý này đúng một phần nhưng còn chung chung, chưa thể hiện rõ bài học thực tiễn sâu sắc nhất từ hành trình tìm đường cứu nước của Nguyễn Tất Thành.",
+      B: "Đúng. Bài học nổi bật là phải chủ động học hỏi, tiếp thu tri thức mới của thời đại để phục vụ đất nước, chứ không chỉ vì lợi ích cá nhân.",
+      C: "Sai. Mục đích ra đi của Nguyễn Tất Thành là tìm đường cứu nước, không phải mưu cầu đời sống cá nhân tốt hơn.",
+      D: "Sai. Đây là định hướng cá nhân thuần túy, không phản ánh đúng tinh thần dấn thân và trách nhiệm với đất nước."
+    }
+  },
+  {
+    q: "Nội dung nào sau đây là một trong những đóng góp của Chủ tịch Hồ Chí Minh trong cuộc kháng chiến chống Mỹ cứu nước thời kì 1965 - 1968?",
+    a: "A",
+    o: [
+      "Cùng với Trung ương Đảng phân tích, dự báo tình hình và quyết tâm đánh thắng quân Mỹ.",
+      "Cùng với các tướng lĩnh trực tiếp xuống trận địa để chỉ huy các trận đánh của quân đội Việt Nam.",
+      "Đi thăm các nước trong khối xã hội chủ nghĩa, tranh thủ các nước nhờ giúp Việt Nam đánh Mỹ.",
+      "Cùng với Trung ương Đảng hoạch định đường lối chiến lược cho cách mạng hai miền Nam - Bắc."
+    ],
+    r: {
+      A: "Đúng. Trong giai đoạn 1965 - 1968, Hồ Chí Minh cùng Trung ương Đảng phân tích tình hình, khẳng định quyết tâm đánh thắng đế quốc Mỹ.",
+      B: "Sai. Hồ Chí Minh không trực tiếp xuống trận địa chỉ huy các trận đánh như một vị tướng ngoài mặt trận.",
+      C: "Sai. Hoạt động tranh thủ quốc tế là quan trọng, nhưng phương án này không phản ánh đúng nét tiêu biểu nhất của vai trò của Người trong giai đoạn 1965 - 1968.",
+      D: "Sai. Đường lối chiến lược cho cách mạng hai miền được xác định từ sớm hơn, không riêng cho giai đoạn 1965 - 1968."
+    }
+  },
+  {
+    q: "Từ thực tiễn về vai trò của Hồ Chí Minh đối với thắng lợi của Cách mạng tháng Tám năm 1945 có thể rút ra bài học nào sau đây cho công cuộc xây dựng đất nước hiện nay?",
+    a: "A",
+    o: [
+      "Phát huy vai trò của tổ chức tập hợp quần chúng để thực hiện thắng lợi mục tiêu chung.",
+      "Đánh giá và tận dụng thời cơ trong điều kiện các cường quốc tham gia chiến tranh thế giới.",
+      "Xây dựng lực lượng vũ trang và tham gia các liên minh quân sự của các cường quốc.",
+      "Phát huy vai trò của hậu phương trong việc đảm bảo vật chất, tinh thần cho kháng chiến."
+    ],
+    r: {
+      A: "Đúng. Bài học lớn là phải phát huy vai trò lãnh đạo, tập hợp và tổ chức quần chúng để thực hiện mục tiêu chung của đất nước.",
+      B: "Sai. Yếu tố thời cơ là quan trọng trong Cách mạng tháng Tám, nhưng cách diễn đạt này quá gắn với bối cảnh chiến tranh thế giới, không phù hợp trực tiếp với công cuộc xây dựng đất nước hiện nay.",
+      C: "Sai. Việt Nam hiện nay không theo đường lối tham gia liên minh quân sự với các cường quốc.",
+      D: "Sai. Phương án này nghiêng về bối cảnh chiến tranh hơn là bài học chủ yếu cho xây dựng đất nước hiện nay."
+    }
+  },
+  {
+    q: "Nguyễn Ái Quốc đã rút ra bài học chủ yếu nào sau đây từ thất bại của việc gửi bản Yêu sách của nhân dân An Nam đến Hội nghị Véc-xai (1919)?",
+    a: "D",
+    o: [
+      "Phân biệt được bạn và thù của dân tộc.",
+      "Nhận thức rõ vai trò của sự đoàn kết trong công cuộc giải phóng.",
+      "Sự đúng đắn của con đường cách mạng vô sản.",
+      "Muốn giải phóng chỉ có thể dựa vào sức lực của chính mình."
+    ],
+    r: {
+      A: "Sai. Việc phân biệt bạn - thù được nhận thức rõ dần trong quá trình hoạt động, nhưng không phải bài học chủ yếu trực tiếp rút ra từ thất bại ở Véc-xai.",
+      B: "Sai. Đoàn kết là yếu tố quan trọng, nhưng chưa phải kết luận chủ yếu rút ra từ sự kiện này.",
+      C: "Sai. Đến năm 1919, Nguyễn Ái Quốc chưa hoàn toàn tiếp cận và khẳng định con đường cách mạng vô sản.",
+      D: "Đúng. Thất bại của bản Yêu sách cho thấy không thể trông chờ các nước đế quốc trao trả độc lập, mà phải tự mình đấu tranh giành lấy."
+    }
+  },
+  {
+    q: "Lý luận giải phóng dân tộc của Nguyễn Ái Quốc được truyền bá vào Việt Nam trong những năm 1921 - 1929 có điểm mới nào sau đây?",
+    a: "A",
+    o: [
+      "Gắn độc lập dân tộc với chủ nghĩa xã hội.",
+      "Giải phóng dân tộc khỏi sự áp bức của thực dân.",
+      "Gắn vấn đề dân tộc với dân chủ, dân quyền.",
+      "Giành độc lập gắn với khôi phục chế độ quân chủ."
+    ],
+    r: {
+      A: "Đúng. Điểm mới nổi bật trong lý luận của Nguyễn Ái Quốc là gắn giải phóng dân tộc với con đường đi lên chủ nghĩa xã hội.",
+      B: "Sai. Mục tiêu giải phóng dân tộc khỏi ách thực dân không phải mới, vì các nhà yêu nước trước đó cũng hướng tới mục tiêu này.",
+      C: "Sai. Đây là nội dung tiến bộ nhưng chưa phải điểm mới cơ bản nhất so với các khuynh hướng cứu nước trước.",
+      D: "Sai. Nguyễn Ái Quốc không chủ trương khôi phục chế độ quân chủ."
+    }
+  },
+  {
+    q: "Con đường cứu nước của Nguyễn Ái Quốc có gì mới và khác so với con đường truyền thống của lớp người đi trước?",
+    a: "C",
+    o: [
+      "Gửi yêu sách đòi Pháp thừa nhận các quyền dân tộc của Việt Nam.",
+      "Tiếp thu nền văn minh phương Tây để giúp đất nước đến phú cường.",
+      "Hướng về phương Tây, khảo sát thực tiễn, tìm hiểu cách mạng thế giới.",
+      "Nhờ các nước phương Tây đào tạo lực lượng để chuẩn bị chống Pháp."
+    ],
+    r: {
+      A: "Sai. Đây chỉ là một hoạt động cụ thể trong quá trình đấu tranh của Nguyễn Ái Quốc, không phải nét mới tiêu biểu của cả con đường cứu nước.",
+      B: "Sai. Tiếp thu văn minh phương Tây là một hướng tiếp cận, nhưng chưa nêu bật bản chất mới và khác.",
+      C: "Đúng. Nguyễn Ái Quốc chọn đi sang phương Tây để khảo sát thực tiễn, nghiên cứu các cuộc cách mạng, từ đó tìm ra con đường cứu nước đúng đắn.",
+      D: "Sai. Nguyễn Ái Quốc không chủ trương dựa vào phương Tây để đào tạo lực lượng chống Pháp."
+    }
+  },
+  {
+    q: "Năm 2006, Bộ Chính trị Ban Chấp hành Trung ương Đảng Cộng sản Việt Nam phát động cuộc vận động 'Học tập và làm theo tấm gương đạo đức Hồ Chí Minh' để",
+    a: "C",
+    o: [
+      "Phát động thế hệ trẻ đi học theo phong cách Hồ Chí Minh.",
+      "Xây dựng hình tượng Chủ tịch Hồ Chí Minh trong văn học.",
+      "Phát huy giá trị to lớn của tư tưởng, đạo đức Hồ Chí Minh.",
+      "Nâng cao năng lực học tập của nhân dân trong thời đại mới."
+    ],
+    r: {
+      A: "Sai. Cuộc vận động không chỉ hướng tới thế hệ trẻ và cũng không chỉ nhấn vào phong cách.",
+      B: "Sai. Đây không phải mục đích của một cuộc vận động chính trị - tư tưởng trong toàn Đảng, toàn dân.",
+      C: "Đúng. Cuộc vận động nhằm phát huy giá trị to lớn của tư tưởng, đạo đức Hồ Chí Minh trong đời sống chính trị và xã hội.",
+      D: "Sai. Nâng cao năng lực học tập là ý nghĩa gián tiếp, không phải mục tiêu trực tiếp của cuộc vận động."
+    }
+  },
+  {
+    q: "Nhận định nào sau đây là đúng về vị trí của Chủ tịch Hồ Chí Minh với phong trào cộng sản và công nhân quốc tế?",
+    a: "A",
+    o: [
+      "Chủ tịch Hồ Chí Minh là một chiến sĩ lỗi lạc.",
+      "Người lãnh đạo cao nhất của Quốc tế cộng sản.",
+      "Hoạch định đường lối cho các dân tộc thuộc địa.",
+      "Biểu tượng cho nền hòa bình an ninh của thế giới."
+    ],
+    r: {
+      A: "Đúng. Hồ Chí Minh là một chiến sĩ cộng sản lỗi lạc, có đóng góp quan trọng đối với phong trào cộng sản và công nhân quốc tế.",
+      B: "Sai. Hồ Chí Minh không phải là người lãnh đạo cao nhất của Quốc tế cộng sản.",
+      C: "Sai. Người có đóng góp quan trọng về lý luận và thực tiễn cho phong trào giải phóng dân tộc, nhưng không phải là người hoạch định đường lối cho toàn bộ các dân tộc thuộc địa.",
+      D: "Sai. Cách diễn đạt này quá chung chung và không đúng với vị trí lịch sử cụ thể của Hồ Chí Minh."
+    }
+  },
+  {
+    q: "Đối với Việt Nam hiện nay, phong cách, đạo đức Hồ Chí Minh có giá trị nào sau đây?",
+    a: "A",
+    o: [
+      "Góp phần xây dựng nhà nước pháp quyền xã hội chủ nghĩa trong sạch, vững mạnh.",
+      "Nhận được viện trợ lớn của thế giới trong công cuộc xây dựng và bảo vệ Tổ quốc.",
+      "Bổ sung, hoàn chỉnh đường lối Đổi mới nhằm phát huy được thời cơ và thách thức.",
+      "Tập hợp được sức mạnh của nhân dân trong việc xây dựng chế độ dân chủ cộng hòa."
+    ],
+    r: {
+      A: "Đúng. Việc học tập và làm theo phong cách, đạo đức Hồ Chí Minh góp phần quan trọng vào xây dựng bộ máy nhà nước trong sạch, vững mạnh.",
+      B: "Sai. Đây không phải giá trị trực tiếp của phong cách, đạo đức Hồ Chí Minh đối với Việt Nam hiện nay.",
+      C: "Sai. Phong cách, đạo đức Hồ Chí Minh có ý nghĩa định hướng và giáo dục, không trực tiếp bổ sung hay hoàn chỉnh đường lối Đổi mới.",
+      D: "Sai. Chế độ dân chủ cộng hòa là khái niệm gắn với giai đoạn lịch sử trước, không phù hợp để diễn đạt giá trị hiện nay."
+    }
+  },
+  {
+    q: "Tại Hội nghị thành lập Đảng Cộng sản Việt Nam (đầu năm 1930), vai trò nào sau đây của Nguyễn Ái Quốc thể hiện sự vận dụng sáng tạo chủ nghĩa Mác - Lênin ở Việt Nam?",
+    a: "C",
+    o: [
+      "Xác định phương hướng tiến lên.",
+      "Xác định lực lượng nòng cốt.",
+      "Xác định lực lượng cách mạng.",
+      "Xác định giai cấp lãnh đạo."
+    ],
+    r: {
+      A: "Sai. Phương hướng tiến lên chủ nghĩa xã hội là nguyên lí chung của chủ nghĩa Mác - Lênin, chưa thể hiện rõ nhất sự vận dụng sáng tạo ở Việt Nam.",
+      B: "Sai. Lực lượng nòng cốt là công nhân và nông dân, đây là điểm cơ bản của lí luận Mác - Lênin.",
+      C: "Đúng. Nguyễn Ái Quốc xác định lực lượng cách mạng rất rộng, không chỉ công - nông mà còn tranh thủ nhiều tầng lớp khác, thể hiện sự vận dụng sáng tạo vào hoàn cảnh Việt Nam.",
+      D: "Sai. Việc xác định giai cấp công nhân là giai cấp lãnh đạo là nguyên tắc chung của cách mạng vô sản."
+    }
+  },
+  {
+    q: "Nội dung nào sau đây thể hiện vai trò của Hồ Chí Minh trong hoạt động ngoại giao từ năm 1954 đến năm 1969?",
+    a: "D",
+    o: [
+      "Giữ vững quan điểm tự do, tự chủ của cách mạng Đông Dương.",
+      "Khéo léo trong việc cân bằng quan hệ Mỹ - Trung Quốc.",
+      "Khéo léo trong việc cân bằng quan hệ Liên Xô - Mỹ.",
+      "Giữ vững đường lối độc lập, tự chủ của cách mạng Việt Nam."
+    ],
+    r: {
+      A: "Sai. Cách diễn đạt này không phản ánh đúng trọng tâm hoạt động ngoại giao của Hồ Chí Minh trong giai đoạn 1954 - 1969.",
+      B: "Sai. Quan hệ Mỹ - Trung Quốc không phải trục chính để đánh giá vai trò ngoại giao của Hồ Chí Minh trong giai đoạn này.",
+      C: "Sai. Đây không phải nội dung tiêu biểu phản ánh đúng vai trò ngoại giao của Hồ Chí Minh.",
+      D: "Đúng. Trong hoạt động ngoại giao, Hồ Chí Minh luôn giữ vững đường lối độc lập, tự chủ, tranh thủ sự ủng hộ quốc tế nhưng không để cách mạng Việt Nam lệ thuộc."
+    }
+  },
+  {
+    q: "Việc Nguyễn Ái Quốc tìm ra con đường cứu nước cho dân tộc Việt Nam đã",
+    a: "C",
+    o: [
+      "Mở ra kỉ nguyên độc lập, tự do, đưa cả nước đi lên chủ nghĩa xã hội.",
+      "Chấm dứt thời kì khủng hoảng về đường lối cứu nước ở Việt Nam.",
+      "Mở ra thời kì giải quyết khủng hoảng về đường lối cứu nước ở Việt Nam.",
+      "Tạo nên bước ngoặt vĩ đại trong lịch sử cách mạng Việt Nam."
+    ],
+    r: {
+      A: "Sai. Nội dung này gắn với thắng lợi của Cách mạng tháng Tám năm 1945 chứ không phải với việc Nguyễn Ái Quốc tìm ra con đường cứu nước.",
+      B: "Sai. Sự kiện này chưa chấm dứt ngay cuộc khủng hoảng đường lối cứu nước mà mới mở ra quá trình giải quyết cuộc khủng hoảng đó.",
+      C: "Đúng. Nguyễn Ái Quốc tìm ra con đường cứu nước đã mở ra thời kì mới, từng bước giải quyết cuộc khủng hoảng về đường lối cứu nước ở Việt Nam.",
+      D: "Sai. Nhận định này quá rộng; phương án C chính xác và chặt chẽ hơn."
+    }
+  },
+  {
+    q: "Nội dung nào sau đây là một trong những điểm giống nhau về hoạt động của Phan Bội Châu và Nguyễn Ái Quốc ở những thập kỉ đầu của thế kỉ XX?",
+    a: "B",
+    o: [
+      "Xây dựng quan hệ giữa những người cộng sản với nhân dân các nước thuộc địa.",
+      "Viết, sử dụng sách báo để tuyên truyền, chú trọng đào tạo lực lượng cách mạng.",
+      "Dựa vào Pháp và Nhật Bản tiến hành cải cách, nâng cao dân trí, dân quyền.",
+      "Phê phán chính quyền thực dân, thức tỉnh dư luận Pháp về tình hình Việt Nam."
+    ],
+    r: {
+      A: "Sai. Nội dung này chỉ phù hợp với Nguyễn Ái Quốc, không phải điểm giống với Phan Bội Châu.",
+      B: "Đúng. Cả Phan Bội Châu và Nguyễn Ái Quốc đều dùng sách báo để tuyên truyền, đồng thời chú ý đến việc chuẩn bị, đào tạo lực lượng cách mạng.",
+      C: "Sai. Phan Bội Châu từng có xu hướng cầu viện Nhật, nhưng Nguyễn Ái Quốc không đi theo con đường này.",
+      D: "Sai. Hoạt động thức tỉnh dư luận Pháp gắn nổi bật hơn với Nguyễn Ái Quốc, không phải điểm giống tiêu biểu."
+    }
   }
+
+  
 ];
