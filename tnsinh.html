@@ -191,15 +191,15 @@
       height:100%;
       overflow:visible;
       pointer-events:none;
-      filter:drop-shadow(0 0 14px rgba(104,214,255,.16));
+      filter:drop-shadow(0 0 10px rgba(138,220,255,.18));
     }
     .constellation-lines path{
       fill:none;
-      stroke:rgba(183,213,255,.34);
-      stroke-width:1.35;
+      stroke:rgba(214,235,255,.52);
+      stroke-width:.42;
       stroke-linecap:round;
-      stroke-dasharray:2 8;
-      animation:constellationFlow 13s linear infinite;
+      stroke-linejoin:round;
+      opacity:.95;
     }
     .constellation-lines circle{
       fill:rgba(220,241,255,.9);
@@ -361,11 +361,6 @@
       0%{transform:translate3d(0,0,0) scale(1);opacity:.8}
       100%{transform:translate3d(-2%,2%,0) scale(1.05);opacity:1}
     }
-    @keyframes constellationFlow{
-      from{stroke-dashoffset:0}
-      to{stroke-dashoffset:-130}
-    }
-
     @media (max-width: 680px){
       .page{padding-inline:14px}
       .constellation{min-height:760px}
