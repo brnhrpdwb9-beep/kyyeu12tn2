@@ -184,28 +184,6 @@
       min-height:690px;
       margin-top:18px;
     }
-    .constellation-lines{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      overflow:visible;
-      pointer-events:none;
-      filter:drop-shadow(0 0 10px rgba(138,220,255,.18));
-    }
-    .constellation-lines path{
-      fill:none;
-      stroke:rgba(214,235,255,.52);
-      stroke-width:.42;
-      stroke-linecap:round;
-      stroke-linejoin:round;
-      opacity:.95;
-    }
-    .constellation-lines circle{
-      fill:rgba(220,241,255,.9);
-      opacity:.92;
-      filter:drop-shadow(0 0 8px rgba(134,224,255,.8));
-    }
 
     .planet-link{
       --x:50%;
@@ -325,13 +303,13 @@
       transition:color .35s ease;
     }
 
-    .p1{--x:18%;--y:22%;--delay:-.2s}
-    .p2{--x:50%;--y:12%;--delay:-1s}
-    .p3{--x:82%;--y:24%;--delay:-1.8s}
-    .p4{--x:26%;--y:48%;--delay:-2.6s}
-    .p5{--x:70%;--y:50%;--delay:-3.4s}
-    .p6{--x:18%;--y:76%;--delay:-4.2s}
-    .p7{--x:58%;--y:82%;--delay:-5s}
+    .p1{--x:14%;--y:20%;--delay:-.2s}
+    .p2{--x:62%;--y:11%;--delay:-1s}
+    .p3{--x:87%;--y:31%;--delay:-1.8s}
+    .p4{--x:33%;--y:38%;--delay:-2.6s}
+    .p5{--x:74%;--y:57%;--delay:-3.4s}
+    .p6{--x:17%;--y:70%;--delay:-4.2s}
+    .p7{--x:49%;--y:83%;--delay:-5s}
 
     @keyframes planetFloat{
       0%,100%{transform:translateY(0) rotateZ(0deg)}
@@ -365,13 +343,13 @@
       .page{padding-inline:14px}
       .constellation{min-height:760px}
       .planet-link{--size:88px}
-      .p1{--x:16%;--y:18%}
-      .p2{--x:54%;--y:10%}
-      .p3{--x:84%;--y:24%}
-      .p4{--x:28%;--y:40%}
-      .p5{--x:72%;--y:48%}
-      .p6{--x:18%;--y:68%}
-      .p7{--x:58%;--y:82%}
+      .p1{--x:14%;--y:17%}
+      .p2{--x:64%;--y:11%}
+      .p3{--x:86%;--y:28%}
+      .p4{--x:34%;--y:39%}
+      .p5{--x:74%;--y:55%}
+      .p6{--x:16%;--y:65%}
+      .p7{--x:50%;--y:81%}
     }
 
     @media (max-width: 430px){
@@ -379,13 +357,13 @@
       .constellation{min-height:760px;margin-top:10px}
       .planet-link{--size:78px;gap:8px}
       .label{font-size:13px}
-      .p1{--x:18%;--y:17%}
-      .p2{--x:56%;--y:11%}
-      .p3{--x:83%;--y:24%}
-      .p4{--x:29%;--y:38%}
-      .p5{--x:72%;--y:47%}
-      .p6{--x:19%;--y:64%}
-      .p7{--x:58%;--y:79%}
+      .p1{--x:15%;--y:16%}
+      .p2{--x:66%;--y:10%}
+      .p3{--x:85%;--y:27%}
+      .p4{--x:35%;--y:39%}
+      .p5{--x:75%;--y:54%}
+      .p6{--x:17%;--y:64%}
+      .p7{--x:50%;--y:79%}
     }
   </style>
 </head>
@@ -407,23 +385,6 @@
     </section>
 
     <section class="constellation" aria-label="Danh sách 7 bài Tin Học TN">
-      <svg class="constellation-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M18 22 C28 16, 39 13, 50 12" />
-        <path d="M50 12 C63 12, 74 16, 82 24" />
-        <path d="M18 22 C22 31, 24 39, 26 48" />
-        <path d="M26 48 C38 43, 56 44, 70 50" />
-        <path d="M82 24 C77 34, 73 42, 70 50" />
-        <path d="M26 48 C23 58, 20 67, 18 76" />
-        <path d="M18 76 C31 82, 45 84, 58 82" />
-        <circle cx="18" cy="22" r="0.85" />
-        <circle cx="50" cy="12" r="0.85" />
-        <circle cx="82" cy="24" r="0.85" />
-        <circle cx="26" cy="48" r="0.85" />
-        <circle cx="70" cy="50" r="0.85" />
-        <circle cx="18" cy="76" r="0.85" />
-        <circle cx="58" cy="82" r="0.85" />
-      </svg>
-
       <a class="planet-link p1" href="tinhoctn1.html">
         <div class="planet"><div class="ring"></div><div class="surface"></div><div class="band"></div></div>
         <div class="shadow"></div>
