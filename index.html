@@ -1,790 +1,861 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#050918" />
-  <title>Hệ Hành Tinh Tin Học</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sổ Lệnh 439</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Be+Vietnam+Pro:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Một thế giới tối duy nhất: khung ứng dụng kiểu dashboard + tiêu đề serif kiểu tạp chí; mint là nhấn, vàng hổ phách là phụ */
+  --bg:#0A0A0B; --surface:#111113; --raised:#17171A; --line:#25252A; --line-soft:#1C1C20;
+  --ink:#ECEAE4; --mute:#8D8C93; --faint:#5E5D64;
+  --mint:#8EDDBB; --gold:#D9A65E;
+  --up:#62DCA4; --down:#F2706A; --warn:#E9B949;
+  --display:'Playfair Display','Times New Roman',serif; /* tiêu đề, số dư, tiêu đề mục */
+  --body:'Be Vietnam Pro',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,'SFMono-Regular',Menlo,monospace; /* chỉ trục biểu đồ và dòng biến động */
+  --cap:500 10.5px/1.4 var(--body); /* nhãn chữ hoa giãn cách */
+  --r:16px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--mint);outline-offset:2px;border-radius:6px}
+.num,.mono{font-family:var(--body);font-variant-numeric:tabular-nums;font-feature-settings:'tnum' 1,'lnum' 1}
+.up{color:var(--up)} .down{color:var(--down)} .muted{color:var(--mute)} .gold{color:var(--gold)} .mint{color:var(--mint)}
 
-  <style>
-    :root{
-      --bg-1:#02030a;
-      --bg-2:#050918;
-      --bg-3:#0a1230;
-      --bg-4:#130f2d;
-      --text:#eef4ff;
-      --muted:#aab7df;
-    }
+.app{display:grid;grid-template-columns:268px minmax(0,1fr);min-height:100vh}
+/* Sidebar */
+.side{background:#0D0D0F;border-right:1px solid var(--line-soft);padding:26px 18px;display:flex;flex-direction:column;gap:26px;position:sticky;top:0;height:100vh;overflow-y:auto}
+.brand{display:flex;align-items:center;gap:10px;padding:0 8px}
+.brand b{font-family:var(--display);font-size:22px;font-weight:600;letter-spacing:.01em}
+.brand small{display:block;font-size:11px;color:var(--mute);letter-spacing:.14em;text-transform:uppercase;margin-top:-2px}
+.side h6{margin:0 0 10px;padding:0 12px;font:var(--cap);text-transform:uppercase;color:var(--faint);letter-spacing:.22em}
+.nav{display:flex;flex-direction:column;gap:4px}
+.nav a{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;color:var(--mute);text-decoration:none;border:1px solid transparent;transition:background .15s,color .15s}
+.nav a:hover{color:var(--ink);background:var(--surface)}
+.nav a[aria-current="page"]{color:var(--ink);background:var(--raised);border-color:var(--line)}
+.nav a .cnt{margin-left:auto;font-size:12px;color:var(--faint);font-variant-numeric:tabular-nums}
+.nav svg{width:18px;height:18px;flex:none}
+.legend{display:flex;flex-direction:column;gap:2px}
+.legend div{display:flex;align-items:center;gap:12px;padding:8px 12px;color:var(--ink);font-size:14px}
+.legend i{width:9px;height:9px;border-radius:50%;flex:none}
+.legend span{margin-left:auto;font-size:12.5px;color:var(--mute);font-variant-numeric:tabular-nums}
+.plan-mini{margin-top:auto;border:1px solid var(--line);border-radius:14px;padding:14px 16px;background:linear-gradient(160deg,#141A17,#111113 60%);font-size:12.5px;color:var(--mute)}
+.plan-mini b{color:var(--ink);font-weight:500}
+.plan-mini .cap{font:var(--cap);letter-spacing:.2em;text-transform:uppercase;color:var(--mute)}
+.plan-mini .nv{font:600 26px/1.15 var(--display);color:var(--mint);margin:8px 0 2px;font-variant-numeric:lining-nums}
+.plan-mini .nv small{font:500 11px var(--body);letter-spacing:.18em;color:var(--mute);margin-left:6px}
+.plan-mini .warn{margin-top:10px;padding:8px 10px;border-radius:10px;font-size:12px;line-height:1.45}
+.plan-mini .warn.a{background:#1b160b;color:var(--warn);border:1px solid #4d3d17}
+.plan-mini .warn.r{background:#1d0f0e;color:var(--down);border:1px solid #4f2321}
+.plan-mini a{display:inline-flex;align-items:center;gap:6px;margin-top:12px;color:var(--ink);text-decoration:none;font:var(--cap);letter-spacing:.18em;text-transform:uppercase;border-bottom:1px solid var(--line);padding-bottom:3px}
+.plan-mini a:hover{border-color:var(--mint);color:var(--mint)}
+/* Khối kết quả lệnh ở thanh bên */
+.res{display:flex;flex-direction:column;gap:6px}
+.res-top{display:flex;align-items:baseline;justify-content:space-between;padding:0 12px}
+.res-top b{font:600 30px/1 var(--display);font-variant-numeric:lining-nums}
+.res-top span{font-size:11.5px;color:var(--mute);text-align:right;line-height:1.4}
+.stack{position:relative;display:flex;height:8px;margin:12px 12px 26px;border-radius:6px;background:#1c1c20}
+.stack i{display:block;height:100%}
+.stack i:first-child{border-radius:6px 0 0 6px}.stack i:last-child{border-radius:0 6px 6px 0}
+.stack .be{position:absolute;top:-5px;bottom:-5px;width:2px;margin-left:-1px;background:var(--ink);border-radius:2px}
+.stack .be span{position:absolute;top:17px;left:50%;transform:translateX(-50%);font-size:10.5px;color:var(--mute);white-space:nowrap}
+.res-row{display:grid;grid-template-columns:9px minmax(0,1fr) auto;align-items:center;gap:11px;width:100%;padding:8px 12px;border-radius:11px;border:1px solid transparent;background:none;cursor:pointer;text-align:left}
+.res-row:hover{background:var(--surface)}
+.res-row[aria-pressed="true"]{background:var(--raised);border-color:var(--line)}
+.res-row>i{width:9px;height:9px;border-radius:50%}
+.res-row .t{font-size:14px;color:var(--ink);line-height:1.3}
+.res-row .t small,.res-row .c small{display:block;font-size:11px;color:var(--faint);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.res-row .c{text-align:right;font-size:14px;font-variant-numeric:tabular-nums;line-height:1.3}
+.recent{padding:10px 12px 0}
+.recent .lab{display:flex;justify-content:space-between;font-size:11.5px;color:var(--mute)}
+.dots{display:flex;gap:4px;margin-top:8px}
+.dots i{flex:1;max-width:16px;height:20px;border-radius:4px}
+.streak{margin:10px 12px 0;font-size:12.5px;color:var(--mute)}
+.streak b{font-weight:500}
+.fchip{display:inline-flex;align-items:center;gap:8px;padding:5px 6px 5px 12px;border-radius:999px;border:1px solid var(--line);background:var(--raised);font-size:12.5px}
+.fchip button{border:0;background:#26262b;color:var(--ink);border-radius:999px;padding:2px 9px;cursor:pointer;font-size:12px}
+.sync{font-size:11.5px;color:var(--faint);padding:0 12px}
 
-    *{box-sizing:border-box;margin:0;padding:0}
-    html,body{
-      min-height:100%;
-      font-family:"Inter",sans-serif;
-      color:var(--text);
-      background:
-        radial-gradient(circle at 15% 18%, rgba(93,126,255,.18), transparent 18%),
-        radial-gradient(circle at 82% 16%, rgba(87,226,255,.12), transparent 18%),
-        radial-gradient(circle at 50% 76%, rgba(201,105,255,.10), transparent 22%),
-        radial-gradient(circle at 48% 50%, rgba(255,255,255,.025), transparent 26%),
-        linear-gradient(135deg,var(--bg-1),var(--bg-2) 40%,var(--bg-3) 72%,var(--bg-4));
-      overflow-x:hidden;
-    }
-    body{position:relative}
-    a{color:inherit;text-decoration:none}
+/* Main */
+main{padding:28px clamp(16px,3vw,40px) 60px;min-width:0}
+.top{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+.crumb{display:flex;align-items:center;gap:10px;color:var(--mute);font:var(--cap);text-transform:uppercase;letter-spacing:.22em;margin-bottom:12px}
+.crumb svg{width:18px;height:18px;color:var(--mute)}
+.top h1{margin:0;font:600 clamp(36px,4.4vw,54px)/1.08 var(--display);letter-spacing:.005em}
+.top h1 span{color:var(--faint);font-style:italic;font-weight:500}
+.btn{text-decoration:none;display:inline-flex;align-items:center;gap:10px;border:1px solid var(--ink);background:transparent;border-radius:999px;padding:10px 20px;cursor:pointer;font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;transition:background .15s,color .15s}
+.btn:hover{background:var(--ink);color:var(--bg)}
+.btn.solid{background:var(--mint);border-color:var(--mint);color:#0B1511}
+.btn.solid:hover{filter:brightness(1.08)}
+.btn.ghost{border-color:var(--line);color:var(--mute)}
+.btn.ghost:hover{background:var(--raised);color:var(--ink)}
+.btn.danger{border-color:#5a2a28;color:var(--down)}
+.btn.danger:hover{background:var(--down);color:#1a0b0a}
+.banner{display:flex;align-items:center;gap:14px;flex-wrap:wrap;border:1px dashed #5b4a2b;background:#17130C;color:#E9CFA0;border-radius:14px;padding:12px 16px;margin-bottom:22px;font-size:13.5px}
+.banner b{color:var(--gold)}
+.banner .btn{margin-left:auto;padding:8px 16px;font-size:11px;border-color:var(--gold);color:var(--gold)}
+.banner .btn:hover{background:var(--gold);color:#1a1307}
 
-    .universe{
-      position:fixed;
-      inset:0;
-      overflow:hidden;
-      pointer-events:none;
-      z-index:0;
-    }
-    .nebula,.nebula::before,.nebula::after{
-      content:"";
-      position:absolute;
-      inset:-16%;
-      filter:blur(58px);
-    }
-    .nebula{
-      background:
-        radial-gradient(circle at 15% 28%, rgba(82,110,255,.22), transparent 14%),
-        radial-gradient(circle at 78% 20%, rgba(84,234,255,.14), transparent 16%),
-        radial-gradient(circle at 45% 76%, rgba(192,96,255,.14), transparent 18%),
-        radial-gradient(circle at 60% 48%, rgba(255,255,255,.05), transparent 7%);
-      animation:driftNebula 24s ease-in-out infinite alternate;
-    }
-    .nebula::before{
-      background:
-        radial-gradient(circle at 24% 64%, rgba(109,151,255,.16), transparent 14%),
-        radial-gradient(circle at 68% 58%, rgba(106,241,255,.09), transparent 14%),
-        radial-gradient(circle at 88% 70%, rgba(190,117,255,.10), transparent 12%);
-      mix-blend-mode:screen;
-      animation:driftNebula 30s ease-in-out infinite alternate-reverse;
-    }
-    .nebula::after{
-      background:
-        radial-gradient(circle at 48% 36%, rgba(255,255,255,.07), transparent 9%),
-        radial-gradient(circle at 56% 28%, rgba(100,245,255,.08), transparent 12%),
-        radial-gradient(circle at 36% 84%, rgba(186,120,255,.09), transparent 14%);
-      mix-blend-mode:screen;
-      animation:driftNebula 36s ease-in-out infinite alternate;
-    }
-    .nebula-detail{
-      position:absolute;
-      inset:-10%;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(255,255,255,.04), transparent 1.2%),
-        radial-gradient(circle at 40% 72%, rgba(255,255,255,.03), transparent 1.4%),
-        radial-gradient(circle at 70% 40%, rgba(103,231,255,.05), transparent 1.8%),
-        radial-gradient(circle at 82% 60%, rgba(198,121,255,.05), transparent 1.6%);
-      background-size:520px 520px,640px 640px,780px 780px,840px 840px;
-      opacity:.65;
-      filter:blur(2px);
-      animation:driftDust 48s linear infinite;
-    }
-    .space-grid{
-      position:absolute;
-      inset:0;
-      background:
-        linear-gradient(rgba(130,170,255,.045) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(130,170,255,.045) 1px, transparent 1px);
-      background-size:90px 90px;
-      mask-image:radial-gradient(circle at center, rgba(0,0,0,.9), transparent 88%);
-      opacity:.28;
-      transform:perspective(1200px) rotateX(78deg) scale(1.8) translateY(16%);
-    }
-    .cosmic-dust{
-      position:absolute;
-      inset:0;
-      background-image:
-        radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,.45), transparent),
-        radial-gradient(1px 1px at 24% 66%, rgba(133,212,255,.38), transparent),
-        radial-gradient(1px 1px at 48% 42%, rgba(255,255,255,.34), transparent),
-        radial-gradient(1px 1px at 60% 74%, rgba(201,135,255,.30), transparent),
-        radial-gradient(1px 1px at 82% 30%, rgba(255,255,255,.42), transparent),
-        radial-gradient(1px 1px at 90% 64%, rgba(102,235,255,.28), transparent);
-      background-size:360px 360px;
-      opacity:.75;
-      animation:driftDust 60s linear infinite reverse;
-    }
-    .stars,.stars2,.stars3{
-      position:absolute;
-      inset:0;
-      background-repeat:repeat;
-      animation-timing-function:linear;
-      animation-iteration-count:infinite;
-    }
-    .stars{
-      background-image:
-        radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,.95), transparent),
-        radial-gradient(1.5px 1.5px at 120px 80px, rgba(130,190,255,.95), transparent),
-        radial-gradient(2px 2px at 250px 140px, rgba(255,255,255,.9), transparent),
-        radial-gradient(1.8px 1.8px at 350px 40px, rgba(178,125,255,.95), transparent);
-      background-size:800px 300px;
-      animation:driftStars 90s linear infinite;
-      opacity:.95;
-    }
-    .stars2{
-      background-image:
-        radial-gradient(1.2px 1.2px at 40px 60px, rgba(255,255,255,.85), transparent),
-        radial-gradient(1.7px 1.7px at 200px 120px, rgba(97,231,255,.75), transparent),
-        radial-gradient(1.2px 1.2px at 420px 40px, rgba(255,255,255,.95), transparent),
-        radial-gradient(1.3px 1.3px at 600px 200px, rgba(170,140,255,.8), transparent);
-      background-size:900px 380px;
-      animation:driftStarsReverse 130s linear infinite;
-      opacity:.7;
-    }
-    .stars3{
-      background-image:
-        radial-gradient(3px 3px at 100px 90px, rgba(255,255,255,.9), transparent),
-        radial-gradient(2.5px 2.5px at 500px 60px, rgba(97,231,255,.9), transparent),
-        radial-gradient(3px 3px at 780px 170px, rgba(186,122,255,.85), transparent);
-      background-size:1000px 420px;
-      animation:twinkle 5s ease-in-out infinite alternate;
-      opacity:.9;
-    }
+.view{display:none}
+.view.on{display:block}
+.card{background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--r);padding:22px 24px;min-width:0}
+.card{display:flex;flex-direction:column}
+.card h3{margin:0 0 6px;font:var(--cap);text-transform:uppercase;letter-spacing:.2em;color:var(--ink)}
+.card .sub{font-size:12.5px;color:var(--faint)}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:1.2fr 1fr 1fr}
+.g-wide{grid-template-columns:1.6fr 1fr}
+.mt{margin-top:16px}
 
-    .page{
-      position:relative;
-      z-index:2;
-      width:min(1400px, calc(100% - 32px));
-      margin:0 auto;
-      padding:24px 0 80px;
-    }
-    .hero{
-      position:relative;
-      text-align:center;
-      padding:42px 16px 18px;
-      margin-bottom:8px;
-    }
-    .eyebrow{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:10px 16px;
-      border-radius:999px;
-      background:linear-gradient(145deg,#101b3d,#0a122d);
-      border:1px solid rgba(137,162,255,.18);
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 8px 20px rgba(0,0,0,.24);
-      font-size:.88rem;
-      margin-bottom:18px;
-    }
-    .eyebrow::before{
-      content:"";
-      width:8px;
-      height:8px;
-      border-radius:50%;
-      background:linear-gradient(135deg,#66dcff,#cb7bff);
-      box-shadow:0 0 14px rgba(103,232,255,.8);
-    }
-    .hero h1{
-      font-size:clamp(2rem, 4vw, 3.6rem);
-      line-height:1.05;
-      margin-bottom:12px;
-      letter-spacing:-.03em;
-      text-shadow:0 10px 30px rgba(0,0,0,.35);
-    }
-    .hero p{
-      max-width:720px;
-      margin:0 auto;
-      color:var(--muted);
-      line-height:1.7;
-      font-size:1rem;
-    }
+/* Hero: trái = con số và tóm tắt, phải = đường số dư lấp đầy chiều cao */
+.hero{position:relative;overflow:hidden;border-radius:22px;border:1px solid var(--line-soft);background:radial-gradient(110% 130% at 88% 0%,#13201B 0%,#0E0F10 48%,#0B0B0C 100%);padding:32px 36px;display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:0;align-items:stretch}
+.hero-l{display:flex;flex-direction:column;padding-right:36px;min-width:0}
+.eyebrow{font:var(--cap);letter-spacing:.26em;text-transform:uppercase;color:var(--mute)}
+.hero-lbl{font:var(--cap);letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin-top:30px;display:flex;align-items:center;gap:12px}
+.hero-lbl::after{content:"";width:36px;height:1px;background:var(--line)}
+.big{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 14px;margin:6px 0 0;font-family:var(--display);font-weight:600;font-variant-numeric:lining-nums;line-height:1}
+.big .n{color:var(--mint);font-size:clamp(56px,6.2vw,92px);letter-spacing:-.01em}
+.big .u{font:500 clamp(14px,1.2vw,17px)/1 var(--body);letter-spacing:.24em;color:var(--mute)}
+.pills{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:18px;font-size:13px}
+.pill{display:inline-flex;align-items:center;padding:4px 11px;border-radius:999px;font:500 12.5px var(--body);font-variant-numeric:tabular-nums;border:1px solid}
+.pill.up{color:var(--up);border-color:#1f4a37;background:#0f1d17}
+.pill.down{color:var(--down);border-color:#4f2321;background:#1d0f0e}
+.hstats{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.95fr) minmax(0,1fr);margin-top:30px;border-top:1px solid var(--line-soft)}
+.hstats>div{padding:16px 10px 0 14px;border-left:1px solid var(--line-soft);min-width:0}
+.hstats>div:first-child{padding-left:0;border-left:0}
+.hstats .k{font:var(--cap);letter-spacing:.12em;white-space:nowrap;text-transform:uppercase;color:var(--faint)}
+.hstats .v{font:500 18px/1.3 var(--body);font-variant-numeric:tabular-nums;margin-top:6px;white-space:nowrap}
+.hstats .s{font-size:11.5px;color:var(--mute);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.prog{margin-top:auto;padding-top:28px}
+.prog .bar{height:5px;border-radius:9px;background:#1E1F22;overflow:hidden}
+.prog .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--mint),var(--gold));border-radius:9px}
+.prog .lbl{display:flex;justify-content:space-between;font-size:12px;color:var(--mute);margin-top:9px;font-variant-numeric:tabular-nums}
+.prog .lbl b{color:var(--ink);font-weight:500}
+.hero-r{display:flex;flex-direction:column;border-left:1px solid var(--line-soft);padding-left:32px;min-width:0;min-height:360px}
+.hero-r-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.keys{display:flex;gap:16px;flex-wrap:wrap}
+.keys span{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--mute)}
+.keys i{width:16px;height:0;border-top:2px solid}
+.eq{flex:1;position:relative;min-height:280px}
+.eq svg{position:absolute;inset:0;width:100%;height:100%}
 
-    .galaxy-map{
-      position:relative;
-      height:980px;
-      margin-top:26px;
-      perspective:1800px;
-      transform-style:preserve-3d;
-      isolation:isolate;
-    }
-    .galaxy-glow{
-      position:absolute;
-      left:50%;
-      top:50%;
-      width:860px;
-      height:860px;
-      transform:translate(-50%,-50%);
-      border-radius:50%;
-      background:
-        radial-gradient(circle, rgba(107,146,255,.14), transparent 44%),
-        radial-gradient(circle, rgba(108,240,255,.10), transparent 48%),
-        radial-gradient(circle, rgba(189,109,255,.12), transparent 58%);
-      filter:blur(30px);
-      z-index:0;
-      animation:haloPulse 8s ease-in-out infinite;
-    }
-    .galaxy-core{
-      position:absolute;
-      left:50%;
-      top:50%;
-      width:310px;
-      height:310px;
-      transform:translate(-50%,-50%);
-      border-radius:50%;
-      background:
-        radial-gradient(circle at 28% 26%, rgba(255,255,255,.98), rgba(255,255,255,.26) 8%, transparent 14%),
-        radial-gradient(circle at 42% 38%, rgba(255,244,214,.56), transparent 18%),
-        radial-gradient(circle at 58% 56%, rgba(110,225,255,.16), transparent 26%),
-        radial-gradient(circle at 45% 45%, rgba(255,255,255,.08), transparent 62%),
-        linear-gradient(145deg,#4a67da,#192b68 44%,#090f27 100%);
-      box-shadow:
-        inset -40px -50px 60px rgba(0,0,0,.5),
-        inset 20px 20px 36px rgba(255,255,255,.10),
-        0 50px 110px rgba(0,0,0,.5),
-        0 0 70px rgba(101,144,255,.26),
-        0 0 180px rgba(84,226,255,.14),
-        0 0 260px rgba(197,119,255,.08);
-      animation:coreFloat 8s ease-in-out infinite;
-      z-index:1;
-    }
-    .core-swirl{
-      position:absolute;
-      left:50%;
-      top:50%;
-      width:580px;
-      height:580px;
-      transform:translate(-50%,-50%);
-      border-radius:50%;
-      background:
-        conic-gradient(from 0deg, rgba(98,230,255,.18), transparent 70deg, rgba(201,118,255,.22) 150deg, transparent 220deg, rgba(102,141,255,.18) 300deg, transparent 360deg);
-      filter:blur(30px);
-      opacity:.5;
-      animation:swirlSpin 22s linear infinite;
-      z-index:0;
-    }
-    .orbit{
-      position:absolute;
-      left:50%;
-      top:50%;
-      transform:translate(-50%,-50%);
-      border-radius:50%;
-      border:1px solid rgba(255,255,255,.07);
-      box-shadow:0 0 12px rgba(255,255,255,.04);
-      z-index:0;
-    }
-    .orbit.one{width:520px;height:520px;animation:spinOrbit1 24s linear infinite}
-    .orbit.two{width:760px;height:760px;animation:spinOrbit2 34s linear infinite reverse}
-    .orbit.three{width:980px;height:980px;animation:spinOrbit3 42s linear infinite}
+/* KPI */
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:16px}
+.kpi{position:relative;background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--r);padding:20px 22px 18px;overflow:hidden;min-height:124px}
+.kpi .k{font:var(--cap);text-transform:uppercase;letter-spacing:.18em;color:var(--mute)}
+.kpi .v{font:500 27px/1.2 var(--body);letter-spacing:-.015em;margin:10px 0 6px;font-variant-numeric:tabular-nums}
+.kpi .v small{font-size:14px;color:var(--mute);font-weight:400;margin-left:4px}
+.kpi .s{font-size:12px;color:var(--mute);font-variant-numeric:tabular-nums}
+.kpi .tick{position:absolute;left:0;top:18px;bottom:18px;width:2px;border-radius:2px}
+.ring{position:absolute;right:16px;top:16px;width:54px;height:54px}
 
-    .planet-system{
-      position:relative;
-      width:100%;
-      height:100%;
-      z-index:3;
-    }
-    .subject-planet{
-      position:absolute;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:12px;
-      z-index:4;
-      transform-style:preserve-3d;
-    }
-    .planet-link{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:14px;
-      position:relative;
-    }
-    .planet-link::before{
-      content:"";
-      position:absolute;
-      width:190px;
-      height:190px;
-      border-radius:50%;
-      background:
-        radial-gradient(circle, rgba(116,160,255,.20), transparent 56%),
-        radial-gradient(circle, rgba(196,122,255,.09), transparent 72%);
-      filter:blur(18px);
-      opacity:0;
-      transition:.4s ease;
-      z-index:-3;
-    }
-    .subject-planet:hover .planet-link::before{opacity:1;transform:scale(1.12)}
+/* Tables */
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px}
+.tbl th{white-space:nowrap;font:var(--cap);letter-spacing:.14em;text-transform:uppercase;color:var(--faint);text-align:left;padding:10px 10px;border-bottom:1px solid var(--line)}
+.tbl td{white-space:nowrap;padding:10px 10px;border-bottom:1px solid var(--line-soft);font-variant-numeric:tabular-nums}
+.tbl td.r,.tbl th.r{text-align:right}
+.tbl td.c,.tbl th.c{text-align:center}
+.tbl tr.total td{border-top:1px solid var(--line);border-bottom:none;font-weight:600}
+.tbl tr.hl td{background:#131A17}
+.stmt td:first-child{color:#D6D4CE}
+.stmt tr.sum td{font-weight:600;color:var(--ink);border-top:1px solid var(--line)}
+.stmt tr.net td{font-weight:600;font-size:15px;border-top:1px solid var(--mint);border-bottom:3px double var(--line)}
+.stmt td.p{color:var(--faint);font-size:12px;font-variant-numeric:tabular-nums}
+.scroll{overflow-x:auto}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;font:500 11.5px var(--body);border:1px solid;letter-spacing:.02em}
+.chip.tp{color:var(--up);border-color:#1f4a37;background:#0f1d17}
+.chip.sl{color:var(--down);border-color:#4f2321;background:#1d0f0e}
+.chip.hu{color:var(--mute);border-color:var(--line);background:var(--raised)}
+.chip.ch{color:var(--warn);border-color:#4d3d17;background:#1b160b}
+.chip.ok{color:var(--up);border-color:#1f4a37;background:#0f1d17}
+.chip.no{color:var(--down);border-color:#4f2321;background:#1d0f0e}
+.wr{display:flex;align-items:center;gap:8px;justify-content:flex-end}
+.wr .mbar{width:54px;height:5px;border-radius:5px;background:#222226;overflow:hidden}
+.wr .mbar i{display:block;height:100%;background:var(--mint)}
+.kv{display:grid;grid-template-columns:1fr auto;gap:0}
+.kv div{padding:10px 0;border-bottom:1px solid var(--line-soft);font-size:13.5px}
+.kv div:nth-child(odd){color:var(--mute)}
+.kv div:nth-child(even){text-align:right;font-size:13.5px;font-variant-numeric:tabular-nums;font-weight:500}
+.notes{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+.notes li{display:grid;grid-template-columns:22px 1fr;gap:10px;font-size:14px;color:#D4D2CC;padding:12px 14px;background:var(--raised);border-radius:12px;border:1px solid var(--line-soft)}
+.notes li .ic{font:600 14px var(--body);text-align:center}
+.sec-title{display:flex;align-items:baseline;gap:14px;margin:44px 0 16px}
+.sec-title h2{margin:0;font:600 28px/1.15 var(--display);letter-spacing:.005em;text-wrap:balance}
+.sec-title .idx{font:italic 500 18px var(--display);color:var(--gold)}
+.sec-title .line{flex:1;height:1px;background:var(--line-soft)}
+svg text{font-family:var(--mono);fill:var(--faint);letter-spacing:-.02em}
+#chDonut{flex:1;display:flex;align-items:center}
 
-    .planet-ball{
-      position:relative;
-      border-radius:50%;
-      transform-style:preserve-3d;
-      transition:transform .35s ease, box-shadow .35s ease, filter .35s ease;
-      box-shadow:
-        inset -30px -34px 46px rgba(0,0,0,.48),
-        inset 12px 12px 24px rgba(255,255,255,.10),
-        inset -6px -8px 14px rgba(0,0,0,.2),
-        0 26px 46px rgba(0,0,0,.38);
-      animation:planetFloat 6.5s ease-in-out infinite;
-      cursor:pointer;
-      overflow:visible;
-      isolation:isolate;
-    }
-    .planet-ball::before{
-      content:"";
-      position:absolute;
-      inset:7%;
-      border-radius:50%;
-      background:
-        radial-gradient(circle at 28% 24%, rgba(255,255,255,.34), transparent 24%),
-        radial-gradient(circle at 36% 34%, rgba(255,255,255,.14), transparent 18%),
-        radial-gradient(circle at 72% 70%, rgba(255,255,255,.06), transparent 24%);
-      filter:blur(7px);
-      z-index:6;
-      pointer-events:none;
-    }
-    .planet-ball::after{
-      content:"";
-      position:absolute;
-      inset:-10px;
-      border-radius:50%;
-      border:1px solid rgba(255,255,255,.10);
-      box-shadow:0 0 22px rgba(119,166,255,.10), inset 0 0 18px rgba(255,255,255,.04);
-      pointer-events:none;
-      z-index:2;
-    }
-    .planet-aura{
-      position:absolute;
-      inset:-20%;
-      border-radius:50%;
-      background:
-        radial-gradient(circle, rgba(126,174,255,.18), transparent 60%),
-        radial-gradient(circle, rgba(196,122,255,.08), transparent 76%);
-      filter:blur(16px);
-      opacity:.9;
-      animation:auraPulse 4.5s ease-in-out infinite;
-      z-index:-2;
-    }
-    .planet-atmosphere{
-      position:absolute;
-      inset:-4px;
-      border-radius:50%;
-      mix-blend-mode:screen;
-      filter:blur(2px);
-      opacity:.88;
-      z-index:5;
-      animation:atmosphereRotate 32s linear infinite;
-    }
-    .planet-surface{
-      position:absolute;
-      inset:8%;
-      border-radius:50%;
-      overflow:hidden;
-      z-index:3;
-      mix-blend-mode:soft-light;
-      opacity:.82;
-    }
-    .planet-surface::before{
-      content:"";
-      position:absolute;
-      inset:-10%;
-      background:
-        radial-gradient(circle at 24% 36%, rgba(255,255,255,.18), transparent 10%),
-        radial-gradient(circle at 60% 26%, rgba(255,255,255,.10), transparent 8%),
-        radial-gradient(circle at 56% 60%, rgba(0,0,0,.20), transparent 14%),
-        radial-gradient(circle at 34% 72%, rgba(255,255,255,.08), transparent 11%),
-        radial-gradient(circle at 74% 66%, rgba(0,0,0,.12), transparent 12%);
-      filter:blur(5px);
-      animation:surfaceDrift 24s linear infinite;
-    }
-    .planet-surface::after{
-      content:"";
-      position:absolute;
-      inset:-14%;
-      background:repeating-linear-gradient(155deg, rgba(255,255,255,.05) 0 10px, rgba(255,255,255,0) 10px 24px);
-      opacity:.34;
-      filter:blur(3px);
-      transform:rotate(-10deg);
-    }
-    .planet-night{position:absolute;inset:0;border-radius:50%;z-index:4}
-    .planet-band{
-      position:absolute;
-      left:10%;
-      right:10%;
-      top:42%;
-      height:16%;
-      border-radius:999px;
-      filter:blur(4px);
-      opacity:.72;
-      z-index:6;
-      animation:bandShift 9s ease-in-out infinite;
-    }
-    .planet-crater{
-      position:absolute;
-      border-radius:50%;
-      background:radial-gradient(circle at 35% 35%, rgba(255,255,255,.16), rgba(0,0,0,.14) 70%, transparent 72%);
-      opacity:.42;
-      mix-blend-mode:screen;
-      z-index:6;
-    }
-    .planet-crater.c1{width:18%;height:18%;left:24%;top:46%}
-    .planet-crater.c2{width:12%;height:12%;left:58%;top:28%;opacity:.28}
-    .planet-crater.c3{width:10%;height:10%;left:48%;top:62%;opacity:.22}
-    .planet-orbit{
-      position:absolute;
-      left:50%;
-      top:50%;
-      border-radius:50%;
-      transform-style:preserve-3d;
-      pointer-events:none;
-      z-index:1;
-    }
-    .planet-orbit::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      border-radius:inherit;
-      border:1px solid rgba(255,255,255,.15);
-      box-shadow:0 0 8px rgba(255,255,255,.1);
-    }
-    .planet-orbit::after{
-      content:"";
-      position:absolute;
-      inset:-2px;
-      border-radius:inherit;
-      border:1px dashed rgba(255,255,255,.2);
-      filter:blur(.5px);
-    }
-    .planet-ring{position:absolute;border-radius:50%;pointer-events:none;transform-style:preserve-3d;z-index:1}
-    .planet-wave{
-      position:absolute;
-      inset:-18%;
-      border-radius:50%;
-      border:1px solid rgba(255,255,255,.08);
-      box-shadow:0 0 24px rgba(103,232,255,.08), 0 0 38px rgba(194,120,255,.06);
-      opacity:0;
-      transform:scale(.88);
-      z-index:-1;
-    }
-    .planet-moon{position:absolute;border-radius:50%;z-index:7;pointer-events:none}
-    .planet-shadow{
-      width:72%;
-      height:18px;
-      border-radius:50%;
-      background:radial-gradient(circle, rgba(0,0,0,.46), transparent 72%);
-      filter:blur(10px);
-      opacity:.78;
-      transform:translateY(-10px);
-      transition:.35s ease;
-    }
-    .planet-label{text-align:center;max-width:190px}
-    .planet-label strong{
-      display:block;
-      font-size:1.02rem;
-      font-weight:800;
-      margin-bottom:6px;
-      text-shadow:0 4px 16px rgba(85,125,255,.2), 0 0 18px rgba(120,168,255,.12);
-    }
-    .planet-label span{
-      display:block;
-      font-size:.91rem;
-      color:var(--muted);
-      line-height:1.6;
-    }
+/* Journal */
+.form{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.f label{display:block;font:var(--cap);text-transform:uppercase;letter-spacing:.14em;color:var(--mute);margin-bottom:8px}
+.f input,.f select{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;outline:none;font-size:14px;font-variant-numeric:tabular-nums}
+.f input:focus,.f select:focus{border-color:var(--mint)}
+.seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--bg)}
+.seg button{flex:1;border:0;background:transparent;padding:10px 8px;cursor:pointer;color:var(--mute);font-size:13px}
+.seg button[aria-pressed="true"]{background:var(--raised);color:var(--ink)}
+.seg button[aria-pressed="true"].tp{color:var(--up)} .seg button[aria-pressed="true"].sl{color:var(--down)}
+.preview{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:18px;padding-top:18px;border-top:1px solid var(--line-soft)}
+.preview>div{background:var(--bg);border:1px solid var(--line-soft);border-radius:12px;padding:12px 14px}
+.preview .k{font-size:11.5px;color:var(--mute)}
+.preview .v{font:500 18px var(--body);margin-top:4px;font-variant-numeric:tabular-nums}
+.preview .s{font-size:11.5px;color:var(--faint);margin-top:2px}
+.form-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:18px}
+.err{color:var(--down);font-size:13px}
+.hint{color:var(--mute);font-size:12.5px}
+.trow{cursor:pointer}
+.trow:hover td{background:#141417}
+.trow.sel td{background:#13201A}
+.settings{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.rules{margin:0;padding-left:18px;color:#CFCDC7;font-size:14px;display:flex;flex-direction:column;gap:8px}
+footer{margin-top:40px;color:var(--faint);font-size:12px;max-width:80ch}
 
-    .physics .planet-ball{
-      background:
-        radial-gradient(circle at 28% 24%, rgba(255,255,255,.98), rgba(255,255,255,.18) 12%, transparent 18%),
-        radial-gradient(circle at 52% 58%, rgba(225,230,238,.12), transparent 26%),
-        linear-gradient(155deg,#f8fafc 0%, #c7cdd6 38%, #676f7d 68%, #171c25 100%);
-    }
-    .physics .planet-surface{
-      background:
-        radial-gradient(circle at 26% 36%, rgba(255,255,255,.20), transparent 16%),
-        radial-gradient(circle at 54% 56%, rgba(18,22,30,.22), transparent 22%),
-        radial-gradient(circle at 68% 30%, rgba(232,236,243,.12), transparent 12%);
-    }
-    .physics .planet-atmosphere{
-      background:
-        radial-gradient(circle at 26% 24%, rgba(255,255,255,.10), transparent 32%),
-        conic-gradient(from 0deg, rgba(255,255,255,0) 0deg, rgba(229,234,240,.16) 124deg, rgba(255,255,255,0) 190deg, rgba(182,189,200,.12) 260deg, rgba(255,255,255,0) 360deg);
-    }
-    .physics .planet-night{background:linear-gradient(120deg, transparent 35%, rgba(0,0,0,.68) 85%)}
-    .physics .planet-band{transform:rotate(-15deg);background:linear-gradient(90deg, transparent, rgba(232,236,242,.28), transparent)}
-    .physics .planet-orbit.po1{width:190%;height:190%;animation:pOrbit1 12s linear infinite}
-    .physics .planet-orbit.po2{width:250%;height:250%;animation:pOrbit2 24s linear infinite reverse}
-    .physics .planet-orbit::before{border-color:rgba(220,226,236,.22);box-shadow:0 0 10px rgba(220,226,236,.14)}
-    .physics .planet-orbit::after{border-color:rgba(186,194,206,.22)}
-    .physics .planet-ring{
-      width:210%;
-      height:210%;
-      left:50%;
-      top:50%;
-      transform:translate(-50%, -50%) rotateX(72deg) rotateY(15deg);
-      border:2px solid rgba(255,255,255,.10);
-      border-left-color:rgba(230,235,242,.34);
-    }
-    .physics .planet-moon.one{width:16px;height:16px;top:-12%;right:-25%;animation:moonOrbit1 8s ease-in-out infinite}
-    .physics .planet-moon.two{width:11px;height:11px;bottom:-18%;left:-32%;animation:moonOrbit2 10s ease-in-out infinite}
-    .physics .planet-moon.one,.physics .planet-moon.two{
-      background:radial-gradient(circle at 30% 28%, rgba(255,255,255,.95), transparent 22%), linear-gradient(145deg, #f6f8fb, #b8bfca 62%, #353c48);
-      box-shadow:inset -4px -5px 8px rgba(0,0,0,.35), 0 0 16px rgba(224,229,238,.20);
-    }
-
-    .subject-planet.main-planet{
-      left:50%;
-      top:50%;
-      transform:translate(-50%,-50%);
-    }
-    .subject-planet.main-planet .planet-link{cursor:default}
-    .subject-planet.main-planet .planet-ball{width:176px;height:176px}
-    .subject-planet.main-planet .planet-link::before{width:280px;height:280px}
-    .subject-planet.main-planet .planet-label strong{font-size:1.25rem}
-    .subject-planet.main-planet .planet-label span{font-size:.96rem}
-
-    .subject-planet.mini-planet{display:none}
-    .subject-planet.mini-planet .planet-ball{width:88px;height:88px}
-    .subject-planet.mini-planet .planet-link{gap:10px}
-    .subject-planet.mini-planet .planet-link::before{width:150px;height:150px}
-    .subject-planet.mini-planet .planet-label{max-width:132px}
-    .subject-planet.mini-planet .planet-label strong{font-size:.92rem}
-    .subject-planet.mini-planet .planet-label span{font-size:.8rem}
-
-    @media (hover:hover) and (pointer:fine){
-      .subject-planet:hover .planet-wave{animation:planetWavePulse 1.8s ease-out infinite}
-      .subject-planet:hover .planet-ball{
-        transform:translateY(-14px) scale(1.11) rotateX(11deg) rotateY(-10deg) !important;
-        filter:brightness(1.08) saturate(1.12);
-        box-shadow:
-          inset -32px -38px 52px rgba(0,0,0,.5),
-          inset 12px 12px 24px rgba(255,255,255,.12),
-          0 34px 54px rgba(0,0,0,.44),
-          0 0 26px rgba(126,180,255,.18);
-      }
-      .subject-planet:hover .planet-ball::after{box-shadow:0 0 24px rgba(103,232,255,.14), 0 0 48px rgba(194,120,255,.16)}
-      .subject-planet:hover .planet-shadow{transform:translateY(-2px) scale(1.16);opacity:1}
-    }
-
-    @media (max-width: 780px){
-      .page{width:min(100% - 20px, 100%)}
-      .hero{padding-top:10px}
-      .galaxy-map{height:740px;padding:12px 0 0;margin-top:18px}
-      .galaxy-core,.galaxy-glow,.core-swirl,.orbit{display:none !important;animation:none !important}
-      .subject-planet{position:absolute;margin:0}
-      .subject-planet.main-planet .planet-ball{width:168px;height:168px}
-      .subject-planet.main-planet .planet-link::before{width:250px;height:250px}
-      .subject-planet.main-planet .planet-label{max-width:220px}
-      .subject-planet.mini-planet{display:flex}
-      .subject-planet.mini-planet.top-left{left:8%;top:16%}
-      .subject-planet.mini-planet.top-right{right:8%;top:18%}
-      .subject-planet.mini-planet.bottom-center{left:50%;bottom:10%;transform:translateX(-50%)}
-    }
-
-    @keyframes driftNebula{0%{transform:translate3d(0,0,0) scale(1);opacity:.8}100%{transform:translate3d(-2%,2%,0) scale(1.05);opacity:1}}
-    @keyframes driftDust{from{transform:translate3d(0,0,0)}to{transform:translate3d(-60px,-40px,0)}}
-    @keyframes driftStars{from{transform:translate3d(0,0,0)}to{transform:translate3d(-80px,-280px,0)}}
-    @keyframes driftStarsReverse{from{transform:translate3d(0,0,0)}to{transform:translate3d(60px,220px,0)}}
-    @keyframes twinkle{0%{opacity:.35;transform:scale(1)}100%{opacity:1;transform:scale(1.03)}}
-    @keyframes shooting{0%,100%{opacity:0;transform:translate3d(0,0,0) rotate(-25deg) scaleX(.7)}8%{opacity:1}18%{opacity:0;transform:translate3d(-220px,140px,0) rotate(-25deg) scaleX(1)}}
-    @keyframes haloPulse{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.8}50%{transform:translate(-50%,-50%) scale(1.05);opacity:1}}
-    @keyframes coreFloat{0%,100%{transform:translate(-50%,-50%) translateY(0)}50%{transform:translate(-50%,-50%) translateY(-16px)}}
-    @keyframes swirlSpin{from{transform:translate(-50%,-50%) rotate(0deg)}to{transform:translate(-50%,-50%) rotate(360deg)}}
-    @keyframes spinOrbit1{from{transform:translate(-50%,-50%) rotateX(77deg) rotateZ(0deg)}to{transform:translate(-50%,-50%) rotateX(77deg) rotateZ(360deg)}}
-    @keyframes spinOrbit2{from{transform:translate(-50%,-50%) rotateX(80deg) rotateY(22deg) rotateZ(0deg)}to{transform:translate(-50%,-50%) rotateX(80deg) rotateY(22deg) rotateZ(360deg)}}
-    @keyframes spinOrbit3{from{transform:translate(-50%,-50%) rotateX(84deg) rotateZ(20deg)}to{transform:translate(-50%,-50%) rotateX(84deg) rotateZ(380deg)}}
-    @keyframes planetFloat{0%,100%{transform:translateY(0) rotateZ(0deg)}50%{transform:translateY(-10px) rotateZ(.4deg)}}
-    @keyframes auraPulse{0%,100%{transform:scale(1);opacity:.72}50%{transform:scale(1.08);opacity:1}}
-    @keyframes surfaceDrift{from{transform:translateX(0) rotate(0deg)}to{transform:translateX(-10px) rotate(8deg)}}
-    @keyframes atmosphereRotate{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-    @keyframes bandShift{0%,100%{transform:translateY(0);opacity:.55}50%{transform:translateY(2px);opacity:.86}}
-    @keyframes moonOrbit1{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(14px,-16px,0) scale(1.08)}}
-    @keyframes moonOrbit2{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(-12px,14px,0) scale(.92)}}
-    @keyframes planetWavePulse{0%{opacity:0;transform:scale(.82)}20%{opacity:.45}100%{opacity:0;transform:scale(1.22)}}
-    @keyframes pOrbit1{from{transform:translate(-50%,-50%) rotateX(72deg) rotateY(15deg) rotateZ(0deg)}to{transform:translate(-50%,-50%) rotateX(72deg) rotateY(15deg) rotateZ(360deg)}}
-    @keyframes pOrbit2{from{transform:translate(-50%,-50%) rotateX(68deg) rotateY(5deg) rotateZ(0deg)}to{transform:translate(-50%,-50%) rotateX(68deg) rotateY(5deg) rotateZ(360deg)}}
-  </style>
+@media (max-width:1180px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:1fr 1fr}.g3>:last-child{grid-column:1/-1}}
+@media (max-width:980px){
+  .app{grid-template-columns:1fr}
+  .side{position:static;height:auto;flex-direction:row;flex-wrap:wrap;align-items:center;gap:12px;padding:14px 16px;border-right:0;border-bottom:1px solid var(--line-soft)}
+  .side h6,.side .res,.plan-mini,.sync{display:none}
+  .nav{flex-direction:row;flex-wrap:wrap}
+  .hero{grid-template-columns:1fr;padding:26px 22px}.hero-l{padding-right:0}.hero-r{border-left:0;padding-left:0;border-top:1px solid var(--line-soft);padding-top:22px;margin-top:26px;min-height:320px}
+  .g2,.g-wide,.g3{grid-template-columns:1fr}
+  .form,.preview,.settings{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:460px){.kpis{grid-template-columns:1fr}.form,.preview,.settings{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@keyframes draw{from{stroke-dashoffset:var(--len)}to{stroke-dashoffset:0}}
+.draw{stroke-dasharray:var(--len);animation:draw 1.4s cubic-bezier(.3,.7,.2,1) both}
+</style>
 </head>
 <body>
-  <div class="universe">
-    <div class="nebula"></div>
-    <div class="nebula-detail"></div>
-    <div class="space-grid"></div>
-    <div class="cosmic-dust"></div>
-    <div class="stars"></div>
-    <div class="stars2"></div>
-    <div class="stars3"></div>
-    <div class="shooting-star one"></div>
-    <div class="shooting-star two"></div>
-    <div class="shooting-star three"></div>
-  </div>
+<div class="app">
+  <aside class="side">
+    <div class="brand">
+      <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="14" fill="none" stroke="#8EDDBB" stroke-width="1.2"/><path d="M7 19 L12 14 L16 17 L23 9" fill="none" stroke="#ECEAE4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="23" cy="9" r="2" fill="#D9A65E"/></svg>
+      <div><b>Sổ Lệnh</b><small>Vốn 439 USDT</small></div>
+    </div>
+    <div>
+      <h6>Điều hướng</h6>
+      <nav class="nav">
+        <a href="#tong-quan" data-v="tong-quan"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/></svg>Tổng quan</a>
+        <a href="#nhat-ky" data-v="nhat-ky"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg>Nhật ký lệnh<span class="cnt" id="navCount">0</span></a>
+        <a href="#cai-dat" data-v="cai-dat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>Kế hoạch &amp; cài đặt</a>
+      </nav>
+    </div>
+    <div>
+      <h6>Kết quả lệnh</h6>
+      <div class="res" id="resBox"></div>
+    </div>
+    <div class="plan-mini" id="planMini"></div>
+    <div class="sync" id="sync">Đang tải dữ liệu…</div>
+  </aside>
 
-  <main class="page">
-    <section class="hero">
-      <div class="eyebrow">Hệ Hành Tinh Anh</div>
+  <main>
+    <div class="top">
+      <div>
+        <div class="crumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span id="crumbTxt">Tổng quan</span></div>
+        <h1 id="periodTitle">Tháng 11 <span>2026</span></h1>
+      </div>
+      <a class="btn solid" href="#nhat-ky" id="addBtn">+ Thêm lệnh</a>
+    </div>
 
-    </section>
+    <div class="banner" id="sampleBanner" hidden>
+      <span><b>Đang hiển thị dữ liệu mẫu.</b> 16 lệnh minh họa do Claude đặt ra, không phải kết quả thật. Lệnh đầu tiên bạn lưu sẽ thay toàn bộ dữ liệu mẫu.</span>
+      <button class="btn" id="clearSample" type="button">Bắt đầu nhật ký thật</button>
+    </div>
 
-    <section class="galaxy-map" id="galaxyMap">
-      <div class="galaxy-glow"></div>
-      <div class="core-swirl"></div>
-      <div class="orbit one"></div>
-      <div class="orbit two"></div>
-      <div class="orbit three"></div>
-      <div class="galaxy-core"></div>
-
-      <div class="planet-system">
-        <article class="subject-planet physics main-planet">
-          <div class="planet-link" aria-hidden="true">
-            <div class="planet-ball">
-              <div class="planet-aura"></div>
-              <div class="planet-wave"></div>
-              <div class="planet-atmosphere"></div>
-              <div class="planet-surface"></div>
-              <div class="planet-night"></div>
-              <div class="planet-band"></div>
-              <div class="planet-crater c1"></div>
-              <div class="planet-crater c2"></div>
-              <div class="planet-crater c3"></div>
-              <div class="planet-orbit po1"></div>
-              <div class="planet-orbit po2"></div>
-              <div class="planet-ring"></div>
-              <div class="planet-moon one"></div>
-              <div class="planet-moon two"></div>
-            </div>
-            <div class="planet-shadow"></div>
-            <div class="planet-label">
-           
-            </div>
+    <!-- TỔNG QUAN -->
+    <section class="view" id="v-tong-quan">
+      <div class="hero">
+        <div class="hero-l">
+          <div class="eyebrow">Kỷ luật vào lệnh · Lợi nhuận đến sau</div>
+          <div class="hero-lbl">Số dư cuối kỳ</div>
+          <h2 class="big"><span class="n" id="heroBal">0</span><span class="u">USDT</span></h2>
+          <div class="pills" id="heroDelta"></div>
+          <div class="hstats" id="heroStats"></div>
+          <div class="prog"><div class="bar"><i id="progBar" style="width:0"></i></div><div class="lbl"><span id="progL"></span><span id="progR"></span></div></div>
+        </div>
+        <div class="hero-r">
+          <div class="hero-r-head">
+            <span class="eyebrow">Đường số dư</span>
+            <div class="keys"><span><i style="border-color:var(--mint)"></i>Số dư</span><span><i style="border-color:var(--gold);border-top-style:dashed"></i>Mục tiêu</span><span><i style="border-color:var(--faint);border-top-style:dotted"></i>Vốn đầu kỳ</span></div>
           </div>
-        </article>
+          <div class="eq" id="chEquity"></div>
+        </div>
+      </div>
 
-        <article class="subject-planet physics mini-planet top-left">
-          <a class="planet-link" href="tnsinh1.html">
-            <div class="planet-ball">
-              <div class="planet-aura"></div>
-              <div class="planet-wave"></div>
-              <div class="planet-atmosphere"></div>
-              <div class="planet-surface"></div>
-              <div class="planet-night"></div>
-              <div class="planet-band"></div>
-              <div class="planet-crater c1"></div>
-              <div class="planet-crater c2"></div>
-              <div class="planet-crater c3"></div>
-              <div class="planet-orbit po1"></div>
-              <div class="planet-ring"></div>
-            </div>
-            <div class="planet-shadow"></div>
-            <div class="planet-label">
-              <strong>Hành tinh 1</strong>
-            </div>
-          </a>
-        </article>
+      <div class="kpis" id="kpis"></div>
 
-        <article class="subject-planet physics mini-planet top-right">
-          <a class="planet-link" href="tnsinh2.html">
-            <div class="planet-ball">
-              <div class="planet-aura"></div>
-              <div class="planet-wave"></div>
-              <div class="planet-atmosphere"></div>
-              <div class="planet-surface"></div>
-              <div class="planet-night"></div>
-              <div class="planet-band"></div>
-              <div class="planet-crater c1"></div>
-              <div class="planet-crater c2"></div>
-              <div class="planet-crater c3"></div>
-              <div class="planet-orbit po1"></div>
-              <div class="planet-ring"></div>
-            </div>
-            <div class="planet-shadow"></div>
-            <div class="planet-label">
-              <strong>Hành tinh 2</strong>
-            </div>
-          </a>
-        </article>
+      <div class="sec-title"><span class="idx">01</span><h2>Kết quả kinh doanh</h2><span class="line"></span></div>
+      <div class="grid g3">
+        <div class="card"><h3>Báo cáo lãi lỗ (P&amp;L)</h3><div class="sub">Đơn vị: USDT</div><div class="scroll"><table class="tbl stmt mt" id="tPL"></table></div></div>
+        <div class="card"><h3>Biến động vốn</h3><div class="sub">Từ vốn đầu kỳ đến cuối kỳ</div><div class="kv mt" id="tEq"></div></div>
+        <div class="card"><h3>Cơ cấu kết quả</h3><div class="sub">Theo số lệnh</div><div id="chDonut" class="mt"></div></div>
+      </div>
+      <div class="grid g-wide mt">
+        <div class="card"><h3>Lãi / lỗ ròng từng lệnh</h3><div class="sub">Lệnh thắng phía trên, lệnh thua phía dưới</div><div id="chTrades" class="mt"></div></div>
+        <div class="card"><h3>Cấu trúc lợi nhuận</h3><div class="sub">Từ doanh thu đến lợi nhuận ròng</div><div id="chWater" class="mt"></div></div>
+      </div>
 
-        <article class="subject-planet physics mini-planet bottom-center">
-          <a class="planet-link" href="tnsinh3.html">
-            <div class="planet-ball">
-              <div class="planet-aura"></div>
-              <div class="planet-wave"></div>
-              <div class="planet-atmosphere"></div>
-              <div class="planet-surface"></div>
-              <div class="planet-night"></div>
-              <div class="planet-band"></div>
-              <div class="planet-crater c1"></div>
-              <div class="planet-crater c2"></div>
-              <div class="planet-crater c3"></div>
-              <div class="planet-orbit po1"></div>
-              <div class="planet-ring"></div>
-            </div>
-            <div class="planet-shadow"></div>
-            <div class="planet-label">
-              <strong>Hành tinh 3</strong>
-            </div>
-          </a>
-        </article>
+      <div class="sec-title"><span class="idx">02</span><h2>Hiệu suất theo tuần</h2><span class="line"></span></div>
+      <div class="card"><div class="scroll"><table class="tbl" id="tWeek"></table></div><div class="sub" style="margin-top:10px">Lãi ròng theo tuần chưa trừ funding; funding tính một lần ở P&amp;L.</div></div>
+      <div class="grid g-wide mt">
+        <div class="card"><h3>Drawdown so với đỉnh số dư</h3><div class="sub">Mức sụt giảm từ đỉnh sau mỗi lệnh</div><div id="chDD" class="mt"></div></div>
+        <div class="card"><h3>Lãi ròng theo tuần</h3><div class="sub">USDT</div><div id="chWeek" class="mt"></div></div>
+      </div>
+
+      <div class="sec-title"><span class="idx">03</span><h2>Chất lượng &amp; rủi ro</h2><span class="line"></span></div>
+      <div class="grid g2">
+        <div class="card"><h3>Chất lượng giao dịch</h3><div class="kv mt" id="tQual"></div></div>
+        <div class="card"><h3>Quản trị rủi ro</h3><div class="kv mt" id="tRisk"></div></div>
+      </div>
+
+      <div class="sec-title"><span class="idx">04</span><h2>Kế hoạch &amp; nhận xét</h2><span class="line"></span></div>
+      <div class="grid g2">
+        <div class="card"><h3>Kế hoạch so với thực tế</h3><div class="scroll"><table class="tbl mt" id="tPlan"></table></div></div>
+        <div class="card"><h3>Nhận xét tự động</h3><ul class="notes mt" id="notes"></ul></div>
       </div>
     </section>
+
+    <!-- NHẬT KÝ -->
+    <section class="view" id="v-nhat-ky">
+      <div class="card">
+        <h3 id="formTitle">Thêm lệnh mới</h3>
+        <div class="sub">Nhập theo kèo. Khối lượng và ký quỹ tự tính theo rủi ro của số dư hiện tại.</div>
+        <form id="tradeForm" class="mt" autocomplete="off">
+          <div class="form">
+            <div class="f"><label for="fDate">Ngày</label><input id="fDate" type="date" required></div>
+            <div class="f"><label for="fCoin">Coin</label><input id="fCoin" type="text" placeholder="VD: KGEN" maxlength="24" required></div>
+            <div class="f"><label>Hướng</label><div class="seg" id="fSide"><button type="button" data-val="LONG" aria-pressed="true">LONG</button><button type="button" data-val="SHORT" aria-pressed="false">SHORT</button></div></div>
+            <div class="f"><label>Kết quả</label><div class="seg" id="fRes"><button type="button" data-val="Chờ" aria-pressed="true">Chờ</button><button type="button" class="tp" data-val="TP1" aria-pressed="false">TP1</button><button type="button" class="sl" data-val="SL" aria-pressed="false">SL</button><button type="button" data-val="Hủy" aria-pressed="false">Hủy</button></div></div>
+            <div class="f"><label for="fE1">Entry 1</label><input id="fE1" inputmode="decimal" placeholder="0.093" required></div>
+            <div class="f"><label for="fE2">Entry 2 (bỏ trống nếu không có)</label><input id="fE2" inputmode="decimal" placeholder="0.085"></div>
+            <div class="f"><label for="fSL">Stop loss</label><input id="fSL" inputmode="decimal" placeholder="0.077" required></div>
+            <div class="f"><label for="fTP">TP1</label><input id="fTP" inputmode="decimal" placeholder="0.102" required></div>
+            <div class="f"><label>Entry 2 đã khớp?</label><div class="seg" id="fE2f"><button type="button" data-val="0" aria-pressed="true">Không</button><button type="button" data-val="1" aria-pressed="false">Có</button></div></div>
+          </div>
+          <div class="preview" id="preview"></div>
+          <div class="form-actions">
+            <button class="btn solid" type="submit" id="saveBtn">Lưu lệnh</button>
+            <button class="btn ghost" type="button" id="resetBtn">Làm mới</button>
+            <button class="btn danger" type="button" id="delBtn" hidden>Xóa lệnh</button>
+            <span class="err" id="formErr" role="alert"></span>
+            <span class="hint" id="formHint"></span>
+          </div>
+        </form>
+      </div>
+      <div class="card mt">
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+          <div><h3>Nhật ký lệnh</h3><div class="sub">Bấm vào một dòng để sửa</div></div><span id="filterChip"></span>
+          <button class="btn ghost" type="button" id="copyCsv" style="margin-left:auto">Sao chép CSV</button>
+          <span class="hint" id="copyMsg"></span>
+        </div>
+        <div class="scroll mt"><table class="tbl" id="tLog"></table></div>
+      </div>
+    </section>
+
+    <!-- CÀI ĐẶT -->
+    <section class="view" id="v-cai-dat">
+      <div class="card">
+        <h3>Thông số kế hoạch</h3>
+        <div class="sub">Đổi số ở đây, toàn bộ báo cáo tính lại ngay.</div>
+        <form id="setForm" class="settings mt"></form>
+        <div class="form-actions"><button class="btn solid" type="button" id="saveSet">Lưu cài đặt</button><span class="hint" id="setMsg"></span></div>
+      </div>
+      <div class="card mt">
+        <h3>Quy tắc kế hoạch</h3>
+        <ol class="rules mt">
+          <li>Rủi ro mỗi lệnh bằng 10% số dư hiện tại. Tổng giá trị lệnh = Rủi ro ÷ (70% × khoảng cách SL Entry 1 + 30% × khoảng cách SL Entry 2).</li>
+          <li>Chốt 100% tại TP1. Đặt SL và TP1 (reduce-only) ngay khi vào lệnh.</li>
+          <li>Giá chạy qua TP1 mà chưa khớp thì hủy lệnh và ghi "Hủy".</li>
+          <li>Thua 2 lệnh liên tiếp thì hạ rủi ro xuống 3% cho đến khi thắng lại. Trang tự áp dụng.</li>
+          <li>Chỉ mở 1 lệnh tại một thời điểm. Số dư dưới 330 USDT thì dừng hẳn.</li>
+          <li>Bỏ qua kèo coin đã tăng trên 30% trong ngày nếu vào ở Entry 1.</li>
+        </ol>
+      </div>
+    </section>
+
+    <footer>Công cụ ghi chép theo kế hoạch đã thống nhất, không phải lời khuyên đầu tư. Số liệu chưa gồm trượt giá; phí và funding theo phần cài đặt.</footer>
   </main>
+</div>
 
-  <script>
-    const isDesktop = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+<script>
+(function(){
+'use strict';
+const DAY=864e5;
+const DEFAULTS={capital:439,risk:0.10,lowRisk:0.03,nLoss:2,lev:10,w1:0.70,fee:0.0005,stop:330,target:661,start:'2026-11-17',planWin:0.90,planN:15,funding:0};
+const SET_FIELDS=[
+ ['capital','Vốn ban đầu (USDT)','num'],['risk','Rủi ro mỗi lệnh (%)','pct'],['lowRisk','Rủi ro sau chuỗi thua (%)','pct'],
+ ['nLoss','Số lệnh thua liên tiếp để hạ rủi ro','int'],['lev','Đòn bẩy (x)','num'],['w1','Tỷ lệ vốn vào Entry 1 (%)','pct'],
+ ['fee','Phí mỗi chiều (%)','pct3'],['stop','Ngưỡng dừng (USDT)','num'],['target','Mục tiêu số dư cuối kỳ (USDT)','num'],
+ ['start','Ngày bắt đầu kỳ','date'],['planWin','Tỷ lệ thắng kế hoạch (%)','pct'],['planN','Số lệnh kế hoạch / kỳ','int'],['funding','Funding đã trả trong kỳ (USDT)','num']];
 
-    if (isDesktop) {
-      const planets = document.querySelectorAll(".subject-planet");
-      const galaxyMap = document.getElementById("galaxyMap");
+/* ---------- dữ liệu mẫu ---------- */
+function sampleTrades(){
+  const offs=[0,2,4,6,8,10,11,13,15,17,19,21,23,25,27,29];
+  const res=['TP1','TP1','TP1','SL','TP1','TP1','Hủy','TP1','TP1','TP1','TP1','SL','TP1','TP1','TP1','TP1'];
+  const e2f=[0,0,0,1,0,0,0,0,1,0,0,0,0,0,1,0];
+  let seed=7; const rnd=(a,b)=>{seed=(seed*16807)%2147483647;return a+(b-a)*(seed/2147483647)};
+  const r=(x,d)=>Math.round(x*10**d)/10**d;
+  return offs.map((o,i)=>{
+    let e1,e2,sl,tp,coin;
+    if(i===0){e1=0.093;e2=0.085;sl=0.077;tp=0.102;coin='MẪU 01 · KGEN'}
+    else{e1=r(rnd(0.05,3),4);e2=r(e1*rnd(.91,.95),5);sl=r(e1*rnd(.82,.87),5);tp=r(e1*rnd(1.08,1.12),5);coin='MẪU '+String(i+1).padStart(2,'0')}
+    const d=new Date(Date.UTC(2026,10,17)+o*DAY).toISOString().slice(0,10);
+    return {id:'s'+i,seq:i,date:d,coin,side:'LONG',e1,e2,sl,tp,e2f:!!e2f[i],result:res[i]};
+  });
+}
 
-      planets.forEach((planet) => {
-        const ball = planet.querySelector(".planet-ball");
-        let ticking = false;
+let state={settings:{...DEFAULTS},trades:sampleTrades(),sample:true};
 
-        planet.addEventListener("mousemove", (e) => {
-          if (planet.classList.contains("mini-planet")) return;
-          if (ticking) return;
-
-          requestAnimationFrame(() => {
-            const rect = planet.getBoundingClientRect();
-            const rotateY = (e.clientX - rect.left - rect.width / 2) / 12;
-            const rotateX = (rect.height / 2 - (e.clientY - rect.top)) / 12;
-            ball.style.transform = `translateY(-14px) scale(1.08) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-            ticking = false;
-          });
-
-          ticking = true;
-        });
-
-        planet.addEventListener("mouseleave", () => {
-          ball.style.transform = "";
-        });
-      });
-
-      if (galaxyMap) {
-        const core = galaxyMap.querySelector(".galaxy-core");
-        const glow = galaxyMap.querySelector(".galaxy-glow");
-        const swirl = galaxyMap.querySelector(".core-swirl");
-        const orbits = galaxyMap.querySelectorAll(".orbit");
-        let mapTicking = false;
-
-        galaxyMap.addEventListener("mousemove", (e) => {
-          if (mapTicking) return;
-
-          requestAnimationFrame(() => {
-            const rect = galaxyMap.getBoundingClientRect();
-            const moveX = (e.clientX - rect.left - rect.width / 2) / 70;
-            const moveY = (e.clientY - rect.top - rect.height / 2) / 70;
-
-            if (core) core.style.transform = `translate(calc(-50% + ${moveX * 2}px), calc(-50% + ${moveY * 2}px))`;
-            if (glow) glow.style.transform = `translate(calc(-50% + ${moveX * 1.5}px), calc(-50% + ${moveY * 1.5}px))`;
-            if (swirl) swirl.style.transform = `translate(calc(-50% + ${moveX * .9}px), calc(-50% + ${moveY * .9}px)) rotate(0deg)`;
-
-            orbits.forEach((orbit, index) => {
-              const factor = (index + 1) * 0.9;
-              orbit.style.marginLeft = `${moveX * factor}px`;
-              orbit.style.marginTop = `${moveY * factor}px`;
-            });
-
-            mapTicking = false;
-          });
-
-          mapTicking = true;
-        });
-      }
+/* ---------- tính toán ---------- */
+function size(bal,riskPct,t,S){
+  const R=bal*riskPct, hasE2=t.e2>0;
+  const d1=Math.abs(t.e1-t.sl)/t.e1, d2=hasE2?Math.abs(t.e2-t.sl)/t.e2:0, w=hasE2?S.w1:1;
+  const N=R/(w*d1+(1-w)*d2), Q=N*w, Rv=N-Q;
+  return {R,d1,d2,N,Q,Rv,margin:N/S.lev,q1:Q/t.e1,q2:hasE2?Rv/t.e2:0};
+}
+function weekOf(date,S){const d=(Date.parse(date)-Date.parse(S.start))/DAY;return Math.max(1,Math.floor(d/7)+1)}
+function compute(st){
+  const S=st.settings;
+  const T=[...st.trades].sort((a,b)=>(a.date||'').localeCompare(b.date||'')||a.seq-b.seq);
+  let bal=S.capital,ls=0,ws=0,peak=S.capital; const rows=[];
+  for(const t of T){
+    const pending=t.result==='Chờ';
+    const riskPct=ls>=S.nLoss?S.lowRisk:S.risk;
+    const z=size(bal,riskPct,t,S);
+    let gross=0,fee=0,fv=0,qty=0,avg=null;
+    if(t.result==='TP1'||t.result==='SL'){
+      fv=z.Q+(t.e2f?z.Rv:0); qty=z.q1+(t.e2f?z.q2:0); avg=fv/qty;
+      const dir=t.side==='SHORT'?-1:1, exit=t.result==='TP1'?t.tp:t.sl;
+      gross=dir*(exit-avg)*qty; fee=fv*S.fee*2;
     }
-  </script>
+    const net=gross-fee, start=bal; if(!pending) bal+=net;
+    if(t.result==='SL'){ls++;ws=0} else if(t.result==='TP1'){ls=0;ws++}
+    peak=Math.max(peak,bal);
+    rows.push({...t,...z,start,riskPct,fv,qty,avg,gross,fee,net,end:bal,dd:bal/peak-1,ddUsd:bal-peak,ls,ws,week:weekOf(t.date,S),pending,warnNext:ls>=S.nLoss,below:bal<S.stop});
+  }
+  const closed=rows.filter(r=>r.result==='TP1'||r.result==='SL');
+  const W=rows.filter(r=>r.result==='TP1'), L=rows.filter(r=>r.result==='SL'), C=rows.filter(r=>r.result==='Hủy'), P=rows.filter(r=>r.pending);
+  const sum=(a,f)=>a.reduce((s,x)=>s+f(x),0);
+  const m={};
+  m.wins=W.length;m.losses=L.length;m.cancels=C.length;m.pending=P.length;m.exec=closed.length;
+  m.revenue=sum(W,r=>r.gross); m.lossGross=sum(L,r=>r.gross); m.fees=sum(closed,r=>r.fee); m.funding=+S.funding||0;
+  m.grossPL=m.revenue+m.lossGross; m.net=m.grossPL-m.fees-m.funding; m.end=S.capital+m.net;
+  m.roe=m.net/S.capital; m.margin=m.revenue?m.net/m.revenue:0;
+  m.peak=Math.max(S.capital,...rows.map(r=>r.end)); m.low=Math.min(S.capital,...rows.map(r=>r.end));
+  m.maxDD=Math.min(0,...rows.map(r=>r.dd)); m.maxDDusd=Math.min(0,...rows.map(r=>r.ddUsd));
+  m.winRate=m.exec?m.wins/m.exec:0;
+  m.avgWin=m.wins?sum(W,r=>r.net)/m.wins:0; m.avgLoss=m.losses?sum(L,r=>r.net)/m.losses:0;
+  m.breakeven=(m.avgWin-m.avgLoss)?-m.avgLoss/(m.avgWin-m.avgLoss):0;
+  m.pf=(-(m.lossGross)+m.fees)?m.revenue/(-(m.lossGross)+m.fees):0;
+  m.payoff=m.avgLoss?m.avgWin/-m.avgLoss:0;
+  m.expect=m.exec?sum(closed,r=>r.net)/m.exec:0;
+  m.avgRisk=m.exec?sum(closed,r=>r.R)/m.exec:0; m.avgRiskPct=m.exec?sum(closed,r=>r.riskPct)/m.exec:0;
+  m.expR=m.avgRisk?m.expect/m.avgRisk:0;
+  m.maxWin=Math.max(0,...closed.map(r=>r.net)); m.maxLoss=Math.min(0,...closed.map(r=>r.net));
+  m.lowCount=rows.filter(r=>Math.abs(r.riskPct-S.lowRisk)<1e-9&&S.lowRisk!==S.risk).length;
+  const nonP=rows.filter(r=>!r.pending); m.avgMargin=nonP.length?sum(nonP,r=>r.margin)/nonP.length:0;
+  m.notional=sum(closed,r=>r.fv); m.turnover=m.notional/S.capital;
+  m.maxWs=Math.max(0,...rows.map(r=>r.ws)); m.maxLs=Math.max(0,...rows.map(r=>r.ls));
+  m.recovery=m.maxDDusd?m.net/-m.maxDDusd:0; m.distStop=m.end-S.stop; m.feeRatio=m.revenue?m.fees/m.revenue:0;
+  m.progress=(S.target-S.capital)?m.net/(S.target-S.capital):0;
+  const nW=Math.max(5,...rows.map(r=>r.week));
+  m.weeks=[];let cum=S.capital;
+  for(let k=1;k<=nW;k++){
+    const wr=rows.filter(r=>r.week===k), wc=wr.filter(r=>r.result==='TP1'||r.result==='SL');
+    const net=sum(wr,r=>r.net); const startB=cum; cum+=net;
+    const from=new Date(Date.parse(S.start)+(k-1)*7*DAY), to=new Date(Date.parse(S.start)+(k*7-1)*DAY);
+    m.weeks.push({k,from,to,n:wc.length,w:wr.filter(r=>r.result==='TP1').length,l:wr.filter(r=>r.result==='SL').length,c:wr.filter(r=>r.result==='Hủy').length,
+      rev:sum(wr.filter(r=>r.result==='TP1'),r=>r.gross),lossFee:sum(wr.filter(r=>r.result==='SL'),r=>r.gross)-sum(wr,r=>r.fee),net,end:cum,g:startB?net/startB:0});
+  }
+  return {rows,m,S};
+}
+
+/* ---------- định dạng ---------- */
+const nf=(n,d=2)=>(isFinite(n)?n:0).toLocaleString('vi-VN',{minimumFractionDigits:d,maximumFractionDigits:d});
+const sg=(n,d=2)=>(n>0.0000001?'+':n< -0.0000001?'−':'')+nf(Math.abs(n),d);
+const pc=(x,d=1)=>nf(x*100,d)+'%';
+const spc=(x,d=1)=>(x>0.0000001?'+':x< -0.0000001?'−':'')+nf(Math.abs(x)*100,d)+'%';
+const pr=n=>(+n).toLocaleString('vi-VN',{maximumFractionDigits:6});
+const cls=n=>n>0.0000001?'up':n< -0.0000001?'down':'muted';
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const dm=d=>String(d.getUTCDate()).padStart(2,'0')+'/'+String(d.getUTCMonth()+1).padStart(2,'0');
+const dfull=s=>{const d=new Date(s);return String(d.getUTCDate()).padStart(2,'0')+'/'+String(d.getUTCMonth()+1).padStart(2,'0')+'/'+d.getUTCFullYear()};
+const $=id=>document.getElementById(id);
+
+/* ---------- biểu đồ SVG ---------- */
+let gid=0;
+function niceTicks(min,max,n=4){
+  if(min===max){max=min+1}
+  const span=max-min, step0=span/n, mag=10**Math.floor(Math.log10(step0)), f=step0/mag;
+  const step=(f<1.5?1:f<3?2:f<7?5:10)*mag; const lo=Math.floor(min/step)*step, hi=Math.ceil(max/step)*step;
+  const t=[];for(let v=lo;v<=hi+step/2;v+=step)t.push(+v.toFixed(10));return t;
+}
+function glowDefs(id,color){return `<filter id="g${id}" x="-20%" y="-50%" width="140%" height="200%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>`}
+let lastC=null, drawn=false;
+function equityChart(el,c){
+  const S=c.S, pts=[S.capital,...c.rows.filter(r=>!r.pending).map(r=>r.end)];
+  const Wd=Math.max(300,el.clientWidth||640),H=Math.max(240,el.clientHeight||300),pl=44,pr_=44,pt=12,pb=28,id=++gid;
+  const lo=Math.min(...pts,S.capital)*0.97, hi=Math.max(...pts,S.target)*1.02, ticks=niceTicks(lo,hi,4);
+  const y0=ticks[0],y1=ticks[ticks.length-1];
+  const X=i=>pl+(Wd-pl-pr_)*(pts.length>1?i/(pts.length-1):0), Y=v=>pt+(H-pt-pb)*(1-(v-y0)/(y1-y0));
+  let d='';pts.forEach((v,i)=>{d+=(i?'L':'M')+X(i).toFixed(1)+' '+Y(v).toFixed(1)});
+  const area=d+`L${X(pts.length-1)} ${H-pb}L${X(0)} ${H-pb}Z`;
+  const g=ticks.map(t=>`<line x1="${pl}" x2="${Wd-pr_}" y1="${Y(t)}" y2="${Y(t)}" stroke="#1F1F23"/><text x="${pl-10}" y="${Y(t)+4}" text-anchor="end" font-size="11.5">${nf(t,0)}</text>`).join('');
+  const maxLbl=Math.max(2,Math.floor((Wd-pl-pr_)/46)), step=Math.ceil((pts.length-1)/maxLbl)||1;
+  const xl=pts.map((v,i)=>(i%step===0||i===pts.length-1)?`<text x="${X(i)}" y="${H-8}" text-anchor="middle" font-size="11">${i===0?'Đầu':i}</text>`:'').join('');
+  const last=pts.length-1, anim=!drawn; drawn=true;
+  el.innerHTML=`<svg viewBox="0 0 ${Wd} ${H}" width="${Wd}" height="${H}" role="img" aria-label="Đường số dư tài khoản qua từng lệnh">
+  <defs>${glowDefs(id)}<linearGradient id="a${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8EDDBB" stop-opacity=".26"/><stop offset="1" stop-color="#8EDDBB" stop-opacity="0"/></linearGradient></defs>
+  ${g}
+  <line x1="${pl}" x2="${Wd-pr_}" y1="${Y(S.target)}" y2="${Y(S.target)}" stroke="#D9A65E" stroke-dasharray="5 5" opacity=".85"/>
+  <text x="${Wd-pr_+8}" y="${Y(S.target)+4}" font-size="11.5" style="fill:#D9A65E">${nf(S.target,0)}</text>
+  <line x1="${pl}" x2="${Wd-pr_}" y1="${Y(S.capital)}" y2="${Y(S.capital)}" stroke="#5E5D64" stroke-dasharray="1.5 5"/>
+  <text x="${Wd-pr_+8}" y="${Y(S.capital)+4}" font-size="11.5">${nf(S.capital,0)}</text>
+  <path d="${area}" fill="url(#a${id})"/>
+  <path d="${d}" fill="none" stroke="#8EDDBB" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" filter="url(#g${id})" ${anim?'class="draw" style="--len:3000"':''}/>
+  <circle cx="${X(last)}" cy="${Y(pts[last])}" r="10" fill="#8EDDBB" opacity=".16"/><circle cx="${X(last)}" cy="${Y(pts[last])}" r="4.5" fill="#8EDDBB"/>
+  ${xl}</svg>`;
+}
+function tradesChart(el,c){
+  const R=c.rows.filter(r=>r.result==='TP1'||r.result==='SL');
+  const Wd=640,H=250,pl=48,pr_=12,pt=14,pb=28;
+  if(!R.length){el.innerHTML='<p class="muted">Chưa có lệnh đã đóng.</p>';return}
+  const mx=Math.max(1,...R.map(r=>r.net)), mn=Math.min(-1,...R.map(r=>r.net)); const ticks=niceTicks(mn,mx,4); const y0=ticks[0],y1=ticks[ticks.length-1];
+  const Y=v=>pt+(H-pt-pb)*(1-(v-y0)/(y1-y0)); const bw=(Wd-pl-pr_)/R.length;
+  const g=ticks.map(t=>`<line x1="${pl}" x2="${Wd-pr_}" y1="${Y(t)}" y2="${Y(t)}" stroke="${t===0?'#3a3a40':'#202024'}"/><text x="${pl-8}" y="${Y(t)+4}" text-anchor="end" font-size="11">${nf(t,0)}</text>`).join('');
+  const bars=R.map((r,i)=>{const x=pl+i*bw+bw*.2,w=bw*.6,ya=Y(Math.max(0,r.net)),yb=Y(Math.min(0,r.net));
+    return `<rect x="${x}" y="${ya}" width="${w}" height="${Math.max(1,yb-ya)}" rx="3" fill="${r.net>=0?'#62DCA4':'#F2706A'}"><title>${esc(r.coin)}: ${sg(r.net)} USDT</title></rect>`+
+    (R.length<=20?`<text x="${x+w/2}" y="${H-9}" text-anchor="middle" font-size="10">${i+1}</text>`:'')}).join('');
+  el.innerHTML=`<svg viewBox="0 0 ${Wd} ${H}" width="100%" role="img" aria-label="Lãi lỗ ròng từng lệnh">${g}${bars}</svg>`;
+}
+function waterChart(el,m){
+  const items=[['Doanh thu',m.revenue,'#62DCA4','up'],['Lỗ gộp',m.lossGross,'#F2706A','step'],['Phí',-(m.fees+m.funding),'#E9B949','step'],['Ròng',m.net,'#8EDDBB','total']];
+  const Wd=360,H=250,pl=44,pr_=8,pt=24,pb=34;
+  let run=0;const segs=items.map(([k,v,col,t])=>{let a,b;if(t==='up'){a=0;b=v;run=v}else if(t==='step'){a=run;b=run+v;run=b}else{a=0;b=v}return {k,v,col,a,b}});
+  const all=segs.flatMap(s=>[s.a,s.b]);const ticks=niceTicks(Math.min(0,...all),Math.max(1,...all),4);const y0=ticks[0],y1=ticks[ticks.length-1];
+  const Y=v=>pt+(H-pt-pb)*(1-(v-y0)/(y1-y0));const bw=(Wd-pl-pr_)/segs.length;
+  const g=ticks.map(t=>`<line x1="${pl}" x2="${Wd-pr_}" y1="${Y(t)}" y2="${Y(t)}" stroke="${t===0?'#3a3a40':'#202024'}"/><text x="${pl-6}" y="${Y(t)+4}" text-anchor="end" font-size="10.5">${nf(t,0)}</text>`).join('');
+  const bars=segs.map((s,i)=>{const x=pl+i*bw+bw*.18,w=bw*.64,top=Y(Math.max(s.a,s.b)),bot=Y(Math.min(s.a,s.b));
+    const lab=`<text x="${x+w/2}" y="${top-7}" text-anchor="middle" font-size="10.5" style="fill:#ECEAE4">${sg(s.v,0)}</text>`;
+    const conn=i<segs.length-1?`<line x1="${x+w}" x2="${x+bw}" y1="${Y(s.b)}" y2="${Y(s.b)}" stroke="#4a4a50" stroke-dasharray="2 3"/>`:'';
+    return `<rect x="${x}" y="${top}" width="${w}" height="${Math.max(1.5,bot-top)}" rx="3" fill="${s.col}" opacity="${i===3?1:.85}"/>${lab}${conn}<text x="${x+w/2}" y="${H-12}" text-anchor="middle" font-size="9.5">${s.k}</text>`}).join('');
+  el.innerHTML=`<svg viewBox="0 0 ${Wd} ${H}" width="100%" role="img" aria-label="Cấu trúc lợi nhuận">${g}${bars}</svg>`;
+}
+function weekChart(el,m){
+  const Wk=m.weeks,Wd=360,H=250,pl=40,pr_=8,pt=24,pb=30;
+  const ticks=niceTicks(Math.min(0,...Wk.map(w=>w.net)),Math.max(1,...Wk.map(w=>w.net)),4);const y0=ticks[0],y1=ticks[ticks.length-1];
+  const Y=v=>pt+(H-pt-pb)*(1-(v-y0)/(y1-y0));const bw=(Wd-pl-pr_)/Wk.length;
+  const g=ticks.map(t=>`<line x1="${pl}" x2="${Wd-pr_}" y1="${Y(t)}" y2="${Y(t)}" stroke="${t===0?'#3a3a40':'#202024'}"/><text x="${pl-6}" y="${Y(t)+4}" text-anchor="end" font-size="10.5">${nf(t,0)}</text>`).join('');
+  const bars=Wk.map((w,i)=>{const x=pl+i*bw+bw*.22,bwid=bw*.56,top=Y(Math.max(0,w.net)),bot=Y(Math.min(0,w.net));
+    return `<rect x="${x}" y="${top}" width="${bwid}" height="${Math.max(1,bot-top)}" rx="4" fill="${w.net>=0?'#62DCA4':'#F2706A'}"/>`+
+    (w.net?`<text x="${x+bwid/2}" y="${w.net>=0?top-7:bot+13}" text-anchor="middle" font-size="10.5" style="fill:#ECEAE4">${sg(w.net,1)}</text>`:'')+
+    `<text x="${x+bwid/2}" y="${H-10}" text-anchor="middle" font-size="10.5">T${w.k}</text>`}).join('');
+  el.innerHTML=`<svg viewBox="0 0 ${Wd} ${H}" width="100%" role="img" aria-label="Lãi ròng theo tuần">${g}${bars}</svg>`;
+}
+function donut(el,m){
+  const parts=[['TP1 – thắng',m.wins,'#62DCA4'],['SL – thua',m.losses,'#F2706A'],['Hủy',m.cancels,'#6B6A72']];
+  const tot=parts.reduce((s,p)=>s+p[1],0)||1, r=62, C=2*Math.PI*r; let off=0;
+  const arcs=parts.map(([k,v,col])=>{const len=C*v/tot;const s=`<circle cx="90" cy="90" r="${r}" fill="none" stroke="${col}" stroke-width="16" stroke-dasharray="${Math.max(0,len-3)} ${C}" stroke-dashoffset="${-off}" transform="rotate(-90 90 90)"/>`;off+=len;return s}).join('');
+  el.innerHTML=`<div style="display:flex;flex-direction:column;align-items:center;gap:14px;width:100%"><svg viewBox="0 0 180 180" width="176" role="img" aria-label="Cơ cấu kết quả lệnh"><circle cx="90" cy="90" r="${r}" fill="none" stroke="#1d1d21" stroke-width="16"/>${arcs}
+  <text x="90" y="86" text-anchor="middle" font-size="26" style="fill:#ECEAE4;font-family:'Playfair Display',serif;font-weight:600;letter-spacing:0">${pc(m.winRate,0)}</text><text x="90" y="108" text-anchor="middle" font-size="9" style="font-family:'Be Vietnam Pro',sans-serif;letter-spacing:.18em">TỶ LỆ THẮNG</text></svg>
+  <div class="legend" style="width:100%">${parts.map(([k,v,col])=>`<div style="padding:6px 0"><i style="background:${col}"></i>${k}<span>${v} · ${pc(v/tot,0)}</span></div>`).join('')}</div></div>`;
+}
+function ddChart(el,c){
+  const pts=[0,...c.rows.filter(r=>!r.pending).map(r=>r.dd)];
+  const Wd=640,H=250,pl=48,pr_=14,pt=14,pb=26,id=++gid;
+  const mn=Math.min(-0.05,...pts);const ticks=niceTicks(mn,0,3);const y0=ticks[0],y1=0;
+  const X=i=>pl+(Wd-pl-pr_)*(pts.length>1?i/(pts.length-1):0),Y=v=>pt+(H-pt-pb)*(1-(v-y0)/(y1-y0));
+  let d='';pts.forEach((v,i)=>{d+=(i?'L':'M')+X(i).toFixed(1)+' '+Y(v).toFixed(1)});
+  const area=d+`L${X(pts.length-1)} ${Y(0)}L${X(0)} ${Y(0)}Z`;
+  const g=ticks.map(t=>`<line x1="${pl}" x2="${Wd-pr_}" y1="${Y(t)}" y2="${Y(t)}" stroke="#202024"/><text x="${pl-8}" y="${Y(t)+4}" text-anchor="end" font-size="11">${pc(t,0)}</text>`).join('');
+  const mi=pts.indexOf(Math.min(...pts));
+  el.innerHTML=`<svg viewBox="0 0 ${Wd} ${H}" width="100%" role="img" aria-label="Drawdown sau mỗi lệnh"><defs><linearGradient id="d${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2706A" stop-opacity=".05"/><stop offset="1" stop-color="#F2706A" stop-opacity=".35"/></linearGradient></defs>${g}
+  <path d="${area}" fill="url(#d${id})"/><path d="${d}" fill="none" stroke="#F2706A" stroke-width="1.8"/>
+  ${pts[mi]<0?`<circle cx="${X(mi)}" cy="${Y(pts[mi])}" r="4" fill="#F2706A"/><text x="${X(mi)+8}" y="${Y(pts[mi])+4}" font-size="11" style="fill:#F2706A">${pc(pts[mi])}</text>`:''}</svg>`;
+}
+function ring(v,col){const r=22,C=2*Math.PI*r,len=C*Math.max(0,Math.min(1,v));return `<svg class="ring" viewBox="0 0 54 54" aria-hidden="true"><circle cx="27" cy="27" r="${r}" fill="none" stroke="#222226" stroke-width="4"/><circle cx="27" cy="27" r="${r}" fill="none" stroke="${col}" stroke-width="4" stroke-linecap="round" stroke-dasharray="${len} ${C}" transform="rotate(-90 27 27)"/></svg>`}
+
+/* ---------- render ---------- */
+function render(){
+  const c=compute(state), {m,S,rows}=c;
+  $('sampleBanner').hidden=!state.sample;
+  const sd=new Date(S.start);$('periodTitle').innerHTML=`Tháng ${sd.getUTCMonth()+1} <span>${sd.getUTCFullYear()}</span>`;
+  $('navCount').textContent=rows.length;
+  renderSide(c);
+  // hero
+  $('heroBal').textContent=nf(m.end);
+  $('heroDelta').innerHTML=`<span class="pill ${m.net<0?'down':'up'}">${sg(m.net)} USDT</span><span class="pill ${m.roe<0?'down':'up'}">${spc(m.roe)}</span><span class="muted">so với vốn đầu kỳ ${nf(S.capital)}</span>`;
+  const endD=new Date(Date.parse(S.start)+29*DAY);
+  $('heroStats').innerHTML=`<div><div class="k">Kỳ báo cáo</div><div class="v">${dm(new Date(S.start))} – ${dm(endD)}</div><div class="s">${endD.getUTCFullYear()} · 30 ngày</div></div>
+   <div><div class="k">Lệnh đóng</div><div class="v">${m.exec}</div><div class="s">${m.wins} thắng · ${m.losses} thua</div></div>
+   <div><div class="k">Đỉnh số dư</div><div class="v">${nf(m.peak)}</div><div class="s">thấp nhất ${nf(m.low)}</div></div>`;
+  const pg=Math.max(0,Math.min(1,m.progress));$('progBar').style.width=(pg*100)+'%';
+  $('progL').innerHTML=`Tiến độ mục tiêu <b>${pc(m.progress,0)}</b>`;$('progR').innerHTML=`Mục tiêu <b>${nf(S.target,0)}</b> USDT`;
+  lastC=c;
+  equityChart($('chEquity'),c);
+  // KPIs
+  const K=[
+   ['Lợi nhuận ròng',`${sg(m.net)}<small>USDT</small>`,`ROE ${spc(m.roe)} · biên ròng ${pc(m.margin)}`,m.net>=0?'var(--up)':'var(--down)'],
+   ['Tỷ lệ thắng',pc(m.winRate),`${m.wins} thắng · ${m.losses} thua · ${m.cancels} hủy`,'var(--mint)',ring(m.winRate,'#8EDDBB')],
+   ['Drawdown tối đa',`<span class="${m.maxDD<0?'down':''}">${pc(m.maxDD)}</span>`,`${sg(m.maxDDusd)} USDT · chuỗi thua ${m.maxLs}`,'var(--down)'],
+   ['Profit factor',`${nf(m.pf)}<small>x</small>`,`hòa vốn cần thắng ${pc(m.breakeven,0)}`,'var(--gold)'],
+   ['Kỳ vọng mỗi lệnh',`<span class="${cls(m.expect)}">${sg(m.expect)}</span><small>USDT</small>`,`${sg(m.expR)}R · payoff ${nf(m.payoff)}x`,'var(--mint)'],
+   ['Phí & funding',`${nf(m.fees+m.funding)}<small>USDT</small>`,`bằng ${pc(m.revenue?(m.fees+m.funding)/m.revenue:0)} doanh thu`,'var(--faint)'],
+   ['Tiến độ mục tiêu',pc(m.progress,0),`mục tiêu ${nf(S.target,0)} USDT`,'var(--gold)',ring(m.progress,'#D9A65E')],
+   ['Rủi ro trung bình',`${nf(m.avgRisk)}<small>USDT</small>`,`${pc(m.avgRiskPct)} số dư · ký quỹ TB ${nf(m.avgMargin)}`,'var(--faint)']];
+  $('kpis').innerHTML=K.map(([k,v,s,col,extra])=>`<div class="kpi"><span class="tick" style="background:${col}"></span>${extra||''}<div class="k">${k}</div><div class="v">${v}</div><div class="s">${s}</div></div>`).join('');
+  // P&L
+  const rv=m.revenue||1, pr2=v=>m.revenue?pc(v/rv):'–';
+  $('tPL').innerHTML=`<thead><tr><th>Khoản mục</th><th class="r">USDT</th><th class="r">% DT</th></tr></thead><tbody>
+  <tr><td>Doanh thu – lãi gộp lệnh TP1</td><td class="r num up">${nf(m.revenue)}</td><td class="r p">${pr2(m.revenue)}</td></tr>
+  <tr><td>(−) Lỗ gộp lệnh dính SL</td><td class="r num down">${nf(m.lossGross)}</td><td class="r p">${pr2(m.lossGross)}</td></tr>
+  <tr class="sum"><td>Lãi/lỗ gộp giao dịch</td><td class="r num">${nf(m.grossPL)}</td><td class="r p">${pr2(m.grossPL)}</td></tr>
+  <tr><td>(−) Phí giao dịch</td><td class="r num">${nf(-m.fees)}</td><td class="r p">${pr2(-m.fees)}</td></tr>
+  <tr><td>(−) Funding</td><td class="r num">${nf(-m.funding)}</td><td class="r p">${pr2(-m.funding)}</td></tr>
+  <tr class="net"><td>Lợi nhuận ròng</td><td class="r num ${cls(m.net)}">${nf(m.net)}</td><td class="r p">${pr2(m.net)}</td></tr>
+  <tr><td class="muted">Biên lợi nhuận ròng</td><td class="r num">${pc(m.margin)}</td><td></td></tr>
+  <tr><td class="muted">Tỷ suất trên vốn (ROE)</td><td class="r num ${cls(m.roe)}">${spc(m.roe)}</td><td></td></tr></tbody>`;
+  $('tEq').innerHTML=[['Vốn đầu kỳ',nf(S.capital)],['(+) Lợi nhuận ròng',`<span class="${cls(m.net)}">${sg(m.net)}</span>`],['<b style="color:var(--ink)">Vốn cuối kỳ</b>',`<b style="color:var(--mint)">${nf(m.end)}</b>`],['Tăng trưởng vốn',`<span class="${cls(m.roe)}">${spc(m.roe)}</span>`],['Số dư cao nhất',nf(m.peak)],['Số dư thấp nhất',nf(m.low)],['Drawdown tối đa',`<span class="${cls(m.maxDDusd)}">${sg(m.maxDDusd)} · ${pc(m.maxDD)}</span>`],['Cách ngưỡng dừng',nf(m.distStop)]].map(([a,b])=>`<div>${a}</div><div>${b}</div>`).join('');
+  donut($('chDonut'),m); tradesChart($('chTrades'),c); waterChart($('chWater'),m); weekChart($('chWeek'),m); ddChart($('chDD'),c);
+  // weekly
+  const best=m.weeks.reduce((a,b)=>b.net>a.net?b:a,m.weeks[0]);
+  $('tWeek').innerHTML=`<thead><tr><th>Tuần</th><th>Thời gian</th><th class="c">Lệnh</th><th class="c">T / T / H</th><th class="r">Tỷ lệ thắng</th><th class="r">Doanh thu</th><th class="r">Lỗ &amp; phí</th><th class="r">Lãi ròng</th><th class="r">Số dư cuối</th><th class="r">% tuần</th></tr></thead><tbody>`+
+   m.weeks.map(w=>`<tr class="${w===best&&w.net>0?'hl':''}"><td><b>Tuần ${w.k}</b></td><td class="num muted">${dm(w.from)} – ${dm(w.to)}</td><td class="c num">${w.n}</td><td class="c num muted">${w.w} / ${w.l} / ${w.c}</td>
+   <td class="r"><span class="wr"><span class="num">${w.n?pc(w.w/w.n,0):'–'}</span><span class="mbar"><i style="width:${w.n?w.w/w.n*100:0}%"></i></span></span></td>
+   <td class="r num">${nf(w.rev)}</td><td class="r num ${cls(w.lossFee)}">${nf(w.lossFee)}</td><td class="r num ${cls(w.net)}">${sg(w.net)}</td><td class="r num">${nf(w.end)}</td><td class="r num ${cls(w.g)}">${spc(w.g)}</td></tr>`).join('')+
+   `<tr class="total"><td>Tổng kỳ</td><td></td><td class="c num">${m.exec}</td><td class="c num">${m.wins} / ${m.losses} / ${m.cancels}</td><td class="r num">${pc(m.winRate,0)}</td><td class="r num">${nf(m.revenue)}</td><td class="r num">${nf(m.lossGross-m.fees)}</td><td class="r num ${cls(m.net+m.funding)}">${sg(m.net+m.funding)}</td><td class="r num">${nf(m.end+m.funding)}</td><td class="r num">${spc((m.net+m.funding)/S.capital)}</td></tr></tbody>`;
+  // quality & risk
+  const kv=(el,arr)=>{$(el).innerHTML=arr.map(([a,b])=>`<div>${a}</div><div>${b}</div>`).join('')};
+  kv('tQual',[['Tổng lệnh đã đóng',m.exec],['Thắng / thua / hủy',`${m.wins} / ${m.losses} / ${m.cancels}`],['Tỷ lệ thắng',`<span class="mint">${pc(m.winRate)}</span>`],['Tỷ lệ thắng cần để hòa vốn',pc(m.breakeven)],
+   ['Profit factor',nf(m.pf)+'x'],['Lãi trung bình mỗi lệnh thắng',`<span class="up">${sg(m.avgWin)}</span>`],['Lỗ trung bình mỗi lệnh thua',`<span class="down">${sg(m.avgLoss)}</span>`],['Tỷ lệ lãi TB / lỗ TB',nf(m.payoff)+'x'],
+   ['Kỳ vọng mỗi lệnh',`<span class="${cls(m.expect)}">${sg(m.expect)} USDT · ${sg(m.expR)}R</span>`],['Lệnh lãi lớn nhất',`<span class="up">${sg(m.maxWin)}</span>`],['Lệnh lỗ lớn nhất',`<span class="down">${sg(m.maxLoss)}</span>`]]);
+  kv('tRisk',[['Rủi ro TB mỗi lệnh',`${nf(m.avgRisk)} USDT · ${pc(m.avgRiskPct)}`],['Số lệnh phải hạ rủi ro',`${m.lowCount} lệnh`],['Ký quỹ TB mỗi lệnh',nf(m.avgMargin)+' USDT'],['Đòn bẩy',S.lev+'x Cross'],
+   ['Tổng giá trị đã khớp',nf(m.notional,0)+' USDT'],['Vòng quay vốn',nf(m.turnover,1)+'x'],['Chuỗi thắng dài nhất',m.maxWs+' lệnh'],['Chuỗi thua dài nhất',`<span class="${m.maxLs>=S.nLoss?'down':''}">${m.maxLs} lệnh</span>`],
+   ['Hệ số phục hồi',nf(m.recovery)+'x'],['Khoảng cách tới ngưỡng dừng',`<span class="${m.distStop<0?'down':''}">${nf(m.distStop)} USDT</span>`],['Phí so với doanh thu',pc(m.feeRatio)]]);
+  // plan vs actual
+  const ddLimit=S.stop/S.capital-1;
+  const plan=[['Tỷ lệ thắng',pc(S.planWin),pc(m.winRate),spc(m.winRate-S.planWin),m.winRate>=S.planWin],['Số lệnh trong kỳ',S.planN,m.exec,sg(m.exec-S.planN,0),m.exec>=S.planN],
+   ['Lợi nhuận ròng',nf(S.target-S.capital),nf(m.net),sg(m.net-(S.target-S.capital)),m.net>=S.target-S.capital],['Số dư cuối kỳ',nf(S.target),nf(m.end),sg(m.end-S.target),m.end>=S.target],
+   ['Drawdown tối đa (giới hạn)',pc(ddLimit),pc(m.maxDD),spc(m.maxDD-ddLimit),m.maxDD>=ddLimit]];
+  $('tPlan').innerHTML=`<thead><tr><th>Chỉ số</th><th class="r">Kế hoạch</th><th class="r">Thực tế</th><th class="r">Chênh lệch</th><th class="c">Đánh giá</th></tr></thead><tbody>`+
+   plan.map(([a,p,ac,d,ok])=>`<tr><td>${a}</td><td class="r num muted">${p}</td><td class="r num"><b>${ac}</b></td><td class="r num ${ok?'up':'down'}">${d}</td><td class="c"><span class="chip ${ok?'ok':'no'}">${ok?'✓ Đạt':'✕ Chưa đạt'}</span></td></tr>`).join('')+'</tbody>';
+  // notes
+  const worst=m.weeks.filter(w=>w.n).reduce((a,b)=>b.net<a.net?b:a,m.weeks.find(w=>w.n)||m.weeks[0]);
+  const N=[];
+  N.push(['•','',`Lợi nhuận ròng ${sg(m.net)} USDT (${spc(m.roe)}) sau ${m.exec} lệnh; vốn tăng từ ${nf(S.capital)} lên ${nf(m.end)} USDT.`]);
+  if(m.exec) N.push(m.winRate>=m.breakeven?['✓','up',`Tỷ lệ thắng ${pc(m.winRate,0)} cao hơn mức hòa vốn ${pc(m.breakeven,0)}, hệ thống đang có kỳ vọng dương (${sg(m.expR)}R mỗi lệnh).`]:['✕','down',`Tỷ lệ thắng ${pc(m.winRate,0)} thấp hơn mức hòa vốn ${pc(m.breakeven,0)}. Nên giảm rủi ro hoặc đổi nguồn kèo.`]);
+  N.push(m.winRate>=S.planWin?['✓','up',`Tỷ lệ thắng đạt giả định kế hoạch ${pc(S.planWin,0)}. Có thể giữ mức rủi ro hiện tại.`]:['!','gold',`Tỷ lệ thắng thực tế thấp hơn giả định ${pc(S.planWin,0)}. Cân nhắc hạ rủi ro về 5% cho kỳ sau.`]);
+  N.push(m.maxDD<=-0.2?['!','down',`Drawdown tối đa ${pc(m.maxDD)} vượt 20%. Xem lại khối lượng lệnh.`]:['✓','up',`Drawdown tối đa ${pc(m.maxDD)} (${sg(m.maxDDusd)} USDT) nằm trong giới hạn; chuỗi thua dài nhất ${m.maxLs} lệnh.`]);
+  if(best&&best.n) N.push(['•','',`Tuần tốt nhất: Tuần ${best.k} (${sg(best.net)} USDT). Tuần kém nhất: Tuần ${worst.k} (${sg(worst.net)} USDT).`]);
+  N.push(m.low<S.stop?['!','down',`Số dư đã xuống dưới ngưỡng dừng ${nf(S.stop,0)} USDT. Dừng giao dịch theo kế hoạch.`]:['•','',`Số dư thấp nhất ${nf(m.low)} USDT, còn cách ngưỡng dừng ${nf(m.low-S.stop)} USDT. Phí chiếm ${pc(m.feeRatio)} doanh thu.`]);
+  $('notes').innerHTML=N.map(([ic,cl,t])=>`<li><span class="ic ${cl}">${ic}</span><span>${t}</span></li>`).join('');
+  renderLog(c); updatePreview();
+}
+
+/* ---------- nhật ký ---------- */
+let editId=null;
+/* ---------- thanh bên: kết quả lệnh & lệnh kế tiếp ---------- */
+let logFilter=null;
+const RES=[['TP1','TP1 – thắng','#62DCA4'],['SL','SL – thua','#F2706A'],['Hủy','Hủy','#6B6A72'],['Chờ','Đang chờ','#E9B949']];
+function renderSide(c){
+  const {m,S,rows}=c, sumNet=k=>rows.filter(r=>r.result===k).reduce((s,r)=>s+r.net,0);
+  const ok=m.winRate>=m.breakeven;
+  let h=`<div class="res-top"><b class="${m.exec?(ok?'up':'down'):'muted'}">${m.exec?pc(m.winRate,0):'–'}</b><span>tỷ lệ thắng<br>${m.exec?(ok?'trên':'dưới')+' mức hòa vốn':'chưa có lệnh đóng'}</span></div>`;
+  h+=`<div class="stack" title="Tỷ lệ thắng so với mức cần để hòa vốn"><i style="width:${m.winRate*100}%;background:#62DCA4"></i><i style="width:${m.exec?(1-m.winRate)*100:0}%;background:#F2706A"></i>${m.exec?`<span class="be" style="left:${Math.min(98,Math.max(2,m.breakeven*100))}%"><span>hòa vốn ${pc(m.breakeven,0)}</span></span>`:''}</div>`;
+  h+=RES.map(([k,lab,col])=>{
+    const n=k==='TP1'?m.wins:k==='SL'?m.losses:k==='Hủy'?m.cancels:m.pending;
+    let sub='', right=`${n}`, rsub='';
+    if(k==='TP1'||k==='SL'){sub=m.exec?pc(n/m.exec,0)+' số lệnh đóng':'–';const v=sumNet(k);rsub=`<small class="${cls(v)}">${sg(v,1)}</small>`}
+    else if(k==='Hủy'){sub='không tính lãi/lỗ'}
+    else{const p=rows.filter(r=>r.pending);sub=p.length?p.map(r=>esc(r.coin)).join(', '):'không có lệnh mở'}
+    return `<button type="button" class="res-row" data-f="${k}" aria-pressed="${logFilter===k}" title="Xem các lệnh ${lab} trong nhật ký"><i style="background:${col}"></i><span class="t">${lab}<small>${sub}</small></span><span class="c">${right}${rsub}</span></button>`}).join('');
+  const recent=rows.filter(r=>!r.pending).slice(-12);
+  h+=`<div class="recent"><div class="lab"><span>${recent.length} lệnh gần nhất</span><span>cũ → mới</span></div><div class="dots">${recent.map(r=>`<i title="${esc(r.coin)} · ${r.result}${r.result==='Hủy'?'':' · '+sg(r.net)+' USDT'}" style="background:${r.result==='TP1'?'#62DCA4':r.result==='SL'?'#F2706A':'#3a3a40'}"></i>`).join('')||'<span class="muted" style="font-size:12px">Chưa có</span>'}</div></div>`;
+  const lastC=[...rows].reverse().find(r=>r.result==='TP1'||r.result==='SL');
+  if(lastC) h+=`<div class="streak">Chuỗi hiện tại: <b class="${lastC.ls?'down':'up'}">${lastC.ls?lastC.ls+' lệnh thua':lastC.ws+' lệnh thắng'}</b> liên tiếp</div>`;
+  $('resBox').innerHTML=h;
+  // lệnh kế tiếp
+  const done=rows.filter(r=>!r.pending), bal=done.length?done[done.length-1].end:S.capital, ls=lastC?lastC.ls:0;
+  const low=ls>=S.nLoss, rp=low?S.lowRisk:S.risk;
+  let w='';
+  if(bal<S.stop) w=`<div class="warn r">Số dư dưới ngưỡng dừng ${nf(S.stop,0)} USDT. Theo kế hoạch: dừng giao dịch.</div>`;
+  else if(low) w=`<div class="warn a">Đã thua ${ls} lệnh liên tiếp nên hạ rủi ro xuống ${pc(S.lowRisk,0)} cho đến khi thắng lại.</div>`;
+  else if(m.pending) w=`<div class="warn a">Đang có ${m.pending} lệnh mở. Kế hoạch chỉ cho mở 1 lệnh một lúc.</div>`;
+  $('planMini').innerHTML=`<div class="cap">Lệnh kế tiếp</div><div class="nv">${nf(bal*rp)}<small>USDT</small></div>
+   <div>Rủi ro tối đa: <b>${pc(rp,0)}</b> của số dư <b>${nf(bal)}</b> · ${S.lev}x Cross · chốt 100% TP1</div>${w}
+   <a href="#nhat-ky">Tính khối lượng →</a>`;
+}
+document.addEventListener('click',e=>{
+  const b=e.target.closest('.res-row'); if(b){logFilter=logFilter===b.dataset.f?null:b.dataset.f; if(location.hash!=='#nhat-ky')location.hash='#nhat-ky'; render(); return}
+  if(e.target.closest('#clearFilter')){logFilter=null;render()}
+});
+function chip(r){return r==='TP1'?'<span class="chip tp">TP1</span>':r==='SL'?'<span class="chip sl">SL</span>':r==='Hủy'?'<span class="chip hu">Hủy</span>':'<span class="chip ch">Đang chờ</span>'}
+function renderLog(c){
+  const all=c.rows, rows=logFilter?all.filter(r=>r.result===logFilter):all;
+  const lab=(RES.find(x=>x[0]===logFilter)||[])[1];
+  $('filterChip').innerHTML=logFilter?`<span class="fchip">Đang lọc: ${lab} · ${rows.length} lệnh<button type="button" id="clearFilter">Bỏ lọc</button></span>`:'';
+  $('tLog').innerHTML=`<thead><tr><th>#</th><th>Ngày</th><th>Coin</th><th>Hướng</th><th class="r">Entry 1</th><th class="r">Entry 2</th><th class="r">SL</th><th class="r">TP1</th><th class="c">Khớp E2</th><th class="c">Kết quả</th><th class="r">Rủi ro</th><th class="r">Giá trị lệnh</th><th class="r">Ký quỹ</th><th class="r">Lãi/lỗ ròng</th><th class="r">Số dư</th><th>Ghi chú</th></tr></thead><tbody>`+
+  (rows.length?rows.map((r)=>`<tr class="trow ${r.id===editId?'sel':''}" data-id="${esc(r.id)}" tabindex="0"><td class="muted num">${all.indexOf(r)+1}</td><td class="num">${dfull(r.date)}</td><td><b>${esc(r.coin)}</b></td><td class="${r.side==='SHORT'?'down':'up'}">${r.side}</td>
+  <td class="r num">${pr(r.e1)}</td><td class="r num">${r.e2?pr(r.e2):'–'}</td><td class="r num">${pr(r.sl)}</td><td class="r num">${pr(r.tp)}</td><td class="c">${r.e2?(r.e2f?'Có':'Không'):'–'}</td><td class="c">${chip(r.result)}</td>
+  <td class="r num">${nf(r.R)} <span class="muted">· ${pc(r.riskPct,0)}</span></td><td class="r num">${nf(r.N)}</td><td class="r num">${nf(r.margin)}</td>
+  <td class="r num ${cls(r.net)}">${r.pending?'–':sg(r.net)}</td><td class="r num">${nf(r.end)}</td>
+  <td class="${r.below?'down':'gold'}" style="font-size:12px">${r.below?'Dưới ngưỡng dừng':r.warnNext&&!r.pending?'Lệnh sau rủi ro '+pc(c.S.lowRisk,0):''}</td></tr>`).join(''):'<tr><td colspan="16" class="muted" style="padding:24px">Chưa có lệnh. Nhập lệnh đầu tiên ở khung phía trên.</td></tr>')+'</tbody>';
+}
+function segVal(id){return document.querySelector(`#${id} [aria-pressed="true"]`).dataset.val}
+function setSeg(id,val){document.querySelectorAll(`#${id} button`).forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.val===val)))}
+document.querySelectorAll('.seg').forEach(seg=>seg.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;setSeg(seg.id,b.dataset.val);updatePreview()}));
+const numIn=v=>{v=String(v||'').trim().replace(',','.');return v===''?0:+v};
+function readForm(){return {date:$('fDate').value,coin:$('fCoin').value.trim(),side:segVal('fSide'),result:segVal('fRes'),e1:numIn($('fE1').value),e2:numIn($('fE2').value),sl:numIn($('fSL').value),tp:numIn($('fTP').value),e2f:segVal('fE2f')==='1'}}
+function validate(t){
+  if(!t.date)return 'Chọn ngày vào lệnh.'; if(!t.coin)return 'Nhập tên coin.';
+  if(!(t.e1>0&&t.sl>0&&t.tp>0))return 'Entry 1, Stop loss và TP1 phải là số lớn hơn 0.';
+  if(isNaN(t.e2)||t.e2<0)return 'Entry 2 không hợp lệ.';
+  const L=t.side==='LONG';
+  if(L&&!(t.sl<t.e1&&t.e1<t.tp))return 'Lệnh LONG cần Stop loss < Entry 1 < TP1.';
+  if(!L&&!(t.tp<t.e1&&t.e1<t.sl))return 'Lệnh SHORT cần TP1 < Entry 1 < Stop loss.';
+  if(t.e2>0&&(L?!(t.sl<t.e2&&t.e2<t.e1):!(t.e1<t.e2&&t.e2<t.sl)))return 'Entry 2 phải nằm giữa Entry 1 và Stop loss.';
+  if(t.e2f&&!(t.e2>0))return 'Chưa có Entry 2 nên không thể chọn "đã khớp".';
+  return '';
+}
+function updatePreview(){
+  const t=readForm(), S=state.settings, el=$('preview');
+  const err=(t.e1>0&&t.sl>0&&t.tp>0)?validate({...t,date:t.date||'x',coin:t.coin||'x'}):'';
+  if(!(t.e1>0&&t.sl>0&&t.tp>0)||err){el.innerHTML=`<div style="grid-column:1/-1" class="hint">${err?esc(err):'Nhập Entry 1, Stop loss và TP1 để xem khối lượng, ký quỹ và lãi/lỗ dự kiến.'}</div>`;return}
+  // số dư & mức rủi ro tại thời điểm lệnh này
+  const c=compute({...state,trades:state.trades.filter(x=>x.id!==editId)});
+  const prior=c.rows.filter(r=>(r.date||'')<=t.date); const lastRow=prior[prior.length-1];
+  const bal=lastRow?lastRow.end:S.capital, rp=(lastRow&&lastRow.ls>=S.nLoss)?S.lowRisk:S.risk;
+  const z=size(bal,rp,t,S), dir=t.side==='SHORT'?-1:1;
+  const tp1=dir*(t.tp-t.e1)*z.q1-z.Q*S.fee*2, sl1=dir*(t.sl-t.e1)*z.q1-z.Q*S.fee*2;
+  const both=t.e2>0, fvB=z.Q+z.Rv, qB=z.q1+z.q2, avgB=fvB/qB;
+  const tpB=both?dir*(t.tp-avgB)*qB-fvB*S.fee*2:tp1, slB=both?dir*(t.sl-avgB)*qB-fvB*S.fee*2:sl1;
+  el.innerHTML=`
+  <div><div class="k">Rủi ro lệnh này</div><div class="v">${nf(z.R)}</div><div class="s">${pc(rp,0)} của số dư ${nf(bal)}</div></div>
+  <div><div class="k">Entry 1 · giá trị / khối lượng</div><div class="v">${nf(z.Q)}</div><div class="s">${nf(z.q1,0)} coin · ký quỹ ${nf(z.Q/S.lev)}</div></div>
+  <div><div class="k">Entry 2 · giá trị / khối lượng</div><div class="v">${both?nf(z.Rv):'–'}</div><div class="s">${both?nf(z.q2,0)+' coin · ký quỹ '+nf(z.Rv/S.lev):'Không có Entry 2'}</div></div>
+  <div><div class="k">Tổng ký quỹ (${S.lev}x)</div><div class="v">${nf(z.margin)}</div><div class="s">tổng giá trị ${nf(z.N)} USDT</div></div>
+  <div><div class="k">Chạm TP1 · chỉ Entry 1</div><div class="v up">${sg(tp1)}</div><div class="s">đã trừ phí</div></div>
+  <div><div class="k">Chạm TP1 · khớp cả 2</div><div class="v up">${both?sg(tpB):'–'}</div><div class="s">${both?'giá vào TB '+pr(avgB.toPrecision(5)):''}</div></div>
+  <div><div class="k">Dính SL · chỉ Entry 1</div><div class="v down">${sg(sl1)}</div><div class="s">đã trừ phí</div></div>
+  <div><div class="k">Dính SL · khớp cả 2</div><div class="v down">${both?sg(slB):'–'}</div><div class="s">${both?'bằng toàn bộ rủi ro':''}</div></div>`;
+}
+['fDate','fCoin','fE1','fE2','fSL','fTP'].forEach(id=>$(id).addEventListener('input',updatePreview));
+function fillForm(t){
+  editId=t?t.id:null;
+  $('fDate').value=t?t.date:new Date().toISOString().slice(0,10); $('fCoin').value=t?t.coin:'';
+  $('fE1').value=t?t.e1:''; $('fE2').value=t&&t.e2?t.e2:''; $('fSL').value=t?t.sl:''; $('fTP').value=t?t.tp:'';
+  setSeg('fSide',t?t.side:'LONG'); setSeg('fRes',t?t.result:'Chờ'); setSeg('fE2f',t&&t.e2f?'1':'0');
+  $('formTitle').textContent=t?'Sửa lệnh':'Thêm lệnh mới'; $('saveBtn').textContent=t?'Lưu thay đổi':'Lưu lệnh';
+  $('delBtn').hidden=!t; $('delBtn').textContent='Xóa lệnh'; $('delBtn').dataset.arm=''; $('formErr').textContent='';
+  $('formHint').textContent=state.sample&&!t?'Lệnh đầu tiên sẽ thay toàn bộ dữ liệu mẫu.':'';
+  render();
+}
+$('tradeForm').addEventListener('submit',e=>{
+  e.preventDefault(); const t=readForm(); const err=validate(t); $('formErr').textContent=err; if(err)return;
+  if(!t.e2) t.e2f=false;
+  if(editId){const i=state.trades.findIndex(x=>x.id===editId); if(i>=0) state.trades[i]={...state.trades[i],...t};}
+  else{
+    if(state.sample){state.trades=[];state.sample=false}
+    const seq=state.trades.reduce((s,x)=>Math.max(s,x.seq||0),0)+1;
+    state.trades.push({...t,id:'t'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),seq});
+  }
+  if(editId&&state.sample){/* sửa dữ liệu mẫu: biến thành dữ liệu thật */ state.sample=false}
+  save(); fillForm(null);
+});
+$('resetBtn').addEventListener('click',()=>fillForm(null));
+$('delBtn').addEventListener('click',()=>{
+  const b=$('delBtn'); if(b.dataset.arm!=='1'){b.dataset.arm='1';b.textContent='Bấm lần nữa để xóa';return}
+  state.trades=state.trades.filter(x=>x.id!==editId); if(state.sample)state.sample=false; save(); fillForm(null);
+});
+$('tLog').addEventListener('click',e=>{const tr=e.target.closest('.trow');if(!tr)return;const t=state.trades.find(x=>x.id===tr.dataset.id);if(t){fillForm(t);window.scrollTo({top:0,behavior:'smooth'})}});
+$('tLog').addEventListener('keydown',e=>{if(e.key==='Enter'){const tr=e.target.closest('.trow');if(tr)tr.click()}});
+$('clearSample').addEventListener('click',()=>{state.trades=[];state.sample=false;save();fillForm(null);location.hash='#nhat-ky'});
+$('copyCsv').addEventListener('click',async()=>{
+  const c=compute(state);const head='Ngay,Coin,Huong,Entry1,Entry2,SL,TP1,KhopE2,KetQua,RuiRo,GiaTriLenh,KyQuy,LaiLoRong,SoDu';
+  const lines=c.rows.map(r=>[r.date,'"'+r.coin.replace(/"/g,'""')+'"',r.side,r.e1,r.e2||'',r.sl,r.tp,r.e2f?'Co':'Khong',r.result,r.R.toFixed(2),r.N.toFixed(2),r.margin.toFixed(2),r.net.toFixed(2),r.end.toFixed(2)].join(','));
+  try{await navigator.clipboard.writeText([head,...lines].join('\n'));$('copyMsg').textContent='Đã sao chép. Dán vào Excel hoặc Google Sheets.'}catch(_){$('copyMsg').textContent='Trình duyệt chặn sao chép.'}
+});
+
+/* ---------- cài đặt ---------- */
+function renderSettings(){
+  const S=state.settings;
+  $('setForm').innerHTML=SET_FIELDS.map(([k,l,t])=>{
+    const v=t==='pct'?+(S[k]*100).toFixed(2):t==='pct3'?+(S[k]*100).toFixed(3):S[k];
+    return `<div class="f"><label for="s_${k}">${l}</label><input id="s_${k}" ${t==='date'?'type="date"':'inputmode="decimal"'} value="${esc(v)}"></div>`}).join('');
+}
+$('saveSet').addEventListener('click',()=>{
+  const n={...state.settings};let bad='';
+  for(const [k,l,t] of SET_FIELDS){const raw=$('s_'+k).value;
+    if(t==='date'){if(!raw)bad=l;else n[k]=raw;continue}
+    const v=numIn(raw); if(isNaN(v)||(k!=='funding'&&v<0)){bad=l;continue}
+    n[k]=t==='pct'||t==='pct3'?v/100:(t==='int'?Math.round(v):v);}
+  if(n.capital<=0||n.lev<=0||n.risk<=0||n.w1<=0||n.w1>1)bad=bad||'Vốn, đòn bẩy, % rủi ro, tỷ lệ Entry 1';
+  if(bad){$('setMsg').innerHTML=`<span class="err">Kiểm tra lại: ${esc(bad)}.</span>`;return}
+  state.settings=n; save(); render(); $('setMsg').textContent='Đã lưu. Báo cáo đã tính lại.';
+});
+
+/* ---------- định tuyến ---------- */
+const VIEWS={'tong-quan':'Tổng quan','nhat-ky':'Nhật ký lệnh','cai-dat':'Kế hoạch & cài đặt'};
+function route(){
+  const v=VIEWS[location.hash.slice(1)]?location.hash.slice(1):'tong-quan';
+  document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));
+  document.querySelectorAll('.nav a').forEach(a=>{if(a.dataset.v===v)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+  $('crumbTxt').textContent=VIEWS[v]; $('addBtn').hidden=v==='nhat-ky';
+  if(v==='cai-dat')renderSettings();
+}
+window.addEventListener('hashchange',()=>{route();if(lastC)equityChart($('chEquity'),lastC)});
+try{new ResizeObserver(()=>{if(lastC)equityChart($('chEquity'),lastC)}).observe($('chEquity'))}catch(_){}
+
+/* ---------- lưu trữ ---------- */
+const LS='so-lenh-439-v1'; let dbRef=null, saving=false, again=false;
+function payload(){return {settings:state.settings,trades:state.trades,sample:false,updated:Date.now()}}
+function sync(t){$('sync').textContent=t}
+async function save(){
+  render();
+  if(state.sample)return;
+  try{localStorage.setItem(LS,JSON.stringify(payload()))}catch(_){}
+  if(!dbRef){sync('Đã lưu trên trình duyệt này');return}
+  if(saving){again=true;return}
+  saving=true;sync('Đang lưu…');
+  try{await dbRef.set(payload());sync('Đã lưu vào tài khoản · '+new Date().toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit'}))}
+  catch(e){sync('Chưa lưu được lên tài khoản – đã giữ trên trình duyệt')}
+  saving=false; if(again){again=false;save()}
+}
+function load(d){
+  if(!d||!Array.isArray(d.trades))return false;
+  state={settings:{...DEFAULTS,...(d.settings||{})},trades:d.trades,sample:false};return true;
+}
+async function boot(){
+  let local=null;try{local=JSON.parse(localStorage.getItem(LS)||'null')}catch(_){}
+  if(load(local)) sync('Dữ liệu từ trình duyệt này');
+  fillForm(null); route();
+  const timer=setTimeout(()=>{if(!dbRef)sync(state.sample?'Dữ liệu mẫu · chưa kết nối lưu trữ':'Lưu trên trình duyệt này')},10000);
+  try{
+    if(!window.claude||!window.claude.use){clearTimeout(timer);sync(state.sample?'Dữ liệu mẫu':'Lưu trên trình duyệt này');return}
+    const [db,user]=await Promise.all([window.claude.use('db'),window.claude.use('user')]);
+    if(!db||!user){clearTimeout(timer);sync(state.sample?'Dữ liệu mẫu · đăng nhập để lưu vào tài khoản':'Lưu trên trình duyệt này');return}
+    const id=await user.id();
+    dbRef=db.doc('data/users/'+id+'/journal');
+    const snap=await dbRef.get(); clearTimeout(timer);
+    const data=snap&&typeof snap.data==='function'?snap.data():(snap&&snap.exists===false?null:snap);
+    if(data&&Array.isArray(data.trades)){
+      if(!local||((data.updated||0)>=(local.updated||0))){load(data);fillForm(null)}
+      else if(!state.sample) save();
+      sync('Đã đồng bộ với tài khoản');
+    } else if(!state.sample){save()} else sync('Dữ liệu mẫu · lệnh bạn lưu sẽ vào tài khoản');
+  }catch(e){clearTimeout(timer);sync(state.sample?'Dữ liệu mẫu':'Lưu trên trình duyệt này')}
+}
+boot();
+})();
+</script>
 </body>
 </html>
