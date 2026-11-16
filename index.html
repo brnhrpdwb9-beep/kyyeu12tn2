@@ -215,6 +215,12 @@ svg text{font-family:var(--mono);fill:var(--faint);letter-spacing:-.02em}
 .presets button{border:1px solid var(--line);background:var(--bg);color:var(--mute);border-radius:999px;padding:3px 10px;font-size:12px;cursor:pointer}
 .presets button:hover,.presets button[aria-pressed="true"]{color:var(--ink);border-color:var(--mint)}
 .f input:disabled{opacity:.4}
+.stepper{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--bg)}
+.stepper input{border:0!important;border-radius:0!important;text-align:center}
+.stepper button{width:44px;flex:none;border:0;background:var(--raised);color:var(--ink);font-size:18px;cursor:pointer}
+.stepper button:hover{background:#222226;color:var(--mint)}
+.stepper:focus-within{border-color:var(--mint)}
+.over{color:var(--warn)}
 .linkbtn{border:0;background:none;color:var(--mint);font-size:12px;cursor:pointer;padding:6px 0 0;text-decoration:underline;text-underline-offset:3px}
 .mpanel{grid-column:1/-1;display:grid;grid-template-columns:1.3fr repeat(4,minmax(0,1fr));gap:0;padding:0!important;overflow:hidden}
 .mpanel>div{padding:14px 16px;border-left:1px solid var(--line-soft)}
@@ -431,7 +437,13 @@ footer{margin-top:40px;color:var(--faint);font-size:12px;max-width:80ch}
             <div class="f span2"><label>Kết quả</label><div class="seg" id="fRes"><button type="button" data-val="Chờ" aria-pressed="true">Chờ</button><button type="button" class="tp" data-val="TP1" aria-pressed="false">TP1</button><button type="button" class="sl" data-val="SL" aria-pressed="false">SL</button><button type="button" class="tl" data-val="Thanh lý" aria-pressed="false">Thanh lý</button><button type="button" data-val="Hủy" aria-pressed="false">Hủy</button></div></div>
             <div class="f"><label for="fLev">Đòn bẩy (x)</label><input id="fLev" type="number" min="1" max="125" step="1" inputmode="numeric"><div class="presets" id="levPresets"><button type="button" data-l="3">3x</button><button type="button" data-l="5">5x</button><button type="button" data-l="10">10x</button><button type="button" data-l="20">20x</button></div></div>
             <div class="f"><label>Chế độ ký quỹ</label><div class="seg" id="fMode"><button type="button" data-val="Cross" aria-pressed="true">Cross</button><button type="button" data-val="Isolated" aria-pressed="false">Isolated</button></div></div>
-            <div class="f span2"><label for="fMargin">Ký quỹ Isolated (USDT) – bỏ trống = ký quỹ ban đầu theo đòn bẩy</label><input id="fMargin" inputmode="decimal" placeholder="Tự tính"><button type="button" class="linkbtn" id="fillSafe">Điền mức ký quỹ an toàn</button></div>
+            <div class="f span2"><label>Cách tính khối lượng</label><div class="seg" id="fSize"><button type="button" data-val="risk" aria-pressed="true">Theo % rủi ro</button><button type="button" data-val="margin" aria-pressed="false">Theo ký quỹ</button></div></div>
+            <div class="f span2" id="mTotWrap"><label for="fMTot">Ký quỹ cho lệnh (USDT) – giá trị lệnh = ký quỹ × đòn bẩy</label>
+              <div class="stepper"><button type="button" data-step="-1" data-for="fMTot" aria-label="Bớt 1 USDT ký quỹ">−</button><input id="fMTot" inputmode="decimal" placeholder="VD: 9.4"><button type="button" data-step="1" data-for="fMTot" aria-label="Thêm 1 USDT ký quỹ">+</button></div>
+              <div class="presets" id="mPresets"><button type="button" data-p="0.02">2% số dư</button><button type="button" data-p="0.05">5% số dư</button><button type="button" data-p="0.1">10% số dư</button><button type="button" data-p="plan">Khớp rủi ro kế hoạch</button></div></div>
+            <div class="f span2" id="mIsoWrap"><label for="fMargin">Điều chỉnh ký quỹ Isolated (USDT) – thêm/bớt để dời giá thanh lý</label>
+              <div class="stepper"><button type="button" data-step="-1" data-for="fMargin" aria-label="Bớt 1 USDT ký quỹ Isolated">−</button><input id="fMargin" inputmode="decimal" placeholder="Bằng ký quỹ ban đầu"><button type="button" data-step="1" data-for="fMargin" aria-label="Thêm 1 USDT ký quỹ Isolated">+</button></div>
+              <button type="button" class="linkbtn" id="fillSafe">Điền mức ký quỹ an toàn</button></div>
           </div>
           <div class="preview" id="preview"></div>
           <div class="form-actions">
@@ -515,9 +527,11 @@ let state={settings:{...DEFAULTS},trades:sampleTrades(),sample:true};
 
 /* ---------- tính toán ---------- */
 function size(bal,riskPct,t,S){
-  const R=bal*riskPct, hasE2=t.e2>0;
+  const hasE2=t.e2>0;
   const d1=Math.abs(t.e1-t.sl)/t.e1, d2=hasE2?Math.abs(t.e2-t.sl)/t.e2:0, w=hasE2?S.w1:1;
-  const N=R/(w*d1+(1-w)*d2), Q=N*w, Rv=N-Q;
+  const byM=t.sizeBy==='margin'&&+t.mTot>0;
+  const N=byM?(+t.mTot)*Math.max(1,+t.lev||S.lev):bal*riskPct/(w*d1+(1-w)*d2);
+  const R=byM?N*(w*d1+(1-w)*d2):bal*riskPct, Q=N*w, Rv=N-Q;
   return {R,d1,d2,N,Q,Rv,margin:N/S.lev,q1:Q/t.e1,q2:hasE2?Rv/t.e2:0};
 }
 const isLoss=r=>r==='SL'||r==='Thanh lý', isClosed=r=>r==='TP1'||isLoss(r);
@@ -545,8 +559,8 @@ function compute(st){
   let bal=S.capital,ls=0,ws=0,peak=S.capital; const rows=[];
   for(const t of T){
     const pending=t.result==='Chờ';
-    const riskPct=ls>=S.nLoss?S.lowRisk:S.risk;
-    const z=size(bal,riskPct,t,S), mp=marginPlan(bal,z,t,S);
+    let riskPct=ls>=S.nLoss?S.lowRisk:S.risk;
+    const z=size(bal,riskPct,t,S), mp=marginPlan(bal,z,t,S), planPct=riskPct; if(t.sizeBy==='margin'&&+t.mTot>0) riskPct=z.R/bal;
     let gross=0,fee=0,fv=0,qty=0,avg=null;
     if(isClosed(t.result)){
       fv=z.Q+(t.e2f?z.Rv:0); qty=z.q1+(t.e2f?z.q2:0); avg=fv/qty;
@@ -559,7 +573,7 @@ function compute(st){
     const net=gross-fee, start=bal; if(!pending) bal+=net;
     if(isLoss(t.result)){ls++;ws=0} else if(t.result==='TP1'){ls=0;ws++}
     peak=Math.max(peak,bal);
-    rows.push({...t,...z,mp,margin:mp.used,start,riskPct,fv,qty,avg,gross,fee,net,end:bal,dd:bal/peak-1,ddUsd:bal-peak,ls,ws,week:weekOf(t.date,S),pending,warnNext:ls>=S.nLoss,below:bal<S.stop});
+    rows.push({...t,...z,mp,margin:mp.used,start,riskPct,planPct,overRisk:riskPct>planPct+1e-6,fv,qty,avg,gross,fee,net,end:bal,dd:bal/peak-1,ddUsd:bal-peak,ls,ws,week:weekOf(t.date,S),pending,warnNext:ls>=S.nLoss,below:bal<S.stop});
   }
   const closed=rows.filter(r=>isClosed(r.result));
   const W=rows.filter(r=>r.result==='TP1'), L=rows.filter(r=>isLoss(r.result)), C=rows.filter(r=>r.result==='Hủy'), P=rows.filter(r=>r.pending);
@@ -580,7 +594,7 @@ function compute(st){
   m.avgRisk=m.exec?sum(closed,r=>r.R)/m.exec:0; m.avgRiskPct=m.exec?sum(closed,r=>r.riskPct)/m.exec:0;
   m.expR=m.avgRisk?m.expect/m.avgRisk:0;
   m.maxWin=Math.max(0,...closed.map(r=>r.net)); m.maxLoss=Math.min(0,...closed.map(r=>r.net));
-  m.avgLev=closed.length?sum(closed,r=>r.mp.lev)/closed.length:S.lev; m.unsafe=rows.filter(r=>!r.mp.safe).length; m.liqCount=rows.filter(r=>r.result==='Thanh lý').length;
+  m.avgLev=closed.length?sum(closed,r=>r.mp.lev)/closed.length:S.lev; m.unsafe=rows.filter(r=>!r.mp.safe).length; m.overCount=rows.filter(r=>r.overRisk).length; m.liqCount=rows.filter(r=>r.result==='Thanh lý').length;
   m.lowCount=rows.filter(r=>Math.abs(r.riskPct-S.lowRisk)<1e-9&&S.lowRisk!==S.risk).length;
   const nonP=rows.filter(r=>!r.pending); m.avgMargin=nonP.length?sum(nonP,r=>r.margin)/nonP.length:0;
   m.notional=sum(closed,r=>r.fv); m.turnover=m.notional/S.capital;
@@ -758,7 +772,7 @@ function render(){
   kv('tQual',[['Tổng lệnh đã đóng',m.exec],['Thắng / thua / hủy',`${m.wins} / ${m.losses} / ${m.cancels}`],['Tỷ lệ thắng',`<span class="mint">${pc(m.winRate)}</span>`],['Tỷ lệ thắng cần để hòa vốn',pc(m.breakeven)],
    ['Profit factor',nf(m.pf)+'x'],['Lãi trung bình mỗi lệnh thắng',`<span class="up">${sg(m.avgWin)}</span>`],['Lỗ trung bình mỗi lệnh thua',`<span class="down">${sg(m.avgLoss)}</span>`],['Tỷ lệ lãi TB / lỗ TB',nf(m.payoff)+'x'],
    ['Kỳ vọng mỗi lệnh',`<span class="${cls(m.expect)}">${sg(m.expect)} USDT · ${sg(m.expR)}R</span>`],['Lệnh lãi lớn nhất',`<span class="up">${sg(m.maxWin)}</span>`],['Lệnh lỗ lớn nhất',`<span class="down">${sg(m.maxLoss)}</span>`]]);
-  kv('tRisk',[['Rủi ro TB mỗi lệnh',`${nf(m.avgRisk)} USDT · ${pc(m.avgRiskPct)}`],['Số lệnh phải hạ rủi ro',`${m.lowCount} lệnh`],['Ký quỹ TB mỗi lệnh',nf(m.avgMargin)+' USDT'],['Đòn bẩy trung bình',nf(m.avgLev,1)+'x'],['Lệnh có giá thanh lý trước SL',`<span class="${m.unsafe?'down':''}">${m.unsafe} lệnh</span>`],['Lệnh bị thanh lý',`<span class="${m.liqCount?'down':''}">${m.liqCount} lệnh</span>`],
+  kv('tRisk',[['Rủi ro TB mỗi lệnh',`${nf(m.avgRisk)} USDT · ${pc(m.avgRiskPct)}`],['Số lệnh phải hạ rủi ro',`${m.lowCount} lệnh`],['Ký quỹ TB mỗi lệnh',nf(m.avgMargin)+' USDT'],['Đòn bẩy trung bình',nf(m.avgLev,1)+'x'],['Lệnh vượt mức rủi ro kế hoạch',`<span class="${m.overCount?'over':''}">${m.overCount} lệnh</span>`],['Lệnh có giá thanh lý trước SL',`<span class="${m.unsafe?'down':''}">${m.unsafe} lệnh</span>`],['Lệnh bị thanh lý',`<span class="${m.liqCount?'down':''}">${m.liqCount} lệnh</span>`],
    ['Tổng giá trị đã khớp',nf(m.notional,0)+' USDT'],['Vòng quay vốn',nf(m.turnover,1)+'x'],['Chuỗi thắng dài nhất',m.maxWs+' lệnh'],['Chuỗi thua dài nhất',`<span class="${m.maxLs>=S.nLoss?'down':''}">${m.maxLs} lệnh</span>`],
    ['Hệ số phục hồi',nf(m.recovery)+'x'],['Khoảng cách tới ngưỡng dừng',`<span class="${m.distStop<0?'down':''}">${nf(m.distStop)} USDT</span>`],['Phí so với doanh thu',pc(m.feeRatio)]]);
   // plan vs actual
@@ -829,7 +843,7 @@ function renderLog(c){
   $('tLog').innerHTML=`<thead><tr><th>#</th><th>Ngày</th><th>Coin</th><th>Hướng</th><th class="r">Entry 1</th><th class="r">Entry 2</th><th class="r">SL</th><th class="r">TP1</th><th class="c">Khớp E2</th><th class="c">Kết quả</th><th class="r">Rủi ro</th><th class="r">Giá trị lệnh</th><th>Đòn bẩy</th><th class="r">Ký quỹ</th><th class="r">Giá thanh lý</th><th class="r">Lãi/lỗ ròng</th><th class="r">Số dư</th><th>Ghi chú</th></tr></thead><tbody>`+
   (rows.length?rows.map((r)=>`<tr class="trow ${r.id===editId?'sel':''}" data-id="${esc(r.id)}" tabindex="0"><td class="muted num">${all.indexOf(r)+1}</td><td class="num">${dfull(r.date)}</td><td><b>${esc(r.coin)}</b></td><td class="${r.side==='SHORT'?'down':'up'}">${r.side}</td>
   <td class="r num">${pr(r.e1)}</td><td class="r num">${r.e2?pr(r.e2):'–'}</td><td class="r num">${pr(r.sl)}</td><td class="r num">${pr(r.tp)}</td><td class="c">${r.e2?(r.e2f?'Có':'Không'):'–'}</td><td class="c">${chip(r.result)}</td>
-  <td class="r num">${nf(r.R)} <span class="muted">· ${pc(r.riskPct,0)}</span></td><td class="r num">${nf(r.N)}</td><td class="num">${r.mp.lev}x <span class="muted">${r.mp.mode}</span></td><td class="r num">${nf(r.margin)}</td><td class="r num ${r.mp.safe?'':'down'}" title="${r.mp.safe?'Giá thanh lý nằm ngoài SL':'Giá thanh lý nằm trước SL'}">${r.mp.liqE1>0?pr(+r.mp.liqE1.toPrecision(4)):'–'}${r.mp.safe?'':' ⚠'}</td>
+  <td class="r num ${r.overRisk?'over':''}" title="${r.overRisk?'Rủi ro vượt mức kế hoạch '+pc(r.planPct,0):''}">${nf(r.R)} <span class="${r.overRisk?'over':'muted'}">· ${pc(r.riskPct,r.overRisk?1:0)}</span></td><td class="r num">${nf(r.N)}</td><td class="num">${r.mp.lev}x <span class="muted">${r.mp.mode}</span></td><td class="r num">${nf(r.margin)}</td><td class="r num ${r.mp.safe?'':'down'}" title="${r.mp.safe?'Giá thanh lý nằm ngoài SL':'Giá thanh lý nằm trước SL'}">${r.mp.liqE1>0?pr(+r.mp.liqE1.toPrecision(4)):'–'}${r.mp.safe?'':' ⚠'}</td>
   <td class="r num ${cls(r.net)}">${r.pending?'–':sg(r.net)}</td><td class="r num">${nf(r.end)}</td>
   <td class="${r.below?'down':'gold'}" style="font-size:12px">${r.below?'Dưới ngưỡng dừng':r.warnNext&&!r.pending?'Lệnh sau rủi ro '+pc(c.S.lowRisk,0):''}</td></tr>`).join(''):'<tr><td colspan="18" class="muted" style="padding:24px">Chưa có lệnh. Nhập lệnh đầu tiên ở khung phía trên.</td></tr>')+'</tbody>';
 }
@@ -838,7 +852,7 @@ function renderCards(c,rows,all){
    <div class="lc-a"><b>${esc(r.coin)}</b><span class="${r.side==='SHORT'?'down':'up'}">${r.side}</span>${chip(r.result)}</div>
    <div class="lc-b"><span>#${all.indexOf(r)+1} · ${dfull(r.date)}</span><span>${r.mp.lev}x ${r.mp.mode}${r.mp.safe?'':' · <span class="down">⚠ thanh lý trước SL</span>'}</span></div>
    <div class="lc-c"><span>E1 <b>${pr(r.e1)}</b>${r.e2?` · E2 <b>${pr(r.e2)}</b>`:''}</span><span>SL <b>${pr(r.sl)}</b> · TP1 <b>${pr(r.tp)}</b></span></div>
-   <div class="lc-d"><span>Ký quỹ ${nf(r.margin)} · rủi ro ${nf(r.R)}</span><span class="lc-net ${cls(r.net)}">${r.pending?'Đang chờ':sg(r.net)}</span></div>
+   <div class="lc-d"><span>Ký quỹ ${nf(r.margin)} · <span class="${r.overRisk?'over':''}">rủi ro ${nf(r.R)} (${pc(r.riskPct,1)})</span></span><span class="lc-net ${cls(r.net)}">${r.pending?'Đang chờ':sg(r.net)}</span></div>
   </button>`).join(''):'<p class="muted">Chưa có lệnh.</p>';
 }
 $('logCards').addEventListener('click',e=>{const b=e.target.closest('.lc');if(!b)return;const t=state.trades.find(x=>x.id===b.dataset.id);if(t){fillForm(t);window.scrollTo({top:0,behavior:'smooth'})}});
@@ -846,7 +860,7 @@ function segVal(id){return document.querySelector(`#${id} [aria-pressed="true"]`
 function setSeg(id,val){document.querySelectorAll(`#${id} button`).forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.val===val)))}
 document.querySelectorAll('.seg').forEach(seg=>seg.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;setSeg(seg.id,b.dataset.val);updatePreview()}));
 const numIn=v=>{v=String(v||'').trim().replace(',','.');return v===''?0:+v};
-function readForm(){return {date:$('fDate').value,coin:$('fCoin').value.trim(),side:segVal('fSide'),result:segVal('fRes'),e1:numIn($('fE1').value),e2:numIn($('fE2').value),sl:numIn($('fSL').value),tp:numIn($('fTP').value),e2f:segVal('fE2f')==='1',lev:Math.round(numIn($('fLev').value))||state.settings.lev,mode:segVal('fMode'),mIso:segVal('fMode')==='Isolated'?numIn($('fMargin').value):0}}
+function readForm(){return {date:$('fDate').value,coin:$('fCoin').value.trim(),side:segVal('fSide'),result:segVal('fRes'),e1:numIn($('fE1').value),e2:numIn($('fE2').value),sl:numIn($('fSL').value),tp:numIn($('fTP').value),e2f:segVal('fE2f')==='1',lev:Math.round(numIn($('fLev').value))||state.settings.lev,mode:segVal('fMode'),mIso:segVal('fMode')==='Isolated'?numIn($('fMargin').value):0,sizeBy:segVal('fSize'),mTot:segVal('fSize')==='margin'?numIn($('fMTot').value):0}}
 function validate(t){
   if(!t.date)return 'Chọn ngày vào lệnh.'; if(!t.coin)return 'Nhập tên coin.';
   if(!(t.e1>0&&t.sl>0&&t.tp>0))return 'Entry 1, Stop loss và TP1 phải là số lớn hơn 0.';
@@ -858,6 +872,7 @@ function validate(t){
   if(t.e2f&&!(t.e2>0))return 'Chưa có Entry 2 nên không thể chọn "đã khớp".';
   if(!(t.lev>=1&&t.lev<=125))return 'Đòn bẩy phải từ 1x đến 125x.';
   if(isNaN(t.mIso)||t.mIso<0)return 'Ký quỹ Isolated không hợp lệ.';
+  if(t.sizeBy==='margin'&&!(t.mTot>0))return 'Nhập ký quỹ cho lệnh (USDT).';
   return '';
 }
 function updatePreview(){
@@ -869,11 +884,13 @@ function updatePreview(){
   const prior=c.rows.filter(r=>(r.date||'')<=t.date); const lastRow=prior[prior.length-1];
   const bal=lastRow?lastRow.end:S.capital, rp=(lastRow&&lastRow.ls>=S.nLoss)?S.lowRisk:S.risk;
   const z=size(bal,rp,t,S), dir=t.side==='SHORT'?-1:1, mp=marginPlan(bal,z,t,S); lastPlan=mp;
+  const zPlan=size(bal,rp,{...t,sizeBy:'risk'},S); lastCtx={bal,planMargin:zPlan.N/Math.max(1,+t.lev||S.lev)};
+  const actPct=z.R/bal, over=actPct>rp+1e-6;
   const tp1=dir*(t.tp-t.e1)*z.q1-z.Q*S.fee*2, sl1=dir*(t.sl-t.e1)*z.q1-z.Q*S.fee*2;
   const both=t.e2>0, fvB=z.Q+z.Rv, qB=z.q1+z.q2, avgB=fvB/qB;
   const tpB=both?dir*(t.tp-avgB)*qB-fvB*S.fee*2:tp1, slB=both?dir*(t.sl-avgB)*qB-fvB*S.fee*2:sl1;
   el.innerHTML=`
-  <div><div class="k">Rủi ro lệnh này</div><div class="v">${nf(z.R)}</div><div class="s">${pc(rp,0)} của số dư ${nf(bal)}</div></div>
+  <div><div class="k">Rủi ro lệnh này${t.sizeBy==='margin'?' · theo ký quỹ':''}</div><div class="v ${over?'over':''}">${nf(z.R)}</div><div class="s ${over?'over':''}">${pc(actPct,1)} số dư ${over?'· vượt kế hoạch '+pc(rp,0):'· kế hoạch '+pc(rp,0)}</div></div>
   <div><div class="k">Entry 1 · giá trị / khối lượng</div><div class="v">${nf(z.Q)}</div><div class="s">${nf(z.q1,0)} coin · ký quỹ ${nf(mp.m1)}</div></div>
   <div><div class="k">Entry 2 · giá trị / khối lượng</div><div class="v">${both?nf(z.Rv):'–'}</div><div class="s">${both?nf(z.q2,0)+' coin · ký quỹ '+nf(mp.m2):'Không có Entry 2'}</div></div>
   <div><div class="k">Tổng ký quỹ · ${mp.lev}x ${mp.mode}</div><div class="v">${nf(mp.used)}</div><div class="s">tổng giá trị ${nf(z.N)} USDT</div></div>
@@ -890,11 +907,18 @@ function updatePreview(){
     <div><div class="k">Đòn bẩy tối đa an toàn</div><div class="v">${mp.maxLev}x</div><div class="s">Isolated, không nạp thêm</div></div>
   </div>`;
 }
-['fDate','fCoin','fE1','fE2','fSL','fTP','fLev','fMargin'].forEach(id=>$(id).addEventListener('input',updatePreview));
-function syncMarginUI(){const iso=segVal('fMode')==='Isolated';$('fMargin').disabled=!iso;$('fillSafe').hidden=!iso;
+['fDate','fCoin','fE1','fE2','fSL','fTP','fLev','fMargin','fMTot'].forEach(id=>$(id).addEventListener('input',updatePreview));
+function syncMarginUI(){const iso=segVal('fMode')==='Isolated';$('mIsoWrap').hidden=!iso;$('mTotWrap').hidden=segVal('fSize')!=='margin';
   const L=+$('fLev').value;document.querySelectorAll('#levPresets button').forEach(b=>b.setAttribute('aria-pressed',String(+b.dataset.l===L)))}
 $('levPresets').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;$('fLev').value=b.dataset.l;syncMarginUI();updatePreview()});
 $('fMode').addEventListener('click',()=>{syncMarginUI();updatePreview()});
+$('fSize').addEventListener('click',()=>{syncMarginUI();updatePreview()});
+document.querySelectorAll('.stepper button').forEach(b=>b.addEventListener('click',()=>{const inp=$(b.dataset.for);let v=numIn(inp.value);
+  if(!v&&b.dataset.for==='fMargin'&&lastPlan)v=lastPlan.used; if(!v&&b.dataset.for==='fMTot'&&lastPlan)v=lastPlan.base;
+  v=Math.max(0,Math.round((v+(+b.dataset.step))*100)/100);inp.value=v||'';updatePreview()}));
+$('mPresets').addEventListener('click',e=>{const b=e.target.closest('button');if(!b||!lastCtx)return;
+  const v=b.dataset.p==='plan'?lastCtx.planMargin:lastCtx.bal*(+b.dataset.p);$('fMTot').value=Math.round(v*100)/100;updatePreview()});
+let lastCtx=null;
 $('fLev').addEventListener('input',syncMarginUI);
 let lastPlan=null;
 $('fillSafe').addEventListener('click',()=>{if(lastPlan){$('fMargin').value=lastPlan.needTotal;updatePreview()}});
@@ -903,7 +927,7 @@ function fillForm(t){
   $('fDate').value=t?t.date:new Date().toISOString().slice(0,10); $('fCoin').value=t?t.coin:'';
   $('fE1').value=t?t.e1:''; $('fE2').value=t&&t.e2?t.e2:''; $('fSL').value=t?t.sl:''; $('fTP').value=t?t.tp:'';
   setSeg('fSide',t?t.side:'LONG'); setSeg('fRes',t?t.result:'Chờ'); setSeg('fE2f',t&&t.e2f?'1':'0');
-  $('fLev').value=t&&t.lev?t.lev:state.settings.lev; setSeg('fMode',t&&t.mode==='Isolated'?'Isolated':'Cross'); $('fMargin').value=t&&t.mIso?t.mIso:''; syncMarginUI();
+  $('fLev').value=t&&t.lev?t.lev:state.settings.lev; setSeg('fMode',t&&t.mode==='Isolated'?'Isolated':'Cross'); $('fMargin').value=t&&t.mIso?t.mIso:''; setSeg('fSize',t&&t.sizeBy==='margin'?'margin':'risk'); $('fMTot').value=t&&t.mTot?t.mTot:''; syncMarginUI();
   $('formTitle').textContent=t?'Sửa lệnh':'Thêm lệnh mới'; $('saveBtn').textContent=t?'Lưu thay đổi':'Lưu lệnh';
   $('delBtn').hidden=!t; $('delBtn').textContent='Xóa lệnh'; $('delBtn').dataset.arm=''; $('formErr').textContent='';
   $('formHint').textContent=state.sample&&!t?'Lệnh đầu tiên sẽ thay toàn bộ dữ liệu mẫu.':'';
