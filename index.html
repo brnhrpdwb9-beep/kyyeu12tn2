@@ -208,6 +208,23 @@ svg text{font-family:var(--mono);fill:var(--faint);letter-spacing:-.02em}
 .preview .k{font-size:11.5px;color:var(--mute)}
 .preview .v{font:500 18px var(--body);margin-top:4px;font-variant-numeric:tabular-nums}
 .preview .s{font-size:11.5px;color:var(--faint);margin-top:2px}
+.f.span2{grid-column:span 2}
+.lev-row{display:flex;gap:8px}
+.lev-row input{flex:1;min-width:0}
+.presets{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.presets button{border:1px solid var(--line);background:var(--bg);color:var(--mute);border-radius:999px;padding:3px 10px;font-size:12px;cursor:pointer}
+.presets button:hover,.presets button[aria-pressed="true"]{color:var(--ink);border-color:var(--mint)}
+.f input:disabled{opacity:.4}
+.linkbtn{border:0;background:none;color:var(--mint);font-size:12px;cursor:pointer;padding:6px 0 0;text-decoration:underline;text-underline-offset:3px}
+.mpanel{grid-column:1/-1;display:grid;grid-template-columns:1.3fr repeat(4,minmax(0,1fr));gap:0;padding:0!important;overflow:hidden}
+.mpanel>div{padding:14px 16px;border-left:1px solid var(--line-soft)}
+.mpanel>div:first-child{border-left:0}
+.mpanel .state{display:flex;flex-direction:column;justify-content:center;gap:6px}
+.mpanel .state.ok{background:#0f1a15}.mpanel .state.bad{background:#1d0f0e}
+.mpanel .state b{font-size:14px;font-weight:600}
+.mpanel .state span{font-size:12px;color:var(--mute);line-height:1.45}
+.chip.tl{color:#ff8f86;border-color:#6b2522;background:#2a0f0d}
+.seg button[aria-pressed="true"].tl{color:#ff8f86}
 .form-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:18px}
 .err{color:var(--down);font-size:13px}
 .hint{color:var(--mute);font-size:12.5px}
@@ -227,8 +244,75 @@ footer{margin-top:40px;color:var(--faint);font-size:12px;max-width:80ch}
   .hero{grid-template-columns:1fr;padding:26px 22px}.hero-l{padding-right:0}.hero-r{border-left:0;padding-left:0;border-top:1px solid var(--line-soft);padding-top:22px;margin-top:26px;min-height:320px}
   .g2,.g-wide,.g3{grid-template-columns:1fr}
   .form,.preview,.settings{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .mpanel{grid-template-columns:1fr 1fr}.mpanel .state{grid-column:1/-1}.mpanel>div{border-left:0;border-top:1px solid var(--line-soft)}
 }
-@media (max-width:460px){.kpis{grid-template-columns:1fr}.form,.preview,.settings{grid-template-columns:1fr}}
+
+/* ---------- điện thoại ---------- */
+.m-side,.tabbar,.log-cards{display:none}
+.lc{display:flex;flex-direction:column;gap:6px;width:100%;text-align:left;background:var(--raised);border:1px solid var(--line-soft);border-radius:14px;padding:13px 14px;cursor:pointer;color:var(--ink)}
+.lc.sel{border-color:var(--mint)}
+.lc-a{display:flex;align-items:center;gap:8px}.lc-a b{font-size:15px}.lc-a span:not(.chip){font-size:11.5px;letter-spacing:.08em}.lc-a .chip{margin-left:auto}
+.lc-b,.lc-d{display:flex;justify-content:space-between;gap:10px;font-size:12px;color:var(--mute);font-variant-numeric:tabular-nums;flex-wrap:wrap}
+.lc-c{display:grid;grid-template-columns:1fr auto;gap:10px;font-size:12px;color:var(--mute);font-variant-numeric:tabular-nums}.lc-c span:last-child{text-align:right}
+.lc-c b{color:var(--ink);font-weight:500}
+.lc-d{align-items:baseline;border-top:1px solid var(--line-soft);padding-top:8px;margin-top:2px}
+.lc-net{font-size:17px;font-weight:600}
+@media (max-width:760px){
+  html,body{font-size:14px}
+  .side{padding:12px 16px;justify-content:space-between}
+  .side>div:not(.brand){display:none}
+  .brand b{font-size:19px}
+  main{padding:18px 14px calc(96px + env(safe-area-inset-bottom))}
+  .top{margin-bottom:16px}.top h1{font-size:34px}
+  #addBtn{display:none}
+  .banner{padding:10px 12px;font-size:12.5px;gap:10px}.banner .btn{margin-left:0;width:100%;justify-content:center}
+  .hero{padding:22px 18px;border-radius:18px}
+  .eyebrow{letter-spacing:.2em}
+  .big .n{font-size:60px}
+  .hstats{grid-template-columns:1fr 1fr}
+  .hstats>div:first-child{grid-column:1/-1;border-bottom:1px solid var(--line-soft);padding-bottom:14px}
+  .hstats>div:nth-child(2){padding-left:0;border-left:0}
+  .hstats .s{white-space:normal}
+  .hero-r{min-height:280px}
+  .m-side{display:grid;gap:12px;margin-top:12px}
+  .m-side .plan-mini{display:block;margin-top:0}
+  .m-side .res{gap:2px}
+  .kpis{grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+  .kpi{padding:14px 14px 13px;min-height:0}
+  .kpi .k{font-size:9.5px;letter-spacing:.12em}
+  .kpi .v{font-size:20px;margin:8px 0 4px}.kpi .v small{font-size:11px}
+  .kpi .s{font-size:11px;line-height:1.4}
+  .kpi .ring{width:30px;height:30px;top:12px;right:12px}
+  .kpi .tick{top:14px;bottom:14px}
+  .card{padding:18px 16px;border-radius:14px}
+  .grid{gap:12px}.mt{margin-top:12px}
+  .sec-title{margin:32px 0 12px}.sec-title h2{font-size:23px}.sec-title .line{display:none}
+  .stmt .p,.stmt th:last-child{display:none}
+  .tbl{font-size:13px}.tbl td,.tbl th{padding:9px 8px}
+  #tWeek td:first-child,#tWeek th:first-child,#tPlan td:first-child,#tPlan th:first-child{position:sticky;left:0;background:var(--surface);z-index:1}
+  .kv div{padding:9px 0;font-size:13px}
+  .notes li{font-size:13px;padding:11px 12px}
+  #tLog{display:none}.log-cards{display:grid;gap:10px}
+  .form{grid-template-columns:1fr 1fr;gap:12px}
+  .f.span2{grid-column:1/-1}
+  .f label{font-size:9.5px;letter-spacing:.1em}
+  .f input,.f select{padding:11px 12px;font-size:16px}
+  .seg button{padding:10px 4px;font-size:12.5px;white-space:nowrap}
+  .preview{grid-template-columns:1fr 1fr;gap:8px}
+  .preview>div{padding:10px 12px}.preview .v{font-size:16px}.preview .k{font-size:11px}
+  .mpanel{grid-template-columns:1fr 1fr}
+  .form-actions .btn{flex:1;justify-content:center}
+  .settings{grid-template-columns:1fr 1fr}
+  footer{margin-top:28px}
+  .tabbar{display:grid;grid-template-columns:1fr 1fr auto 1fr 1fr;align-items:center;position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));z-index:50;background:rgba(18,18,20,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:20px;padding:6px 8px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
+  .tabbar a{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0;color:var(--faint);text-decoration:none;font-size:10.5px;border-radius:12px}
+  .tabbar a svg{width:20px;height:20px}
+  .tabbar a[aria-current="page"]{color:var(--mint)}
+  .tabbar a:nth-of-type(1){grid-column:1/3}
+  .tab-add{grid-column:3;width:50px;height:50px;border-radius:16px;border:0;background:var(--mint);color:#0B1511;display:grid;place-items:center;cursor:pointer;margin:0 8px;box-shadow:0 6px 18px rgba(142,221,187,.25)}
+  .tab-add svg{width:22px;height:22px}
+}
+@media (max-width:360px){.kpis{grid-template-columns:1fr}.form,.preview,.settings,.mpanel{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 @keyframes draw{from{stroke-dashoffset:var(--len)}to{stroke-dashoffset:0}}
 .draw{stroke-dasharray:var(--len);animation:draw 1.4s cubic-bezier(.3,.7,.2,1) both}
@@ -291,6 +375,11 @@ footer{margin-top:40px;color:var(--faint);font-size:12px;max-width:80ch}
         </div>
       </div>
 
+      <div class="m-side" aria-label="Tóm tắt kết quả lệnh">
+        <div class="plan-mini" id="planMiniM"></div>
+        <div class="card"><h3>Kết quả lệnh</h3><div class="res mt" id="resBoxM"></div></div>
+      </div>
+
       <div class="kpis" id="kpis"></div>
 
       <div class="sec-title"><span class="idx">01</span><h2>Kết quả kinh doanh</h2><span class="line"></span></div>
@@ -328,18 +417,21 @@ footer{margin-top:40px;color:var(--faint);font-size:12px;max-width:80ch}
     <section class="view" id="v-nhat-ky">
       <div class="card">
         <h3 id="formTitle">Thêm lệnh mới</h3>
-        <div class="sub">Nhập theo kèo. Khối lượng và ký quỹ tự tính theo rủi ro của số dư hiện tại.</div>
+        <div class="sub">Nhập theo kèo. Khối lượng tự tính theo rủi ro của số dư; đòn bẩy và chế độ ký quỹ chỉnh riêng cho từng lệnh.</div>
         <form id="tradeForm" class="mt" autocomplete="off">
           <div class="form">
             <div class="f"><label for="fDate">Ngày</label><input id="fDate" type="date" required></div>
             <div class="f"><label for="fCoin">Coin</label><input id="fCoin" type="text" placeholder="VD: KGEN" maxlength="24" required></div>
             <div class="f"><label>Hướng</label><div class="seg" id="fSide"><button type="button" data-val="LONG" aria-pressed="true">LONG</button><button type="button" data-val="SHORT" aria-pressed="false">SHORT</button></div></div>
-            <div class="f"><label>Kết quả</label><div class="seg" id="fRes"><button type="button" data-val="Chờ" aria-pressed="true">Chờ</button><button type="button" class="tp" data-val="TP1" aria-pressed="false">TP1</button><button type="button" class="sl" data-val="SL" aria-pressed="false">SL</button><button type="button" data-val="Hủy" aria-pressed="false">Hủy</button></div></div>
             <div class="f"><label for="fE1">Entry 1</label><input id="fE1" inputmode="decimal" placeholder="0.093" required></div>
             <div class="f"><label for="fE2">Entry 2 (bỏ trống nếu không có)</label><input id="fE2" inputmode="decimal" placeholder="0.085"></div>
             <div class="f"><label for="fSL">Stop loss</label><input id="fSL" inputmode="decimal" placeholder="0.077" required></div>
             <div class="f"><label for="fTP">TP1</label><input id="fTP" inputmode="decimal" placeholder="0.102" required></div>
             <div class="f"><label>Entry 2 đã khớp?</label><div class="seg" id="fE2f"><button type="button" data-val="0" aria-pressed="true">Không</button><button type="button" data-val="1" aria-pressed="false">Có</button></div></div>
+            <div class="f span2"><label>Kết quả</label><div class="seg" id="fRes"><button type="button" data-val="Chờ" aria-pressed="true">Chờ</button><button type="button" class="tp" data-val="TP1" aria-pressed="false">TP1</button><button type="button" class="sl" data-val="SL" aria-pressed="false">SL</button><button type="button" class="tl" data-val="Thanh lý" aria-pressed="false">Thanh lý</button><button type="button" data-val="Hủy" aria-pressed="false">Hủy</button></div></div>
+            <div class="f"><label for="fLev">Đòn bẩy (x)</label><input id="fLev" type="number" min="1" max="125" step="1" inputmode="numeric"><div class="presets" id="levPresets"><button type="button" data-l="3">3x</button><button type="button" data-l="5">5x</button><button type="button" data-l="10">10x</button><button type="button" data-l="20">20x</button></div></div>
+            <div class="f"><label>Chế độ ký quỹ</label><div class="seg" id="fMode"><button type="button" data-val="Cross" aria-pressed="true">Cross</button><button type="button" data-val="Isolated" aria-pressed="false">Isolated</button></div></div>
+            <div class="f span2"><label for="fMargin">Ký quỹ Isolated (USDT) – bỏ trống = ký quỹ ban đầu theo đòn bẩy</label><input id="fMargin" inputmode="decimal" placeholder="Tự tính"><button type="button" class="linkbtn" id="fillSafe">Điền mức ký quỹ an toàn</button></div>
           </div>
           <div class="preview" id="preview"></div>
           <div class="form-actions">
@@ -357,7 +449,7 @@ footer{margin-top:40px;color:var(--faint);font-size:12px;max-width:80ch}
           <button class="btn ghost" type="button" id="copyCsv" style="margin-left:auto">Sao chép CSV</button>
           <span class="hint" id="copyMsg"></span>
         </div>
-        <div class="scroll mt"><table class="tbl" id="tLog"></table></div>
+        <div class="scroll mt"><table class="tbl" id="tLog"></table></div><div class="log-cards mt" id="logCards"></div>
       </div>
     </section>
 
@@ -382,6 +474,12 @@ footer{margin-top:40px;color:var(--faint);font-size:12px;max-width:80ch}
       </div>
     </section>
 
+    <nav class="tabbar" aria-label="Điều hướng nhanh">
+      <a href="#tong-quan" data-v="tong-quan"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/></svg><span>Tổng quan</span></a>
+      <button type="button" class="tab-add" id="tabAdd" aria-label="Thêm lệnh mới"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+      <a href="#nhat-ky" data-v="nhat-ky"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg><span>Nhật ký</span></a>
+      <a href="#cai-dat" data-v="cai-dat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg><span>Cài đặt</span></a>
+    </nav>
     <footer>Công cụ ghi chép theo kế hoạch đã thống nhất, không phải lời khuyên đầu tư. Số liệu chưa gồm trượt giá; phí và funding theo phần cài đặt.</footer>
   </main>
 </div>
@@ -390,12 +488,12 @@ footer{margin-top:40px;color:var(--faint);font-size:12px;max-width:80ch}
 (function(){
 'use strict';
 const DAY=864e5;
-const DEFAULTS={capital:439,risk:0.10,lowRisk:0.03,nLoss:2,lev:10,w1:0.70,fee:0.0005,stop:330,target:661,start:'2026-11-17',planWin:0.90,planN:15,funding:0};
+const DEFAULTS={capital:439,risk:0.10,lowRisk:0.03,nLoss:2,lev:10,w1:0.70,fee:0.0005,stop:330,target:661,mmr:0.005,start:'2026-11-17',planWin:0.90,planN:15,funding:0};
 const SET_FIELDS=[
  ['capital','Vốn ban đầu (USDT)','num'],['risk','Rủi ro mỗi lệnh (%)','pct'],['lowRisk','Rủi ro sau chuỗi thua (%)','pct'],
- ['nLoss','Số lệnh thua liên tiếp để hạ rủi ro','int'],['lev','Đòn bẩy (x)','num'],['w1','Tỷ lệ vốn vào Entry 1 (%)','pct'],
+ ['nLoss','Số lệnh thua liên tiếp để hạ rủi ro','int'],['lev','Đòn bẩy mặc định (x)','num'],['w1','Tỷ lệ vốn vào Entry 1 (%)','pct'],
  ['fee','Phí mỗi chiều (%)','pct3'],['stop','Ngưỡng dừng (USDT)','num'],['target','Mục tiêu số dư cuối kỳ (USDT)','num'],
- ['start','Ngày bắt đầu kỳ','date'],['planWin','Tỷ lệ thắng kế hoạch (%)','pct'],['planN','Số lệnh kế hoạch / kỳ','int'],['funding','Funding đã trả trong kỳ (USDT)','num']];
+ ['mmr','Tỷ lệ ký quỹ duy trì (%)','pct3'],['start','Ngày bắt đầu kỳ','date'],['planWin','Tỷ lệ thắng kế hoạch (%)','pct'],['planN','Số lệnh kế hoạch / kỳ','int'],['funding','Funding đã trả trong kỳ (USDT)','num']];
 
 /* ---------- dữ liệu mẫu ---------- */
 function sampleTrades(){
@@ -422,6 +520,24 @@ function size(bal,riskPct,t,S){
   const N=R/(w*d1+(1-w)*d2), Q=N*w, Rv=N-Q;
   return {R,d1,d2,N,Q,Rv,margin:N/S.lev,q1:Q/t.e1,q2:hasE2?Rv/t.e2:0};
 }
+const isLoss=r=>r==='SL'||r==='Thanh lý', isClosed=r=>r==='TP1'||isLoss(r);
+/* đòn bẩy & ký quỹ của một lệnh: ký quỹ cần bỏ ra, giá thanh lý, mức an toàn */
+function marginPlan(bal,z,t,S){
+  const L=Math.max(1,+t.lev||S.lev), mode=t.mode==='Isolated'?'Isolated':'Cross', mmr=S.mmr||0, dir=t.side==='SHORT'?-1:1, buf=0.01, hasE2=t.e2>0;
+  const frac=e=>Math.max(0,dir>0?(1+mmr-t.sl*(1-buf)/e):(t.sl*(1+buf)/e-1+mmr));
+  const base1=z.Q/L, base2=z.Rv/L, need1=z.Q*frac(t.e1), need2=hasE2?z.Rv*frac(t.e2):0;
+  const mIn=+t.mIso||0, nsum=need1+need2, sh1=nsum>0?need1/nsum:z.Q/z.N;
+  const m1=mode==='Isolated'&&mIn>0?mIn*sh1:base1, m2=mode==='Isolated'&&mIn>0?mIn*(1-sh1):base2;
+  const liq=(avg,notional,m)=>dir>0?avg*(1-m/notional+mmr):avg*(1+m/notional-mmr);
+  const qAll=z.q1+z.q2, avgAll=hasE2?z.N/qAll:t.e1;
+  const liqE1=liq(t.e1,z.Q,mode==='Isolated'?m1:bal), liqAll=hasE2?liq(avgAll,z.N,mode==='Isolated'?m1+m2:bal):liqE1;
+  const beyond=x=>dir>0?x<t.sl:x>t.sl;
+  const safe=beyond(liqE1)&&beyond(liqAll);
+  const fAll=hasE2?frac(avgAll):frac(t.e1);
+  const maxLev=Math.max(1,Math.floor(1/Math.max(frac(t.e1),fAll,1e-9)));
+  const needTotal=Math.ceil(Math.max(need1+need2,base1+base2)*2)/2;
+  return {lev:L,mode,m1,m2,used:m1+m2,base:base1+base2,needTotal,liqE1,liqAll,safe,maxLev,avgAll};
+}
 function weekOf(date,S){const d=(Date.parse(date)-Date.parse(S.start))/DAY;return Math.max(1,Math.floor(d/7)+1)}
 function compute(st){
   const S=st.settings;
@@ -430,20 +546,23 @@ function compute(st){
   for(const t of T){
     const pending=t.result==='Chờ';
     const riskPct=ls>=S.nLoss?S.lowRisk:S.risk;
-    const z=size(bal,riskPct,t,S);
+    const z=size(bal,riskPct,t,S), mp=marginPlan(bal,z,t,S);
     let gross=0,fee=0,fv=0,qty=0,avg=null;
-    if(t.result==='TP1'||t.result==='SL'){
+    if(isClosed(t.result)){
       fv=z.Q+(t.e2f?z.Rv:0); qty=z.q1+(t.e2f?z.q2:0); avg=fv/qty;
-      const dir=t.side==='SHORT'?-1:1, exit=t.result==='TP1'?t.tp:t.sl;
-      gross=dir*(exit-avg)*qty; fee=fv*S.fee*2;
+      const dir=t.side==='SHORT'?-1:1;
+      let exit=t.result==='TP1'?t.tp:t.sl;
+      if(t.result==='Thanh lý'){const lq=t.e2f?mp.liqAll:mp.liqE1; exit=lq>0?lq:t.sl}
+      gross=dir*(exit-avg)*qty; if(t.result==='Thanh lý'&&mp.mode==='Isolated') gross=Math.max(gross,-(t.e2f?mp.used:mp.m1));
+      fee=fv*S.fee*2;
     }
     const net=gross-fee, start=bal; if(!pending) bal+=net;
-    if(t.result==='SL'){ls++;ws=0} else if(t.result==='TP1'){ls=0;ws++}
+    if(isLoss(t.result)){ls++;ws=0} else if(t.result==='TP1'){ls=0;ws++}
     peak=Math.max(peak,bal);
-    rows.push({...t,...z,start,riskPct,fv,qty,avg,gross,fee,net,end:bal,dd:bal/peak-1,ddUsd:bal-peak,ls,ws,week:weekOf(t.date,S),pending,warnNext:ls>=S.nLoss,below:bal<S.stop});
+    rows.push({...t,...z,mp,margin:mp.used,start,riskPct,fv,qty,avg,gross,fee,net,end:bal,dd:bal/peak-1,ddUsd:bal-peak,ls,ws,week:weekOf(t.date,S),pending,warnNext:ls>=S.nLoss,below:bal<S.stop});
   }
-  const closed=rows.filter(r=>r.result==='TP1'||r.result==='SL');
-  const W=rows.filter(r=>r.result==='TP1'), L=rows.filter(r=>r.result==='SL'), C=rows.filter(r=>r.result==='Hủy'), P=rows.filter(r=>r.pending);
+  const closed=rows.filter(r=>isClosed(r.result));
+  const W=rows.filter(r=>r.result==='TP1'), L=rows.filter(r=>isLoss(r.result)), C=rows.filter(r=>r.result==='Hủy'), P=rows.filter(r=>r.pending);
   const sum=(a,f)=>a.reduce((s,x)=>s+f(x),0);
   const m={};
   m.wins=W.length;m.losses=L.length;m.cancels=C.length;m.pending=P.length;m.exec=closed.length;
@@ -461,6 +580,7 @@ function compute(st){
   m.avgRisk=m.exec?sum(closed,r=>r.R)/m.exec:0; m.avgRiskPct=m.exec?sum(closed,r=>r.riskPct)/m.exec:0;
   m.expR=m.avgRisk?m.expect/m.avgRisk:0;
   m.maxWin=Math.max(0,...closed.map(r=>r.net)); m.maxLoss=Math.min(0,...closed.map(r=>r.net));
+  m.avgLev=closed.length?sum(closed,r=>r.mp.lev)/closed.length:S.lev; m.unsafe=rows.filter(r=>!r.mp.safe).length; m.liqCount=rows.filter(r=>r.result==='Thanh lý').length;
   m.lowCount=rows.filter(r=>Math.abs(r.riskPct-S.lowRisk)<1e-9&&S.lowRisk!==S.risk).length;
   const nonP=rows.filter(r=>!r.pending); m.avgMargin=nonP.length?sum(nonP,r=>r.margin)/nonP.length:0;
   m.notional=sum(closed,r=>r.fv); m.turnover=m.notional/S.capital;
@@ -470,11 +590,11 @@ function compute(st){
   const nW=Math.max(5,...rows.map(r=>r.week));
   m.weeks=[];let cum=S.capital;
   for(let k=1;k<=nW;k++){
-    const wr=rows.filter(r=>r.week===k), wc=wr.filter(r=>r.result==='TP1'||r.result==='SL');
+    const wr=rows.filter(r=>r.week===k), wc=wr.filter(r=>isClosed(r.result));
     const net=sum(wr,r=>r.net); const startB=cum; cum+=net;
     const from=new Date(Date.parse(S.start)+(k-1)*7*DAY), to=new Date(Date.parse(S.start)+(k*7-1)*DAY);
-    m.weeks.push({k,from,to,n:wc.length,w:wr.filter(r=>r.result==='TP1').length,l:wr.filter(r=>r.result==='SL').length,c:wr.filter(r=>r.result==='Hủy').length,
-      rev:sum(wr.filter(r=>r.result==='TP1'),r=>r.gross),lossFee:sum(wr.filter(r=>r.result==='SL'),r=>r.gross)-sum(wr,r=>r.fee),net,end:cum,g:startB?net/startB:0});
+    m.weeks.push({k,from,to,n:wc.length,w:wr.filter(r=>r.result==='TP1').length,l:wr.filter(r=>isLoss(r.result)).length,c:wr.filter(r=>r.result==='Hủy').length,
+      rev:sum(wr.filter(r=>r.result==='TP1'),r=>r.gross),lossFee:sum(wr.filter(r=>isLoss(r.result)),r=>r.gross)-sum(wr,r=>r.fee),net,end:cum,g:startB?net/startB:0});
   }
   return {rows,m,S};
 }
@@ -526,20 +646,20 @@ function equityChart(el,c){
   ${xl}</svg>`;
 }
 function tradesChart(el,c){
-  const R=c.rows.filter(r=>r.result==='TP1'||r.result==='SL');
-  const Wd=640,H=250,pl=48,pr_=12,pt=14,pb=28;
+  const R=c.rows.filter(r=>isClosed(r.result));
+  const Wd=Math.max(280,el.clientWidth||640),H=Wd<480?210:250,pl=40,pr_=8,pt=14,pb=28;
   if(!R.length){el.innerHTML='<p class="muted">Chưa có lệnh đã đóng.</p>';return}
   const mx=Math.max(1,...R.map(r=>r.net)), mn=Math.min(-1,...R.map(r=>r.net)); const ticks=niceTicks(mn,mx,4); const y0=ticks[0],y1=ticks[ticks.length-1];
   const Y=v=>pt+(H-pt-pb)*(1-(v-y0)/(y1-y0)); const bw=(Wd-pl-pr_)/R.length;
   const g=ticks.map(t=>`<line x1="${pl}" x2="${Wd-pr_}" y1="${Y(t)}" y2="${Y(t)}" stroke="${t===0?'#3a3a40':'#202024'}"/><text x="${pl-8}" y="${Y(t)+4}" text-anchor="end" font-size="11">${nf(t,0)}</text>`).join('');
   const bars=R.map((r,i)=>{const x=pl+i*bw+bw*.2,w=bw*.6,ya=Y(Math.max(0,r.net)),yb=Y(Math.min(0,r.net));
     return `<rect x="${x}" y="${ya}" width="${w}" height="${Math.max(1,yb-ya)}" rx="3" fill="${r.net>=0?'#62DCA4':'#F2706A'}"><title>${esc(r.coin)}: ${sg(r.net)} USDT</title></rect>`+
-    (R.length<=20?`<text x="${x+w/2}" y="${H-9}" text-anchor="middle" font-size="10">${i+1}</text>`:'')}).join('');
+    ((R.length<=20&&(Wd>=480||i%2===0))?`<text x="${x+w/2}" y="${H-9}" text-anchor="middle" font-size="10.5">${i+1}</text>`:'')}).join('');
   el.innerHTML=`<svg viewBox="0 0 ${Wd} ${H}" width="100%" role="img" aria-label="Lãi lỗ ròng từng lệnh">${g}${bars}</svg>`;
 }
 function waterChart(el,m){
   const items=[['Doanh thu',m.revenue,'#62DCA4','up'],['Lỗ gộp',m.lossGross,'#F2706A','step'],['Phí',-(m.fees+m.funding),'#E9B949','step'],['Ròng',m.net,'#8EDDBB','total']];
-  const Wd=360,H=250,pl=44,pr_=8,pt=24,pb=34;
+  const Wd=Math.max(280,el.clientWidth||360),H=250,pl=42,pr_=8,pt=24,pb=34;
   let run=0;const segs=items.map(([k,v,col,t])=>{let a,b;if(t==='up'){a=0;b=v;run=v}else if(t==='step'){a=run;b=run+v;run=b}else{a=0;b=v}return {k,v,col,a,b}});
   const all=segs.flatMap(s=>[s.a,s.b]);const ticks=niceTicks(Math.min(0,...all),Math.max(1,...all),4);const y0=ticks[0],y1=ticks[ticks.length-1];
   const Y=v=>pt+(H-pt-pb)*(1-(v-y0)/(y1-y0));const bw=(Wd-pl-pr_)/segs.length;
@@ -551,7 +671,7 @@ function waterChart(el,m){
   el.innerHTML=`<svg viewBox="0 0 ${Wd} ${H}" width="100%" role="img" aria-label="Cấu trúc lợi nhuận">${g}${bars}</svg>`;
 }
 function weekChart(el,m){
-  const Wk=m.weeks,Wd=360,H=250,pl=40,pr_=8,pt=24,pb=30;
+  const Wk=m.weeks,Wd=Math.max(280,el.clientWidth||360),H=240,pl=40,pr_=8,pt=24,pb=30;
   const ticks=niceTicks(Math.min(0,...Wk.map(w=>w.net)),Math.max(1,...Wk.map(w=>w.net)),4);const y0=ticks[0],y1=ticks[ticks.length-1];
   const Y=v=>pt+(H-pt-pb)*(1-(v-y0)/(y1-y0));const bw=(Wd-pl-pr_)/Wk.length;
   const g=ticks.map(t=>`<line x1="${pl}" x2="${Wd-pr_}" y1="${Y(t)}" y2="${Y(t)}" stroke="${t===0?'#3a3a40':'#202024'}"/><text x="${pl-6}" y="${Y(t)+4}" text-anchor="end" font-size="10.5">${nf(t,0)}</text>`).join('');
@@ -571,7 +691,7 @@ function donut(el,m){
 }
 function ddChart(el,c){
   const pts=[0,...c.rows.filter(r=>!r.pending).map(r=>r.dd)];
-  const Wd=640,H=250,pl=48,pr_=14,pt=14,pb=26,id=++gid;
+  const Wd=Math.max(280,el.clientWidth||640),H=Wd<480?200:250,pl=44,pr_=14,pt=14,pb=26,id=++gid;
   const mn=Math.min(-0.05,...pts);const ticks=niceTicks(mn,0,3);const y0=ticks[0],y1=0;
   const X=i=>pl+(Wd-pl-pr_)*(pts.length>1?i/(pts.length-1):0),Y=v=>pt+(H-pt-pb)*(1-(v-y0)/(y1-y0));
   let d='';pts.forEach((v,i)=>{d+=(i?'L':'M')+X(i).toFixed(1)+' '+Y(v).toFixed(1)});
@@ -617,7 +737,7 @@ function render(){
   const rv=m.revenue||1, pr2=v=>m.revenue?pc(v/rv):'–';
   $('tPL').innerHTML=`<thead><tr><th>Khoản mục</th><th class="r">USDT</th><th class="r">% DT</th></tr></thead><tbody>
   <tr><td>Doanh thu – lãi gộp lệnh TP1</td><td class="r num up">${nf(m.revenue)}</td><td class="r p">${pr2(m.revenue)}</td></tr>
-  <tr><td>(−) Lỗ gộp lệnh dính SL</td><td class="r num down">${nf(m.lossGross)}</td><td class="r p">${pr2(m.lossGross)}</td></tr>
+  <tr><td>(−) Lỗ gộp lệnh SL / thanh lý</td><td class="r num down">${nf(m.lossGross)}</td><td class="r p">${pr2(m.lossGross)}</td></tr>
   <tr class="sum"><td>Lãi/lỗ gộp giao dịch</td><td class="r num">${nf(m.grossPL)}</td><td class="r p">${pr2(m.grossPL)}</td></tr>
   <tr><td>(−) Phí giao dịch</td><td class="r num">${nf(-m.fees)}</td><td class="r p">${pr2(-m.fees)}</td></tr>
   <tr><td>(−) Funding</td><td class="r num">${nf(-m.funding)}</td><td class="r p">${pr2(-m.funding)}</td></tr>
@@ -638,7 +758,7 @@ function render(){
   kv('tQual',[['Tổng lệnh đã đóng',m.exec],['Thắng / thua / hủy',`${m.wins} / ${m.losses} / ${m.cancels}`],['Tỷ lệ thắng',`<span class="mint">${pc(m.winRate)}</span>`],['Tỷ lệ thắng cần để hòa vốn',pc(m.breakeven)],
    ['Profit factor',nf(m.pf)+'x'],['Lãi trung bình mỗi lệnh thắng',`<span class="up">${sg(m.avgWin)}</span>`],['Lỗ trung bình mỗi lệnh thua',`<span class="down">${sg(m.avgLoss)}</span>`],['Tỷ lệ lãi TB / lỗ TB',nf(m.payoff)+'x'],
    ['Kỳ vọng mỗi lệnh',`<span class="${cls(m.expect)}">${sg(m.expect)} USDT · ${sg(m.expR)}R</span>`],['Lệnh lãi lớn nhất',`<span class="up">${sg(m.maxWin)}</span>`],['Lệnh lỗ lớn nhất',`<span class="down">${sg(m.maxLoss)}</span>`]]);
-  kv('tRisk',[['Rủi ro TB mỗi lệnh',`${nf(m.avgRisk)} USDT · ${pc(m.avgRiskPct)}`],['Số lệnh phải hạ rủi ro',`${m.lowCount} lệnh`],['Ký quỹ TB mỗi lệnh',nf(m.avgMargin)+' USDT'],['Đòn bẩy',S.lev+'x Cross'],
+  kv('tRisk',[['Rủi ro TB mỗi lệnh',`${nf(m.avgRisk)} USDT · ${pc(m.avgRiskPct)}`],['Số lệnh phải hạ rủi ro',`${m.lowCount} lệnh`],['Ký quỹ TB mỗi lệnh',nf(m.avgMargin)+' USDT'],['Đòn bẩy trung bình',nf(m.avgLev,1)+'x'],['Lệnh có giá thanh lý trước SL',`<span class="${m.unsafe?'down':''}">${m.unsafe} lệnh</span>`],['Lệnh bị thanh lý',`<span class="${m.liqCount?'down':''}">${m.liqCount} lệnh</span>`],
    ['Tổng giá trị đã khớp',nf(m.notional,0)+' USDT'],['Vòng quay vốn',nf(m.turnover,1)+'x'],['Chuỗi thắng dài nhất',m.maxWs+' lệnh'],['Chuỗi thua dài nhất',`<span class="${m.maxLs>=S.nLoss?'down':''}">${m.maxLs} lệnh</span>`],
    ['Hệ số phục hồi',nf(m.recovery)+'x'],['Khoảng cách tới ngưỡng dừng',`<span class="${m.distStop<0?'down':''}">${nf(m.distStop)} USDT</span>`],['Phí so với doanh thu',pc(m.feeRatio)]]);
   // plan vs actual
@@ -665,24 +785,25 @@ function render(){
 let editId=null;
 /* ---------- thanh bên: kết quả lệnh & lệnh kế tiếp ---------- */
 let logFilter=null;
-const RES=[['TP1','TP1 – thắng','#62DCA4'],['SL','SL – thua','#F2706A'],['Hủy','Hủy','#6B6A72'],['Chờ','Đang chờ','#E9B949']];
+const RES=[['TP1','TP1 – thắng','#62DCA4'],['SL','SL – thua','#F2706A'],['Thanh lý','Thanh lý','#B8423C'],['Hủy','Hủy','#6B6A72'],['Chờ','Đang chờ','#E9B949']];
 function renderSide(c){
   const {m,S,rows}=c, sumNet=k=>rows.filter(r=>r.result===k).reduce((s,r)=>s+r.net,0);
   const ok=m.winRate>=m.breakeven;
   let h=`<div class="res-top"><b class="${m.exec?(ok?'up':'down'):'muted'}">${m.exec?pc(m.winRate,0):'–'}</b><span>tỷ lệ thắng<br>${m.exec?(ok?'trên':'dưới')+' mức hòa vốn':'chưa có lệnh đóng'}</span></div>`;
   h+=`<div class="stack" title="Tỷ lệ thắng so với mức cần để hòa vốn"><i style="width:${m.winRate*100}%;background:#62DCA4"></i><i style="width:${m.exec?(1-m.winRate)*100:0}%;background:#F2706A"></i>${m.exec?`<span class="be" style="left:${Math.min(98,Math.max(2,m.breakeven*100))}%"><span>hòa vốn ${pc(m.breakeven,0)}</span></span>`:''}</div>`;
   h+=RES.map(([k,lab,col])=>{
-    const n=k==='TP1'?m.wins:k==='SL'?m.losses:k==='Hủy'?m.cancels:m.pending;
+    const n=rows.filter(r=>r.result===k).length;
     let sub='', right=`${n}`, rsub='';
-    if(k==='TP1'||k==='SL'){sub=m.exec?pc(n/m.exec,0)+' số lệnh đóng':'–';const v=sumNet(k);rsub=`<small class="${cls(v)}">${sg(v,1)}</small>`}
+    if(k==='Thanh lý'&&!n)return '';
+    if(isClosed(k)){sub=m.exec?pc(n/m.exec,0)+' số lệnh đóng':'–';const v=sumNet(k);rsub=`<small class="${cls(v)}">${sg(v,1)}</small>`}
     else if(k==='Hủy'){sub='không tính lãi/lỗ'}
     else{const p=rows.filter(r=>r.pending);sub=p.length?p.map(r=>esc(r.coin)).join(', '):'không có lệnh mở'}
     return `<button type="button" class="res-row" data-f="${k}" aria-pressed="${logFilter===k}" title="Xem các lệnh ${lab} trong nhật ký"><i style="background:${col}"></i><span class="t">${lab}<small>${sub}</small></span><span class="c">${right}${rsub}</span></button>`}).join('');
   const recent=rows.filter(r=>!r.pending).slice(-12);
-  h+=`<div class="recent"><div class="lab"><span>${recent.length} lệnh gần nhất</span><span>cũ → mới</span></div><div class="dots">${recent.map(r=>`<i title="${esc(r.coin)} · ${r.result}${r.result==='Hủy'?'':' · '+sg(r.net)+' USDT'}" style="background:${r.result==='TP1'?'#62DCA4':r.result==='SL'?'#F2706A':'#3a3a40'}"></i>`).join('')||'<span class="muted" style="font-size:12px">Chưa có</span>'}</div></div>`;
-  const lastC=[...rows].reverse().find(r=>r.result==='TP1'||r.result==='SL');
+  h+=`<div class="recent"><div class="lab"><span>${recent.length} lệnh gần nhất</span><span>cũ → mới</span></div><div class="dots">${recent.map(r=>`<i title="${esc(r.coin)} · ${r.result}${r.result==='Hủy'?'':' · '+sg(r.net)+' USDT'}" style="background:${r.result==='TP1'?'#62DCA4':r.result==='SL'?'#F2706A':r.result==='Thanh lý'?'#B8423C':'#3a3a40'}"></i>`).join('')||'<span class="muted" style="font-size:12px">Chưa có</span>'}</div></div>`;
+  const lastC=[...rows].reverse().find(r=>isClosed(r.result));
   if(lastC) h+=`<div class="streak">Chuỗi hiện tại: <b class="${lastC.ls?'down':'up'}">${lastC.ls?lastC.ls+' lệnh thua':lastC.ws+' lệnh thắng'}</b> liên tiếp</div>`;
-  $('resBox').innerHTML=h;
+  $('resBox').innerHTML=h; $('resBoxM').innerHTML=h;
   // lệnh kế tiếp
   const done=rows.filter(r=>!r.pending), bal=done.length?done[done.length-1].end:S.capital, ls=lastC?lastC.ls:0;
   const low=ls>=S.nLoss, rp=low?S.lowRisk:S.risk;
@@ -691,30 +812,41 @@ function renderSide(c){
   else if(low) w=`<div class="warn a">Đã thua ${ls} lệnh liên tiếp nên hạ rủi ro xuống ${pc(S.lowRisk,0)} cho đến khi thắng lại.</div>`;
   else if(m.pending) w=`<div class="warn a">Đang có ${m.pending} lệnh mở. Kế hoạch chỉ cho mở 1 lệnh một lúc.</div>`;
   $('planMini').innerHTML=`<div class="cap">Lệnh kế tiếp</div><div class="nv">${nf(bal*rp)}<small>USDT</small></div>
-   <div>Rủi ro tối đa: <b>${pc(rp,0)}</b> của số dư <b>${nf(bal)}</b> · ${S.lev}x Cross · chốt 100% TP1</div>${w}
+   <div>Rủi ro tối đa: <b>${pc(rp,0)}</b> của số dư <b>${nf(bal)}</b> · mặc định ${S.lev}x Cross · chốt 100% TP1</div>${w}
    <a href="#nhat-ky">Tính khối lượng →</a>`;
+  $('planMiniM').innerHTML=$('planMini').innerHTML;
 }
 document.addEventListener('click',e=>{
   const b=e.target.closest('.res-row'); if(b){logFilter=logFilter===b.dataset.f?null:b.dataset.f; if(location.hash!=='#nhat-ky')location.hash='#nhat-ky'; render(); return}
   if(e.target.closest('#clearFilter')){logFilter=null;render()}
 });
-function chip(r){return r==='TP1'?'<span class="chip tp">TP1</span>':r==='SL'?'<span class="chip sl">SL</span>':r==='Hủy'?'<span class="chip hu">Hủy</span>':'<span class="chip ch">Đang chờ</span>'}
+function chip(r){return r==='TP1'?'<span class="chip tp">TP1</span>':r==='SL'?'<span class="chip sl">SL</span>':r==='Thanh lý'?'<span class="chip tl">Thanh lý</span>':r==='Hủy'?'<span class="chip hu">Hủy</span>':'<span class="chip ch">Đang chờ</span>'}
 function renderLog(c){
   const all=c.rows, rows=logFilter?all.filter(r=>r.result===logFilter):all;
   const lab=(RES.find(x=>x[0]===logFilter)||[])[1];
+  renderCards(c,rows,all);
   $('filterChip').innerHTML=logFilter?`<span class="fchip">Đang lọc: ${lab} · ${rows.length} lệnh<button type="button" id="clearFilter">Bỏ lọc</button></span>`:'';
-  $('tLog').innerHTML=`<thead><tr><th>#</th><th>Ngày</th><th>Coin</th><th>Hướng</th><th class="r">Entry 1</th><th class="r">Entry 2</th><th class="r">SL</th><th class="r">TP1</th><th class="c">Khớp E2</th><th class="c">Kết quả</th><th class="r">Rủi ro</th><th class="r">Giá trị lệnh</th><th class="r">Ký quỹ</th><th class="r">Lãi/lỗ ròng</th><th class="r">Số dư</th><th>Ghi chú</th></tr></thead><tbody>`+
+  $('tLog').innerHTML=`<thead><tr><th>#</th><th>Ngày</th><th>Coin</th><th>Hướng</th><th class="r">Entry 1</th><th class="r">Entry 2</th><th class="r">SL</th><th class="r">TP1</th><th class="c">Khớp E2</th><th class="c">Kết quả</th><th class="r">Rủi ro</th><th class="r">Giá trị lệnh</th><th>Đòn bẩy</th><th class="r">Ký quỹ</th><th class="r">Giá thanh lý</th><th class="r">Lãi/lỗ ròng</th><th class="r">Số dư</th><th>Ghi chú</th></tr></thead><tbody>`+
   (rows.length?rows.map((r)=>`<tr class="trow ${r.id===editId?'sel':''}" data-id="${esc(r.id)}" tabindex="0"><td class="muted num">${all.indexOf(r)+1}</td><td class="num">${dfull(r.date)}</td><td><b>${esc(r.coin)}</b></td><td class="${r.side==='SHORT'?'down':'up'}">${r.side}</td>
   <td class="r num">${pr(r.e1)}</td><td class="r num">${r.e2?pr(r.e2):'–'}</td><td class="r num">${pr(r.sl)}</td><td class="r num">${pr(r.tp)}</td><td class="c">${r.e2?(r.e2f?'Có':'Không'):'–'}</td><td class="c">${chip(r.result)}</td>
-  <td class="r num">${nf(r.R)} <span class="muted">· ${pc(r.riskPct,0)}</span></td><td class="r num">${nf(r.N)}</td><td class="r num">${nf(r.margin)}</td>
+  <td class="r num">${nf(r.R)} <span class="muted">· ${pc(r.riskPct,0)}</span></td><td class="r num">${nf(r.N)}</td><td class="num">${r.mp.lev}x <span class="muted">${r.mp.mode}</span></td><td class="r num">${nf(r.margin)}</td><td class="r num ${r.mp.safe?'':'down'}" title="${r.mp.safe?'Giá thanh lý nằm ngoài SL':'Giá thanh lý nằm trước SL'}">${r.mp.liqE1>0?pr(+r.mp.liqE1.toPrecision(4)):'–'}${r.mp.safe?'':' ⚠'}</td>
   <td class="r num ${cls(r.net)}">${r.pending?'–':sg(r.net)}</td><td class="r num">${nf(r.end)}</td>
-  <td class="${r.below?'down':'gold'}" style="font-size:12px">${r.below?'Dưới ngưỡng dừng':r.warnNext&&!r.pending?'Lệnh sau rủi ro '+pc(c.S.lowRisk,0):''}</td></tr>`).join(''):'<tr><td colspan="16" class="muted" style="padding:24px">Chưa có lệnh. Nhập lệnh đầu tiên ở khung phía trên.</td></tr>')+'</tbody>';
+  <td class="${r.below?'down':'gold'}" style="font-size:12px">${r.below?'Dưới ngưỡng dừng':r.warnNext&&!r.pending?'Lệnh sau rủi ro '+pc(c.S.lowRisk,0):''}</td></tr>`).join(''):'<tr><td colspan="18" class="muted" style="padding:24px">Chưa có lệnh. Nhập lệnh đầu tiên ở khung phía trên.</td></tr>')+'</tbody>';
 }
+function renderCards(c,rows,all){
+  $('logCards').innerHTML=rows.length?[...rows].reverse().map(r=>`<button type="button" class="lc ${r.id===editId?'sel':''}" data-id="${esc(r.id)}">
+   <div class="lc-a"><b>${esc(r.coin)}</b><span class="${r.side==='SHORT'?'down':'up'}">${r.side}</span>${chip(r.result)}</div>
+   <div class="lc-b"><span>#${all.indexOf(r)+1} · ${dfull(r.date)}</span><span>${r.mp.lev}x ${r.mp.mode}${r.mp.safe?'':' · <span class="down">⚠ thanh lý trước SL</span>'}</span></div>
+   <div class="lc-c"><span>E1 <b>${pr(r.e1)}</b>${r.e2?` · E2 <b>${pr(r.e2)}</b>`:''}</span><span>SL <b>${pr(r.sl)}</b> · TP1 <b>${pr(r.tp)}</b></span></div>
+   <div class="lc-d"><span>Ký quỹ ${nf(r.margin)} · rủi ro ${nf(r.R)}</span><span class="lc-net ${cls(r.net)}">${r.pending?'Đang chờ':sg(r.net)}</span></div>
+  </button>`).join(''):'<p class="muted">Chưa có lệnh.</p>';
+}
+$('logCards').addEventListener('click',e=>{const b=e.target.closest('.lc');if(!b)return;const t=state.trades.find(x=>x.id===b.dataset.id);if(t){fillForm(t);window.scrollTo({top:0,behavior:'smooth'})}});
 function segVal(id){return document.querySelector(`#${id} [aria-pressed="true"]`).dataset.val}
 function setSeg(id,val){document.querySelectorAll(`#${id} button`).forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.val===val)))}
 document.querySelectorAll('.seg').forEach(seg=>seg.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;setSeg(seg.id,b.dataset.val);updatePreview()}));
 const numIn=v=>{v=String(v||'').trim().replace(',','.');return v===''?0:+v};
-function readForm(){return {date:$('fDate').value,coin:$('fCoin').value.trim(),side:segVal('fSide'),result:segVal('fRes'),e1:numIn($('fE1').value),e2:numIn($('fE2').value),sl:numIn($('fSL').value),tp:numIn($('fTP').value),e2f:segVal('fE2f')==='1'}}
+function readForm(){return {date:$('fDate').value,coin:$('fCoin').value.trim(),side:segVal('fSide'),result:segVal('fRes'),e1:numIn($('fE1').value),e2:numIn($('fE2').value),sl:numIn($('fSL').value),tp:numIn($('fTP').value),e2f:segVal('fE2f')==='1',lev:Math.round(numIn($('fLev').value))||state.settings.lev,mode:segVal('fMode'),mIso:segVal('fMode')==='Isolated'?numIn($('fMargin').value):0}}
 function validate(t){
   if(!t.date)return 'Chọn ngày vào lệnh.'; if(!t.coin)return 'Nhập tên coin.';
   if(!(t.e1>0&&t.sl>0&&t.tp>0))return 'Entry 1, Stop loss và TP1 phải là số lớn hơn 0.';
@@ -724,6 +856,8 @@ function validate(t){
   if(!L&&!(t.tp<t.e1&&t.e1<t.sl))return 'Lệnh SHORT cần TP1 < Entry 1 < Stop loss.';
   if(t.e2>0&&(L?!(t.sl<t.e2&&t.e2<t.e1):!(t.e1<t.e2&&t.e2<t.sl)))return 'Entry 2 phải nằm giữa Entry 1 và Stop loss.';
   if(t.e2f&&!(t.e2>0))return 'Chưa có Entry 2 nên không thể chọn "đã khớp".';
+  if(!(t.lev>=1&&t.lev<=125))return 'Đòn bẩy phải từ 1x đến 125x.';
+  if(isNaN(t.mIso)||t.mIso<0)return 'Ký quỹ Isolated không hợp lệ.';
   return '';
 }
 function updatePreview(){
@@ -734,26 +868,42 @@ function updatePreview(){
   const c=compute({...state,trades:state.trades.filter(x=>x.id!==editId)});
   const prior=c.rows.filter(r=>(r.date||'')<=t.date); const lastRow=prior[prior.length-1];
   const bal=lastRow?lastRow.end:S.capital, rp=(lastRow&&lastRow.ls>=S.nLoss)?S.lowRisk:S.risk;
-  const z=size(bal,rp,t,S), dir=t.side==='SHORT'?-1:1;
+  const z=size(bal,rp,t,S), dir=t.side==='SHORT'?-1:1, mp=marginPlan(bal,z,t,S); lastPlan=mp;
   const tp1=dir*(t.tp-t.e1)*z.q1-z.Q*S.fee*2, sl1=dir*(t.sl-t.e1)*z.q1-z.Q*S.fee*2;
   const both=t.e2>0, fvB=z.Q+z.Rv, qB=z.q1+z.q2, avgB=fvB/qB;
   const tpB=both?dir*(t.tp-avgB)*qB-fvB*S.fee*2:tp1, slB=both?dir*(t.sl-avgB)*qB-fvB*S.fee*2:sl1;
   el.innerHTML=`
   <div><div class="k">Rủi ro lệnh này</div><div class="v">${nf(z.R)}</div><div class="s">${pc(rp,0)} của số dư ${nf(bal)}</div></div>
-  <div><div class="k">Entry 1 · giá trị / khối lượng</div><div class="v">${nf(z.Q)}</div><div class="s">${nf(z.q1,0)} coin · ký quỹ ${nf(z.Q/S.lev)}</div></div>
-  <div><div class="k">Entry 2 · giá trị / khối lượng</div><div class="v">${both?nf(z.Rv):'–'}</div><div class="s">${both?nf(z.q2,0)+' coin · ký quỹ '+nf(z.Rv/S.lev):'Không có Entry 2'}</div></div>
-  <div><div class="k">Tổng ký quỹ (${S.lev}x)</div><div class="v">${nf(z.margin)}</div><div class="s">tổng giá trị ${nf(z.N)} USDT</div></div>
+  <div><div class="k">Entry 1 · giá trị / khối lượng</div><div class="v">${nf(z.Q)}</div><div class="s">${nf(z.q1,0)} coin · ký quỹ ${nf(mp.m1)}</div></div>
+  <div><div class="k">Entry 2 · giá trị / khối lượng</div><div class="v">${both?nf(z.Rv):'–'}</div><div class="s">${both?nf(z.q2,0)+' coin · ký quỹ '+nf(mp.m2):'Không có Entry 2'}</div></div>
+  <div><div class="k">Tổng ký quỹ · ${mp.lev}x ${mp.mode}</div><div class="v">${nf(mp.used)}</div><div class="s">tổng giá trị ${nf(z.N)} USDT</div></div>
   <div><div class="k">Chạm TP1 · chỉ Entry 1</div><div class="v up">${sg(tp1)}</div><div class="s">đã trừ phí</div></div>
   <div><div class="k">Chạm TP1 · khớp cả 2</div><div class="v up">${both?sg(tpB):'–'}</div><div class="s">${both?'giá vào TB '+pr(avgB.toPrecision(5)):''}</div></div>
   <div><div class="k">Dính SL · chỉ Entry 1</div><div class="v down">${sg(sl1)}</div><div class="s">đã trừ phí</div></div>
-  <div><div class="k">Dính SL · khớp cả 2</div><div class="v down">${both?sg(slB):'–'}</div><div class="s">${both?'bằng toàn bộ rủi ro':''}</div></div>`;
+  <div><div class="k">Dính SL · khớp cả 2</div><div class="v down">${both?sg(slB):'–'}</div><div class="s">${both?'bằng toàn bộ rủi ro':''}</div></div>
+  <div class="mpanel">
+    <div class="state ${mp.safe?'ok':'bad'}"><b class="${mp.safe?'up':'down'}">${mp.safe?'✓ Thanh lý nằm ngoài Stop loss':'⚠ Có thể bị thanh lý trước Stop loss'}</b>
+      <span>${mp.safe?(mp.mode==='Cross'?'Cross dùng số dư '+nf(bal)+' USDT để giữ lệnh.':'Ký quỹ đủ để giá chạm SL trước khi thanh lý.'):(mp.mode==='Isolated'?'Nạp ký quỹ lên '+nf(mp.needTotal)+' USDT, hạ đòn bẩy xuống '+mp.maxLev+'x, hoặc chuyển sang Cross.':'Số dư không đủ giữ lệnh tới SL. Giảm khối lượng lệnh.')}</span></div>
+    <div><div class="k">Thanh lý · chỉ Entry 1</div><div class="v ${mp.liqE1>0&&(dir>0?mp.liqE1>=t.sl:mp.liqE1<=t.sl)?'down':''}">${mp.liqE1>0?pr(+mp.liqE1.toPrecision(5)):'Không có'}</div><div class="s">SL ${pr(t.sl)}</div></div>
+    <div><div class="k">Thanh lý · khớp cả 2</div><div class="v ${both&&mp.liqAll>0&&(dir>0?mp.liqAll>=t.sl:mp.liqAll<=t.sl)?'down':''}">${both?(mp.liqAll>0?pr(+mp.liqAll.toPrecision(5)):'Không có'):'–'}</div><div class="s">${both?'giá vào TB '+pr(+mp.avgAll.toPrecision(5)):''}</div></div>
+    <div><div class="k">Isolated an toàn cần</div><div class="v">${nf(mp.needTotal)}</div><div class="s">ký quỹ ban đầu ${nf(mp.base)}</div></div>
+    <div><div class="k">Đòn bẩy tối đa an toàn</div><div class="v">${mp.maxLev}x</div><div class="s">Isolated, không nạp thêm</div></div>
+  </div>`;
 }
-['fDate','fCoin','fE1','fE2','fSL','fTP'].forEach(id=>$(id).addEventListener('input',updatePreview));
+['fDate','fCoin','fE1','fE2','fSL','fTP','fLev','fMargin'].forEach(id=>$(id).addEventListener('input',updatePreview));
+function syncMarginUI(){const iso=segVal('fMode')==='Isolated';$('fMargin').disabled=!iso;$('fillSafe').hidden=!iso;
+  const L=+$('fLev').value;document.querySelectorAll('#levPresets button').forEach(b=>b.setAttribute('aria-pressed',String(+b.dataset.l===L)))}
+$('levPresets').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;$('fLev').value=b.dataset.l;syncMarginUI();updatePreview()});
+$('fMode').addEventListener('click',()=>{syncMarginUI();updatePreview()});
+$('fLev').addEventListener('input',syncMarginUI);
+let lastPlan=null;
+$('fillSafe').addEventListener('click',()=>{if(lastPlan){$('fMargin').value=lastPlan.needTotal;updatePreview()}});
 function fillForm(t){
   editId=t?t.id:null;
   $('fDate').value=t?t.date:new Date().toISOString().slice(0,10); $('fCoin').value=t?t.coin:'';
   $('fE1').value=t?t.e1:''; $('fE2').value=t&&t.e2?t.e2:''; $('fSL').value=t?t.sl:''; $('fTP').value=t?t.tp:'';
   setSeg('fSide',t?t.side:'LONG'); setSeg('fRes',t?t.result:'Chờ'); setSeg('fE2f',t&&t.e2f?'1':'0');
+  $('fLev').value=t&&t.lev?t.lev:state.settings.lev; setSeg('fMode',t&&t.mode==='Isolated'?'Isolated':'Cross'); $('fMargin').value=t&&t.mIso?t.mIso:''; syncMarginUI();
   $('formTitle').textContent=t?'Sửa lệnh':'Thêm lệnh mới'; $('saveBtn').textContent=t?'Lưu thay đổi':'Lưu lệnh';
   $('delBtn').hidden=!t; $('delBtn').textContent='Xóa lệnh'; $('delBtn').dataset.arm=''; $('formErr').textContent='';
   $('formHint').textContent=state.sample&&!t?'Lệnh đầu tiên sẽ thay toàn bộ dữ liệu mẫu.':'';
@@ -772,6 +922,7 @@ $('tradeForm').addEventListener('submit',e=>{
   save(); fillForm(null);
 });
 $('resetBtn').addEventListener('click',()=>fillForm(null));
+$('tabAdd').addEventListener('click',()=>{fillForm(null);if(location.hash!=='#nhat-ky')location.hash='#nhat-ky';window.scrollTo({top:0});setTimeout(()=>$('fCoin').focus(),120)});
 $('delBtn').addEventListener('click',()=>{
   const b=$('delBtn'); if(b.dataset.arm!=='1'){b.dataset.arm='1';b.textContent='Bấm lần nữa để xóa';return}
   state.trades=state.trades.filter(x=>x.id!==editId); if(state.sample)state.sample=false; save(); fillForm(null);
@@ -780,8 +931,8 @@ $('tLog').addEventListener('click',e=>{const tr=e.target.closest('.trow');if(!tr
 $('tLog').addEventListener('keydown',e=>{if(e.key==='Enter'){const tr=e.target.closest('.trow');if(tr)tr.click()}});
 $('clearSample').addEventListener('click',()=>{state.trades=[];state.sample=false;save();fillForm(null);location.hash='#nhat-ky'});
 $('copyCsv').addEventListener('click',async()=>{
-  const c=compute(state);const head='Ngay,Coin,Huong,Entry1,Entry2,SL,TP1,KhopE2,KetQua,RuiRo,GiaTriLenh,KyQuy,LaiLoRong,SoDu';
-  const lines=c.rows.map(r=>[r.date,'"'+r.coin.replace(/"/g,'""')+'"',r.side,r.e1,r.e2||'',r.sl,r.tp,r.e2f?'Co':'Khong',r.result,r.R.toFixed(2),r.N.toFixed(2),r.margin.toFixed(2),r.net.toFixed(2),r.end.toFixed(2)].join(','));
+  const c=compute(state);const head='Ngay,Coin,Huong,Entry1,Entry2,SL,TP1,KhopE2,KetQua,RuiRo,GiaTriLenh,DonBay,CheDo,KyQuy,GiaThanhLy,LaiLoRong,SoDu';
+  const lines=c.rows.map(r=>[r.date,'"'+r.coin.replace(/"/g,'""')+'"',r.side,r.e1,r.e2||'',r.sl,r.tp,r.e2f?'Co':'Khong',r.result,r.R.toFixed(2),r.N.toFixed(2),r.mp.lev,r.mp.mode,r.margin.toFixed(2),r.mp.liqE1>0?r.mp.liqE1.toPrecision(5):'',r.net.toFixed(2),r.end.toFixed(2)].join(','));
   try{await navigator.clipboard.writeText([head,...lines].join('\n'));$('copyMsg').textContent='Đã sao chép. Dán vào Excel hoặc Google Sheets.'}catch(_){$('copyMsg').textContent='Trình duyệt chặn sao chép.'}
 });
 
@@ -808,11 +959,12 @@ const VIEWS={'tong-quan':'Tổng quan','nhat-ky':'Nhật ký lệnh','cai-dat':'
 function route(){
   const v=VIEWS[location.hash.slice(1)]?location.hash.slice(1):'tong-quan';
   document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));
-  document.querySelectorAll('.nav a').forEach(a=>{if(a.dataset.v===v)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+  document.querySelectorAll('.nav a,.tabbar a').forEach(a=>{if(a.dataset.v===v)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
   $('crumbTxt').textContent=VIEWS[v]; $('addBtn').hidden=v==='nhat-ky';
   if(v==='cai-dat')renderSettings();
 }
-window.addEventListener('hashchange',()=>{route();if(lastC)equityChart($('chEquity'),lastC)});
+window.addEventListener('hashchange',()=>{route();render()});
+let rzT=null,lastW=window.innerWidth;window.addEventListener('resize',()=>{if(Math.abs(window.innerWidth-lastW)<2)return;lastW=window.innerWidth;clearTimeout(rzT);rzT=setTimeout(render,160)});
 try{new ResizeObserver(()=>{if(lastC)equityChart($('chEquity'),lastC)}).observe($('chEquity'))}catch(_){}
 
 /* ---------- lưu trữ ---------- */
@@ -837,7 +989,7 @@ function load(d){
 async function boot(){
   let local=null;try{local=JSON.parse(localStorage.getItem(LS)||'null')}catch(_){}
   if(load(local)) sync('Dữ liệu từ trình duyệt này');
-  fillForm(null); route();
+  route(); fillForm(null);
   const timer=setTimeout(()=>{if(!dbRef)sync(state.sample?'Dữ liệu mẫu · chưa kết nối lưu trữ':'Lưu trên trình duyệt này')},10000);
   try{
     if(!window.claude||!window.claude.use){clearTimeout(timer);sync(state.sample?'Dữ liệu mẫu':'Lưu trên trình duyệt này');return}
